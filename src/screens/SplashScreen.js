@@ -1,10 +1,86 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+import React from 'react';
+import {COLORS} from '../utils/colors';
 
 export default function SplashScreen() {
   return (
-    <View>
-      <Text>SplashScreen</Text>
+    <View style={{backgroundColor: COLORS.backgroundColor, flex: 1}}>
+      <View
+        style={{
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          flex: 0.8,
+          marginTop: 60,
+        }}>
+        <Image
+          source={require('../assets/logo.png')}
+          style={{width: '50%', height: '40%'}}
+          resizeMode={'contain'}></Image>
+
+        <Text
+          style={{
+            color: COLORS.fontColor,
+            fontWeight: '500',
+            fontSize: 22,
+            marginTop: 20,
+            textAlign: 'center',
+          }}>
+          Rashtriya Sewa Bharati Adhyan Survey
+        </Text>
+      </View>
+
+      <View>
+        <TouchableOpacity
+          style={{
+            backgroundColor: COLORS.buttonColor,
+            alignSelf: 'center',
+            borderRadius: 6,
+            width: '80%',
+            justifyContent: 'center',
+            padding: 10,
+          }}>
+
+            
+          <Text
+            style={{
+              alignItems: 'center',
+              color: 'white',
+              fontWeight: '500',
+              fontSize: 18,
+              textAlign: 'center',
+            }}>
+            Volunteer Login
+          </Text>
+        </TouchableOpacity>
+
+
+
+<View style = {{flexDirection:"row" , justifyContent:"center" , marginTop:20}}>
+<Text
+          style={{
+            color: COLORS.black,
+            textAlign: 'center',
+            fontSize: 16,
+            fontWeight: '500',
+          }}>
+          New Volunteer ?
+        </Text>
+
+        <TouchableOpacity>
+          <Text style ={{color:COLORS.buttonColor, fontWeight:"700" , fontSize:16}}> Sign Up</Text>
+          
+        </TouchableOpacity>
+</View>
+        
+        
+      </View>
     </View>
-  )
+  );
 }
