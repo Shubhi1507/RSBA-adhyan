@@ -9,7 +9,7 @@ const AuthStack = createStackNavigator();
 
 export function Auth() {
   return (
-    <AuthStack.Navigator initialRouteName={ROUTES.AUTH.LOGINSCREEN}>
+    <AuthStack.Navigator initialRouteName={ROUTES.AUTH.SPLASHSCREEN}>
       <AuthStack.Screen
         name={ROUTES.AUTH.SPLASHSCREEN}
         component={SplashScreen}

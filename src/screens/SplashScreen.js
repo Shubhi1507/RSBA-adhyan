@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import React from 'react';
 import {COLORS} from '../utils/colors';
+import {navigate} from '../navigation/NavigationService';
+import {ROUTES} from '../navigation/RouteConstants';
 
 export default function SplashScreen() {
   return (
@@ -38,6 +40,7 @@ export default function SplashScreen() {
 
       <View>
         <TouchableOpacity
+          onPress={() => navigate(ROUTES.AUTH.LOGINSCREEN)}
           style={{
             backgroundColor: COLORS.buttonColor,
             alignSelf: 'center',
@@ -46,8 +49,6 @@ export default function SplashScreen() {
             justifyContent: 'center',
             padding: 10,
           }}>
-
-            
           <Text
             style={{
               alignItems: 'center',
@@ -60,26 +61,34 @@ export default function SplashScreen() {
           </Text>
         </TouchableOpacity>
 
-
-
-<View style = {{flexDirection:"row" , justifyContent:"center" , marginTop:20}}>
-<Text
+        <View
           style={{
-            color: COLORS.black,
-            textAlign: 'center',
-            fontSize: 16,
-            fontWeight: '500',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 20,
           }}>
-          New Volunteer ?
-        </Text>
+          <Text
+            style={{
+              color: COLORS.black,
+              textAlign: 'center',
+              fontSize: 16,
+              fontWeight: '500',
+            }}>
+            New Volunteer ?
+          </Text>
 
-        <TouchableOpacity>
-          <Text style ={{color:COLORS.buttonColor, fontWeight:"700" , fontSize:16}}> Sign Up</Text>
-          
-        </TouchableOpacity>
-</View>
-        
-        
+          <TouchableOpacity>
+            <Text
+              style={{
+                color: COLORS.buttonColor,
+                fontWeight: '700',
+                fontSize: 16,
+              }}>
+              {' '}
+              Sign Up
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
