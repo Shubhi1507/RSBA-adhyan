@@ -1,20 +1,13 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-  TextInput,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
-import {Header, TextHandler, Button} from '../../components/index';
 import {screenWidth} from '../../libs';
+import {Header} from '../../components/index';
 import ADIcons from 'react-native-vector-icons/AntDesign';
 import {COLORS} from '../../utils/colors';
+import {TextInput} from 'react-native-gesture-handler';
+import {goBack} from '../../navigation/NavigationService';
 
-export default function VolunteerSignUpScreen() {
-  const [text, onChangeText] = React.useState('');
-
+export default function VolunteerWelcomeScreen() {
   const HeaderContent = () => {
     return (
       <View
@@ -32,7 +25,7 @@ export default function VolunteerSignUpScreen() {
             flexDirection: 'row',
             flex: 0.33,
           }}>
-          <TouchableOpacity onPress={() => goBack()}>
+          <TouchableOpacity onPress={() => goBackk()}>
             <ADIcons name="left" color={COLORS.white} size={21} />
           </TouchableOpacity>
           <Image
@@ -42,7 +35,7 @@ export default function VolunteerSignUpScreen() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 18}}>
-            Volunteer SignUp
+            Survey
           </Text>
         </View>
       </View>
@@ -51,42 +44,40 @@ export default function VolunteerSignUpScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={{flex: 0.2}}>
+      <View style={{flex: 0.40}}>
         <Header children={HeaderContent()} />
       </View>
-      <View style={styles.container}>
-        <View style={styles.textBox}>
-          <Text style={styles.headingInput}>Full Name</Text>
-
-          <TextInput style={styles.textInput}
-            >
-                Please mention Name
-            </TextInput>
-        </View>
+      <View>
+        <Text
+          style={{
+            color: 'black',
+            fontWeight: '600',
+            marginTop: 40,
+            fontSize: 20,
+          }}>
+          Welcome , Shubhi Singh
+        </Text>
         <View>
-          <Text style={styles.headingInput}> Select Pranth</Text>
+          <Text style={styles.headingInput}>Pranth</Text>
           <TextInput style={styles.textInput}>Please enter pranth</TextInput>
         </View>
-
+        <View>
+          <Text style={styles.headingInput}>City / Nagar</Text>
+          <TextInput style={styles.textInput}>Please mention City</TextInput>
+        </View>
         <View>
           <Text style={styles.headingInput}>
-        Select  Jilla
+            Please mention District / Jilla
           </Text>
-          <TextInput style={styles.textInput}>
-        
-            PLease mention District / Jilla
-          </TextInput>
+          <TextInput style={styles.textInput}> PLease mention District / Jilla</TextInput>
         </View>
 
         <View>
-          <Text style={styles.headingInput}> Select Nagar/Basti</Text>
-          <TextInput style={styles.textInput}> Please mention Town/Basti</TextInput>
+          <Text style={styles.headingInput}>Town/Basti</Text>
+          <TextInput style={styles.textInput}> Please Town/Basti</TextInput>
         </View>
 
-        <View>
-          <Text style={styles.headingInput}>Enter Phone Number </Text>
-          <TextInput style={styles.textInput}>Enter Phone Number </TextInput>
-        </View>
+        <View></View>
       </View>
     </View>
   );
@@ -104,25 +95,16 @@ const styles = StyleSheet.create({
     flex: 0.45,
     alignItems: 'flex-start',
     paddingHorizontal: 10,
-    marginTop: 30,
+    marginTop: 12,
     justifyContent: 'flex-start',
-    textAlign: '',
   },
 
   headingInput: {
     color: 'black',
     fontWeight: '500',
+    marginTop: 30,
     fontSize: 16,
-    marginTop:20
-  },
-
-  input: {
-    height: 55,
-    margin: 5,
-    borderWidth: 1,
-    padding: 20,
-    textAlign: 'left',
-    color: 'black',
+    margin: 6,
   },
 
   textInput: {
@@ -132,6 +114,5 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'left',
     color: 'grey',
-    marginTop:10
   },
 });
