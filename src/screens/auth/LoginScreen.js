@@ -1,6 +1,6 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {useRef, useState} from 'react';
-import {Header, TextHandler,Button} from '../../components/index';
+import {Header, TextHandler, Button} from '../../components/index';
 import {screenWidth} from '../../libs';
 import {COLORS} from '../../utils/colors';
 import FAIcons from 'react-native-vector-icons/FontAwesome';
@@ -9,9 +9,13 @@ import {STRINGS} from '../../constants/strings';
 import ADIcons from 'react-native-vector-icons/AntDesign';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ROUTES} from '../../navigation/RouteConstants';
+import {Input} from '../../components/Input';
+import {images} from '../../assets';
 export default function LoginScreen() {
   const [value, setValue] = useState('');
   const [valid, setValid] = useState(false);
+  const [phone, setPhone] = useState('');
+  const [error, setError] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const phoneInput = useRef(null);
 
@@ -61,27 +65,50 @@ export default function LoginScreen() {
           paddingTop: 50,
           justifyContent: 'space-between',
         }}>
-        <View style={{flex: 0.7}}>
+        <View style={{flex: 1}}>
           <TextHandler style={{fontSize: 18, textAlign: 'center'}}>
             {STRINGS.LOGIN.ENTER_PHONE_NO}
           </TextHandler>
-          <PhoneInput
-            containerStyle={{
-              backgroundColor: COLORS.lightOrange,
-              borderColor: COLORS.lightOrange,
-              borderWidth: 1,
-              margin: 25,
-            }}
-            ref={phoneInput}
-            defaultValue={value}
-            defaultCode="IN"
-            onChangeFormattedText={text => {
-              setValue(text);
-            }}
-            withDarkTheme
-            withShadow
-            autoFocus
-          />
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <View
+              style={{
+                paddingHorizontal: 10,
+                minHeight: 50,
+                marginVertical: 10,
+                borderLeftColor: COLORS.orange,
+                borderTopColor: COLORS.orange,
+                borderBottomColor: COLORS.orange,
+                borderWidth: 1,
+                borderRightWidth: 0,
+                backgroundColor: COLORS.lightOrange,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Image
+                source={images.indianFlag}
+                style={{
+                  height: 20,
+                  width: 20,
+                }}
+              />
+            </View>
+            <Input
+              type={'numeric'}
+              placeholder="Phone"
+              number={10}
+              name="phone"
+              onChangeText={text => {
+                setPhone(text);
+              }}
+              value={phone}
+              message={error}
+            />
+          </View>
+
           <TextHandler style={{fontSize: 12, textAlign: 'center'}}>
             {STRINGS.LOGIN.SMS_VERIFY_MSG}
           </TextHandler>

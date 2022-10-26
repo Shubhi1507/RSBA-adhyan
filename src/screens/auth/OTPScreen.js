@@ -112,7 +112,7 @@ export default function OTPScreen() {
                 {STRINGS.LOGIN.RESEND_OTP}
               </TextHandler>
             </TouchableOpacity>
-            <TextHandler style={{color: COLORS.orange}}>{counter}</TextHandler>
+            <TextHandler style={{color: COLORS.orange}}>0: {counter}</TextHandler>
           </View>
         </View>
 
