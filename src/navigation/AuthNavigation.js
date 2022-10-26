@@ -4,6 +4,7 @@ import LoginScreen from '../screens/auth/LoginScreen';
 import {ROUTES} from './RouteConstants';
 import SplashScreen from '../screens/SplashScreen';
 import OTPScreen from '../screens/auth/OTPScreen';
+import VolunteerSignUpScreen from '../screens/auth/VolunteerSignUpScreen';
 
 const AuthStack = createStackNavigator();
 
@@ -23,6 +24,12 @@ export function Auth() {
       <AuthStack.Screen
         name={ROUTES.AUTH.OTPSCREEN}
         component={OTPScreen}
+        options={{headerShown: false}}
+      />
+
+<AuthStack.Screen
+        name={ROUTES.AUTH.VOLUNTEERSIGNUPSCREEN}
+        component={VolunteerSignUpScreen}
         options={{headerShown: false}}
       />
     </AuthStack.Navigator>

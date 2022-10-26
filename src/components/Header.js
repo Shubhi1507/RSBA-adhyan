@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.blue,
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
 
   },
   topView: {
