@@ -76,21 +76,21 @@ export default function OTPScreen() {
           </TextHandler>
           <View style={{flexDirection: 'row'}}>
             <TextHandler style={{fontWeight: '300', paddingVertical: 10}}>
-              {STRINGS.LOGIN.OTP_SENT}{' '}
+              {STRINGS.LOGIN.OTP_SENT}
             </TextHandler>
             <TextHandler
               style={{
                 fontWeight: '600',
                 paddingVertical: 10,
               }}>
-              +919876543210{' '}
+              +919876543210
             </TextHandler>
           </View>
 
-          <OTPInputView
+          {/* <OTPInputView
             style={{width: '80%', height: 50}}
             pinCount={6}
-            code={code}
+            // code={code}
             onCodeChanged={code => setCode(code)}
             autoFocusOnLoad
             codeInputFieldStyle={styles.underlineStyleBase}
@@ -98,7 +98,7 @@ export default function OTPScreen() {
             onCodeFilled={code => {
               console.log(`Code is ${code}, you are good to go!`);
             }}
-          />
+          /> */}
           <View
             style={{
               width: screenWidth,
