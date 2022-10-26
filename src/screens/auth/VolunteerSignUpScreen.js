@@ -58,40 +58,43 @@ export default function VolunteerSignUpScreen() {
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Full Name</Text>
 
-          <TextInput style={styles.input}>
+          <TextInput
+            style={styles.input}
             onChangeText={onChangeText}
-            value={text}
-          </TextInput>
+            value={text}>
+
+            </TextInput>
         </View>
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Select Pranth</Text>
-          <TextInput style={styles.input}>
-            onChangeText={onChangeText}
-            value={text}
-          </TextInput>
+
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeText}>
+
+            </TextInput>
         </View>
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Select Jilla</Text>
-          <TextInput style={styles.input}>
-            onChangeText={onChangeText}
-            value={text}
-          </TextInput>
+
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeText}></TextInput>
         </View>
 
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Select Nagar/Basti</Text>
 
-          <TextInput style={styles.input}>
-            onChangeText={onChangeText}
-            value={text}
+          <TextInput style={styles.input}onChangeText={onChangeText}>
+
           </TextInput>
         </View>
 
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Enter Phone Number</Text>
-          <TextInput style={styles.input}>
+          <TextInput style={styles.input}
             onChangeText={onChangeText}
-            value={text}
+            value={Number}>
           </TextInput>
         </View>
       </View>
@@ -110,9 +113,10 @@ const styles = StyleSheet.create({
   textBox: {
     flex: 0.45,
     alignItems: 'flex-start',
-    paddingHorizontal: 15,
-    marginTop: 10,
+    paddingHorizontal: 10,
+    marginTop: 12,
     justifyContent: 'flex-start',
+    textAlign: '',
   },
 
   headingInput: {
@@ -122,8 +126,8 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    height: 40,
-    margin: 12,
+    height: 55,
+    margin: 5,
     borderWidth: 1,
     padding: 20,
     textAlign: 'left',
