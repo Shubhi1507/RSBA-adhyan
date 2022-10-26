@@ -77,14 +77,15 @@ export default function SplashScreen() {
             New Volunteer ?
           </Text>
 
-          <TouchableOpacity>
+          <TouchableOpacity  onPress={() => navigate(ROUTES.AUTH.VOLUNTEERSIGNUPSCREEN) } >
+
             <Text
               style={{
                 color: COLORS.buttonColor,
                 fontWeight: '700',
                 fontSize: 16,
               }}>
-              {' '}
+              
               Sign Up
             </Text>
           </TouchableOpacity>
