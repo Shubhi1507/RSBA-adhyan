@@ -103,7 +103,10 @@ const styles = StyleSheet.create({
     borderColor: COLORS.orange,
     borderWidth: 1,
     height: 50,
-    minWidth: screenWidth - 80,
+    flex: 1,
+    flexGrow: 1,
+    minWidth: screenWidth * 0.8,
+    borderRadius: 5,
   },
   errorMessage: {
     color: COLORS.red,

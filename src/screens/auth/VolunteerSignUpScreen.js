@@ -5,15 +5,61 @@ import {
   Image,
   StyleSheet,
   TextInput,
+  ScrollView,
 } from 'react-native';
-import React from 'react';
-import {Header, TextHandler, Button} from '../../components/index';
+import React, {useState} from 'react';
+import {Header, TextHandler, Button, DropDown} from '../../components/index';
 import {screenWidth} from '../../libs';
 import ADIcons from 'react-native-vector-icons/AntDesign';
 import {COLORS} from '../../utils/colors';
+import {Input} from '../../components/Input';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { goBack } from '../../navigation/NavigationService';
 
 export default function VolunteerSignUpScreen() {
-  const [text, onChangeText] = React.useState('');
+  const [volunteerInfo, setvolunteerInfo] = useState({
+    first_name: '',
+    pranth: '',
+    jila: '',
+    basti: '',
+    phone: '',
+  });
+
+  const [miscControllers, setMiscControllers] = useState({
+    pranth: false,
+    jila: false,
+    basti: false,
+    pranthArr: [
+      {
+        key: 'pranth1',
+        value: 'pranth1',
+      },
+      {
+        key: 'pranth2',
+        value: 'pranth2',
+      },
+    ],
+    jilArr: [
+      {
+        key: 'jila1',
+        value: 'jila1',
+      },
+      {
+        key: 'jila2',
+        value: 'jila2',
+      },
+    ],
+    bastiArr: [
+      {
+        key: 'basti1',
+        value: 'basti1',
+      },
+      {
+        key: 'basti2',
+        value: 'basti2',
+      },
+    ],
+  });
 
   const HeaderContent = () => {
     return (
@@ -51,53 +97,110 @@ export default function VolunteerSignUpScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={{flex: 0.2}}>
-        <Header children={HeaderContent()} />
-      </View>
-      <View style={styles.container}>
+      <KeyboardAwareScrollView
+        style={{backgroundColor: COLORS.blue}}
+        resetScrollToCoords={{x: 0, y: 0}}
+        contentContainerStyle={styles.container}
+        scrollEnabled={true}>
+        <View style={{flex: 0.4}}>
+          <Header children={HeaderContent()} />
+        </View>
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Full Name</Text>
-
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeText}
-            value={text}>
-
-            </TextInput>
+          <Input
+            placeholder="First Name"
+            name="first_name"
+            onChangeText={text =>
+              setvolunteerInfo({...volunteerInfo, first_name: text})
+            }
+            value={volunteerInfo.first_name}
+            message={'error'}
+            containerStyle={{alignItems: 'center'}}
+          />
         </View>
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Select Pranth</Text>
-
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeText}>
-
-            </TextInput>
+          <DropDown
+            openAnchor={() => {
+              setMiscControllers({...miscControllers, pranth: true});
+            }}
+            closeAnchor={() => {
+              setMiscControllers({...miscControllers, pranth: false});
+            }}
+            isFocused={miscControllers.pranth}
+            isVisible={miscControllers.pranth}
+            title={'Pranth'}
+            onSelect={item => {
+              setvolunteerInfo({...volunteerInfo, pranth: item});
+            }}
+            optionsArr={miscControllers.pranthArr}
+            error={'Pranth'}
+            value={volunteerInfo.pranth}
+          />
         </View>
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Select Jilla</Text>
-
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeText}></TextInput>
+          <DropDown
+            openAnchor={() => {
+              setMiscControllers({...miscControllers, jila: true});
+            }}
+            closeAnchor={() => {
+              setMiscControllers({...miscControllers, jila: false});
+            }}
+            isFocused={miscControllers.jila}
+            isVisible={miscControllers.jila}
+            title={'Jila'}
+            onSelect={item => {
+              setvolunteerInfo({...volunteerInfo, jila: item});
+            }}
+            optionsArr={miscControllers.jilArr}
+            error={'Pranth'}
+            value={volunteerInfo.jila}
+          />
         </View>
 
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Select Nagar/Basti</Text>
-
-          <TextInput style={styles.input}onChangeText={onChangeText}>
-
-          </TextInput>
+          <DropDown
+            openAnchor={() => {
+              setMiscControllers({...miscControllers, basti: true});
+            }}
+            closeAnchor={() => {
+              setMiscControllers({...miscControllers, basti: false});
+            }}
+            isFocused={miscControllers.basti}
+            isVisible={miscControllers.basti}
+            title={'Basti'}
+            onSelect={item => {
+              setvolunteerInfo({...volunteerInfo, basti: item});
+            }}
+            optionsArr={miscControllers.bastiArr}
+            error={'Basti'}
+            value={volunteerInfo.basti}
+          />
         </View>
 
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Enter Phone Number</Text>
-          <TextInput style={styles.input}
-            onChangeText={onChangeText}
-            value={Number}>
-          </TextInput>
+          <Input
+            placeholder="Phone"
+            name="phone"
+            onChangeText={text =>
+              setvolunteerInfo({...volunteerInfo, phon: text})
+            }
+            type={"numeric"}
+            number={10}
+            value={volunteerInfo.phone}
+            message={'error'}
+            containerStyle={{alignItems: 'center'}}
+          />
         </View>
-      </View>
+        <Button
+          title={'Next'}
+          onPress={() => {}}
+          ButtonContainerStyle={{marginVertical: 20}}
+        />
+      </KeyboardAwareScrollView>
     </View>
   );
 }
@@ -105,16 +208,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
+    alignItems: 'center',
 
     // justifyContent: 'center',
-    // alignItems: 'center',
     // backgroundColor:"teal"
   },
   textBox: {
-    flex: 0.45,
+    flex: 0.25,
     alignItems: 'flex-start',
-    paddingHorizontal: 10,
-    marginTop: 12,
+    padding: 25,
     justifyContent: 'flex-start',
     textAlign: '',
   },

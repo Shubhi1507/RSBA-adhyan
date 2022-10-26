@@ -3,14 +3,20 @@ import React from 'react';
 import {COLORS} from '../utils/colors';
 import {TextHandler} from './TextHandler';
 
-export function Button(props) {
+export function Button({
+  ButtonContainerStyle,
+  onPress,
+  icon,
+  textstyle,
+  title,
+}) {
   return (
     <TouchableOpacity
-      style={[Styles.ButtonContainer, props?.ButtonContainerStyle || {}]}
-      onPress={() => (props.onPress ? props.onPress() : {})}>
-      {props?.icon && props.icon}
-      <TextHandler style={[props.textstyle, Styles.localtextstyle]}>
-        {props.title}
+      style={[Styles.ButtonContainer, ButtonContainerStyle || {}]}
+      onPress={() => (onPress ? onPress() : {})}>
+      {icon && icon}
+      <TextHandler style={[textstyle || {}, Styles.localtextstyle]}>
+        {title}
       </TextHandler>
     </TouchableOpacity>
   );
