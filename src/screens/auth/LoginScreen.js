@@ -37,7 +37,7 @@ export default function LoginScreen() {
             flex: 0.33,
           }}>
           <TouchableOpacity onPress={() => goBack()}>
-            <ADIcons name="left" color={COLORS.white} size={20} />
+            <ADIcons name="left" color={COLORS.white} size={21} />
           </TouchableOpacity>
           <Image
             source={require('../../assets/user.png')}
@@ -45,7 +45,7 @@ export default function LoginScreen() {
           />
         </View>
         <View style={{flex: 0.65}}>
-          <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 16}}>
+          <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 18}}>
             Volunteer Login
           </Text>
         </View>
@@ -62,7 +62,7 @@ export default function LoginScreen() {
           flex: 1,
           alignItems: 'center',
           padding: 25,
-          paddingTop: 50,
+          paddingTop: 60,
           justifyContent: 'space-between',
         }}>
         <View style={{flex: 1}}>
