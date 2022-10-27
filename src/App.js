@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   safeAreaContainer: {
     flex: 1,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    // paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     // backgroundColor: COLORS.backgroundColor,
   },
 });
