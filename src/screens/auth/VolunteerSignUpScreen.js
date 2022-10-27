@@ -103,7 +103,12 @@ export default function VolunteerSignUpScreen() {
         <Header children={HeaderContent()} />
       </View>
 
-      <ScrollView style={{flex: 1, paddingHorizontal: 20, marginTop: 20}}>
+      <ScrollView
+        style={{
+          flex: 1,
+          paddingHorizontal: 20,
+          marginTop: 20,
+        }}>
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Full Name</Text>
           <Input
@@ -210,11 +215,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   textBox: {
-    flex: 0.21,
-    alignItems: 'flex-start',
-    padding: 6,
-    justifyContent: 'flex-start',
-    textAlign: '',
+    // flex: 0.21,
+    // alignItems: 'flex-start',
+    // padding: 6,
+    // justifyContent: 'flex-start',
+    // textAlign: '',
   },
 
   headingInput: {

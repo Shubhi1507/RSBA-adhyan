@@ -18,8 +18,9 @@ import {
 import ADIcons from 'react-native-vector-icons/AntDesign';
 import {COLORS} from '../../utils/colors';
 import {TextInput} from 'react-native-gesture-handler';
-import {goBack} from '../../navigation/NavigationService';
+import {goBack, navigate} from '../../navigation/NavigationService';
 import {useState} from 'react';
+import {ROUTES} from '../../navigation/RouteConstants';
 
 export default function VolunteerWelcomeScreen() {
   const [volunteerInfo, setvolunteerInfo] = useState({
@@ -209,7 +210,7 @@ export default function VolunteerWelcomeScreen() {
 
         <Button
           title={'Next'}
-          onPress={() => {}}
+          onPress={() => navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN)}
           ButtonContainerStyle={{
             marginVertical: 20,
             alignItems: 'center',

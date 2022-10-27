@@ -63,7 +63,7 @@ export const Input = ({
         autoCorrect={false}
         autoCapitalize={'none'}
         style={[styles.textInputStyle, containerCustomStyle]}
-        placeholderTextColor={COLORS.brown}
+        placeholderTextColor={COLORS.lightGrey}
         // right={
         //   secure && (
         //     <TextInput.Icon
