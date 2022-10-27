@@ -88,7 +88,7 @@ export default function VolunteerSignUpScreen() {
           />
         </View>
         <View style={{flex: 0.65}}>
-          <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 18}}>
+          <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 19}}>
             Volunteer SignUp
           </Text>
         </View>
@@ -216,9 +216,9 @@ const styles = StyleSheet.create({
     // backgroundColor:"teal"
   },
   textBox: {
-    flex: 0.25,
+    flex: 0.21,
     alignItems: 'flex-start',
-    padding: 25,
+    padding: 6,
     justifyContent: 'flex-start',
     textAlign: '',
   },
@@ -227,6 +227,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '500',
     fontSize: 16,
+    marginTop: 3,
   },
 
   input: {
@@ -236,5 +237,15 @@ const styles = StyleSheet.create({
     padding: 20,
     textAlign: 'left',
     color: 'black',
+  },
+
+  textInput: {
+    height: 40,
+    margin: 3,
+    borderWidth: 1,
+    padding: 10,
+    textAlign: 'left',
+    color: 'grey',
+    marginTop: 2,
   },
 });
