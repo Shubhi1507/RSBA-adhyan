@@ -10,11 +10,11 @@ import React, {useEffect} from 'react';
 import {COLORS} from '../utils/colors';
 import {navigate} from '../navigation/NavigationService';
 import {ROUTES} from '../navigation/RouteConstants';
-import {connectToFirestoreforIsPaid} from '../networking/FirebaseAPI.controller';
+import {connecttoFBD} from '../networking/FirebaseAPI.controller';
 
 export default function SplashScreen() {
   useEffect(() => {
-    connectToFirestoreforIsPaid();
+    connecttoFBD();
   }, []);
 
   return (
