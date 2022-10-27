@@ -87,7 +87,7 @@ export default function VolunteerSignUpScreen() {
           />
         </View>
         <View style={{flex: 0.65}}>
-          <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 18}}>
+          <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 19}}>
             Volunteer SignUp
           </Text>
         </View>
@@ -186,7 +186,7 @@ export default function VolunteerSignUpScreen() {
             placeholder="Phone"
             name="phone"
             onChangeText={text =>
-              setvolunteerInfo({...volunteerInfo, phon: text})
+              setvolunteerInfo({...volunteerInfo, phone: text})
             }
             type={"numeric"}
             number={10}
@@ -195,7 +195,7 @@ export default function VolunteerSignUpScreen() {
             containerStyle={{alignItems: 'center'}}
           />
         </View>
-        <Button
+        <Button 
           title={'Next'}
           onPress={() => {}}
           ButtonContainerStyle={{marginVertical: 20}}
@@ -214,18 +214,19 @@ const styles = StyleSheet.create({
     // backgroundColor:"teal"
   },
   textBox: {
-    flex: 0.25,
+    flex: 0.21,
     alignItems: 'flex-start',
-    padding: 25,
+    padding: 6,
     justifyContent: 'flex-start',
-    textAlign: '',
+    textAlign: '' ,
+  
   },
 
   headingInput: {
     color: 'black',
     fontWeight: '500',
     fontSize: 16,
-    marginTop:20
+    marginTop:3
   },
 
   input: {
@@ -239,11 +240,11 @@ const styles = StyleSheet.create({
 
   textInput: {
     height: 40,
-    margin: 5,
+    margin: 3,
     borderWidth: 1,
     padding: 10,
     textAlign: 'left',
     color: 'grey',
-    marginTop:10
+    marginTop: 2
   },
 });
