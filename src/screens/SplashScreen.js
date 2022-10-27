@@ -79,7 +79,7 @@ export default function SplashScreen() {
               fontSize: 16,
               fontWeight: '500',
             }}>
-            New Volunteer ?
+            New Volunteer ?{' '}
           </Text>
 
           <TouchableOpacity

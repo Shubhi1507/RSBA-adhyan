@@ -87,7 +87,7 @@ export default function OTPScreen() {
             </TextHandler>
           </View>
 
-          {/* <OTPInputView
+          <OTPInputView
             style={{width: '80%', height: 50}}
             pinCount={6}
             // code={code}
@@ -98,7 +98,7 @@ export default function OTPScreen() {
             onCodeFilled={code => {
               console.log(`Code is ${code}, you are good to go!`);
             }}
-          /> */}
+          />
           <View
             style={{
               width: screenWidth,
@@ -112,7 +112,9 @@ export default function OTPScreen() {
                 {STRINGS.LOGIN.RESEND_OTP}
               </TextHandler>
             </TouchableOpacity>
-            <TextHandler style={{color: COLORS.orange}}>0: {counter}</TextHandler>
+            <TextHandler style={{color: COLORS.orange}}>
+              0: {counter}
+            </TextHandler>
           </View>
         </View>
 

@@ -41,7 +41,10 @@ export function DropDown({
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text style={{textAlign: 'left', paddingRight: 20}}>{value}</Text>
+          <Text
+            style={{textAlign: 'left', paddingRight: 20, color: COLORS.black}}>
+            {value}
+          </Text>
           <View
             style={{
               flex: 1,
