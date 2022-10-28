@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
   headingInput: {
     color: 'black',
     fontWeight: '500',
-    marginTop: 30,
+  marginTop:10,
     fontSize: 16,
     margin: 6,
   },

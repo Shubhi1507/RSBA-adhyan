@@ -23,7 +23,7 @@ export function DropDown({
       style={{
         minWidth: screenWidth * 0.8,
         minHeight: 50,
-        marginVertical: 10,
+        marginVertical: 7,
         justifyContent: 'center',
       }}>
       <TouchableOpacity
