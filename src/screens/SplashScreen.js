@@ -6,12 +6,17 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {COLORS} from '../utils/colors';
 import {navigate} from '../navigation/NavigationService';
 import {ROUTES} from '../navigation/RouteConstants';
+import {connecttoFBD} from '../networking/FirebaseAPI.controller';
 
 export default function SplashScreen() {
+  useEffect(() => {
+    connecttoFBD();
+  }, []);
+
   return (
     <View style={{backgroundColor: COLORS.backgroundColor, flex: 1}}>
       <View
@@ -74,18 +79,17 @@ export default function SplashScreen() {
               fontSize: 16,
               fontWeight: '500',
             }}>
-            New Volunteer ?
+            New Volunteer ?{' '}
           </Text>
 
-          <TouchableOpacity  onPress={() => navigate(ROUTES.AUTH.VOLUNTEERSURVEYSCREEN1) } >
-
+          <TouchableOpacity
+            onPress={() => navigate(ROUTES.AUTH.VOLUNTEERSIGNUPSCREEN)}>
             <Text
               style={{
                 color: COLORS.buttonColor,
                 fontWeight: '700',
                 fontSize: 16,
               }}>
-              
               Sign Up
             </Text>
           </TouchableOpacity>

@@ -1,13 +1,81 @@
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
 import {screenWidth} from '../../libs';
-import {Header} from '../../components/index';
+import {
+  Button,
+  DropDown,
+  Header,
+  Input,
+  TextHandler,
+} from '../../components/index';
 import ADIcons from 'react-native-vector-icons/AntDesign';
 import {COLORS} from '../../utils/colors';
 import {TextInput} from 'react-native-gesture-handler';
-import {goBack} from '../../navigation/NavigationService';
+import {goBack, navigate} from '../../navigation/NavigationService';
+import {useState} from 'react';
+import {ROUTES} from '../../navigation/RouteConstants';
 
 export default function VolunteerWelcomeScreen() {
+  const [volunteerInfo, setvolunteerInfo] = useState({
+    state_pranth: '',
+    city_nagar: '',
+    district_jila: '',
+    town_basti: '',
+  });
+  const [miscControllers, setMiscControllers] = useState({
+    state_pranth: false,
+    city_nagar: false,
+    district_jila: false,
+    town_basti: false,
+    pranthArr: [
+      {
+        key: 'pranth1',
+        value: 'pranth1',
+      },
+      {
+        key: 'pranth2',
+        value: 'pranth2',
+      },
+    ],
+    jilArr: [
+      {
+        key: 'jila1',
+        value: 'jila1',
+      },
+      {
+        key: 'jila2',
+        value: 'jila2',
+      },
+    ],
+    bastiArr: [
+      {
+        key: 'basti1',
+        value: 'basti1',
+      },
+      {
+        key: 'basti2',
+        value: 'basti2',
+      },
+    ],
+    cityArr: [
+      {
+        key: 'city1',
+        value: 'city1',
+      },
+      {
+        key: 'city2',
+        value: 'city2',
+      },
+    ],
+  });
+
   const HeaderContent = () => {
     return (
       <View
@@ -25,7 +93,7 @@ export default function VolunteerWelcomeScreen() {
             flexDirection: 'row',
             flex: 0.33,
           }}>
-          <TouchableOpacity onPress={() => goBackk()}>
+          <TouchableOpacity onPress={() => goBack()}>
             <ADIcons name="left" color={COLORS.white} size={21} />
           </TouchableOpacity>
           <Image
@@ -44,41 +112,112 @@ export default function VolunteerWelcomeScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={{flex: 0.40}}>
+      <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
-      <View>
-        <Text
+      <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
+        <TextHandler
           style={{
             color: 'black',
             fontWeight: '600',
             marginTop: 40,
             fontSize: 20,
+            textAlign: 'left',
           }}>
           Welcome , Shubhi Singh
-        </Text>
+        </TextHandler>
         <View>
-          <Text style={styles.headingInput}>Pranth</Text>
-          <TextInput style={styles.textInput}>Please enter pranth</TextInput>
+          <Text style={styles.headingInput}>State/ Pranth</Text>
+          <DropDown
+            openAnchor={() => {
+              setMiscControllers({...miscControllers, state_pranth: true});
+            }}
+            closeAnchor={() => {
+              setMiscControllers({...miscControllers, state_pranth: false});
+            }}
+            isFocused={miscControllers.state_pranth}
+            isVisible={miscControllers.state_pranth}
+            title={''}
+            onSelect={item => {
+              setvolunteerInfo({...volunteerInfo, state_pranth: item});
+            }}
+            optionsArr={miscControllers.pranthArr}
+            error={'Pranth'}
+            value={volunteerInfo.state_pranth}
+          />
         </View>
         <View>
           <Text style={styles.headingInput}>City / Nagar</Text>
-          <TextInput style={styles.textInput}>Please mention City</TextInput>
+          <DropDown
+            openAnchor={() => {
+              setMiscControllers({...miscControllers, city_nagar: true});
+            }}
+            closeAnchor={() => {
+              setMiscControllers({...miscControllers, city_nagar: false});
+            }}
+            isFocused={miscControllers.city_nagar}
+            isVisible={miscControllers.city_nagar}
+            title={''}
+            onSelect={item => {
+              setvolunteerInfo({...volunteerInfo, city_nagar: item});
+            }}
+            optionsArr={miscControllers.cityArr}
+            error={'City'}
+            value={volunteerInfo.city_nagar}
+          />
         </View>
         <View>
-          <Text style={styles.headingInput}>
-            Please mention District / Jilla
-          </Text>
-          <TextInput style={styles.textInput}> PLease mention District / Jilla</TextInput>
+          <Text style={styles.headingInput}>District / Jilla</Text>
+          <DropDown
+            openAnchor={() => {
+              setMiscControllers({...miscControllers, district_jila: true});
+            }}
+            closeAnchor={() => {
+              setMiscControllers({...miscControllers, district_jila: false});
+            }}
+            isFocused={miscControllers.district_jila}
+            isVisible={miscControllers.district_jila}
+            title={''}
+            onSelect={item => {
+              setvolunteerInfo({...volunteerInfo, district_jila: item});
+            }}
+            optionsArr={miscControllers.jilArr}
+            error={'Jila'}
+            value={volunteerInfo.district_jila}
+          />
         </View>
 
         <View>
           <Text style={styles.headingInput}>Town/Basti</Text>
-          <TextInput style={styles.textInput}> Please Town/Basti</TextInput>
+          <DropDown
+            openAnchor={() => {
+              setMiscControllers({...miscControllers, town_basti: true});
+            }}
+            closeAnchor={() => {
+              setMiscControllers({...miscControllers, town_basti: false});
+            }}
+            isFocused={miscControllers.town_basti}
+            isVisible={miscControllers.town_basti}
+            title={''}
+            onSelect={item => {
+              setvolunteerInfo({...volunteerInfo, town_basti: item});
+            }}
+            optionsArr={miscControllers.bastiArr}
+            error={'Jila'}
+            value={volunteerInfo.town_basti}
+          />
         </View>
 
-        <View></View>
-      </View>
+        <Button
+          title={'Next'}
+          onPress={() => navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN)}
+          ButtonContainerStyle={{
+            marginVertical: 20,
+            alignItems: 'center',
+            textAlign: 'center',
+          }}
+        />
+      </ScrollView>
     </View>
   );
 }
@@ -87,9 +226,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.white,
 
-    // justifyContent: 'center',
     // alignItems: 'center',
-    // backgroundColor:"teal"
   },
   textBox: {
     flex: 0.45,

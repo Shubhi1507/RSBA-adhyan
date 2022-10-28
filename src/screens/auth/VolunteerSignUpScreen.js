@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Header, TextHandler, Button, DropDown} from '../../components/index';
@@ -14,7 +15,8 @@ import ADIcons from 'react-native-vector-icons/AntDesign';
 import {COLORS} from '../../utils/colors';
 import {Input} from '../../components/Input';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import { goBack } from '../../navigation/NavigationService';
+import {goBack, navigate} from '../../navigation/NavigationService';
+import {ROUTES} from '../../navigation/RouteConstants';
 
 export default function VolunteerSignUpScreen() {
   const [volunteerInfo, setvolunteerInfo] = useState({
@@ -97,14 +99,16 @@ export default function VolunteerSignUpScreen() {
 
   return (
     <View style={styles.container}>
-      <KeyboardAwareScrollView
-        style={{backgroundColor: COLORS.blue}}
-        resetScrollToCoords={{x: 0, y: 0}}
-        contentContainerStyle={styles.container}
-        scrollEnabled={true}>
-        <View style={{flex: 0.4}}>
-          <Header children={HeaderContent()} />
-        </View>
+      <View style={{flex: 0.2}}>
+        <Header children={HeaderContent()} />
+      </View>
+
+      <ScrollView
+        style={{
+          flex: 1,
+          paddingHorizontal: 20,
+          marginTop: 20,
+        }}>
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Full Name</Text>
           <Input
@@ -186,21 +190,22 @@ export default function VolunteerSignUpScreen() {
             placeholder="Phone"
             name="phone"
             onChangeText={text =>
-              setvolunteerInfo({...volunteerInfo, phone: text})
+              setvolunteerInfo({...volunteerInfo, phon: text})
             }
-            type={"numeric"}
+            type={'numeric'}
             number={10}
             value={volunteerInfo.phone}
             message={'error'}
             containerStyle={{alignItems: 'center'}}
           />
         </View>
-        <Button 
+        <Button
           title={'Next'}
-          onPress={() => {}}
+          onPress={() => navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN)}
           ButtonContainerStyle={{marginVertical: 20}}
         />
-      </KeyboardAwareScrollView>
+        {/* </KeyboardAvoidingView> */}
+      </ScrollView>
     </View>
   );
 }
@@ -208,25 +213,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    alignItems: 'center',
-
-    // justifyContent: 'center',
-    // backgroundColor:"teal"
   },
   textBox: {
-    flex: 0.21,
-    alignItems: 'flex-start',
-    padding: 6,
-    justifyContent: 'flex-start',
-    textAlign: '' ,
-  
+    // flex: 0.21,
+    // alignItems: 'flex-start',
+    // padding: 6,
+    // justifyContent: 'flex-start',
+    // textAlign: '',
   },
 
   headingInput: {
     color: 'black',
     fontWeight: '500',
     fontSize: 16,
-    marginTop:3
+    marginTop: 3,
   },
 
   input: {
@@ -245,6 +245,6 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'left',
     color: 'grey',
-    marginTop: 2
+    marginTop: 2,
   },
 });
