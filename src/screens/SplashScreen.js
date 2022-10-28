@@ -77,7 +77,7 @@ export default function SplashScreen() {
             New Volunteer ?
           </Text>
 
-          <TouchableOpacity  onPress={() => navigate(ROUTES.AUTH.VOLUNTEERSIGNUPSCREEN) } >
+          <TouchableOpacity  onPress={() => navigate(ROUTES.AUTH.VOLUNTEERSURVEYSCREEN1) } >
 
             <Text
               style={{
