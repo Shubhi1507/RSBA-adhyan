@@ -15,7 +15,7 @@ import { Login } from '../../networking/API.controller';
 export default function LoginScreen() {
   const [value, setValue] = useState('');
   const [valid, setValid] = useState(false);
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState('+918743999329');
   const [error, setError] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const phoneInput = useRef(null);
@@ -105,7 +105,7 @@ export default function LoginScreen() {
             <Input
               type={'numeric'}
               placeholder="Phone"
-              number={10}
+              // number={10}
               name="phone"
               onChangeText={text => {
                 setPhone(text);

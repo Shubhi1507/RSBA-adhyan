@@ -1,23 +1,29 @@
 import {BASE_URL} from '.';
+const headers = {
+  'Content-Type': 'multipart/form-data',
+};
 
 const Login = async data => {
-    console.log("data" , data)
+  console.log('data', data);
   try {
     const URL = BASE_URL + 'volunteer';
-    let body = {
-      mobile: data.mobile,
-      state_id: 1,
-     name: "",
-    };
+
+    const formdata = new FormData();
+    formdata.append('mobile', data.mobile);
+    formdata.append('state_id', '1');
+    formdata.append('name', '');
+
     const response = await fetch(URL, {
       method: 'POST',
-      body: JSON.stringify(body),
+
+      headers: headers,
+      body: formdata,
     });
-    console.log("response" , await  response.json());
+    console.log('response', await response.json());
     return response;
   } catch (error) {
-    console.log(error)
-    return error 
+    console.log(error);
+    return error;
   }
 };
- export {Login}
+export {Login};
