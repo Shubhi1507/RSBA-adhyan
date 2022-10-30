@@ -11,6 +11,7 @@ import {goBack, navigate} from '../../navigation/NavigationService';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {Input} from '../../components/Input';
 import {images} from '../../assets';
+import { Login } from '../../networking/API.controller';
 export default function LoginScreen() {
   const [value, setValue] = useState('');
   const [valid, setValid] = useState(false);
@@ -51,6 +52,11 @@ export default function LoginScreen() {
         </View>
       </View>
     );
+  };
+  const OTP = () => {
+    let data = {mobile: phone };
+     let response = Login(data)
+      console.log(response)
   };
   return (
     <View style={styles.container}>
@@ -115,7 +121,8 @@ export default function LoginScreen() {
         </View>
         <Button
           title={'Request OTP'}
-          onPress={() => navigate(ROUTES.AUTH.OTPSCREEN)}
+          onPress={() => OTP()}
+          // onPress={() => navigate(ROUTES.AUTH.OTPSCREEN)}
         />
       </View>
     </View>
