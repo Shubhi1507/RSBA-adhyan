@@ -138,6 +138,7 @@ export default function VolunteerTeacherScreen() {
             message={'error'}
             containerStyle={{alignItems: 'center'}}
           />
+          
         </View>
       </ScrollView>
     </View>
