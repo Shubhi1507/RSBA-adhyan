@@ -40,8 +40,8 @@ export default function VolunteerParentalOrgScreen() {
         value: 'Balsankar Kendra',
       },
       {
-        key: 'Abhyasika',
-        value: 'Abhyasika',
+        key: 'Abyasika',
+        value: 'Abyasika',
       },
       {
         key: 'Pathdaan Centre',
@@ -76,7 +76,7 @@ export default function VolunteerParentalOrgScreen() {
           />
         </View>
         <View style={{flex: 0.65}}>
-          <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 18}}>
+          <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
             Survey
           </Text>
         </View>
@@ -168,7 +168,7 @@ export default function VolunteerParentalOrgScreen() {
           title={'Next'}
           onPress={() => {}}
           ButtonContainerStyle={{
-            marginVertical: 20,
+            marginVertical: 17,
             alignItems: 'center',
             textAlign: 'center',
           }}
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   headingInput: {
     color: 'black',
     fontWeight: '500',
-    marginTop: 30,
+    marginTop: 8,
     fontSize: 16,
     margin: 6,
   },

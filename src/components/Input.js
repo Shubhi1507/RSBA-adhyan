@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     minWidth: screenWidth * 0.8,
     borderRadius: 5,
+    color:"black"
   },
   errorMessage: {
     color: COLORS.red,

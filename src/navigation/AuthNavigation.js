@@ -7,7 +7,9 @@ import OTPScreen from '../screens/auth/OTPScreen';
 import VolunteerSignUpScreen from '../screens/auth/VolunteerSignUpScreen';
 import VolunteerLoginScreen from '../screens/auth/VolunteerWelcomeScreen';
 import VolunteerWelcomeScreen from '../screens/auth/VolunteerWelcomeScreen';
+import VolunteerSurveyScreen1 from '../screens/auth/VolunteerTeacherScreen';
 import VolunteerParentalOrgScreen from '../screens/auth/VolunteerParentalOrgScreen';
+import VolunteerTeacherScreen from '../screens/auth/VolunteerTeacherScreen';
 
 const AuthStack = createStackNavigator();
 
@@ -41,6 +43,14 @@ export function Auth() {
         component={VolunteerWelcomeScreen}
         options={{headerShown: false}}
       />
+
+
+<AuthStack.Screen
+        name={ROUTES.AUTH.VOLUNTEERTEACHERSCREEN}
+        component={VolunteerTeacherScreen}
+        options={{headerShown: false}}
+      />
+
       <AuthStack.Screen
         name={ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN}
         component={VolunteerParentalOrgScreen}

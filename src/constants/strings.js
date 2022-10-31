@@ -7,5 +7,6 @@ export const STRINGS = {
     OTP_SENT: 'OTP has been send to',
     RESEND_OTP: 'Resend OTP',
     TYPES_OF_CENTERS: 'Types of Centers',
+    CLASS_FREQUENCY :"Class Frequency"
   },
 };
