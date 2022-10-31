@@ -12,6 +12,7 @@ import {COLORS} from '../../utils/colors';
 import {screenWidth} from '../../libs';
 import ADIcons from 'react-native-vector-icons/AntDesign';
 import {STRINGS} from '../../constants/strings';
+import {goBack} from '../../navigation/NavigationService';
 
 export default function VolunteerTeacherScreen() {
   const [teacherInfo, setTeacherInfo] = useState({
@@ -114,13 +115,29 @@ export default function VolunteerTeacherScreen() {
             {STRINGS.LOGIN.CLASS_FREQUENCY}
           </Text>
           <RadioButtons
-          data ={miscControllers.CLASS_FREQUENCY}
-           onValueChange = {item => setTeacherInfo({...teacherInfo , class_frequency: item})}
-          
+            data={miscControllers.CLASS_FREQUENCY}
+            onValueChange={item =>
+              setTeacherInfo({...teacherInfo, class_frequency: item})
+            }
           />
+        </View>
 
-          
-
+        <View style={styles.textBox}>
+          <Text style={styles.headingInput}>
+            {STRINGS.SIGNUP.DURATION_OF_CLASS}
+          </Text>
+          <Input
+            placeholder="Phone"
+            name="phone"
+            OnChangeText={text =>
+              setTeacherInfo({...teacherInfo, phone_number: text})
+            }
+            type={'numeric'}
+            number={4}
+            value={teacherInfo.phone_number}
+            message={'error'}
+            containerStyle={{alignItems: 'center'}}
+          />
         </View>
       </ScrollView>
     </View>

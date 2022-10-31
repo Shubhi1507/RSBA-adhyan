@@ -79,11 +79,11 @@ export default function SplashScreen() {
               fontSize: 16,
               fontWeight: '500',
             }}>
-            New Volunteer ?
+            New Volunteer ?{' '}
           </Text>
 
           <TouchableOpacity
-            onPress={() => navigate(ROUTES.AUTH.VOLUNTEERTEACHERSCREEN)}>
+            onPress={() => navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN)}>
             <Text
               style={{
                 color: COLORS.buttonColor,

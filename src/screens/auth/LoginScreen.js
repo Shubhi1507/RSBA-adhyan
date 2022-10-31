@@ -11,7 +11,13 @@ import {goBack, navigate} from '../../navigation/NavigationService';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {Input} from '../../components/Input';
 import {images} from '../../assets';
-import { Login } from '../../networking/API.controller';
+import {
+  getListofDistricts,
+  getToken,
+  Login,
+} from '../../networking/API.controller';
+import {useDispatch, useSelector} from 'react-redux';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 export default function LoginScreen() {
   const [value, setValue] = useState('');
   const [valid, setValid] = useState(false);
@@ -19,6 +25,8 @@ export default function LoginScreen() {
   const [error, setError] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const phoneInput = useRef(null);
+  const dispatch = useDispatch();
+  const token = useSelector(state => state);
 
   const HeaderContent = () => {
     return (
@@ -53,10 +61,17 @@ export default function LoginScreen() {
       </View>
     );
   };
-  const OTP = () => {
-    let data = {mobile: phone };
-     let response = Login(data)
-      console.log(response)
+
+  const OTP = async () => {
+    console.log(token);
+    let data = {mobile: phone};
+    // let response = await Login(data);
+    // console.log(response);
+    // dispatch({
+    //   type: ACTION_CONSTANTS.LOGIN_SUCCESSFUL,
+    //   payload: response.data,
+    // });
+    navigate(ROUTES.AUTH.OTPSCREEN);
   };
   return (
     <View style={styles.container}>
@@ -112,6 +127,10 @@ export default function LoginScreen() {
               }}
               value={phone}
               message={error}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
             />
           </View>
 
