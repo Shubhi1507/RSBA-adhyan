@@ -16,8 +16,11 @@ import {
   DropDown,
   Header,
   Input,
+  PageIndicator,
   TextHandler,
 } from '../../components/index';
+import { navigate } from '../../navigation/NavigationService';
+import { ROUTES } from '../../navigation/RouteConstants';
 
 export default function StudentEnrollmentScreen() {
   const [studentInfo, setstudentInfo] = useState({
@@ -78,6 +81,8 @@ export default function StudentEnrollmentScreen() {
       </View> 
       
       <View style={{flex:1 , paddingHorizontal:20}}>
+      <PageIndicator index={3} />
+
         <View>
           <Text style={styles.headingInput}> No. of Students Enrolled</Text>
           <DropDown

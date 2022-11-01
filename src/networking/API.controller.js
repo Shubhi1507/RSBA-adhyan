@@ -25,13 +25,34 @@ const Login = async data => {
   }
 };
 
-const getListofDistricts = () => {
+const getListofDistricts = async () => {
   try {
-  } catch (error) {}
+    const URL = BASE_URL + 'districts';
+
+    const response = await fetch(URL, {
+      method: 'GET',
+    });
+
+    let respJson = await response.json();
+    return respJson;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 };
-const getListofColonies = district_id => {
+const getListofColonies = async district_id => {
   try {
-  } catch (error) {}
+    const URL = BASE_URL + 'colonies';
+
+    const response = await fetch(URL, {
+      method: 'GET',
+    });
+    let respJson = await response.json();
+    return respJson;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 };
 
-export {Login, getListofDistricts, getListofColonies, getToken};
+export {Login, getListofDistricts, getListofColonies};

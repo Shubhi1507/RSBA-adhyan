@@ -11,7 +11,7 @@ export const PageIndicator = ({index}) => {
         alignItems: 'center',
         flexDirection: 'row',
         height: 80,
-        marginTop: 10,
+        marginTop: 3,
       }}>
       <View
         style={{
@@ -23,8 +23,8 @@ export const PageIndicator = ({index}) => {
         }}>
         <View
           style={{
-            minHeight: 20,
-            minWidth: 20,
+            minHeight: 18,
+            minWidth: 18,
             borderRadius: 10,
             borderColor: COLORS.orange,
             borderWidth: 2,

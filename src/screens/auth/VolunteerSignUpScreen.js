@@ -17,6 +17,8 @@ import {Input} from '../../components/Input';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ROUTES} from '../../navigation/RouteConstants';
+import {useEffect} from 'react';
+import {getListofDistricts} from '../../networking/API.controller';
 
 export default function VolunteerSignUpScreen() {
   const [volunteerInfo, setvolunteerInfo] = useState({
@@ -26,6 +28,16 @@ export default function VolunteerSignUpScreen() {
     basti: '',
     phone: '',
   });
+
+  useEffect(() => {
+    District()
+    return () => {};
+  }, []);
+
+  const District = async () => {
+    let rest = await getListofDistricts();
+    console.log(rest)
+  };
 
   const [miscControllers, setMiscControllers] = useState({
     pranth: false,
@@ -123,7 +135,7 @@ export default function VolunteerSignUpScreen() {
           />
         </View>
         <View style={styles.textBox}>
-          <Text style={styles.headingInput}>Select Pranth</Text>
+          <Text style={styles.headingInput}>Pranth</Text>
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, pranth: true});
@@ -143,7 +155,7 @@ export default function VolunteerSignUpScreen() {
           />
         </View>
         <View style={styles.textBox}>
-          <Text style={styles.headingInput}>Select Jilla</Text>
+          <Text style={styles.headingInput}> Jilla</Text>
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, jila: true});
@@ -164,7 +176,7 @@ export default function VolunteerSignUpScreen() {
         </View>
 
         <View style={styles.textBox}>
-          <Text style={styles.headingInput}>Select Nagar/Basti</Text>
+          <Text style={styles.headingInput}>Nagar/Basti</Text>
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, basti: true});
@@ -185,7 +197,7 @@ export default function VolunteerSignUpScreen() {
         </View>
 
         <View style={styles.textBox}>
-          <Text style={styles.headingInput}>Enter Phone Number</Text>
+          <Text style={styles.headingInput}>Phone Number</Text>
           <Input
             placeholder="Phone"
             name="phone"
