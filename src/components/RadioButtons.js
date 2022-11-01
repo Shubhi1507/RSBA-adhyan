@@ -22,10 +22,11 @@ export const RadioButtons = ({data, onValueChange}) => {
               style={{
                 flexDirection: 'row',
                 alignItems: 'center', 
+                
               
                 
               }}>
-              <RadioButton value={item.value} color={COLORS.blue} />
+              <RadioButton value={item.value} color={COLORS.blue}  uncheckedColor={COLORS.black} />
 
               <TextHandler>{item.value}</TextHandler>
             </View>
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
+    
     
   },
 });

@@ -1,28 +1,39 @@
 import {
   View,
   Text,
-  ScrollView,
   StyleSheet,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
-import {Header, Input, PageIndicator, RadioButtons} from '../../components';
-import {COLORS} from '../../utils/colors';
+import React from 'react';
 import {screenWidth} from '../../libs';
+import {
+  Button,
+  DropDown,
+  Header,
+  Input,
+  PageIndicator,
+  RadioButtons,
+  TextHandler,
+} from '../../components/index';
 import ADIcons from 'react-native-vector-icons/AntDesign';
+import {COLORS} from '../../utils/colors';
+import {TextInput} from 'react-native-gesture-handler';
+import {goBack, navigate} from '../../navigation/NavigationService';
+import {useState} from 'react';
 import {STRINGS} from '../../constants/strings';
-import {goBack} from '../../navigation/NavigationService';
+import DatePicker from 'react-native-datepicker';
+import {ROUTES} from '../../navigation/RouteConstants';
 
 export default function VolunteerTeacherScreen() {
-  const [teacherInfo, setTeacherInfo] = useState({
-    teacher_name: ' ',
-    phone_number: ' ',
-    class_frequency: ' ',
-    class_duration: ' ',
+  const [teacherInfo, setteacherInfo] = useState({
+    teacher_name: '',
+    phone_number: '',
+    class_frequency: '',
+    class_duration: '',
   });
-
-  const [miscControllers, sermisControllers] = useState({
+  const [miscControllers, setmisControllers] = useState({
     CLASS_FREQUENCY: [
       {
         key: 'Daily',
@@ -79,31 +90,29 @@ export default function VolunteerTeacherScreen() {
         <Header children={HeaderContent()} />
       </View>
       <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        <PageIndicator index={2} />
+        <PageIndicator index={1} />
         <View>
           <Text style={styles.headingInput}>Teacher Name</Text>
           <Input
-            placeholder="Enter Here"
+            placeholder="Enter here"
             name="first_name"
-            OnChangeText={text =>
-              setTeacherInfo({...teacherInfo, teacher_name: text})
+            onChangeText={text =>
+              setteacherInfo({...teacherInfo, teacher_name: text})
             }
             value={teacherInfo.teacher_name}
             message={'error'}
             containerStyle={{alignItems: 'center'}}
           />
         </View>
-
-        <View style={styles.textBox}>
-          <Text style={styles.headingInput}> Enter Phone Number</Text>
+        <View>
+          <Text style={styles.headingInput}>Enter Phone Number</Text>
           <Input
-            placeholder="Phone"
-            name="phone"
-            OnChangeText={text =>
-              setTeacherInfo({...teacherInfo, phone_number: text})
+            placeholder="Enter here"
+            name="phone_no"
+            onChangeText={text =>
+              setteacherInfo({...teacherInfo, phone_number: text})
             }
             type={'numeric'}
-            number={10}
             value={teacherInfo.phone_number}
             message={'error'}
             containerStyle={{alignItems: 'center'}}
@@ -117,7 +126,7 @@ export default function VolunteerTeacherScreen() {
           <RadioButtons
             data={miscControllers.CLASS_FREQUENCY}
             onValueChange={item =>
-              setTeacherInfo({...teacherInfo, class_frequency: item})
+              setteacherInfo({...teacherInfo, class_frequency: item})
             }
           />
         </View>
@@ -127,24 +136,31 @@ export default function VolunteerTeacherScreen() {
             {STRINGS.SIGNUP.DURATION_OF_CLASS}
           </Text>
           <Input
-            placeholder="Phone"
-            name="phone"
+            placeholder="Select"
+            name="class_duration"
             OnChangeText={text =>
-              setTeacherInfo({...teacherInfo, phone_number: text})
+              setteacherInfo({...teacherInfo, class_duration: text})
             }
             type={'numeric'}
-            number={4}
-            value={teacherInfo.phone_number}
+            value={teacherInfo.class_duration}
             message={'error'}
             containerStyle={{alignItems: 'center'}}
           />
-          
         </View>
+
+        <Button
+          title={'Next'}
+          onPress={() => navigate(ROUTES.AUTH.STUDENTENROLLMENTSCREEN)}
+          ButtonContainerStyle={{
+            marginVertical: 17,
+            alignItems: 'center',
+            textAlign: 'center',
+          }}
+        />
       </ScrollView>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
