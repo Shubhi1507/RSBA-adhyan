@@ -232,14 +232,14 @@ const styles = StyleSheet.create({
     flex: 0.45,
     alignItems: 'flex-start',
     paddingHorizontal: 10,
-    marginTop: 12,
+    marginTop: 10,
     justifyContent: 'flex-start',
   },
 
   headingInput: {
     color: 'black',
     fontWeight: '500',
-  marginTop:10,
+  marginTop:15,
     fontSize: 16,
     margin: 6,
   },

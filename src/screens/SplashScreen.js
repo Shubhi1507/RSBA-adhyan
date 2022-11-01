@@ -90,7 +90,7 @@ export default function SplashScreen() {
                 fontWeight: '700',
                 fontSize: 16,
               }}>
-              Sign Up
+               {" "}Sign Up
             </Text>
           </TouchableOpacity>
         </View>

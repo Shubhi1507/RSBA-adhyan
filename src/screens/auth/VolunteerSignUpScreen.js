@@ -135,7 +135,7 @@ export default function VolunteerSignUpScreen() {
           marginTop: 20,
         }}>
         <View style={styles.textBox}>
-          <Text style={styles.headingInput}>First Name</Text>
+          <Text style={styles.headingInput}>Full Name</Text>
           <Input
             placeholder="First Name"
             name="first_name"

@@ -174,10 +174,11 @@ export default function VolunteerParentalOrgScreen() {
             <Text style={styles.headingInput}>Pincode</Text>
             <Input
               placeholder="Enter here"
-              name="first_name"
+              name="pin_code"
               onChangeText={text =>
                 setvolunteerInfo({...volunteerInfo, pincode: text})
               }
+              type ={'numeric'}
               value={volunteerInfo.pincode}
               message={'error'}
               containerStyle={{

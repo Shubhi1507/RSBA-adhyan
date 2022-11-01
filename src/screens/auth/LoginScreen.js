@@ -21,7 +21,7 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 export default function LoginScreen() {
   const [value, setValue] = useState('');
   const [valid, setValid] = useState(false);
-  const [phone, setPhone] = useState('+918743999329');
+  const [phone, setPhone] = useState('8743999329');
   const [error, setError] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const phoneInput = useRef(null);
