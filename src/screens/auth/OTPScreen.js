@@ -4,10 +4,11 @@ import FAIcons from 'react-native-vector-icons/FontAwesome';
 import {COLORS} from '../../utils/colors';
 import {Header, TextHandler, Button} from '../../components/index';
 import ADIcons from 'react-native-vector-icons/AntDesign';
-import {goBack} from '../../navigation/NavigationService';
+import {goBack, navigate} from '../../navigation/NavigationService';
 import {screenWidth} from '../../libs';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {STRINGS} from '../../constants/strings';
+import { ROUTES } from '../../navigation/RouteConstants';
 
 export default function OTPScreen() {
   const [counter, setCounter] = React.useState(60);
@@ -118,7 +119,7 @@ export default function OTPScreen() {
           </View>
         </View>
 
-        <Button title={'Submit'} onPress={() => {}} />
+        <Button title={'Submit'} onPress={() => {navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN)}} />
       </View>
     </View>
   );

@@ -227,7 +227,7 @@ export default function VolunteerSignUpScreen() {
           />
         </View>
         <Button
-          title={'Next'}
+          title={'Done'}
           onPress={() => navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN)}
           ButtonContainerStyle={{marginVertical: 20}}
         />

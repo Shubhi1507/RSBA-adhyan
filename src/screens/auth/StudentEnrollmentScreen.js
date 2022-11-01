@@ -19,8 +19,8 @@ import {
   PageIndicator,
   TextHandler,
 } from '../../components/index';
-import { navigate } from '../../navigation/NavigationService';
-import { ROUTES } from '../../navigation/RouteConstants';
+import {goBack, navigate} from '../../navigation/NavigationService';
+import {ROUTES} from '../../navigation/RouteConstants';
 
 export default function StudentEnrollmentScreen() {
   const [studentInfo, setstudentInfo] = useState({
@@ -78,65 +78,81 @@ export default function StudentEnrollmentScreen() {
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
-      </View> 
-      
-      <View style={{flex:1 , paddingHorizontal:20}}>
-      <PageIndicator index={3} />
+      </View>
 
+      <View
+        style={{
+          flex: 1,
+          paddingHorizontal: 20,
+          justifyContent: 'space-between',
+        }}>
         <View>
-          <Text style={styles.headingInput}> No. of Students Enrolled</Text>
-          <DropDown
-            openAnchor={() => {
-              setMiscControllers({...miscControllers, students_enrolled: true});
-            }}
-            closeAnchor={() => {
-              setMiscControllers({...miscControllers, students_enrolled: false});
-            }}
-            isFocused={miscControllers.students_enrolled}
-            isVisible={miscControllers.students_enrolled}
-            title={''}
-            onSelect={item => {
-              setstudentInfo({...studentInfo, students_enrolled: item});
-            }}
-            optionsArr={miscControllers.studentArr}
-        
-            value={studentInfo.students_enrolled}
-          />
+          <PageIndicator index={3} />
+          <View>
+            <Text style={styles.headingInput}> No. of Students Enrolled</Text>
+            <DropDown
+              openAnchor={() => {
+                setMiscControllers({
+                  ...miscControllers,
+                  students_enrolled: true,
+                });
+              }}
+              closeAnchor={() => {
+                setMiscControllers({
+                  ...miscControllers,
+                  students_enrolled: false,
+                });
+              }}
+              isFocused={miscControllers.students_enrolled}
+              isVisible={miscControllers.students_enrolled}
+              title={''}
+              onSelect={item => {
+                setstudentInfo({...studentInfo, students_enrolled: item});
+              }}
+              optionsArr={miscControllers.studentArr}
+              value={studentInfo.students_enrolled}
+            />
+          </View>
+
+          <View>
+            <Text style={styles.headingInput}> No. of Regular Attendees </Text>
+            <DropDown
+              openAnchor={() => {
+                setMiscControllers({
+                  ...miscControllers,
+                  regular_attendees: true,
+                });
+              }}
+              closeAnchor={() => {
+                setMiscControllers({
+                  ...miscControllers,
+                  regular_attendees: false,
+                });
+              }}
+              isFocused={miscControllers.regular_attendees}
+              isVisible={miscControllers.regular_attendees}
+              title={''}
+              onSelect={item => {
+                setstudentInfo({...studentInfo, regular_attendees: item});
+              }}
+              optionsArr={miscControllers.studentArr}
+              value={studentInfo.regular_attendees}
+            />
+          </View>
         </View>
 
-        <View>
-          <Text style={styles.headingInput}> No. of Regular Attendees </Text>
-          <DropDown
-            openAnchor={() => {
-              setMiscControllers({...miscControllers, regular_attendees: true});
-            }}
-            closeAnchor={() => {
-              setMiscControllers({...miscControllers, regular_attendees: false});
-            }}
-            isFocused={miscControllers.regular_attendees}
-            isVisible={miscControllers.regular_attendees}
-            title={''}
-            onSelect={item => {
-              setstudentInfo({...studentInfo, regular_attendees: item});
-            }}
-            optionsArr={miscControllers.studentArr}
-        
-            value={studentInfo.regular_attendees}
-          />
-  <Button
-          title={'Next'}
-          onPress={() => navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN)}
+        <Button
+          title={'Done'}
+          // onPress={() => navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN)}
+          onPress={() => goBack()}
           ButtonContainerStyle={{
-            marginVertical: 10,
+            marginBottom: 40,
             alignItems: 'center',
             textAlign: 'center',
-            padding:20
+            padding: 20,
           }}
         />
-
-</View>
-        </View>
-    
+      </View>
     </View>
   );
 }

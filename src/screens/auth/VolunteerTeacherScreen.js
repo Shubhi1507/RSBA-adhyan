@@ -90,7 +90,7 @@ export default function VolunteerTeacherScreen() {
         <Header children={HeaderContent()} />
       </View>
       <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        <PageIndicator index={1} />
+        <PageIndicator index={2} />
         <View>
           <Text style={styles.headingInput}>Teacher Name</Text>
           <Input
@@ -142,7 +142,7 @@ export default function VolunteerTeacherScreen() {
               setteacherInfo({...teacherInfo, class_duration: text})
             }
             type={'numeric'}
-            value={teacherInfo.class_duration}
+            value={teacherInfo.class_duration.toString()}
             message={'error'}
             containerStyle={{alignItems: 'center'}}
           />

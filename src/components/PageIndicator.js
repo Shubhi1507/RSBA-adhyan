@@ -63,7 +63,7 @@ export const PageIndicator = ({index}) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          {index == 1 && index == 2 && (
+          {index == 1 || index == 2 && (
             <TouchableOpacity
               onPress={() => goBack()}
               style={{
@@ -95,7 +95,7 @@ export const PageIndicator = ({index}) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          {index == 1 && index == 2 && index == 3 && (
+          { index == 3 && (
             <TouchableOpacity
               onPress={() => goBack()}
               style={{
