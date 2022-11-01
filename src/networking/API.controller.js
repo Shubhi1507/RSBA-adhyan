@@ -28,11 +28,10 @@ const Login = async data => {
 const getListofDistricts = async () => {
   try {
     const URL = BASE_URL + 'districts';
-
     const response = await fetch(URL, {
       method: 'GET',
+      headers: headers,
     });
-
     let respJson = await response.json();
     return respJson;
   } catch (error) {
@@ -41,11 +40,13 @@ const getListofDistricts = async () => {
   }
 };
 const getListofColonies = async district_id => {
-  try {
-    const URL = BASE_URL + 'colonies';
+  console.log('district_id', district_id);
 
+  try {
+    const URL = BASE_URL + 'colonies/' + district_id;
     const response = await fetch(URL, {
       method: 'GET',
+      headers: headers,
     });
     let respJson = await response.json();
     return respJson;
