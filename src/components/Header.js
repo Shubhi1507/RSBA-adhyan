@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
-
   },
   topView: {
     flex: 1,

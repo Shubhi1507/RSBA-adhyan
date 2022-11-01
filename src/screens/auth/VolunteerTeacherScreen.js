@@ -25,6 +25,7 @@ import {useState} from 'react';
 import {STRINGS} from '../../constants/strings';
 import DatePicker from 'react-native-datepicker';
 import {ROUTES} from '../../navigation/RouteConstants';
+import FAIcons from 'react-native-vector-icons/FontAwesome';
 
 export default function VolunteerTeacherScreen() {
   const [teacherInfo, setteacherInfo] = useState({
@@ -70,10 +71,7 @@ export default function VolunteerTeacherScreen() {
           <TouchableOpacity onPress={() => goBack()}>
             <ADIcons name="left" color={COLORS.white} size={21} />
           </TouchableOpacity>
-          <Image
-            source={require('../../assets/user.png')}
-            style={{tintColor: COLORS.white}}
-          />
+          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>

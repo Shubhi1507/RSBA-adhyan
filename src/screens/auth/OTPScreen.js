@@ -8,7 +8,7 @@ import {goBack, navigate} from '../../navigation/NavigationService';
 import {screenWidth} from '../../libs';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {STRINGS} from '../../constants/strings';
-import { ROUTES } from '../../navigation/RouteConstants';
+import {ROUTES} from '../../navigation/RouteConstants';
 
 export default function OTPScreen() {
   const [counter, setCounter] = React.useState(60);
@@ -40,10 +40,7 @@ export default function OTPScreen() {
           <TouchableOpacity onPress={() => goBack()}>
             <ADIcons name="left" color={COLORS.white} size={20} />
           </TouchableOpacity>
-          <Image
-            source={require('../../assets/user.png')}
-            style={{tintColor: COLORS.white}}
-          />
+          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 16}}>
@@ -119,7 +116,12 @@ export default function OTPScreen() {
           </View>
         </View>
 
-        <Button title={'Submit'} onPress={() => {navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN)}} />
+        <Button
+          title={'Submit'}
+          onPress={() => {
+            navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN);
+          }}
+        />
       </View>
     </View>
   );

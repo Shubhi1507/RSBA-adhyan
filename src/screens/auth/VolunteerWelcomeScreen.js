@@ -21,6 +21,7 @@ import {TextInput} from 'react-native-gesture-handler';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {useState} from 'react';
 import {ROUTES} from '../../navigation/RouteConstants';
+import FAIcons from 'react-native-vector-icons/FontAwesome';
 
 export default function VolunteerWelcomeScreen() {
   const [volunteerInfo, setvolunteerInfo] = useState({
@@ -96,10 +97,7 @@ export default function VolunteerWelcomeScreen() {
           <TouchableOpacity onPress={() => goBack()}>
             <ADIcons name="left" color={COLORS.white} size={21} />
           </TouchableOpacity>
-          <Image
-            source={require('../../assets/user.png')}
-            style={{tintColor: COLORS.white}}
-          />
+          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 18}}>
@@ -239,7 +237,7 @@ const styles = StyleSheet.create({
   headingInput: {
     color: 'black',
     fontWeight: '500',
-  marginTop:15,
+    marginTop: 15,
     fontSize: 16,
     margin: 6,
   },
