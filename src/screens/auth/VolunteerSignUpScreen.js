@@ -17,6 +17,11 @@ import {Input} from '../../components/Input';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ROUTES} from '../../navigation/RouteConstants';
+import {useEffect} from 'react';
+import {
+  getListofColonies,
+  getListofDistricts,
+} from '../../networking/API.controller';
 
 export default function VolunteerSignUpScreen() {
   const [volunteerInfo, setvolunteerInfo] = useState({
@@ -31,37 +36,47 @@ export default function VolunteerSignUpScreen() {
     pranth: false,
     jila: false,
     basti: false,
-    pranthArr: [
-      {
-        key: 'pranth1',
-        value: 'pranth1',
-      },
-      {
-        key: 'pranth2',
-        value: 'pranth2',
-      },
-    ],
-    jilArr: [
-      {
-        key: 'jila1',
-        value: 'jila1',
-      },
-      {
-        key: 'jila2',
-        value: 'jila2',
-      },
-    ],
-    bastiArr: [
-      {
-        key: 'basti1',
-        value: 'basti1',
-      },
-      {
-        key: 'basti2',
-        value: 'basti2',
-      },
-    ],
+    pranthArr: [],
+    bastiArr: [],
+    jilArr: [],
   });
+
+  useEffect(() => {
+    getListOfDistricts();
+  }, []);
+
+  const getListOfDistricts = async () => {
+    const data = await getListofDistricts();
+    if (data && data.data && Array.isArray(data.data)) {
+      let temp = data.data;
+      let emptyJila = [];
+      temp.forEach(el => {
+        emptyJila.push({key: el.id, value: el.name});
+      });
+      setMiscControllers({...miscControllers, jilArr: emptyJila, jila: false});
+    } else {
+      setMiscControllers({...miscControllers, jilArr: [], jila: false});
+    }
+  };
+
+  const getColoniesBasedUponDistrictID = async id => {
+    try {
+      const data = await getListofColonies(id);
+      console.log('data', data);
+      if (data && data.data && Array.isArray(data.data)) {
+        let temp = data.data;
+        let emptyNagar = [];
+        temp.forEach(el => {
+          emptyNagar.push({key: el.id, value: el.name});
+        });
+        setMiscControllers({...miscControllers, bastiArr: emptyNagar});
+      } else {
+        setMiscControllers({...miscControllers, bastiArr: [], jila: false});
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const HeaderContent = () => {
     return (
@@ -110,7 +125,7 @@ export default function VolunteerSignUpScreen() {
           marginTop: 20,
         }}>
         <View style={styles.textBox}>
-          <Text style={styles.headingInput}>Full Name</Text>
+          <Text style={styles.headingInput}>First Name</Text>
           <Input
             placeholder="First Name"
             name="first_name"
@@ -143,7 +158,7 @@ export default function VolunteerSignUpScreen() {
           />
         </View>
         <View style={styles.textBox}>
-          <Text style={styles.headingInput}>Select Jilla</Text>
+          <Text style={styles.headingInput}>Jilla</Text>
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, jila: true});
@@ -155,7 +170,9 @@ export default function VolunteerSignUpScreen() {
             isVisible={miscControllers.jila}
             title={'Jila'}
             onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, jila: item});
+              console.log('selected', item);
+              setvolunteerInfo({...volunteerInfo, jila: item.value});
+              getColoniesBasedUponDistrictID(item.key);
             }}
             optionsArr={miscControllers.jilArr}
             error={'Pranth'}
@@ -185,12 +202,12 @@ export default function VolunteerSignUpScreen() {
         </View>
 
         <View style={styles.textBox}>
-          <Text style={styles.headingInput}>Enter Phone Number</Text>
+          <Text style={styles.headingInput}>Phone Number</Text>
           <Input
             placeholder="Phone"
             name="phone"
             onChangeText={text =>
-              setvolunteerInfo({...volunteerInfo, phon: text})
+              setvolunteerInfo({...volunteerInfo, phone: text})
             }
             type={'numeric'}
             number={10}
@@ -204,7 +221,6 @@ export default function VolunteerSignUpScreen() {
           onPress={() => navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN)}
           ButtonContainerStyle={{marginVertical: 20}}
         />
-        {/* </KeyboardAvoidingView> */}
       </ScrollView>
     </View>
   );

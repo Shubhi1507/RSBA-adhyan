@@ -83,7 +83,7 @@ export default function SplashScreen() {
           </Text>
 
           <TouchableOpacity
-            onPress={() => navigate(ROUTES.AUTH.STUDENTENROLLMENTSCREEN)}>
+            onPress={() => navigate(ROUTES.AUTH.VOLUNTEERSIGNUPSCREEN)}>
             <Text
               style={{
                 color: COLORS.buttonColor,
