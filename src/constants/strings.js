@@ -6,11 +6,11 @@ export const STRINGS = {
     ENTER_VERIFICATION_CODE: 'Enter Verification Code',
     OTP_SENT: 'OTP has been send to',
     RESEND_OTP: 'Resend OTP',
-    TYPES_OF_CENTERS: 'Types of Centers',
+    TYPE_OF_CENTER: 'Type Of Center',
     CLASS_FREQUENCY: 'Class Frequency',
   },
   SIGNUP: {
-    DURATION_OF_CLASS: 'Duration of class',
-    DATE_OF_EST: 'Date of establishment',
+    DURATION_OF_CLASS: 'Duration Of Class',
+    DATE_OF_EST: 'Date Of Establishment',
   },
 };

@@ -126,7 +126,7 @@ export default function VolunteerParentalOrgScreen() {
       <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
         <PageIndicator index={1} />
         <View>
-          <Text style={styles.headingInput}>Parental Organisation</Text>
+          <Text style={styles.headingInput}>Parent Organisation</Text>
           <Input
             placeholder="Enter here"
             name="first_name"
@@ -177,6 +177,7 @@ export default function VolunteerParentalOrgScreen() {
                 setvolunteerInfo({...volunteerInfo, pincode: text})
               }
               type={'numeric'}
+
               value={volunteerInfo.pincode}
               message={'error'}
               containerStyle={{
@@ -189,7 +190,7 @@ export default function VolunteerParentalOrgScreen() {
 
         <View>
           <Text style={styles.headingInput}>
-            {STRINGS.LOGIN.TYPES_OF_CENTERS}
+            {STRINGS.LOGIN.TYPE_OF_CENTER}
           </Text>
           <RadioButtons
             data={miscControllers.CENTRES}
