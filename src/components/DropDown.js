@@ -27,7 +27,7 @@ export function DropDown({
         justifyContent: 'center',
       }}>
       <TouchableOpacity
-        onPress={() => openAnchor()}
+        onPress={openAnchor}
         style={{
           borderWidth: 1,
           borderRadius: 5,
@@ -56,17 +56,14 @@ export function DropDown({
                 backgroundColor: COLORS.blue,
               }}
               visible={isVisible}
-              onDismiss={() => closeAnchor()}
+              onDismiss={closeAnchor}
               anchor={
                 isFocused ? (
-                  <TouchableOpacity
-                    onPress={() => {
-                      closeAnchor();
-                    }}>
+                  <TouchableOpacity onPress={closeAnchor}>
                     <ADIcons name="up" size={18} color={COLORS.black} />
                   </TouchableOpacity>
                 ) : (
-                  <TouchableOpacity onPress={() => openAnchor()}>
+                  <TouchableOpacity onPress={() => openAnchor}>
                     <ADIcons name="down" size={18} color={COLORS.black} />
                   </TouchableOpacity>
                 )
@@ -82,10 +79,7 @@ export function DropDown({
                         style={{
                           backgroundColor: COLORS.blue,
                         }}
-                        onPress={() => {
-                          onSelect(item);
-                          closeAnchor();
-                        }}
+                        onPress={() => onSelect(item)}
                         title={item.value}
                         titleStyle={{
                           color: COLORS.white,

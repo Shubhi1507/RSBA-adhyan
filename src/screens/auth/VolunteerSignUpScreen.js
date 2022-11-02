@@ -22,8 +22,14 @@ import {
   getListofColonies,
   getListofDistricts,
 } from '../../networking/API.controller';
+import {useDispatch, useSelector} from 'react-redux';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import LoaderIndicator from '../../components/Loader';
+import FAIcons from 'react-native-vector-icons/FontAwesome';
 
 export default function VolunteerSignUpScreen() {
+  const store = useSelector(state => state.BastiListReducer);
+  const dispatch = useDispatch();
   const [volunteerInfo, setvolunteerInfo] = useState({
     first_name: '',
     pranth: '',
@@ -31,17 +37,7 @@ export default function VolunteerSignUpScreen() {
     basti: '',
     phone: '',
   });
-
-  useEffect(() => {
-    District()
-    return () => {};
-  }, []);
-
-  const District = async () => {
-    let rest = await getListofDistricts();
-    console.log(rest)
-  };
-
+  const [dataLoading, setDataLoading] = useState(false);
   const [miscControllers, setMiscControllers] = useState({
     pranth: false,
     jila: false,
@@ -55,7 +51,10 @@ export default function VolunteerSignUpScreen() {
     getListOfDistricts();
   }, []);
 
+  useEffect(() => {}, [store.bastiList]);
+
   const getListOfDistricts = async () => {
+    setDataLoading(true);
     const data = await getListofDistricts();
     if (data && data.data && Array.isArray(data.data)) {
       let temp = data.data;
@@ -63,28 +62,46 @@ export default function VolunteerSignUpScreen() {
       temp.forEach(el => {
         emptyJila.push({key: el.id, value: el.name});
       });
-      setMiscControllers({...miscControllers, jilArr: emptyJila, jila: false});
+      setMiscControllers({
+        ...miscControllers,
+        jilArr: emptyJila,
+        jila: false,
+      });
     } else {
-      setMiscControllers({...miscControllers, jilArr: [], jila: false});
+      setMiscControllers({
+        ...miscControllers,
+        jilArr: [],
+        jila: false,
+      });
     }
+    setDataLoading(false);
   };
 
   const getColoniesBasedUponDistrictID = async id => {
     try {
       const data = await getListofColonies(id);
-      console.log('data', data);
+
       if (data && data.data && Array.isArray(data.data)) {
+        console.log('data basti', data);
         let temp = data.data;
         let emptyNagar = [];
         temp.forEach(el => {
           emptyNagar.push({key: el.id, value: el.name});
         });
-        setMiscControllers({...miscControllers, bastiArr: emptyNagar});
+        console.log('temp', temp);
+        dispatch({
+          type: ACTION_CONSTANTS.UPDATE_BASTI_LIST,
+          payload: emptyNagar,
+        });
       } else {
-        setMiscControllers({...miscControllers, bastiArr: [], jila: false});
+        dispatch({
+          type: ACTION_CONSTANTS.CLEAR_BASTI_LIST,
+        });
       }
+      setDataLoading(false);
     } catch (error) {
       console.log(error);
+      setDataLoading(false);
     }
   };
 
@@ -108,10 +125,7 @@ export default function VolunteerSignUpScreen() {
           <TouchableOpacity onPress={() => goBack()}>
             <ADIcons name="left" color={COLORS.white} size={21} />
           </TouchableOpacity>
-          <Image
-            source={require('../../assets/user.png')}
-            style={{tintColor: COLORS.white}}
-          />
+          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 19}}>
@@ -124,6 +138,8 @@ export default function VolunteerSignUpScreen() {
 
   return (
     <View style={styles.container}>
+      <LoaderIndicator loading={dataLoading} />
+
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
@@ -161,6 +177,7 @@ export default function VolunteerSignUpScreen() {
             title={'Pranth'}
             onSelect={item => {
               setvolunteerInfo({...volunteerInfo, pranth: item});
+              setMiscControllers({...miscControllers, pranth: false});
             }}
             optionsArr={miscControllers.pranthArr}
             error={'Pranth'}
@@ -180,8 +197,12 @@ export default function VolunteerSignUpScreen() {
             isVisible={miscControllers.jila}
             title={'Jila'}
             onSelect={item => {
-              console.log('selected', item);
-              setvolunteerInfo({...volunteerInfo, jila: item.value});
+              setvolunteerInfo({...volunteerInfo, jila: item.value, basti: ''});
+              setMiscControllers({...miscControllers, jila: false});
+              dispatch({
+                type: ACTION_CONSTANTS.CLEAR_BASTI_LIST,
+              });
+              setDataLoading(true);
               getColoniesBasedUponDistrictID(item.key);
             }}
             optionsArr={miscControllers.jilArr}
@@ -203,9 +224,10 @@ export default function VolunteerSignUpScreen() {
             isVisible={miscControllers.basti}
             title={'Basti'}
             onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, basti: item});
+              setvolunteerInfo({...volunteerInfo, basti: item.value});
+              setMiscControllers({...miscControllers, basti: false});
             }}
-            optionsArr={miscControllers.bastiArr}
+            optionsArr={store.bastiList}
             error={'Basti'}
             value={volunteerInfo.basti}
           />
