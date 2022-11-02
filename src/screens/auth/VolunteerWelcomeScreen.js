@@ -145,7 +145,7 @@ export default function VolunteerWelcomeScreen() {
           />
         </View>
         <View>
-          <Text style={styles.headingInput}>City / Nagar</Text>
+          <Text style={styles.headingInput}>City/ Nagar</Text>
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, city_nagar: true});
@@ -165,7 +165,7 @@ export default function VolunteerWelcomeScreen() {
           />
         </View>
         <View>
-          <Text style={styles.headingInput}>District / Jilla</Text>
+          <Text style={styles.headingInput}>District/ Jilla</Text>
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, district_jila: true});
@@ -186,7 +186,7 @@ export default function VolunteerWelcomeScreen() {
         </View>
 
         <View>
-          <Text style={styles.headingInput}>Town/Basti</Text>
+          <Text style={styles.headingInput}>Town/ Basti</Text>
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, town_basti: true});
