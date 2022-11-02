@@ -184,7 +184,7 @@ export default function VolunteerSignUpScreen() {
             value={volunteerInfo.pranth}
           />
         </View>
-        <View style={styles.textBox}>
+        {/* <View style={styles.textBox}>
           <Text style={styles.headingInput}>Jilla</Text>
           <DropDown
             openAnchor={() => {
@@ -209,9 +209,9 @@ export default function VolunteerSignUpScreen() {
             error={'Pranth'}
             value={volunteerInfo.jila}
           />
-        </View>
+        </View> */}
 
-        <View style={styles.textBox}>
+        {/* <View style={styles.textBox}>
           <Text style={styles.headingInput}>Nagar/Basti</Text>
           <DropDown
             openAnchor={() => {
@@ -231,7 +231,7 @@ export default function VolunteerSignUpScreen() {
             error={'Basti'}
             value={volunteerInfo.basti}
           />
-        </View>
+        </View> */}
 
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Phone Number</Text>
