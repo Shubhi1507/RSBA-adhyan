@@ -11,10 +11,15 @@ import {COLORS} from '../utils/colors';
 import {navigate} from '../navigation/NavigationService';
 import {ROUTES} from '../navigation/RouteConstants';
 import {connecttoFBD} from '../networking/FirebaseAPI.controller';
+import {useDispatch} from 'react-redux';
+import {ACTION_CONSTANTS} from '../redux/actions/actions';
 
 export default function SplashScreen() {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     connecttoFBD();
+    dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
   }, []);
 
   return (
@@ -90,7 +95,8 @@ export default function SplashScreen() {
                 fontWeight: '700',
                 fontSize: 16,
               }}>
-               {" "}Sign Up
+              {' '}
+              Sign Up
             </Text>
           </TouchableOpacity>
         </View>

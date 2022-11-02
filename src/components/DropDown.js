@@ -79,7 +79,10 @@ export function DropDown({
                         style={{
                           backgroundColor: COLORS.blue,
                         }}
-                        onPress={() => onSelect(item)}
+                        onPress={() => {
+                          onSelect(item);
+                          closeAnchor();
+                        }}
                         title={item.value}
                         titleStyle={{
                           color: COLORS.white,
