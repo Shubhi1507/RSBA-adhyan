@@ -137,7 +137,7 @@ export default function VolunteerWelcomeScreen() {
             isVisible={miscControllers.state_pranth}
             title={''}
             onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, state_pranth: item});
+              setvolunteerInfo({...volunteerInfo, state_pranth: item.value});
             }}
             optionsArr={miscControllers.pranthArr}
             error={'Pranth'}
@@ -157,7 +157,7 @@ export default function VolunteerWelcomeScreen() {
             isVisible={miscControllers.city_nagar}
             title={''}
             onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, city_nagar: item});
+              setvolunteerInfo({...volunteerInfo, city_nagar: item.value});
             }}
             optionsArr={miscControllers.cityArr}
             error={'City'}
@@ -177,7 +177,7 @@ export default function VolunteerWelcomeScreen() {
             isVisible={miscControllers.district_jila}
             title={''}
             onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, district_jila: item});
+              setvolunteerInfo({...volunteerInfo, district_jila: item.value});
             }}
             optionsArr={miscControllers.jilArr}
             error={'Jila'}
@@ -198,7 +198,7 @@ export default function VolunteerWelcomeScreen() {
             isVisible={miscControllers.town_basti}
             title={''}
             onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, town_basti: item});
+              setvolunteerInfo({...volunteerInfo, town_basti: item.value});
             }}
             optionsArr={miscControllers.bastiArr}
             error={'Jila'}

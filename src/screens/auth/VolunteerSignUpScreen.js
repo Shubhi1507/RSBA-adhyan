@@ -176,7 +176,7 @@ export default function VolunteerSignUpScreen() {
             isVisible={miscControllers.pranth}
             title={'Pranth'}
             onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, pranth: item});
+              setvolunteerInfo({...volunteerInfo, pranth: item.value});
               setMiscControllers({...miscControllers, pranth: false});
             }}
             optionsArr={miscControllers.pranthArr}

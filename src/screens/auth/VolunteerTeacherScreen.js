@@ -133,14 +133,15 @@ export default function VolunteerTeacherScreen() {
           <Text style={styles.headingInput}>
             {STRINGS.SIGNUP.DURATION_OF_CLASS}
           </Text>
+
           <Input
             placeholder="Select"
             name="class_duration"
-            OnChangeText={text =>
+            onChangeText={text =>
               setteacherInfo({...teacherInfo, class_duration: text})
             }
             type={'numeric'}
-            value={teacherInfo.class_duration.toString()}
+            value={teacherInfo.class_duration}
             message={'error'}
             containerStyle={{alignItems: 'center'}}
           />
