@@ -128,7 +128,7 @@ export default function VolunteerParentalOrgScreen() {
       <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
         <PageIndicator index={1} />
         <View>
-          <Text style={styles.headingInput}>Parental Organisation</Text>
+          <Text style={styles.headingInput}>Parent Organisation</Text>
           <Input
             placeholder="Enter here"
             name="first_name"
