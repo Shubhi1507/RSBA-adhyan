@@ -1,40 +1,30 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {screenWidth} from '../../libs';
 import {
   Button,
-  DropDown,
   Header,
   Input,
-  PageIndicator,
   RadioButtons,
   TextHandler,
 } from '../../components/index';
 import ADIcons from 'react-native-vector-icons/AntDesign';
 import {COLORS} from '../../utils/colors';
-import {TextInput} from 'react-native-gesture-handler';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {useState} from 'react';
 import {STRINGS} from '../../constants/strings';
 import DatePicker from 'react-native-datepicker';
 import {ROUTES} from '../../navigation/RouteConstants';
 import FAIcons from 'react-native-vector-icons/FontAwesome';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export default function VolunteerParentalOrgScreen() {
   const [volunteerInfo, setvolunteerInfo] = useState({
     parent_org: '',
-    address: '',
-    city: '',
-    pincode: '',
     type_of_center: '',
     date_of_establishment: new Date(),
+    center_head: '',
+    center_contact: '',
   });
   const [miscControllers, setMiscControllers] = useState({
     CENTRES: [
@@ -49,6 +39,14 @@ export default function VolunteerParentalOrgScreen() {
       {
         key: 'Pathdaan Centre',
         value: 'Pathdaan Centre',
+      },
+      {
+        key: 'Bal Gokuldham',
+        value: 'Bal Gokuldham',
+      },
+      {
+        key: 'Balwadi',
+        value: 'Balwadi',
       },
     ],
   });
@@ -77,7 +75,7 @@ export default function VolunteerParentalOrgScreen() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            Survey
+            Center Details
           </Text>
         </View>
       </View>
@@ -123,10 +121,64 @@ export default function VolunteerParentalOrgScreen() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
-      <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        <PageIndicator index={1} />
-        <View>
-          <Text style={styles.headingInput}>Parent Organisation</Text>
+      <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
+        <TextHandler
+          style={{
+            color: 'black',
+            fontWeight: '600',
+            marginVertical: 20,
+            fontSize: 20,
+            textAlign: 'left',
+          }}>
+          Center Details
+        </TextHandler>
+        <View style={{paddingVertical: 5}}>
+          <Text style={styles.headingInput}>
+            {STRINGS.LOGIN.TYPE_OF_CENTER}
+          </Text>
+          <RadioButtons
+            data={miscControllers.CENTRES}
+            onValueChange={item => {
+              setvolunteerInfo({...volunteerInfo, type_of_center: item});
+            }}
+          />
+        </View>
+        <View style={{paddingVertical: 5}}>
+          <Text style={styles.headingInput}>
+            {STRINGS.LOGIN.CENTER_HD_NAME}
+          </Text>
+          <Input
+            placeholder="Enter here"
+            name="center_head"
+            onChangeText={text =>
+              setvolunteerInfo({...volunteerInfo, center_head: text})
+            }
+            value={volunteerInfo.center_head}
+            message={'error'}
+            containerStyle={{alignItems: 'center'}}
+          />
+        </View>
+
+        <View style={{paddingVertical: 5}}>
+          <Text style={styles.headingInput}>
+            {STRINGS.LOGIN.CENTER_CONTACT_DETAILS}
+          </Text>
+          <Input
+            placeholder="Enter here"
+            name="center_contact"
+            type={'numeric'}
+            number={10}
+            onChangeText={text =>
+              setvolunteerInfo({...volunteerInfo, center_contact: text})
+            }
+            value={volunteerInfo.center_contact}
+            message={'error'}
+            containerStyle={{alignItems: 'center'}}
+          />
+        </View>
+
+        <View style={{paddingVertical: 5}}>
+          <Text style={styles.headingInput}>{STRINGS.LOGIN.PARENT_ORG}</Text>
           <Input
             placeholder="Enter here"
             name="first_name"
@@ -138,69 +190,8 @@ export default function VolunteerParentalOrgScreen() {
             containerStyle={{alignItems: 'center'}}
           />
         </View>
-        <View>
-          <Text style={styles.headingInput}>Address</Text>
-          <Input
-            placeholder="Enter here"
-            name="first_name"
-            onChangeText={text =>
-              setvolunteerInfo({...volunteerInfo, address: text})
-            }
-            value={volunteerInfo.address}
-            message={'error'}
-            containerStyle={{alignItems: 'center'}}
-          />
-        </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <View>
-            <Text style={styles.headingInput}>City</Text>
-            <Input
-              placeholder="Enter here"
-              name="first_name"
-              onChangeText={text =>
-                setvolunteerInfo({...volunteerInfo, city: text})
-              }
-              value={volunteerInfo.city}
-              message={'error'}
-              containerStyle={{
-                alignItems: 'center',
-                minWidth: screenWidth * 0.4,
-              }}
-            />
-          </View>
-          <View>
-            <Text style={styles.headingInput}>Pincode</Text>
-            <Input
-              placeholder="Enter here"
-              name="pin_code"
-              onChangeText={text =>
-                setvolunteerInfo({...volunteerInfo, pincode: text})
-              }
-              type={'numeric'}
 
-              value={volunteerInfo.pincode}
-              message={'error'}
-              containerStyle={{
-                alignItems: 'center',
-                minWidth: screenWidth * 0.4,
-              }}
-            />
-          </View>
-        </View>
-
-        <View>
-          <Text style={styles.headingInput}>
-            {STRINGS.LOGIN.TYPE_OF_CENTER}
-          </Text>
-          <RadioButtons
-            data={miscControllers.CENTRES}
-            onValueChange={item => {
-              setvolunteerInfo({...volunteerInfo, type_of_center: item});
-            }}
-          />
-        </View>
-
-        <View>
+        {/* <View>
           <Text style={styles.headingInput}>{STRINGS.SIGNUP.DATE_OF_EST}</Text>
 
           <DatePicker
@@ -244,8 +235,7 @@ export default function VolunteerParentalOrgScreen() {
               }
             }}
           />
-        </View>
-
+        </View> */}
         <Button
           title={'Next'}
           onPress={() => navigate(ROUTES.AUTH.VOLUNTEERTEACHERSCREEN)}
@@ -255,7 +245,7 @@ export default function VolunteerParentalOrgScreen() {
             textAlign: 'center',
           }}
         />
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 }
@@ -263,8 +253,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-
-    // alignItems: 'center',
   },
   textBox: {
     flex: 0.45,

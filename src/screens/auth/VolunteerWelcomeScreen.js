@@ -22,6 +22,7 @@ import {goBack, navigate} from '../../navigation/NavigationService';
 import {useState} from 'react';
 import {ROUTES} from '../../navigation/RouteConstants';
 import FAIcons from 'react-native-vector-icons/FontAwesome';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export default function VolunteerWelcomeScreen() {
   const [volunteerInfo, setvolunteerInfo] = useState({
@@ -29,6 +30,7 @@ export default function VolunteerWelcomeScreen() {
     city_nagar: '',
     district_jila: '',
     town_basti: '',
+    address: '',
   });
   const [miscControllers, setMiscControllers] = useState({
     state_pranth: false,
@@ -101,7 +103,7 @@ export default function VolunteerWelcomeScreen() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 18}}>
-            Survey
+            Center Details
           </Text>
         </View>
       </View>
@@ -113,7 +115,7 @@ export default function VolunteerWelcomeScreen() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
-      <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
+      <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
         <TextHandler
           style={{
             color: 'black',
@@ -122,10 +124,10 @@ export default function VolunteerWelcomeScreen() {
             fontSize: 20,
             textAlign: 'left',
           }}>
-          Welcome , Shubhi Singh
+          Center Details
         </TextHandler>
         <View>
-          <Text style={styles.headingInput}>State/ Pranth</Text>
+          <Text style={styles.headingInput}>Pranth</Text>
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, state_pranth: true});
@@ -142,26 +144,6 @@ export default function VolunteerWelcomeScreen() {
             optionsArr={miscControllers.pranthArr}
             error={'Pranth'}
             value={volunteerInfo.state_pranth}
-          />
-        </View>
-        <View>
-          <Text style={styles.headingInput}>City/ Nagar</Text>
-          <DropDown
-            openAnchor={() => {
-              setMiscControllers({...miscControllers, city_nagar: true});
-            }}
-            closeAnchor={() => {
-              setMiscControllers({...miscControllers, city_nagar: false});
-            }}
-            isFocused={miscControllers.city_nagar}
-            isVisible={miscControllers.city_nagar}
-            title={''}
-            onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, city_nagar: item.value});
-            }}
-            optionsArr={miscControllers.cityArr}
-            error={'City'}
-            value={volunteerInfo.city_nagar}
           />
         </View>
         <View>
@@ -184,27 +166,38 @@ export default function VolunteerWelcomeScreen() {
             value={volunteerInfo.district_jila}
           />
         </View>
-
         <View>
-          <Text style={styles.headingInput}>Town/ Basti</Text>
+          <Text style={styles.headingInput}>Town/Basti</Text>
           <DropDown
             openAnchor={() => {
-              setMiscControllers({...miscControllers, town_basti: true});
+              setMiscControllers({...miscControllers, city_nagar: true});
             }}
             closeAnchor={() => {
-              setMiscControllers({...miscControllers, town_basti: false});
+              setMiscControllers({...miscControllers, city_nagar: false});
             }}
-            isFocused={miscControllers.town_basti}
-            isVisible={miscControllers.town_basti}
+            isFocused={miscControllers.city_nagar}
+            isVisible={miscControllers.city_nagar}
             title={''}
             onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, town_basti: item.value});
+              setvolunteerInfo({...volunteerInfo, city_nagar: item.value});
             }}
-            optionsArr={miscControllers.bastiArr}
-            error={'Jila'}
-            value={volunteerInfo.town_basti}
+            optionsArr={miscControllers.cityArr}
+            error={'City'}
+            value={volunteerInfo.city_nagar}
           />
         </View>
+
+        <Text style={styles.headingInput}>Address</Text>
+        <Input
+          placeholder="Enter here"
+          name="first_name"
+          onChangeText={text =>
+            setvolunteerInfo({...volunteerInfo, address: text})
+          }
+          value={volunteerInfo.address}
+          message={'error'}
+          containerStyle={{alignItems: 'center'}}
+        />
 
         <Button
           title={'Next'}
@@ -215,7 +208,7 @@ export default function VolunteerWelcomeScreen() {
             textAlign: 'center',
           }}
         />
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 }

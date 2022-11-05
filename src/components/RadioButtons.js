@@ -10,9 +10,11 @@ export const RadioButtons = ({data, onValueChange}) => {
     <FlatList
       contentContainerStyle={styles.container}
       data={data || []}
-      renderItem={({item}) => {
+      keyExtractor={() => Math.random().toFixed(5)}
+      renderItem={({item, index}) => {
         return (
           <RadioButton.Group
+            key={index}
             onValueChange={newValue => {
               onValueChange(item.value);
               setValue(item.value);
@@ -21,12 +23,13 @@ export const RadioButtons = ({data, onValueChange}) => {
             <View
               style={{
                 flexDirection: 'row',
-                alignItems: 'center', 
-                
-              
-                
+                alignItems: 'center',
               }}>
-              <RadioButton value={item.value} color={COLORS.blue}  uncheckedColor={COLORS.black} />
+              <RadioButton
+                value={item.value}
+                color={COLORS.blue}
+                uncheckedColor={COLORS.black}
+              />
 
               <TextHandler>{item.value}</TextHandler>
             </View>
@@ -45,7 +48,5 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
-    
-    
   },
 });

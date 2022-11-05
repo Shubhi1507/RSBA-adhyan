@@ -71,7 +71,7 @@ export function DropDown({
               <FlatList
                 data={optionsArr}
                 contentContainerStyle={{}}
-                keyExtractor={item => item.id}
+                keyExtractor={() => Math.random().toFixed(5)}
                 renderItem={({item, index}) => {
                   return (
                     <>

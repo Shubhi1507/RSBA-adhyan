@@ -34,6 +34,7 @@ export default function VolunteerTeacherScreen() {
     class_frequency: '',
     class_duration: '',
     place_used: '',
+    audience: '',
   });
   const [miscControllers, setmisControllers] = useState({
     CLASS_FREQUENCY: [
@@ -48,6 +49,32 @@ export default function VolunteerTeacherScreen() {
       {
         key: 'Weekly',
         value: 'Weekly',
+      },
+    ],
+    CENTRES: [
+      {
+        key: 'Abhibhavak',
+        value: 'Abhibhavak',
+      },
+      {
+        key: 'Current Student',
+        value: 'Current Student',
+      },
+      {
+        key: 'Past Student',
+        value: 'Past Student',
+      },
+      {
+        key: 'Teacher',
+        value: 'Teacher',
+      },
+      {
+        key: 'Kendra Sanchalak',
+        value: 'Kendra Sanchalak',
+      },
+      {
+        key: 'Prabuddha Jan',
+        value: 'Prabuddha Jan',
       },
     ],
   });
@@ -121,7 +148,7 @@ export default function VolunteerTeacherScreen() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            Survey
+            {STRINGS.LOGIN.AUDIENCE}
           </Text>
         </View>
       </View>
@@ -134,64 +161,22 @@ export default function VolunteerTeacherScreen() {
         <Header children={HeaderContent()} />
       </View>
       <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        <PageIndicator index={2} />
         <View>
-          <Text style={styles.headingInput}>Teacher Name</Text>
-          <Input
-            placeholder="Enter here"
-            name="first_name"
-            onChangeText={text =>
-              setteacherInfo({...teacherInfo, teacher_name: text})
-            }
-            value={teacherInfo.teacher_name}
-            message={'error'}
-            containerStyle={{alignItems: 'center'}}
-          />
-        </View>
-        <View>
-          <Text style={styles.headingInput}>Enter Phone Number</Text>
-          <Input
-            placeholder="Enter here"
-            name="phone_no"
-            onChangeText={text =>
-              setteacherInfo({...teacherInfo, phone_number: text})
-            }
-            type={'numeric'}
-            value={teacherInfo.phone_number}
-            message={'error'}
-            containerStyle={{alignItems: 'center'}}
-          />
-        </View>
-
-        <View>
-          <Text style={styles.headingInput}>
-            {STRINGS.LOGIN.CLASS_FREQUENCY}
-          </Text>
+          <TextHandler
+            style={{
+              color: 'black',
+              fontWeight: '600',
+              marginVertical: 20,
+              fontSize: 20,
+              textAlign: 'left',
+            }}>
+            {STRINGS.LOGIN.AUDIENCE}
+          </TextHandler>
           <RadioButtons
-            data={miscControllers.CLASS_FREQUENCY}
-            onValueChange={item =>
-              setteacherInfo({...teacherInfo, class_frequency: item})
-            }
-          />
-        </View>
-
-        <View>
-          <Text style={styles.headingInput}>{STRINGS.LOGIN.DURATION}</Text>
-          <RadioButtons
-            data={classControllers.DURATION}
-            onValueChange={item =>
-              setteacherInfo({...teacherInfo, class_duration: item})
-            }
-          />
-        </View>
-
-        <View>
-          <Text style={styles.headingInput}>{STRINGS.LOGIN.PLACE_USED}</Text>
-          <RadioButtons
-            data={placeContainer.PLACE_USED}
-            onValueChange={item =>
-              setteacherInfo({...teacherInfo, place_used: item})
-            }
+            data={miscControllers.CENTRES}
+            onValueChange={item => {
+              setteacherInfo({...teacherInfo, audience: item});
+            }}
           />
         </View>
 
