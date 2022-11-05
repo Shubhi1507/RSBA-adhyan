@@ -33,6 +33,7 @@ export default function VolunteerTeacherScreen() {
     phone_number: '',
     class_frequency: '',
     class_duration: '',
+    place_used: '',
   });
   const [miscControllers, setmisControllers] = useState({
     CLASS_FREQUENCY: [
@@ -47,6 +48,51 @@ export default function VolunteerTeacherScreen() {
       {
         key: 'Weekly',
         value: 'Weekly',
+      },
+    ],
+  });
+
+  const [classControllers, setclassControllers] = useState({
+    DURATION: [
+      {
+        key: '1 Hour',
+        value: ' 1 Hour ',
+      },
+      {
+        key: '1.5 Hours',
+        value: '1.5 Hours',
+      },
+      {
+        key: '2 Hours',
+        value: '2 Hours',
+      },
+
+      {
+        key: '2.5 Hours',
+        value: '2.5 Hours',
+      },
+      {
+        key: '3 Hours or more than 3 Hours',
+        value: '3 Hours or more than 3 Hours',
+      },
+    ],
+  });
+
+  const [placeContainer, setplaceContainer] = useState({
+    PLACE_USED: [
+      {key: 'Smalll Room', value: 'Small Room '},
+      {
+        key: ' Hall',
+        value: 'Hall',
+      },
+      {
+        key: 'Study Room',
+        value: 'Study Room',
+      },
+
+      {
+        key: 'Ground or etc',
+        value: ' Ground or etc',
       },
     ],
   });
@@ -129,21 +175,23 @@ export default function VolunteerTeacherScreen() {
           />
         </View>
 
-        <View style={styles.textBox}>
-          <Text style={styles.headingInput}>
-            {STRINGS.SIGNUP.DURATION_OF_CLASS}
-          </Text>
-
-          <Input
-            placeholder="Select"
-            name="class_duration"
-            onChangeText={text =>
-              setteacherInfo({...teacherInfo, class_duration: text})
+        <View>
+          <Text style={styles.headingInput}>{STRINGS.LOGIN.DURATION}</Text>
+          <RadioButtons
+            data={classControllers.DURATION}
+            onValueChange={item =>
+              setteacherInfo({...teacherInfo, class_duration: item})
             }
-            type={'numeric'}
-            value={teacherInfo.class_duration}
-            message={'error'}
-            containerStyle={{alignItems: 'center'}}
+          />
+        </View>
+
+        <View>
+          <Text style={styles.headingInput}>{STRINGS.LOGIN.PLACE_USED}</Text>
+          <RadioButtons
+            data={placeContainer.PLACE_USED}
+            onValueChange={item =>
+              setteacherInfo({...teacherInfo, place_used: item})
+            }
           />
         </View>
 
@@ -177,8 +225,8 @@ const styles = StyleSheet.create({
 
   headingInput: {
     color: 'black',
-    fontWeight: '500',
-    marginTop: 8,
+    fontWeight: '600',
+    marginTop: 16,
     fontSize: 16,
     margin: 6,
   },

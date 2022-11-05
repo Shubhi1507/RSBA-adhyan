@@ -63,18 +63,19 @@ export const PageIndicator = ({index}) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          {index == 1 || index == 2 && (
-            <TouchableOpacity
-              onPress={() => goBack()}
-              style={{
-                minHeight: 10,
-                minWidth: 10,
-                borderRadius: 5,
-                padding: 5,
-                backgroundColor: COLORS.orange,
-              }}
-            />
-          )}
+          {index == 1 ||
+            (index == 2 && (
+              <TouchableOpacity
+                onPress={() => goBack()}
+                style={{
+                  minHeight: 10,
+                  minWidth: 10,
+                  borderRadius: 5,
+                  padding: 5,
+                  backgroundColor: COLORS.orange,
+                }}
+              />
+            ))}
         </View>
       </View>
       <View
@@ -95,18 +96,52 @@ export const PageIndicator = ({index}) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          { index == 3 && (
-            <TouchableOpacity
-              onPress={() => goBack()}
-              style={{
-                minHeight: 10,
-                minWidth: 10,
-                borderRadius: 5,
-                padding: 5,
-                backgroundColor: COLORS.orange,
-              }}
-            />
-          )}
+          {index == 3 ||
+            (index == 4 && (
+              <TouchableOpacity
+                onPress={() => goBack()}
+                style={{
+                  minHeight: 10,
+                  minWidth: 10,
+                  borderRadius: 5,
+                  padding: 5,
+                  backgroundColor: COLORS.orange,
+                }}
+              />
+            ))}
+        </View>
+
+        <View
+          style={{
+            flex: 1,
+            height: 80,
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+          <View
+            style={{
+              minHeight: 20,
+              minWidth: 20,
+              borderRadius: 10,
+              borderColor: COLORS.orange,
+              borderWidth: 2,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            {index == 4 && (
+              <TouchableOpacity
+                onPress={() => goBack()}
+                style={{
+                  minHeight: 10,
+                  minWidth: 10,
+                  borderRadius: 5,
+                  padding: 5,
+                  backgroundColor: COLORS.orange,
+                }}
+              />
+            )}
+          </View>
         </View>
       </View>
     </View>

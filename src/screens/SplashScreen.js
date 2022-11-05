@@ -44,7 +44,16 @@ export default function SplashScreen() {
             marginTop: 20,
             textAlign: 'center',
           }}>
-          Rashtriya Sewa Bharati Adhyan Survey
+          Rashtriya Sewa Bharati
+        </Text>
+        <Text style={{
+            color: COLORS.fontColor,
+            fontWeight: '500',
+            fontSize: 22,
+            marginTop: 3,
+            textAlign: 'center',
+          }}>
+          Adhyan Survey
         </Text>
       </View>
 
