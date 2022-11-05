@@ -25,6 +25,21 @@ const Login = async data => {
   }
 };
 
+const getListofStates = async () => {
+  try {
+    const URL = BASE_URL + 'states';
+    const response = await fetch(URL, {
+      method: 'GET',
+      headers: headers,
+    });
+    let respJson = await response.json();
+    return respJson;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 const getListofDistricts = async () => {
   try {
     const URL = BASE_URL + 'districts';
@@ -56,4 +71,4 @@ const getListofColonies = async district_id => {
   }
 };
 
-export {Login, getListofDistricts, getListofColonies};
+export {Login, getListofDistricts, getListofColonies, getListofStates};

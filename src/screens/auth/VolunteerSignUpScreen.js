@@ -28,7 +28,7 @@ import LoaderIndicator from '../../components/Loader';
 import FAIcons from 'react-native-vector-icons/FontAwesome';
 
 export default function VolunteerSignUpScreen() {
-  const store = useSelector(state => state.BastiListReducer);
+  const store = useSelector(state => state.RegionReducer);
   const dispatch = useDispatch();
   const [volunteerInfo, setvolunteerInfo] = useState({
     first_name: '',

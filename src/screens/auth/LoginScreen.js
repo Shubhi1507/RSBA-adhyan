@@ -61,7 +61,6 @@ export default function LoginScreen() {
   };
 
   const OTP = async () => {
-    console.log(token);
     let data = {mobile: phone};
     // let response = await Login(data);
     // console.log(response);

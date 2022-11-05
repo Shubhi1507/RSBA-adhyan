@@ -182,7 +182,7 @@ export default function VolunteerTeacherScreen() {
 
         <Button
           title={'Next'}
-          onPress={() => navigate(ROUTES.AUTH.STUDENTENROLLMENTSCREEN)}
+          onPress={() => navigate(ROUTES.AUTH.SURVEYSCREEN)}
           ButtonContainerStyle={{
             marginVertical: 17,
             alignItems: 'center',

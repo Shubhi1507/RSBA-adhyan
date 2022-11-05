@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RadioButton, Text} from 'react-native-paper';
 import {COLORS} from '../utils/colors';
 import {TextHandler} from './TextHandler';
 
-export const RadioButtons = ({data, onValueChange}) => {
+export const RadioButtons = ({data, onValueChange, radioStyle}) => {
   const [value, setValue] = React.useState('');
   return (
     <FlatList
@@ -20,11 +20,18 @@ export const RadioButtons = ({data, onValueChange}) => {
               setValue(item.value);
             }}
             value={value}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
+            <TouchableOpacity
+              onPress={() => {
+                onValueChange(item.value);
+                setValue(item.value);
+              }}
+              style={[
+                {
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                },
+                radioStyle || {},
+              ]}>
               <RadioButton
                 value={item.value}
                 color={COLORS.blue}
@@ -32,7 +39,7 @@ export const RadioButtons = ({data, onValueChange}) => {
               />
 
               <TextHandler>{item.value}</TextHandler>
-            </View>
+            </TouchableOpacity>
           </RadioButton.Group>
         );
       }}
