@@ -1,0 +1,72 @@
+[
+  {
+    "key": 1,
+    "question": " Current Student strength",
+    "type": "a",
+    "answer": ""
+  },
+  {
+    "key": 2,
+    "question": " Class group of the students",
+    "type": "b",
+    "options": [
+      {"key": 1, "value": "Play Group"},
+      {"key": 2, "value": "Primary"},
+      {"key": 2, "value": "Middle"},
+      {"key": 2, "value": "High School"}
+    ]
+  },
+  {
+    "key": 3,
+    "question": "Out of current strength how many students come regularly to attend the class",
+    "type": "a",
+    "options": [
+      {"key": 1, "value": "20-25%"},
+      {"key": 2, "value": "40-50%"},
+      {"key": 2, "value": "65-75%"},
+      {"key": 2, "value": "More than 75%"}
+    ]
+  },
+  {
+    "key": 4,
+    "question": "Do they come alone or come together  with their siblings and neighbours ?",
+    "type": "b",
+    "options": [
+      {"key": 1, "value": "Alone"},
+      {"key": 2, "value": "Sometimes"},
+      {"key": 3, "value": "Come in Group"}
+    ]
+  },
+  {
+    "key": 5,
+    "question": "Interest of the students towards kendra?",
+    "type": "a",
+    "options": [
+      {"key": 1, "value": " Need  to remind"},
+      {"key": 2, "value": "Parents force them"},
+      {"key": 3, "value": "Wait for center to start"}
+    ]
+  },
+  {
+    "key": 6,
+    "question": " Since how long these childrean are coming  to the Prakalp  ? ",
+    "type": "b",
+    "options": [
+      {"key": 1, "value": "6 Months"},
+      {"key": 2, "value": " 6-24 months"},
+      {"key": 3, "value": "2 Years & above"}
+    ]
+  },
+
+  {
+    "key": 7,
+    "question": " How they come to Prakalp ? ",
+    "type": "a",
+    "options": [
+      {"key": 1, "value": "Come by own"},
+      {"key": 2, "value": "- Parents come to pick and drop  "},
+      {"key": 3, "value": "  Students come in group"},
+      {"key": 3, "value": "  Our centre coordinator assist them "}
+    ]
+  }
+]
