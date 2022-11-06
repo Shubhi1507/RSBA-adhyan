@@ -13,6 +13,14 @@ const authPageDataReducer = (state = initialState, action) => {
         page: action.payload.page,
         authData: action.payload.user,
       };
+
+    case ACTION_CONSTANTS.UPDATE_SURVEY_FORM:
+      return {
+        ...state,
+        page: action.payload.page,
+        authData: action.payload,
+      };
+
     case ACTION_CONSTANTS.RESET_PAGE_AND_AUTH_DATA:
       return {state: initialState};
 

@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {screenWidth} from '../../libs';
 import {
@@ -17,7 +10,6 @@ import {
 } from '../../components/index';
 import ADIcons from 'react-native-vector-icons/AntDesign';
 import {COLORS} from '../../utils/colors';
-import {TextInput} from 'react-native-gesture-handler';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {useState} from 'react';
 import {ROUTES} from '../../navigation/RouteConstants';
@@ -174,7 +166,7 @@ export default function CenterDetailsOneScreen() {
             fontSize: 20,
             textAlign: 'left',
           }}>
-          Center Detailsxx
+          Center Details
         </TextHandler>
         <View>
           <Text style={styles.headingInput}>Pranth</Text>
@@ -258,7 +250,13 @@ export default function CenterDetailsOneScreen() {
 
         <Button
           title={'Next'}
-          onPress={() => navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN)}
+          onPress={() => {
+            dispatch({
+              type: ACTION_CONSTANTS.UPDATE_SURVEY_FORM,
+              payload: volunteerInfo,
+            });
+            navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN);
+          }}
           ButtonContainerStyle={{
             marginVertical: 20,
             alignItems: 'center',
