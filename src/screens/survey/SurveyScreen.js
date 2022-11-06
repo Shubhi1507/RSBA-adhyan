@@ -21,9 +21,14 @@ import {
 import {screenWidth, widthPercentageToDP} from '../../libs';
 import ADIcons from 'react-native-vector-icons/AntDesign';
 import commonQuestions from '../../tmp/common.json';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import {useDispatch} from 'react-redux';
+import {goBack} from '../../navigation/NavigationService';
 
 export default function SurveyScreen() {
   let [survey, updateSurvey] = useState(commonQuestions);
+  const dispatch = useDispatch();
+
   const HeaderContent = () => {
     return (
       <View
@@ -107,8 +112,16 @@ export default function SurveyScreen() {
                     placeholder="Enter answer here"
                     name="any"
                     onChangeText={text => {
-                      let updatedSurvey = {...survey, item: {answer: text}};
-                      console.log('-->', text, updatedSurvey);
+                      let updatedItem = {...item, answer: text};
+
+                      var new_obj = Object.assign(item, updatedItem);
+                      console.log('2-->', new_obj);
+                      let updatedSurvey = [
+                        ...survey,
+                        (survey[index] = new_obj),
+                      ];
+                      console.log('2-->', updatedSurvey);
+
                       // updateSurvey({...survey,  })
                     }}
                     value={item.answer}
