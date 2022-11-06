@@ -40,9 +40,9 @@ const getListofStates = async () => {
   }
 };
 
-const getListofDistricts = async () => {
+const getListofDistricts = async state_id => {
   try {
-    const URL = BASE_URL + 'districts';
+    const URL = BASE_URL + 'districts/' + state_id;
     const response = await fetch(URL, {
       method: 'GET',
       headers: headers,

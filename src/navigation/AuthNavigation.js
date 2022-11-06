@@ -5,8 +5,8 @@ import {ROUTES} from './RouteConstants';
 import SplashScreen from '../screens/SplashScreen';
 import OTPScreen from '../screens/auth/OTPScreen';
 import VolunteerSignUpScreen from '../screens/auth/VolunteerSignUpScreen';
-import VolunteerLoginScreen from '../screens/auth/VolunteerWelcomeScreen';
-import VolunteerWelcomeScreen from '../screens/auth/VolunteerWelcomeScreen';
+import VolunteerLoginScreen from '../screens/auth/CenterDetailsOneScreen';
+import CenterDetailsOneScreen from '../screens/auth/CenterDetailsOneScreen';
 import VolunteerParentalOrgScreen from '../screens/auth/VolunteerParentalOrgScreen';
 import VolunteerTeacherScreen from '../screens/auth/VolunteerTeacherScreen';
 import StudentEnrollmentScreen from '../screens/auth/StudentEnrollmentScreen';
@@ -16,7 +16,7 @@ const AuthStack = createStackNavigator();
 
 export function Auth() {
   return (
-    <AuthStack.Navigator initialRouteName={ROUTES.AUTH.SPLASHSCREEN}>
+    <AuthStack.Navigator initialRouteName={ROUTES.AUTH.VOLUNTEERWELCOMESCREEN}>
       <AuthStack.Screen
         name={ROUTES.AUTH.SPLASHSCREEN}
         component={SplashScreen}
@@ -41,7 +41,7 @@ export function Auth() {
 
       <AuthStack.Screen
         name={ROUTES.AUTH.VOLUNTEERWELCOMESCREEN}
-        component={VolunteerWelcomeScreen}
+        component={CenterDetailsOneScreen}
         options={{headerShown: false}}
       />
 

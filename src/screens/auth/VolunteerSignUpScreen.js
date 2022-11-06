@@ -21,6 +21,7 @@ import {useEffect} from 'react';
 import {
   getListofColonies,
   getListofDistricts,
+  getListofStates,
 } from '../../networking/API.controller';
 import {useDispatch, useSelector} from 'react-redux';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
@@ -49,10 +50,35 @@ export default function VolunteerSignUpScreen() {
 
   useEffect(() => {
     getListOfDistricts();
+    getListofStatesFunction();
   }, []);
 
   useEffect(() => {}, [store.bastiList]);
 
+  const getListofStatesFunction = async () => {
+    setDataLoading(true);
+    const data = await getListofStates();
+    if (data && data.data && Array.isArray(data.data)) {
+      let temp = data.data;
+      let emptyStates = [];
+      temp.forEach(el => {
+        emptyStates.push({key: el.id, value: el.name});
+      });
+      console.log('emptyStates', emptyStates);
+      setMiscControllers({
+        ...miscControllers,
+        pranthArr: emptyStates,
+        pranth: false,
+      });
+    } else {
+      setMiscControllers({
+        ...miscControllers,
+        jilArr: [],
+        jila: false,
+      });
+    }
+    setDataLoading(false);
+  };
   const getListOfDistricts = async () => {
     setDataLoading(true);
     const data = await getListofDistricts();
@@ -62,6 +88,8 @@ export default function VolunteerSignUpScreen() {
       temp.forEach(el => {
         emptyJila.push({key: el.id, value: el.name});
       });
+      console.log('emptyJila', emptyJila);
+
       setMiscControllers({
         ...miscControllers,
         jilArr: emptyJila,

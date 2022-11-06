@@ -23,61 +23,110 @@ import {useState} from 'react';
 import {ROUTES} from '../../navigation/RouteConstants';
 import FAIcons from 'react-native-vector-icons/FontAwesome';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  getListofColonies,
+  getListofDistricts,
+  getListofStates,
+} from '../../networking/API.controller';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import LoaderIndicator from '../../components/Loader';
 
-export default function VolunteerWelcomeScreen() {
+export default function CenterDetailsOneScreen() {
+  const store = useSelector(state => state.RegionReducer);
+  const dispatch = useDispatch();
+  const [dataLoading, setDataLoading] = useState(false);
+
   const [volunteerInfo, setvolunteerInfo] = useState({
     state_pranth: '',
-    city_nagar: '',
     district_jila: '',
     town_basti: '',
     address: '',
   });
   const [miscControllers, setMiscControllers] = useState({
     state_pranth: false,
-    city_nagar: false,
     district_jila: false,
     town_basti: false,
-    pranthArr: [
-      {
-        key: 'pranth1',
-        value: 'pranth1',
-      },
-      {
-        key: 'pranth2',
-        value: 'pranth2',
-      },
-    ],
-    jilArr: [
-      {
-        key: 'jila1',
-        value: 'jila1',
-      },
-      {
-        key: 'jila2',
-        value: 'jila2',
-      },
-    ],
-    bastiArr: [
-      {
-        key: 'basti1',
-        value: 'basti1',
-      },
-      {
-        key: 'basti2',
-        value: 'basti2',
-      },
-    ],
-    cityArr: [
-      {
-        key: 'city1',
-        value: 'city1',
-      },
-      {
-        key: 'city2',
-        value: 'city2',
-      },
-    ],
+    pranthArr: [],
+    jilArr: [],
+    bastiArr: [],
+    cityArr: [],
   });
+
+  useEffect(() => {
+    getListofStatesFunction();
+  }, []);
+
+  useEffect(() => {}, [store.bastiList, store.stateList, store.districtList]);
+
+  const getListofStatesFunction = async () => {
+    setDataLoading(true);
+    const data = await getListofStates();
+    if (data && data.data && Array.isArray(data.data)) {
+      let temp = data.data;
+      let states = [];
+      temp.forEach(el => {
+        states.push({key: el.id, value: el.name});
+      });
+      console.log('states>', states);
+      dispatch({
+        type: ACTION_CONSTANTS.UPDATE_STATE_LIST,
+        payload: states,
+      });
+    } else {
+      dispatch({type: ACTION_CONSTANTS.CLEAR_STATE_LIST});
+    }
+    setDataLoading(false);
+  };
+
+  const getListOfDistrictsfunc = async id => {
+    setDataLoading(true);
+    const data = await getListofDistricts(id);
+    if (data && data.data && Array.isArray(data.data)) {
+      let temp = data.data;
+      let districts = [];
+      temp.forEach(el => {
+        districts.push({key: el.id, value: el.name});
+      });
+      console.log('districts', districts);
+      dispatch({
+        type: ACTION_CONSTANTS.UPDATE_DISTRICTS_LIST,
+        payload: districts,
+      });
+    } else {
+      dispatch({type: ACTION_CONSTANTS.CLEAR_DISTRICTS_LIST});
+    }
+    setDataLoading(false);
+  };
+
+  const getColoniesBasedUponDistrictID = async id => {
+    setDataLoading(true);
+    try {
+      const data = await getListofColonies(id);
+
+      if (data && data.data && Array.isArray(data.data)) {
+        let temp = data.data;
+        let towns = [];
+        temp.forEach(el => {
+          towns.push({key: el.id, value: el.name});
+        });
+        console.log('towns', temp);
+        dispatch({
+          type: ACTION_CONSTANTS.UPDATE_BASTI_LIST,
+          payload: towns,
+        });
+      } else {
+        dispatch({
+          type: ACTION_CONSTANTS.CLEAR_BASTI_LIST,
+        });
+      }
+      setDataLoading(false);
+    } catch (error) {
+      console.log(error);
+      setDataLoading(false);
+    }
+  };
 
   const HeaderContent = () => {
     return (
@@ -112,6 +161,7 @@ export default function VolunteerWelcomeScreen() {
 
   return (
     <View style={styles.container}>
+      <LoaderIndicator loading={dataLoading} />
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
@@ -124,10 +174,11 @@ export default function VolunteerWelcomeScreen() {
             fontSize: 20,
             textAlign: 'left',
           }}>
-          Center Details
+          Center Detailsxx
         </TextHandler>
         <View>
           <Text style={styles.headingInput}>Pranth</Text>
+          {/* states */}
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, state_pranth: true});
@@ -140,8 +191,9 @@ export default function VolunteerWelcomeScreen() {
             title={''}
             onSelect={item => {
               setvolunteerInfo({...volunteerInfo, state_pranth: item.value});
+              getListOfDistrictsfunc(item.key);
             }}
-            optionsArr={miscControllers.pranthArr}
+            optionsArr={store?.stateList || []}
             error={'Pranth'}
             value={volunteerInfo.state_pranth}
           />
@@ -159,9 +211,14 @@ export default function VolunteerWelcomeScreen() {
             isVisible={miscControllers.district_jila}
             title={''}
             onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, district_jila: item.value});
+              setvolunteerInfo({
+                ...volunteerInfo,
+                district_jila: item.value,
+                town_basti: '',
+              });
+              getColoniesBasedUponDistrictID(item.key);
             }}
-            optionsArr={miscControllers.jilArr}
+            optionsArr={store?.districtList || []}
             error={'Jila'}
             value={volunteerInfo.district_jila}
           />
@@ -170,20 +227,20 @@ export default function VolunteerWelcomeScreen() {
           <Text style={styles.headingInput}>Town/Basti</Text>
           <DropDown
             openAnchor={() => {
-              setMiscControllers({...miscControllers, city_nagar: true});
+              setMiscControllers({...miscControllers, town_basti: true});
             }}
             closeAnchor={() => {
-              setMiscControllers({...miscControllers, city_nagar: false});
+              setMiscControllers({...miscControllers, town_basti: false});
             }}
-            isFocused={miscControllers.city_nagar}
-            isVisible={miscControllers.city_nagar}
+            isFocused={miscControllers.town_basti}
+            isVisible={miscControllers.town_basti}
             title={''}
             onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, city_nagar: item.value});
+              setvolunteerInfo({...volunteerInfo, town_basti: item.value});
             }}
-            optionsArr={miscControllers.cityArr}
+            optionsArr={store?.bastiList || []}
             error={'City'}
-            value={volunteerInfo.city_nagar}
+            value={volunteerInfo.town_basti}
           />
         </View>
 

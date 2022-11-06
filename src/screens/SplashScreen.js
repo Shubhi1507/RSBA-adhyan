@@ -20,6 +20,10 @@ export default function SplashScreen() {
   useEffect(() => {
     connecttoFBD();
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
+    dispatch({type: ACTION_CONSTANTS.CLEAR_DISTRICTS_LIST});
+    dispatch({type: ACTION_CONSTANTS.CLEAR_STATE_LIST});
+
+
   }, []);
 
   return (
