@@ -9,8 +9,8 @@ const Login = async data => {
     const URL = BASE_URL + 'volunteer';
     const formdata = new FormData();
     formdata.append('mobile', data.mobile);
-    formdata.append('state_id', '1');
-    formdata.append('name', '');
+    formdata.append('state_id', data.state_id || '1');
+    formdata.append('name', data.name || '');
 
     const response = await fetch(URL, {
       method: 'POST',

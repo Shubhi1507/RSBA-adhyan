@@ -9,7 +9,13 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import React, {useState} from 'react';
-import {Header, TextHandler, Button, DropDown} from '../../components/index';
+import {
+  Header,
+  TextHandler,
+  Button,
+  DropDown,
+  CustomSnackBar,
+} from '../../components/index';
 import {screenWidth} from '../../libs';
 import ADIcons from 'react-native-vector-icons/AntDesign';
 import {COLORS} from '../../utils/colors';
@@ -18,11 +24,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {useEffect} from 'react';
-import {
-  getListofColonies,
-  getListofDistricts,
-  getListofStates,
-} from '../../networking/API.controller';
+import {getListofStates, Login} from '../../networking/API.controller';
 import {useDispatch, useSelector} from 'react-redux';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import LoaderIndicator from '../../components/Loader';
@@ -31,25 +33,19 @@ import FAIcons from 'react-native-vector-icons/FontAwesome';
 export default function VolunteerSignUpScreen() {
   const store = useSelector(state => state.RegionReducer);
   const dispatch = useDispatch();
+  const [error, setError] = useState({visible: false, message: ''});
+
   const [volunteerInfo, setvolunteerInfo] = useState({
-    first_name: '',
-    pranth: '',
-    jila: '',
-    basti: '',
+    name: '',
+    state_pranth: '',
     phone: '',
   });
   const [dataLoading, setDataLoading] = useState(false);
   const [miscControllers, setMiscControllers] = useState({
-    pranth: false,
-    jila: false,
-    basti: false,
-    pranthArr: [],
-    bastiArr: [],
-    jilArr: [],
+    state_pranth: false,
   });
 
   useEffect(() => {
-    getListOfDistricts();
     getListofStatesFunction();
   }, []);
 
@@ -60,77 +56,19 @@ export default function VolunteerSignUpScreen() {
     const data = await getListofStates();
     if (data && data.data && Array.isArray(data.data)) {
       let temp = data.data;
-      let emptyStates = [];
+      let states = [];
       temp.forEach(el => {
-        emptyStates.push({key: el.id, value: el.name});
+        states.push({key: el.id, value: el.name});
       });
-      console.log('emptyStates', emptyStates);
-      setMiscControllers({
-        ...miscControllers,
-        pranthArr: emptyStates,
-        pranth: false,
+      console.log('states>', states);
+      dispatch({
+        type: ACTION_CONSTANTS.UPDATE_STATE_LIST,
+        payload: states,
       });
     } else {
-      setMiscControllers({
-        ...miscControllers,
-        jilArr: [],
-        jila: false,
-      });
+      dispatch({type: ACTION_CONSTANTS.CLEAR_STATE_LIST});
     }
     setDataLoading(false);
-  };
-  const getListOfDistricts = async () => {
-    setDataLoading(true);
-    const data = await getListofDistricts();
-    if (data && data.data && Array.isArray(data.data)) {
-      let temp = data.data;
-      let emptyJila = [];
-      temp.forEach(el => {
-        emptyJila.push({key: el.id, value: el.name});
-      });
-      console.log('emptyJila', emptyJila);
-
-      setMiscControllers({
-        ...miscControllers,
-        jilArr: emptyJila,
-        jila: false,
-      });
-    } else {
-      setMiscControllers({
-        ...miscControllers,
-        jilArr: [],
-        jila: false,
-      });
-    }
-    setDataLoading(false);
-  };
-
-  const getColoniesBasedUponDistrictID = async id => {
-    try {
-      const data = await getListofColonies(id);
-
-      if (data && data.data && Array.isArray(data.data)) {
-        console.log('data basti', data);
-        let temp = data.data;
-        let emptyNagar = [];
-        temp.forEach(el => {
-          emptyNagar.push({key: el.id, value: el.name});
-        });
-        console.log('temp', temp);
-        dispatch({
-          type: ACTION_CONSTANTS.UPDATE_BASTI_LIST,
-          payload: emptyNagar,
-        });
-      } else {
-        dispatch({
-          type: ACTION_CONSTANTS.CLEAR_BASTI_LIST,
-        });
-      }
-      setDataLoading(false);
-    } catch (error) {
-      console.log(error);
-      setDataLoading(false);
-    }
   };
 
   const HeaderContent = () => {
@@ -164,29 +102,79 @@ export default function VolunteerSignUpScreen() {
     );
   };
 
+  const signUp = async () => {
+    const {name, phone, state_pranth} = volunteerInfo;
+    if (!name) {
+      return setError({
+        visible: true,
+        message: 'Please enter full name',
+      });
+    }
+    if (!state_pranth) {
+      return setError({
+        visible: true,
+        message: 'Please select a State/ Pranth',
+      });
+    }
+    if (!phone || phone.length < 10) {
+      return setError({
+        visible: true,
+        message: 'Please enter mobile number',
+      });
+    }
+    let data = {mobile: phone, state_id: '1', name};
+    console.log('Login', data);
+
+    setDataLoading(true);
+    let response = await Login(data);
+    console.log('Login', response);
+    let payload = {
+      access_token: response.access_token,
+      expires_in: response.expires_in,
+      startedAt: new Date().getTime(),
+    };
+    dispatch({
+      type: ACTION_CONSTANTS.LOGIN_DATA_UPDATE,
+      payload: payload,
+    });
+    setDataLoading(false);
+    navigate(ROUTES.AUTH.OTPSCREEN, data);
+    // navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN);
+  };
+
   return (
     <View style={styles.container}>
       <LoaderIndicator loading={dataLoading} />
-
+      <CustomSnackBar
+        visible={error.visible}
+        message={error.message}
+        onDismissSnackBar={() =>
+          setError({...error, message: '', visible: false})
+        }
+      />
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
 
-      <ScrollView
+      <KeyboardAwareScrollView
         style={{
           flex: 1,
           paddingHorizontal: 20,
-          marginTop: 20,
+        }}
+        contentContainerStyle={{
+          marginTop: 50,
+          // flexGrow:1,
+          justifyContent: 'center',
         }}>
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Full Name</Text>
           <Input
             placeholder="First Name"
-            name="first_name"
+            name="name"
             onChangeText={text =>
-              setvolunteerInfo({...volunteerInfo, first_name: text})
+              setvolunteerInfo({...volunteerInfo, name: text})
             }
-            value={volunteerInfo.first_name}
+            value={volunteerInfo.name}
             message={'error'}
             containerStyle={{alignItems: 'center'}}
           />
@@ -195,72 +183,22 @@ export default function VolunteerSignUpScreen() {
           <Text style={styles.headingInput}>Pranth</Text>
           <DropDown
             openAnchor={() => {
-              setMiscControllers({...miscControllers, pranth: true});
+              setMiscControllers({...miscControllers, state_pranth: true});
             }}
             closeAnchor={() => {
-              setMiscControllers({...miscControllers, pranth: false});
+              setMiscControllers({...miscControllers, state_pranth: false});
             }}
-            isFocused={miscControllers.pranth}
-            isVisible={miscControllers.pranth}
-            title={'Pranth'}
+            isFocused={miscControllers.state_pranth}
+            isVisible={miscControllers.state_pranth}
+            title={''}
             onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, pranth: item.value});
-              setMiscControllers({...miscControllers, pranth: false});
+              setvolunteerInfo({...volunteerInfo, state_pranth: item.value});
             }}
-            optionsArr={miscControllers.pranthArr}
+            optionsArr={store?.stateList || []}
             error={'Pranth'}
-            value={volunteerInfo.pranth}
+            value={volunteerInfo.state_pranth}
           />
         </View>
-        {/* <View style={styles.textBox}>
-          <Text style={styles.headingInput}>Jilla</Text>
-          <DropDown
-            openAnchor={() => {
-              setMiscControllers({...miscControllers, jila: true});
-            }}
-            closeAnchor={() => {
-              setMiscControllers({...miscControllers, jila: false});
-            }}
-            isFocused={miscControllers.jila}
-            isVisible={miscControllers.jila}
-            title={'Jila'}
-            onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, jila: item.value, basti: ''});
-              setMiscControllers({...miscControllers, jila: false});
-              dispatch({
-                type: ACTION_CONSTANTS.CLEAR_BASTI_LIST,
-              });
-              setDataLoading(true);
-              getColoniesBasedUponDistrictID(item.key);
-            }}
-            optionsArr={miscControllers.jilArr}
-            error={'Pranth'}
-            value={volunteerInfo.jila}
-          />
-        </View> */}
-
-        {/* <View style={styles.textBox}>
-          <Text style={styles.headingInput}>Nagar/Basti</Text>
-          <DropDown
-            openAnchor={() => {
-              setMiscControllers({...miscControllers, basti: true});
-            }}
-            closeAnchor={() => {
-              setMiscControllers({...miscControllers, basti: false});
-            }}
-            isFocused={miscControllers.basti}
-            isVisible={miscControllers.basti}
-            title={'Basti'}
-            onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, basti: item.value});
-              setMiscControllers({...miscControllers, basti: false});
-            }}
-            optionsArr={store.bastiList}
-            error={'Basti'}
-            value={volunteerInfo.basti}
-          />
-        </View> */}
-
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Phone Number</Text>
           <Input
@@ -277,11 +215,11 @@ export default function VolunteerSignUpScreen() {
           />
         </View>
         <Button
-          title={'Done'}
-          onPress={() => navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN)}
+          title={'Submit'}
+          onPress={signUp}
           ButtonContainerStyle={{marginVertical: 20}}
         />
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 }

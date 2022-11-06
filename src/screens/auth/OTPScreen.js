@@ -17,7 +17,7 @@ import {ROUTES} from '../../navigation/RouteConstants';
 import {VerifyOTP} from '../../networking/API.controller';
 import {useDispatch, useSelector} from 'react-redux';
 import LoaderIndicator from '../../components/Loader';
-import { ACTION_CONSTANTS } from '../../redux/actions/actions';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 
 export default function OTPScreen({route, navigation}) {
   const store = useSelector(state => state.authReducer);
@@ -26,6 +26,7 @@ export default function OTPScreen({route, navigation}) {
   const [code, setCode] = useState('');
   const [error, setError] = useState({visible: false, message: ''});
   const [dataLoading, setDataLoading] = useState(false);
+  const {mobile} = route.params;
 
   React.useEffect(() => {
     const timer =
@@ -39,7 +40,6 @@ export default function OTPScreen({route, navigation}) {
     }
     setDataLoading(true);
 
-    const {mobile} = route.params;
     console.log('mobile', mobile);
     let data = {mobile, otp: code};
 
@@ -56,7 +56,7 @@ export default function OTPScreen({route, navigation}) {
       type: ACTION_CONSTANTS.LOGIN_SUCCESSFUL,
       payload: newState,
     });
-    navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN);
+    navigate(ROUTES.AUTH.DASHBOARDSCREEN);
   };
   const HeaderContent = () => {
     return (
@@ -120,14 +120,14 @@ export default function OTPScreen({route, navigation}) {
           </TextHandler>
           <View style={{flexDirection: 'row'}}>
             <TextHandler style={{fontWeight: '300', paddingVertical: 10}}>
-              {STRINGS.LOGIN.OTP_SENT}
+              {STRINGS.LOGIN.OTP_SENT} :
             </TextHandler>
             <TextHandler
               style={{
                 fontWeight: '600',
                 paddingVertical: 10,
               }}>
-              +919876543210
+              +91{mobile}
             </TextHandler>
           </View>
 

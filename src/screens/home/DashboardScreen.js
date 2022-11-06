@@ -3,19 +3,24 @@ import React from 'react';
 import LoaderIndicator from '../../components/Loader';
 import {Button, CustomSnackBar, Header, TextHandler} from '../../components';
 import {COLORS} from '../../utils/colors';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
 import ADIcons from 'react-native-vector-icons/AntDesign';
 import FAIcons from 'react-native-vector-icons/FontAwesome';
 import {screenWidth} from '../../libs';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ROUTES} from '../../navigation/RouteConstants';
-import { ACTION_CONSTANTS } from '../../redux/actions/actions';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import {useEffect} from 'react';
 
 export default function DashboardScreen() {
   const [error, setError] = useState({visible: false, message: ''});
   const dispatch = useDispatch();
-
+  const store = useSelector(state => state.authReducer);
+  const name = store?.userData?.userData?.data[0]?.name;
+  useEffect(() => {
+    console.log('store', store);
+  }, []);
   const HeaderContent = () => {
     return (
       <View
@@ -53,6 +58,10 @@ export default function DashboardScreen() {
         <Header children={HeaderContent()} />
       </View>
       <View style={{flex: 1, justifyContent: 'center', paddingHorizontal: 20}}>
+        <TextHandler
+          style={{fontWeight: '500', fontSize: 18, paddingBottom: 50}}>
+          Welcome back {name && `, ${name}`}
+        </TextHandler>
         <View
           style={{
             flex: 0.22,
