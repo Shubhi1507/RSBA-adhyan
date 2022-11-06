@@ -27,7 +27,7 @@ import DatePicker from 'react-native-datepicker';
 import {ROUTES} from '../../navigation/RouteConstants';
 import FAIcons from 'react-native-vector-icons/FontAwesome';
 
-export default function VolunteerTeacherScreen() {
+export default function SelectAudienceScreen() {
   const [teacherInfo, setteacherInfo] = useState({
     teacher_name: '',
     phone_number: '',
@@ -53,16 +53,24 @@ export default function VolunteerTeacherScreen() {
     ],
     CENTRES: [
       {
-        key: 'Abhibhavak',
-        value: 'Abhibhavak',
+        key: 'Centre',
+        value: 'Centre',
       },
       {
-        key: 'Current Student',
-        value: 'Current Student',
+        key: `Student's Parents (Past Students)`,
+        value: `Student's Parents (Past Students)`,
+      },
+      {
+        key: `Student's Parents (Current Students)`,
+        value: `Student's Parents (Current Students)`,
       },
       {
         key: 'Past Student',
         value: 'Past Student',
+      },
+      {
+        key: 'Current Student',
+        value: 'Current Student',
       },
       {
         key: 'Teacher',
@@ -71,6 +79,10 @@ export default function VolunteerTeacherScreen() {
       {
         key: 'Kendra Sanchalak',
         value: 'Kendra Sanchalak',
+      },
+      {
+        key: 'Basti',
+        value: 'Basti',
       },
       {
         key: 'Prabuddha Jan',

@@ -3,7 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {ROUTES} from './RouteConstants';
 import CenterDetailsOneScreen from '../screens/auth/CenterDetailsOneScreen';
 import CenterDetailsTwoScreen from '../screens/auth/CenterDetailsTwoScreen';
-import VolunteerTeacherScreen from '../screens/auth/VolunteerTeacherScreen';
+import SelectAudienceScreen from '../screens/auth/SelectAudienceScreen';
 import SurveyScreen from '../screens/survey/SurveyScreen';
 import StudentEnrollmentScreen from '../screens/auth/StudentEnrollmentScreen';
 
@@ -25,7 +25,7 @@ export function App() {
       />
       <AppStack.Screen
         name={ROUTES.AUTH.VOLUNTEERTEACHERSCREEN}
-        component={VolunteerTeacherScreen}
+        component={SelectAudienceScreen}
         options={{headerShown: false}}
       />
       <AppStack.Screen

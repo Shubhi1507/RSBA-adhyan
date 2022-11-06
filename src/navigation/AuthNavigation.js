@@ -8,7 +8,7 @@ import VolunteerSignUpScreen from '../screens/auth/VolunteerSignUpScreen';
 import VolunteerLoginScreen from '../screens/auth/CenterDetailsOneScreen';
 import CenterDetailsOneScreen from '../screens/auth/CenterDetailsOneScreen';
 import CenterDetailsTwoScreen from '../screens/auth/CenterDetailsTwoScreen';
-import VolunteerTeacherScreen from '../screens/auth/VolunteerTeacherScreen';
+import SelectAudienceScreen from '../screens/auth/SelectAudienceScreen';
 import StudentEnrollmentScreen from '../screens/auth/StudentEnrollmentScreen';
 import SurveyScreen from '../screens/survey/SurveyScreen';
 
@@ -52,7 +52,7 @@ export function Auth() {
       />
       <AuthStack.Screen
         name={ROUTES.AUTH.VOLUNTEERTEACHERSCREEN}
-        component={VolunteerTeacherScreen}
+        component={SelectAudienceScreen}
         options={{headerShown: false}}
       />
       <AuthStack.Screen
