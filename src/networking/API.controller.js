@@ -25,6 +25,26 @@ const Login = async data => {
   }
 };
 
+const VerifyOTP = async data => {
+  try {
+    const URL = BASE_URL + 'volunteer/verify';
+    const formdata = new FormData();
+    formdata.append('mobile', data.mobile);
+    formdata.append('otp', data.otp);
+
+    const response = await fetch(URL, {
+      method: 'POST',
+      headers: headers,
+      body: formdata,
+    });
+    let respJson = await response.json();
+    return respJson;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 const getListofStates = async () => {
   try {
     const URL = BASE_URL + 'states';
@@ -55,8 +75,6 @@ const getListofDistricts = async state_id => {
   }
 };
 const getListofColonies = async district_id => {
-  console.log('district_id', district_id);
-
   try {
     const URL = BASE_URL + 'colonies/' + district_id;
     const response = await fetch(URL, {
@@ -71,4 +89,10 @@ const getListofColonies = async district_id => {
   }
 };
 
-export {Login, getListofDistricts, getListofColonies, getListofStates};
+export {
+  Login,
+  getListofDistricts,
+  getListofColonies,
+  getListofStates,
+  VerifyOTP,
+};
