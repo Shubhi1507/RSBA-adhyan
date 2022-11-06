@@ -3,6 +3,7 @@ import React from 'react';
 import {screenWidth} from '../../libs';
 import {
   Button,
+  CustomSnackBar,
   DropDown,
   Header,
   Input,
@@ -29,6 +30,7 @@ export default function CenterDetailsOneScreen() {
   const store = useSelector(state => state.RegionReducer);
   const dispatch = useDispatch();
   const [dataLoading, setDataLoading] = useState(false);
+  const [error, setError] = useState({visible: false, message: ''});
 
   const [volunteerInfo, setvolunteerInfo] = useState({
     state_pranth: '',
@@ -151,9 +153,49 @@ export default function CenterDetailsOneScreen() {
     );
   };
 
+  const pageValidator = () => {
+    const {address, district_jila, state_pranth, town_basti} = volunteerInfo;
+    if (!state_pranth) {
+      return setError({
+        visible: true,
+        message: 'Please select a State/ Pranth',
+      });
+    }
+    if (!district_jila) {
+      return setError({
+        visible: true,
+        message: 'Please select a District/ Jila',
+      });
+    }
+    if (!town_basti) {
+      return setError({
+        visible: true,
+        message: 'Please select a Town/ Basti',
+      });
+    }
+    if (!address) {
+      return setError({
+        visible: true,
+        message: 'Please add address',
+      });
+    }
+    dispatch({
+      type: ACTION_CONSTANTS.UPDATE_SURVEY_FORM,
+      payload: volunteerInfo,
+    });
+    navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN);
+  };
+
   return (
     <View style={styles.container}>
       <LoaderIndicator loading={dataLoading} />
+      <CustomSnackBar
+        visible={error.visible}
+        message={error.message}
+        onDismissSnackBar={() =>
+          setError({...error, message: '', visible: false})
+        }
+      />
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
@@ -250,13 +292,7 @@ export default function CenterDetailsOneScreen() {
 
         <Button
           title={'Next'}
-          onPress={() => {
-            dispatch({
-              type: ACTION_CONSTANTS.UPDATE_SURVEY_FORM,
-              payload: volunteerInfo,
-            });
-            navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN);
-          }}
+          onPress={pageValidator}
           ButtonContainerStyle={{
             marginVertical: 20,
             alignItems: 'center',

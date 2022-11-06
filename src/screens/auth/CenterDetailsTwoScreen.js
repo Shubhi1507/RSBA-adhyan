@@ -18,12 +18,14 @@ import DatePicker from 'react-native-datepicker';
 import {ROUTES} from '../../navigation/RouteConstants';
 import FAIcons from 'react-native-vector-icons/FontAwesome';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
-import { Snackbar } from 'react-native-paper';
+import {Snackbar} from 'react-native-paper';
+import { ACTION_CONSTANTS } from '../../redux/actions/actions';
 
 export default function CenterDetailsTwoScreen() {
   const store = useSelector(state => state?.authPageDataReducer);
+  const dispatch = useDispatch();
 
   const [volunteerInfo, setvolunteerInfo] = useState({
     parent_org: '',
@@ -128,27 +130,44 @@ export default function CenterDetailsTwoScreen() {
     console.log('volunteerInfo', volunteerInfo);
 
     if (!type_of_center) {
-      // return setError({visible: true, message: 'Select Center type'});
-   
+      return setError({visible: true, message: 'Select Center type'});
     }
     if (!center_head) {
-      // return setError({visible: true, message: 'Center head missing'});
-   
+      return setError({visible: true, message: 'Center head is missing'});
     }
-
-    // navigate(ROUTES.AUTH.VOLUNTEERTEACHERSCREEN);
+    if (!center_contact) {
+      return setError({visible: true, message: 'Center contact is missing'});
+    }
+    if (!parent_org) {
+      return setError({
+        visible: true,
+        message: 'Parent organisation is missing',
+      });
+    }
+    let payload = {
+      ...store.authData,
+      center_contact,
+      center_head,
+      parent_org,
+      type_of_center,
+    };
+    console.log('payload', payload);
+    dispatch({
+      type: ACTION_CONSTANTS.UPDATE_SURVEY_FORM,
+      payload: payload,
+    });
+    navigate(ROUTES.AUTH.VOLUNTEERTEACHERSCREEN);
   }
 
   return (
     <View style={styles.container}>
-      {/* <CustomSnackBar
-      
+      <CustomSnackBar
         visible={error.visible}
-        message={error.visible}
+        message={error.message}
         onDismissSnackBar={() =>
           setError({...error, message: '', visible: false})
         }
-      /> */}
+      />
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
@@ -223,7 +242,7 @@ export default function CenterDetailsTwoScreen() {
         </View>
 
         <Button
-          title={'Nexsst'}
+          title={'Next'}
           onPress={() => {
             PageValidator();
           }}

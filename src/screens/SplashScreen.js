@@ -60,7 +60,7 @@ export default function SplashScreen() {
             marginTop: 3,
             textAlign: 'center',
           }}>
-          Adhyan Survey
+          Adhyayan Survey
         </Text>
       </View>
 

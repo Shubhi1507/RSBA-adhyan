@@ -15,11 +15,13 @@ import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {STRINGS} from '../../constants/strings';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {VerifyOTP} from '../../networking/API.controller';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import LoaderIndicator from '../../components/Loader';
+import { ACTION_CONSTANTS } from '../../redux/actions/actions';
 
 export default function OTPScreen({route, navigation}) {
   const store = useSelector(state => state.authReducer);
+  const dispatch = useDispatch();
   const [counter, setCounter] = React.useState(60);
   const [code, setCode] = useState('');
   const [error, setError] = useState({visible: false, message: ''});

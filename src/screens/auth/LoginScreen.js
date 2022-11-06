@@ -72,7 +72,7 @@ export default function LoginScreen() {
       startedAt: new Date().getTime(),
     };
     dispatch({
-      type: ACTION_CONSTANTS.LOGIN_SUCCESSFUL,
+      type: ACTION_CONSTANTS.LOGIN_DATA_UPDATE,
       payload: payload,
     });
     navigate(ROUTES.AUTH.OTPSCREEN, data);
