@@ -7,7 +7,7 @@ import OTPScreen from '../screens/auth/OTPScreen';
 import VolunteerSignUpScreen from '../screens/auth/VolunteerSignUpScreen';
 import VolunteerLoginScreen from '../screens/auth/CenterDetailsOneScreen';
 import CenterDetailsOneScreen from '../screens/auth/CenterDetailsOneScreen';
-import VolunteerParentalOrgScreen from '../screens/auth/VolunteerParentalOrgScreen';
+import CenterDetailsTwoScreen from '../screens/auth/CenterDetailsTwoScreen';
 import VolunteerTeacherScreen from '../screens/auth/VolunteerTeacherScreen';
 import StudentEnrollmentScreen from '../screens/auth/StudentEnrollmentScreen';
 import SurveyScreen from '../screens/survey/SurveyScreen';
@@ -16,7 +16,7 @@ const AuthStack = createStackNavigator();
 
 export function Auth() {
   return (
-    <AuthStack.Navigator initialRouteName={ROUTES.AUTH.VOLUNTEERWELCOMESCREEN}>
+    <AuthStack.Navigator initialRouteName={ROUTES.AUTH.SPLASHSCREEN}>
       <AuthStack.Screen
         name={ROUTES.AUTH.SPLASHSCREEN}
         component={SplashScreen}
@@ -39,7 +39,7 @@ export function Auth() {
         options={{headerShown: false}}
       />
 
-      <AuthStack.Screen
+      {/* <AuthStack.Screen
         name={ROUTES.AUTH.VOLUNTEERWELCOMESCREEN}
         component={CenterDetailsOneScreen}
         options={{headerShown: false}}
@@ -47,7 +47,7 @@ export function Auth() {
 
       <AuthStack.Screen
         name={ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN}
-        component={VolunteerParentalOrgScreen}
+        component={CenterDetailsTwoScreen}
         options={{headerShown: false}}
       />
       <AuthStack.Screen
@@ -65,7 +65,7 @@ export function Auth() {
         name={ROUTES.AUTH.STUDENTENROLLMENTSCREEN}
         component={StudentEnrollmentScreen}
         options={{headerShown: false}}
-      />
+      /> */}
     </AuthStack.Navigator>
   );
 }
