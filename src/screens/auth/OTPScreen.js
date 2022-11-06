@@ -2,17 +2,28 @@ import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import FAIcons from 'react-native-vector-icons/FontAwesome';
 import {COLORS} from '../../utils/colors';
-import {Header, TextHandler, Button} from '../../components/index';
+import {
+  Header,
+  TextHandler,
+  Button,
+  CustomSnackBar,
+} from '../../components/index';
 import ADIcons from 'react-native-vector-icons/AntDesign';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {screenWidth} from '../../libs';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {STRINGS} from '../../constants/strings';
 import {ROUTES} from '../../navigation/RouteConstants';
+import {VerifyOTP} from '../../networking/API.controller';
+import {useSelector} from 'react-redux';
+import LoaderIndicator from '../../components/Loader';
 
-export default function OTPScreen() {
+export default function OTPScreen({route, navigation}) {
+  const store = useSelector(state => state.authReducer);
   const [counter, setCounter] = React.useState(60);
   const [code, setCode] = useState('');
+  const [error, setError] = useState({visible: false, message: ''});
+  const [dataLoading, setDataLoading] = useState(false);
 
   React.useEffect(() => {
     const timer =
@@ -20,6 +31,31 @@ export default function OTPScreen() {
     return () => clearInterval(timer);
   }, [counter]);
 
+  const verifyOTP = async () => {
+    if (!code || code.length < 6) {
+      return setError({visible: true, message: 'Invalid OTP'});
+    }
+    setDataLoading(true);
+
+    const {mobile} = route.params;
+    console.log('mobile', mobile);
+    let data = {mobile, otp: code};
+
+    let response = await VerifyOTP(data);
+    console.log(response);
+    if (response?.status === 'Error') {
+      setDataLoading(false);
+      return setError({visible: true, message: 'Invalid OTP'});
+    }
+    let newUserData = {...store.userData, data: response.data};
+    let newState = {...store, userData: newUserData};
+    console.log('newState', newState);
+    dispatch({
+      type: ACTION_CONSTANTS.LOGIN_SUCCESSFUL,
+      payload: newState,
+    });
+    navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN);
+  };
   const HeaderContent = () => {
     return (
       <View
@@ -53,6 +89,14 @@ export default function OTPScreen() {
 
   return (
     <View style={styles.container}>
+      {/* <LoaderIndicator loading={dataLoading} /> */}
+      <CustomSnackBar
+        visible={error.visible}
+        message={error.message}
+        onDismissSnackBar={() =>
+          setError({...error, message: '', visible: false})
+        }
+      />
       <View style={{flex: 0.18}}>
         <Header children={HeaderContent()} />
       </View>
@@ -119,7 +163,7 @@ export default function OTPScreen() {
         <Button
           title={'Submit'}
           onPress={() => {
-            navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN);
+            verifyOTP();
           }}
         />
       </View>
