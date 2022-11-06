@@ -1,0 +1,41 @@
+ <DatePicker
+            date={volunteerInfo.date_of_establishment}
+            mode="date"
+            placeholder="Date of est."
+            format="DD-MM-YYYY"
+            minDate="05-10-1950"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0,
+              },
+              dateInput: {
+                marginLeft: 36,
+                borderColor: COLORS.backgroundColor,
+              },
+            }}
+            onDateChange={newdate => {
+              try {
+                let [d, m, y] = newdate.split(/\D/);
+                let date = new Date(y, m - 1, d);
+                let difference = new Date().getTime() - date.getTime();
+                console.log('difference', difference);
+                if (difference < 0) {
+                  setvolunteerInfo({
+                    ...volunteerInfo,
+                    date_of_establishment: new Date(),
+                  });
+                  return alert('Invalid date');
+                } else {
+                  getAge(date);
+                }
+              } catch (e) {
+                console.log(e);
+                return alert('Invalid date');
+              }
+            }}
+          />
