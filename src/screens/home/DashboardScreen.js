@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import React from 'react';
 import LoaderIndicator from '../../components/Loader';
 import {Button, CustomSnackBar, Header, TextHandler} from '../../components';
@@ -96,7 +96,20 @@ export default function DashboardScreen() {
         />
         <Button
           title={'Logout'}
-          onPress={() => dispatch({type: ACTION_CONSTANTS.LOGOUT_REQUEST})}
+          onPress={() => {
+            Alert.alert('Logout?', '', [
+              {
+                text: 'Yes',
+                onPress: () =>
+                  dispatch({type: ACTION_CONSTANTS.LOGOUT_REQUEST}),
+              },
+              {
+                text: 'No',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+            ]);
+          }}
           ButtonContainerStyle={{
             marginVertical: 20,
             alignItems: 'center',
