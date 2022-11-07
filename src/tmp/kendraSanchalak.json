@@ -70,7 +70,7 @@
       {"key": 1, "value": "10 to 15%"},
       {"key": 2, "value": "16 to 30%"},
       {"key": 3, "value": " 31 to 45%"},
-      {"key": 3, "value": " 50%+"}
+      {"key": 4, "value": " 50%+"}
     ]
   }
 ]

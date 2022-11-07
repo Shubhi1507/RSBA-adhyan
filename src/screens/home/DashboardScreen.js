@@ -45,7 +45,7 @@ export default function DashboardScreen() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 18}}>
-            Center Details
+            Volunteer Dashboard
           </Text>
         </View>
       </View>
@@ -59,7 +59,7 @@ export default function DashboardScreen() {
       </View>
       <View style={{flex: 1, justifyContent: 'center', paddingHorizontal: 20}}>
         <TextHandler
-          style={{fontWeight: '500', fontSize: 18, paddingBottom: 50}}>
+          style={{fontWeight: '700', fontSize: 20, paddingBottom: 30}}>
           Welcome back {name && `, ${name}`}
         </TextHandler>
         <View
@@ -111,7 +111,7 @@ export default function DashboardScreen() {
             ]);
           }}
           ButtonContainerStyle={{
-            marginVertical: 20,
+            marginVertical: 70,
             alignItems: 'center',
             textAlign: 'center',
             backgroundColor: COLORS.error,

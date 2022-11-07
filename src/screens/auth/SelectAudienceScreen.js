@@ -52,10 +52,7 @@ export default function SelectAudienceScreen() {
       },
     ],
     CENTRES: [
-      {
-        key: 'Centre',
-        value: 'Centre',
-      },
+     
       {
         key: `Student's Parents (Past Students)`,
         value: `Student's Parents (Past Students)`,

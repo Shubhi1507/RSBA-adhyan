@@ -135,8 +135,11 @@ export default function CenterDetailsTwoScreen() {
     if (!center_head) {
       return setError({visible: true, message: 'Center head is missing'});
     }
-    if (!center_contact) {
-      return setError({visible: true, message: 'Center contact is missing'});
+    if (!center_contact || center_contact.length < 10) {
+      return setError({
+        visible: true,
+        message: 'Please enter mobile number',
+      });
     }
     if (!parent_org) {
       return setError({
@@ -172,7 +175,7 @@ export default function CenterDetailsTwoScreen() {
         <Header children={HeaderContent()} />
       </View>
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        <TextHandler
+        {/* <TextHandler
           style={{
             color: 'black',
             fontWeight: '600',
@@ -181,9 +184,13 @@ export default function CenterDetailsTwoScreen() {
             textAlign: 'left',
           }}>
           Center Details
-        </TextHandler>
+        </TextHandler> */}
         <View style={{paddingVertical: 5}}>
-          <Text style={styles.headingInput}>
+          <Text style={{color: 'black',
+    fontWeight: '600',
+    marginTop: 8,
+    fontSize: 20,
+    margin: 6,} }>
             {STRINGS.LOGIN.TYPE_OF_CENTER}
           </Text>
           <RadioButtons
@@ -271,7 +278,7 @@ const styles = StyleSheet.create({
 
   headingInput: {
     color: 'black',
-    fontWeight: '500',
+    fontWeight: '600',
     marginTop: 8,
     fontSize: 16,
     margin: 6,
