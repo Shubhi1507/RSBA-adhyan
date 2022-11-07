@@ -1,25 +1,51 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import TecherSurveyScreen from '../screens/teacher/TeacherSurveyScreen';
-import CoordinatorSurveryScreen from '../screens/coordinator/CoordinatorSurveryScreen';
+import {ROUTES} from './RouteConstants';
+import CenterDetailsOneScreen from '../screens/auth/CenterDetailsOneScreen';
+import CenterDetailsTwoScreen from '../screens/auth/CenterDetailsTwoScreen';
+import SelectAudienceScreen from '../screens/auth/SelectAudienceScreen';
+import SurveyScreen from '../screens/survey/SurveyScreen';
+import StudentEnrollmentScreen from '../screens/auth/StudentEnrollmentScreen';
+import DashboardScreen from '../screens/home/DashboardScreen';
 
-const TeacherStack = createStackNavigator();
-const CoordinatorStack = createStackNavigator();
+const AppStack = createStackNavigator();
 
-function TeacherAuth() {
+export function App() {
   return (
-    <TeacherStack.Navigator>
-      <TeacherStack.Screen component={TecherSurveyScreen} />
-    </TeacherStack.Navigator>
+    <AppStack.Navigator initialRouteName={ROUTES.AUTH.DASHBOARDSCREEN}>
+      <AppStack.Screen
+        name={ROUTES.AUTH.DASHBOARDSCREEN}
+        component={DashboardScreen}
+        options={{headerShown: false}}
+      />
+
+      <AppStack.Screen
+        name={ROUTES.AUTH.VOLUNTEERWELCOMESCREEN}
+        component={CenterDetailsOneScreen}
+        options={{headerShown: false}}
+      />
+
+      <AppStack.Screen
+        name={ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN}
+        component={CenterDetailsTwoScreen}
+        options={{headerShown: false}}
+      />
+      <AppStack.Screen
+        name={ROUTES.AUTH.VOLUNTEERTEACHERSCREEN}
+        component={SelectAudienceScreen}
+        options={{headerShown: false}}
+      />
+      <AppStack.Screen
+        name={ROUTES.AUTH.SURVEYSCREEN}
+        component={SurveyScreen}
+        options={{headerShown: false}}
+      />
+
+      <AppStack.Screen
+        name={ROUTES.AUTH.STUDENTENROLLMENTSCREEN}
+        component={StudentEnrollmentScreen}
+        options={{headerShown: false}}
+      />
+    </AppStack.Navigator>
   );
 }
-
-function CoordinatorAuth() {
-  return (
-    <CoordinatorStack.Navigator>
-      <CoordinatorStack.Screen component={CoordinatorSurveryScreen} />
-    </CoordinatorStack.Navigator>
-  );
-}
-
-export {TeacherAuth, CoordinatorAuth};

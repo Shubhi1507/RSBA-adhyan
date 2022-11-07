@@ -63,7 +63,7 @@ export function DropDown({
                     <ADIcons name="up" size={18} color={COLORS.black} />
                   </TouchableOpacity>
                 ) : (
-                  <TouchableOpacity onPress={() => openAnchor}>
+                  <TouchableOpacity onPress={openAnchor}>
                     <ADIcons name="down" size={18} color={COLORS.black} />
                   </TouchableOpacity>
                 )
@@ -71,7 +71,7 @@ export function DropDown({
               <FlatList
                 data={optionsArr}
                 contentContainerStyle={{}}
-                keyExtractor={item => item.id}
+                keyExtractor={() => Math.random().toFixed(5)}
                 renderItem={({item, index}) => {
                   return (
                     <>

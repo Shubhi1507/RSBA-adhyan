@@ -27,12 +27,14 @@ import DatePicker from 'react-native-datepicker';
 import {ROUTES} from '../../navigation/RouteConstants';
 import FAIcons from 'react-native-vector-icons/FontAwesome';
 
-export default function VolunteerTeacherScreen() {
+export default function SelectAudienceScreen() {
   const [teacherInfo, setteacherInfo] = useState({
     teacher_name: '',
     phone_number: '',
     class_frequency: '',
     class_duration: '',
+    place_used: '',
+    audience: '',
   });
   const [miscControllers, setmisControllers] = useState({
     CLASS_FREQUENCY: [
@@ -47,6 +49,89 @@ export default function VolunteerTeacherScreen() {
       {
         key: 'Weekly',
         value: 'Weekly',
+      },
+    ],
+    CENTRES: [
+      {
+        key: 'Centre',
+        value: 'Centre',
+      },
+      {
+        key: `Student's Parents (Past Students)`,
+        value: `Student's Parents (Past Students)`,
+      },
+      {
+        key: `Student's Parents (Current Students)`,
+        value: `Student's Parents (Current Students)`,
+      },
+      {
+        key: 'Past Student',
+        value: 'Past Student',
+      },
+      {
+        key: 'Current Student',
+        value: 'Current Student',
+      },
+      {
+        key: 'Teacher',
+        value: 'Teacher',
+      },
+      {
+        key: 'Kendra Sanchalak',
+        value: 'Kendra Sanchalak',
+      },
+      {
+        key: 'Basti',
+        value: 'Basti',
+      },
+      {
+        key: 'Prabuddha Jan',
+        value: 'Prabuddha Jan',
+      },
+    ],
+  });
+
+  const [classControllers, setclassControllers] = useState({
+    DURATION: [
+      {
+        key: '1 Hour',
+        value: ' 1 Hour ',
+      },
+      {
+        key: '1.5 Hours',
+        value: '1.5 Hours',
+      },
+      {
+        key: '2 Hours',
+        value: '2 Hours',
+      },
+
+      {
+        key: '2.5 Hours',
+        value: '2.5 Hours',
+      },
+      {
+        key: '3 Hours or more than 3 Hours',
+        value: '3 Hours or more than 3 Hours',
+      },
+    ],
+  });
+
+  const [placeContainer, setplaceContainer] = useState({
+    PLACE_USED: [
+      {key: 'Smalll Room', value: 'Small Room '},
+      {
+        key: ' Hall',
+        value: 'Hall',
+      },
+      {
+        key: 'Study Room',
+        value: 'Study Room',
+      },
+
+      {
+        key: 'Ground or etc',
+        value: ' Ground or etc',
       },
     ],
   });
@@ -75,7 +160,7 @@ export default function VolunteerTeacherScreen() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            Survey
+            {STRINGS.LOGIN.AUDIENCE}
           </Text>
         </View>
       </View>
@@ -88,68 +173,28 @@ export default function VolunteerTeacherScreen() {
         <Header children={HeaderContent()} />
       </View>
       <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        <PageIndicator index={2} />
         <View>
-          <Text style={styles.headingInput}>Teacher Name</Text>
-          <Input
-            placeholder="Enter here"
-            name="first_name"
-            onChangeText={text =>
-              setteacherInfo({...teacherInfo, teacher_name: text})
-            }
-            value={teacherInfo.teacher_name}
-            message={'error'}
-            containerStyle={{alignItems: 'center'}}
-          />
-        </View>
-        <View>
-          <Text style={styles.headingInput}>Enter Phone Number</Text>
-          <Input
-            placeholder="Enter here"
-            name="phone_no"
-            onChangeText={text =>
-              setteacherInfo({...teacherInfo, phone_number: text})
-            }
-            type={'numeric'}
-            value={teacherInfo.phone_number}
-            message={'error'}
-            containerStyle={{alignItems: 'center'}}
-          />
-        </View>
-
-        <View>
-          <Text style={styles.headingInput}>
-            {STRINGS.LOGIN.CLASS_FREQUENCY}
-          </Text>
+          <TextHandler
+            style={{
+              color: 'black',
+              fontWeight: '600',
+              marginVertical: 20,
+              fontSize: 20,
+              textAlign: 'left',
+            }}>
+            {STRINGS.LOGIN.AUDIENCE}
+          </TextHandler>
           <RadioButtons
-            data={miscControllers.CLASS_FREQUENCY}
-            onValueChange={item =>
-              setteacherInfo({...teacherInfo, class_frequency: item})
-            }
-          />
-        </View>
-
-        <View style={styles.textBox}>
-          <Text style={styles.headingInput}>
-            {STRINGS.SIGNUP.DURATION_OF_CLASS}
-          </Text>
-
-          <Input
-            placeholder="Select"
-            name="class_duration"
-            onChangeText={text =>
-              setteacherInfo({...teacherInfo, class_duration: text})
-            }
-            type={'numeric'}
-            value={teacherInfo.class_duration}
-            message={'error'}
-            containerStyle={{alignItems: 'center'}}
+            data={miscControllers.CENTRES}
+            onValueChange={item => {
+              setteacherInfo({...teacherInfo, audience: item});
+            }}
           />
         </View>
 
         <Button
           title={'Next'}
-          onPress={() => navigate(ROUTES.AUTH.STUDENTENROLLMENTSCREEN)}
+          onPress={() => navigate(ROUTES.AUTH.SURVEYSCREEN)}
           ButtonContainerStyle={{
             marginVertical: 17,
             alignItems: 'center',
@@ -177,8 +222,8 @@ const styles = StyleSheet.create({
 
   headingInput: {
     color: 'black',
-    fontWeight: '500',
-    marginTop: 8,
+    fontWeight: '600',
+    marginTop: 16,
     fontSize: 16,
     margin: 6,
   },

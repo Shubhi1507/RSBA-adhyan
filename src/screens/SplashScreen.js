@@ -18,10 +18,16 @@ export default function SplashScreen() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    connecttoFBD();
+    fetchData();
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
+    dispatch({type: ACTION_CONSTANTS.CLEAR_DISTRICTS_LIST});
+    dispatch({type: ACTION_CONSTANTS.CLEAR_STATE_LIST});
   }, []);
 
+  async function fetchData() {
+    let val = await connecttoFBD();
+    console.log('-->', val);
+  }
   return (
     <View style={{backgroundColor: COLORS.backgroundColor, flex: 1}}>
       <View
@@ -44,7 +50,17 @@ export default function SplashScreen() {
             marginTop: 20,
             textAlign: 'center',
           }}>
-          Rashtriya Sewa Bharati Adhyan Survey
+          Rashtriya Sewa Bharati
+        </Text>
+        <Text
+          style={{
+            color: COLORS.fontColor,
+            fontWeight: '500',
+            fontSize: 22,
+            marginTop: 3,
+            textAlign: 'center',
+          }}>
+          Adhyayan Survey
         </Text>
       </View>
 

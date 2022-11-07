@@ -6,6 +6,7 @@
 
 import React from 'react';
 import {
+  LogBox,
   Platform,
   SafeAreaView,
   StatusBar,
@@ -24,6 +25,7 @@ import Configurestore from './redux/store/store';
 const {store, persistor} = Configurestore();
 
 const App = () => {
+  LogBox.ignoreAllLogs();
   return (
     <View style={styles.rootContainer}>
       <RNPaperProvider>

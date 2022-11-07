@@ -1,0 +1,74 @@
+[
+  {
+    "key": 1,
+    "question": "How many current students are there ?",
+    "type": "a",
+    "answer": ""
+  },
+  {
+    "key": 2,
+    "question": " No. of parents present",
+    "type": "b",
+    "answer": ""
+  },
+  {
+    "key": 3,
+    "question": "Educational Background",
+    "type": "a",
+    "options": [
+      {"key": 1, "value": "Illiterate"},
+      {"key": 2, "value": "Literate"}
+    ]
+  },
+  {
+    "key": 4,
+    "question": "Economic Status",
+    "type": "b",
+    "options": [
+      {"key": 1, "value": "Very Poor"},
+      {"key": 2, "value": "Poor"},
+      {"key": 3, "value": "Good"}
+    ]
+  },
+  {
+    "key": 5,
+    "question": "Reason for sending children to the centre ? ",
+    "type": "a",
+    "options": [
+      {"key": 1, "value": " Spending free time"},
+      {"key": 2, "value": "Good Quality Education"},
+      {"key": 3, "value": "Sanskar"},
+      {"key": 3, "value": "Others"}
+    ]
+  },
+  {
+    "key": 6,
+    "question": " How these children will go to  the centre  ? ",
+    "type": "b",
+    "options": [
+      {"key": 1, "value": "By their own"},
+      {"key": 2, "value": "Arranged by the centre Karyakartas"},
+      {"key": 3, "value": "Directed by Parents"},
+      {"key": 3, "value": " Others"}
+    ]
+  },
+
+  {
+    "key": 7,
+    "question": " What are your children doing these days ? ",
+    "type": "a",
+    "options": [
+      {"key": 1, "value": "Labour"},
+      {"key": 2, "value": "Self Employed"},
+      {"key": 3, "value": " Others"}
+    ]
+  }
+,   {
+  "key": 6,
+  "question": " Expectations from the centre ? ",
+  "type": "b",
+  "answer": ""
+}
+
+
+]

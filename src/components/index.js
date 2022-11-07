@@ -5,6 +5,7 @@ import {DropDown} from './DropDown';
 import {Input} from './Input';
 import {PageIndicator} from './PageIndicator';
 import {RadioButtons} from './RadioButtons';
+import {CustomSnackBar} from './CustomSnackBar';
 
 export {
   Header,
@@ -14,4 +15,5 @@ export {
   Input,
   PageIndicator,
   RadioButtons,
+  CustomSnackBar,
 };

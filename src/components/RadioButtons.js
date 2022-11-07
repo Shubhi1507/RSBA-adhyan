@@ -1,35 +1,45 @@
 import * as React from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RadioButton, Text} from 'react-native-paper';
 import {COLORS} from '../utils/colors';
 import {TextHandler} from './TextHandler';
 
-export const RadioButtons = ({data, onValueChange}) => {
+export const RadioButtons = ({data, onValueChange, radioStyle}) => {
   const [value, setValue] = React.useState('');
   return (
     <FlatList
       contentContainerStyle={styles.container}
       data={data || []}
-      renderItem={({item}) => {
+      keyExtractor={() => Math.random().toFixed(5)}
+      renderItem={({item, index}) => {
         return (
           <RadioButton.Group
+            key={index}
             onValueChange={newValue => {
               onValueChange(item.value);
               setValue(item.value);
             }}
             value={value}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center', 
-                
-              
-                
-              }}>
-              <RadioButton value={item.value} color={COLORS.blue}  uncheckedColor={COLORS.black} />
+            <TouchableOpacity
+              onPress={() => {
+                onValueChange(item.value);
+                setValue(item.value);
+              }}
+              style={[
+                {
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                },
+                radioStyle || {},
+              ]}>
+              <RadioButton
+                value={item.value}
+                color={COLORS.blue}
+                uncheckedColor={COLORS.black}
+              />
 
               <TextHandler>{item.value}</TextHandler>
-            </View>
+            </TouchableOpacity>
           </RadioButton.Group>
         );
       }}
@@ -45,7 +55,5 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
-    
-    
   },
 });

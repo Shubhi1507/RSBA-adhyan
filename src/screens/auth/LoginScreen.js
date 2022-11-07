@@ -1,6 +1,11 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {useRef, useState} from 'react';
-import {Header, TextHandler, Button} from '../../components/index';
+import {
+  Header,
+  TextHandler,
+  Button,
+  CustomSnackBar,
+} from '../../components/index';
 import {screenWidth} from '../../libs';
 import {COLORS} from '../../utils/colors';
 import FAIcons from 'react-native-vector-icons/FontAwesome';
@@ -11,23 +16,16 @@ import {goBack, navigate} from '../../navigation/NavigationService';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {Input} from '../../components/Input';
 import {images} from '../../assets';
-import {
-  getListofDistricts,
-  getToken,
-  Login,
-} from '../../networking/API.controller';
-import {useDispatch, useSelector} from 'react-redux';
+import {Login} from '../../networking/API.controller';
+import {useDispatch} from 'react-redux';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import LoaderIndicator from '../../components/Loader';
 
 export default function LoginScreen() {
-  const [value, setValue] = useState('');
-  const [valid, setValid] = useState(false);
-  const [phone, setPhone] = useState('8743999329');
-  const [error, setError] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  const phoneInput = useRef(null);
+  const [phone, setPhone] = useState('');
+  const [error, setError] = useState({visible: false, message: ''});
   const dispatch = useDispatch();
-  const token = useSelector(state => state);
+  const [dataLoading, setDataLoading] = useState(false);
 
   const HeaderContent = () => {
     return (
@@ -60,19 +58,31 @@ export default function LoginScreen() {
     );
   };
 
-  const OTP = async () => {
-    console.log(token);
+  const GetOTP = async () => {
+    if (!phone || phone.length < 10) {
+      return setError({visible: true, message: 'Invalid phone number'});
+    }
+    setDataLoading(true);
     let data = {mobile: phone};
-    // let response = await Login(data);
-    // console.log(response);
-    // dispatch({
-    //   type: ACTION_CONSTANTS.LOGIN_SUCCESSFUL,
-    //   payload: response.data,
-    // });
-    navigate(ROUTES.AUTH.OTPSCREEN);
+    let response = await Login(data);
+    console.log('Login', response);
+    let payload = {
+      access_token: response.access_token,
+      expires_in: response.expires_in,
+      startedAt: new Date().getTime(),
+    };
+    dispatch({
+      type: ACTION_CONSTANTS.LOGIN_DATA_UPDATE,
+      payload: payload,
+    });
+    navigate(ROUTES.AUTH.OTPSCREEN, data);
+    setDataLoading(false);
   };
+
   return (
     <View style={styles.container}>
+      <LoaderIndicator loading={dataLoading} />
+
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
@@ -84,6 +94,13 @@ export default function LoginScreen() {
           paddingTop: 60,
           justifyContent: 'space-between',
         }}>
+        <CustomSnackBar
+          visible={error.visible}
+          message={error.message}
+          onDismissSnackBar={() =>
+            setError({...error, message: '', visible: false})
+          }
+        />
         <View style={{flex: 1}}>
           <TextHandler style={{fontSize: 18, textAlign: 'center'}}>
             {STRINGS.LOGIN.ENTER_PHONE_NO}
@@ -118,7 +135,7 @@ export default function LoginScreen() {
             <Input
               type={'numeric'}
               placeholder="Phone"
-              // number={10}
+              number={10}
               name="phone"
               onChangeText={text => {
                 setPhone(text);
@@ -138,7 +155,7 @@ export default function LoginScreen() {
         </View>
         <Button
           title={'Request OTP'}
-          onPress={() => OTP()}
+          onPress={() => GetOTP()}
           // onPress={() => navigate(ROUTES.AUTH.OTPSCREEN)}
         />
       </View>

@@ -3,39 +3,15 @@ import {useSelector} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Auth} from './AuthNavigation';
-import { CoordinatorAuth, TeacherAuth } from './AppNavigation';
+import {App, CoordinatorAuth, TeacherAuth} from './AppNavigation';
 const RootStack = createStackNavigator();
 
 function AppNavigation() {
-  let isloggedIn = false;
+  let isloggedIn = useSelector(state => state?.authReducer?.loggedIn);;
   let role = 'teacher';
-  //   let isloggedIn = useSelector(state => state?.authReducer?.loggedIn);
+  let x = useSelector(state => state?.authReducer?.loggedIn);
+  console.log('-->', x);
   //   let role = useSelector(state => state?.authReducer?.userData?.role);
-
-  function AuthTypeStack() {
-    if (role === 'teacher') {
-      return (
-        <RootStack.Screen
-          name="App"
-            component={TeacherAuth}
-          options={{
-            headerShown: false,
-          }}
-        />
-      );
-    }
-    if (role === 'coordinator') {
-      return (
-        <RootStack.Screen
-          name="App"
-            component={CoordinatorAuth}
-          options={{
-            headerShown: false,
-          }}
-        />
-      );
-    }
-  }
 
   return (
     <RootStack.Navigator initialRouteName={isloggedIn ? 'App' : 'Auth'}>
@@ -48,7 +24,13 @@ function AppNavigation() {
           }}
         />
       ) : (
-        AuthTypeStack()
+        <RootStack.Screen
+          name="App"
+          component={App}
+          options={{
+            headerShown: false,
+          }}
+        />
       )}
     </RootStack.Navigator>
   );

@@ -14,6 +14,12 @@ const authReducer = (state = initialState, action) => {
         userData: action.payload,
         loading: false,
       };
+    case ACTION_CONSTANTS.LOGIN_DATA_UPDATE:
+      return {
+        ...state,
+        userData: action.payload,
+        loading: false,
+      };
     case ACTION_CONSTANTS.LOGIN_FAILED:
       return {...state, loading: false, loggedIn: false};
     case ACTION_CONSTANTS.LOGOUT_REQUEST:

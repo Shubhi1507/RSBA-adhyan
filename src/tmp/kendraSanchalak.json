@@ -1,0 +1,76 @@
+[
+  {
+    "key": 1,
+    "question": " How many students attend the class regularly? (Boys + Girls)",
+    "type": "a",
+    "answer": ""
+  },
+  {
+    "key": 2,
+    "question": " Was the Kendra able to perform its work during the Covid period ?",
+    "type": "b",
+    "options": [
+      {"key": 1, "value": "No, absolutely closed"},
+      {"key": 2, "value": "Partially active (50 % of total 1.5 yrs)"},
+      {"key": 3, "value": "Partially active (Less than 10 % of total 1.5 yrs)"},
+      {"key": 4, "value": "Fully active with 100 % capacity"}
+    ]
+  },
+  {
+    "key": 3,
+    "question": "What difference we can observe in students family due to Kendra performance? (At least 50% cases should be there)",
+    "type": "a",
+    "options": [
+      {
+        "key": 1,
+        "value": "Family members willing to attends kendra activities"
+      },
+      {"key": 2, "value": "Siblings have joined our Kendra"},
+      {"key": 3, "value": "Parents feels proud about Kendra students"},
+      {"key": 4, "value": "All the above"},
+      {"key": 5, "value": "None of the above"}
+    ]
+  },
+  {
+    "key": 4,
+    "question": "How many families from the locality we have influenced due to our Kendra activities?",
+    "options": [
+      {"key": 1, "value": "10 to 15%"},
+      {"key": 2, "value": "16 to 30%"},
+      {"key": 3, "value": "31 to 45%"},
+      {"key": 3, "value": "31 to 45%"},
+      {"key": 3, "value": "50% +"}
+    ]
+  },
+  {
+    "key": 5,
+    "question": "Do we conduct “Medical test” (Physical test) for our students?",
+    "type": "a",
+    "options": [
+      {"key": 1, "value": "Yes"},
+      {"key": 2, "value": "No"}
+    ]
+  },
+  {
+    "key": 6,
+    "question": "How we teach social work to our students? ? ",
+    "type": "b",
+    "options": [
+      {"key": 1, "value": " Through story telling (Theory)"},
+      {"key": 2, "value": "Through activity (Practical)"},
+      {"key": 3, "value": "We don’t focus on this area"}
+    ]
+  },
+
+  {
+    "key": 7,
+    "question": " What is percentage of decline in dropout ratio due to our Kendra performance? (Before and After Comparison) – Apply this till Std 10th",
+    "type": "a",
+    "options": [
+      {"key": 1, "value": "10 to 15%"},
+      {"key": 2, "value": "16 to 30%"},
+      {"key": 3, "value": " 31 to 45%"},
+      {"key": 3, "value": " 50%+"}
+    ]
+  }
+]
