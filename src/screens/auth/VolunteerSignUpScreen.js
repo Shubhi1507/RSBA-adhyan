@@ -17,7 +17,6 @@ import {
   CustomSnackBar,
 } from '../../components/index';
 import {screenWidth} from '../../libs';
-import ADIcons from 'react-native-vector-icons/AntDesign';
 import {COLORS} from '../../utils/colors';
 import {Input} from '../../components/Input';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -28,7 +27,7 @@ import {getListofStates, Login} from '../../networking/API.controller';
 import {useDispatch, useSelector} from 'react-redux';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import LoaderIndicator from '../../components/Loader';
-import FAIcons from 'react-native-vector-icons/FontAwesome';
+import { ADIcons, FAIcons } from '../../libs/VectorIcons';
 
 export default function VolunteerSignUpScreen() {
   const store = useSelector(state => state.RegionReducer);

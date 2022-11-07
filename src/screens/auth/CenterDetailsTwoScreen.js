@@ -9,19 +9,18 @@ import {
   RadioButtons,
   TextHandler,
 } from '../../components/index';
-import ADIcons from 'react-native-vector-icons/AntDesign';
 import {COLORS} from '../../utils/colors';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {useState} from 'react';
 import {STRINGS} from '../../constants/strings';
 import DatePicker from 'react-native-datepicker';
 import {ROUTES} from '../../navigation/RouteConstants';
-import FAIcons from 'react-native-vector-icons/FontAwesome';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
 import {Snackbar} from 'react-native-paper';
 import { ACTION_CONSTANTS } from '../../redux/actions/actions';
+import { ADIcons, FAIcons } from '../../libs/VectorIcons';
 
 export default function CenterDetailsTwoScreen() {
   const store = useSelector(state => state?.authPageDataReducer);
@@ -156,7 +155,7 @@ export default function CenterDetailsTwoScreen() {
       type: ACTION_CONSTANTS.UPDATE_SURVEY_FORM,
       payload: payload,
     });
-    navigate(ROUTES.AUTH.VOLUNTEERTEACHERSCREEN);
+    navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
   }
 
   return (

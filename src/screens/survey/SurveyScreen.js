@@ -9,7 +9,6 @@ import {
 import React from 'react';
 import {useState} from 'react';
 import {COLORS} from '../../utils/colors';
-import FAIcons from 'react-native-vector-icons/FontAwesome';
 import {STRINGS} from '../../constants/strings';
 import {
   Button,
@@ -19,12 +18,11 @@ import {
   TextHandler,
 } from '../../components';
 import {screenWidth, widthPercentageToDP} from '../../libs';
-import ADIcons from 'react-native-vector-icons/AntDesign';
 import commonQuestions from '../../tmp/common.json';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {useDispatch} from 'react-redux';
 import {goBack} from '../../navigation/NavigationService';
-
+import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 export default function SurveyScreen() {
   let [survey, updateSurvey] = useState(commonQuestions);
   const dispatch = useDispatch();

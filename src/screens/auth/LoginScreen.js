@@ -8,10 +8,8 @@ import {
 } from '../../components/index';
 import {screenWidth} from '../../libs';
 import {COLORS} from '../../utils/colors';
-import FAIcons from 'react-native-vector-icons/FontAwesome';
 import PhoneInput from 'react-native-phone-number-input';
 import {STRINGS} from '../../constants/strings';
-import ADIcons from 'react-native-vector-icons/AntDesign';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {Input} from '../../components/Input';
@@ -20,6 +18,7 @@ import {Login} from '../../networking/API.controller';
 import {useDispatch} from 'react-redux';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import LoaderIndicator from '../../components/Loader';
+import {FAIcons, ADIcons} from '../../libs/VectorIcons';
 
 export default function LoginScreen() {
   const [phone, setPhone] = useState('');

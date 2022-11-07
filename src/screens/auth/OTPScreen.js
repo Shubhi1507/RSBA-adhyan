@@ -1,6 +1,5 @@
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import FAIcons from 'react-native-vector-icons/FontAwesome';
 import {COLORS} from '../../utils/colors';
 import {
   Header,
@@ -8,7 +7,6 @@ import {
   Button,
   CustomSnackBar,
 } from '../../components/index';
-import ADIcons from 'react-native-vector-icons/AntDesign';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {screenWidth} from '../../libs';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
@@ -18,6 +16,7 @@ import {VerifyOTP} from '../../networking/API.controller';
 import {useDispatch, useSelector} from 'react-redux';
 import LoaderIndicator from '../../components/Loader';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import { ADIcons, FAIcons } from '../../libs/VectorIcons';
 
 export default function OTPScreen({route, navigation}) {
   const store = useSelector(state => state.authReducer);

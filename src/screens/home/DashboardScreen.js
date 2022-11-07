@@ -5,13 +5,12 @@ import {Button, CustomSnackBar, Header, TextHandler} from '../../components';
 import {COLORS} from '../../utils/colors';
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
-import ADIcons from 'react-native-vector-icons/AntDesign';
-import FAIcons from 'react-native-vector-icons/FontAwesome';
 import {screenWidth} from '../../libs';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {useEffect} from 'react';
+import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 
 export default function DashboardScreen() {
   const [error, setError] = useState({visible: false, message: ''});

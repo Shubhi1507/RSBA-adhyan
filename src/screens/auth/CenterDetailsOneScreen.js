@@ -9,12 +9,10 @@ import {
   Input,
   TextHandler,
 } from '../../components/index';
-import ADIcons from 'react-native-vector-icons/AntDesign';
 import {COLORS} from '../../utils/colors';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {useState} from 'react';
 import {ROUTES} from '../../navigation/RouteConstants';
-import FAIcons from 'react-native-vector-icons/FontAwesome';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -25,6 +23,7 @@ import {
 } from '../../networking/API.controller';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import LoaderIndicator from '../../components/Loader';
+import { ADIcons, FAIcons } from '../../libs/VectorIcons';
 
 export default function CenterDetailsOneScreen() {
   const store = useSelector(state => state.RegionReducer);

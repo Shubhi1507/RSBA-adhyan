@@ -17,7 +17,6 @@ import {
   RadioButtons,
   TextHandler,
 } from '../../components/index';
-import ADIcons from 'react-native-vector-icons/AntDesign';
 import {COLORS} from '../../utils/colors';
 import {TextInput} from 'react-native-gesture-handler';
 import {goBack, navigate} from '../../navigation/NavigationService';
@@ -25,7 +24,7 @@ import {useState} from 'react';
 import {STRINGS} from '../../constants/strings';
 import DatePicker from 'react-native-datepicker';
 import {ROUTES} from '../../navigation/RouteConstants';
-import FAIcons from 'react-native-vector-icons/FontAwesome';
+import { ADIcons, FAIcons } from '../../libs/VectorIcons';
 
 export default function VolunteerTeacherScreen() {
   const [studentInfo, setstudentInfo] = useState({

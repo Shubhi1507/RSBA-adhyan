@@ -7,12 +7,13 @@ import SelectAudienceScreen from '../screens/auth/SelectAudienceScreen';
 import SurveyScreen from '../screens/survey/SurveyScreen';
 import StudentEnrollmentScreen from '../screens/auth/StudentEnrollmentScreen';
 import DashboardScreen from '../screens/home/DashboardScreen';
+import CentreQuestionsScreen from '../screens/survey/CentreQuestionsScreen';
 
 const AppStack = createStackNavigator();
 
 export function App() {
   return (
-    <AppStack.Navigator initialRouteName={ROUTES.AUTH.DASHBOARDSCREEN}>
+    <AppStack.Navigator initialRouteName={ROUTES.AUTH.CENTREQUESTIONSCREEN}>
       <AppStack.Screen
         name={ROUTES.AUTH.DASHBOARDSCREEN}
         component={DashboardScreen}
@@ -33,6 +34,11 @@ export function App() {
       <AppStack.Screen
         name={ROUTES.AUTH.VOLUNTEERTEACHERSCREEN}
         component={SelectAudienceScreen}
+        options={{headerShown: false}}
+      />
+      <AppStack.Screen
+        name={ROUTES.AUTH.CENTREQUESTIONSCREEN}
+        component={CentreQuestionsScreen}
         options={{headerShown: false}}
       />
       <AppStack.Screen
