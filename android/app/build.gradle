@@ -128,7 +128,6 @@ def nativeArchitectures = project.getProperties().get("reactNativeDebugArchitect
 
 android {
     ndkVersion rootProject.ext.ndkVersion
-
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
@@ -194,7 +193,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'  
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation 'com.facebook.react:react-native:0.66.1'  // From node_modules
     implementation platform('com.google.firebase:firebase-bom:31.0.1')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
