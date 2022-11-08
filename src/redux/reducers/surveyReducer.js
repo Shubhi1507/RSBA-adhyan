@@ -2,6 +2,9 @@ import {ACTION_CONSTANTS} from '../actions/actions';
 
 const initialState = {
   survey: [],
+  surveyStatus: [],
+  completedSurvey: 0,
+  incompletedSurvey: 0,
 };
 
 const surveyReducer = (state = initialState, action) => {
@@ -11,8 +14,33 @@ const surveyReducer = (state = initialState, action) => {
         ...state,
         survey: action.payload,
       };
+
+    case ACTION_CONSTANTS.ADD_COMPLETED_SURVEY_COUNT:
+      return {
+        ...state,
+        completedSurvey: state.completedSurvey + 1,
+      };
+
+    case ACTION_CONSTANTS.ADD_INCOMPLETED_SURVEY_COUNT:
+      return {
+        ...state,
+        incompletedSurvey: +1,
+      };
+
+    case ACTION_CONSTANTS.UPDATE_SURVEY_STATUS:
+      return {
+        ...state,
+        surveyStatus: action.payload,
+      };
+
     case ACTION_CONSTANTS.CLEAR_SURVEY:
-      return {...state, survey: []};
+      return {
+        ...state,
+        survey: [],
+        surveyStatus: [],
+        completedSurvey: 0,
+        incompletedSurvey: 0,
+      };
     default:
       return state;
   }
