@@ -1,17 +1,32 @@
-import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  FlatList,
+} from 'react-native';
 import React from 'react';
-import {goBack} from '../../navigation/NavigationService';
-import {ADIcons, FAIcons} from '../../libs/VectorIcons';
-import {useDispatch} from 'react-redux';
-import {STRINGS} from '../../constants/strings';
-import {COLORS} from '../../utils/colors';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Button, Header, RadioButtons, TextHandler} from '../../components';
 import {useState} from 'react';
-import {screenWidth} from '../../libs';
+import {COLORS} from '../../utils/colors';
+import FAIcons from 'react-native-vector-icons/FontAwesome';
+import {STRINGS} from '../../constants/strings';
+import {
+  Button,
+  Header,
+  Input,
+  RadioButtons,
+  TextHandler,
+} from '../../components';
+import {screenWidth, widthPercentageToDP} from '../../libs';
+import ADIcons from 'react-native-vector-icons/AntDesign';
+import commonQuestions from '../../tmp/common.json';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import {useDispatch} from 'react-redux';
+import {goBack} from '../../navigation/NavigationService';
 
 export default function CentreQuestionsScreen() {
-  let [survey, updateSurvey] = useState([]);
+  let [survey, updateSurvey] = useState(commonQuestions);
   const dispatch = useDispatch();
 
   const HeaderContent = () => {
@@ -50,81 +65,92 @@ export default function CentreQuestionsScreen() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
-      <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {1}
-              </TextHandler>
-            </View>
+      <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
+        <FlatList
+          keyExtractor={() => Math.random().toFixed(5)}
+          data={survey}
+          renderItem={({item, index}) => {
+            return (
+              <View>
+                <View style={{flexDirection: 'row', marginVertical: 20}}>
+                  <View
+                    style={{
+                      backgroundColor: COLORS.orange,
+                      height: 20,
+                      width: 20,
+                      borderRadius: 40,
+                      justifyContent: 'flex-start',
+                      marginRight: 5,
+                    }}>
+                    <TextHandler
+                      style={{
+                        color: 'black',
+                        textAlign: 'center',
+                      }}>
+                      {index + 1}
+                    </TextHandler>
+                  </View>
 
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {item.question}
-              </TextHandler>
-            </View>
-          </View>
+                  <View
+                    style={{
+                      flex: 1,
+                      alignItems: 'flex-start',
+                    }}>
+                    <TextHandler
+                      style={{
+                        color: 'black',
+                        // textAlign: 'left',
+                      }}>
+                      {item.question}
+                    </TextHandler>
+                  </View>
+                </View>
 
-          {item.type === 'a' && (
-            <Input
-              type={'numeric'}
-              placeholder="Enter answer here"
-              name="any"
-              onChangeText={text => {
-                let updatedItem = {...item, answer: text};
-
-                var new_obj = Object.assign(item, updatedItem);
-                console.log('2-->', new_obj);
-                let updatedSurvey = [...survey, (survey[index] = new_obj)];
-                console.log('2-->', updatedSurvey);
-
-                // updateSurvey({...survey,  })
-              }}
-              value={item.answer}
-              message={''}
-              containerStyle={{
-                alignItems: 'center',
-                minWidth: screenWidth * 0.5,
-              }}
-            />
-          )}
-          {item.type === 'b' && (
-            <View>
-              <RadioButtons
-                radioStyle={{
-                  borderWidth: 1,
-                  marginVertical: 2,
-                  borderColor: COLORS.orange,
-                }}
-                data={item.options}
-                onValueChange={item => {
-                  console.log(item);
-                }}
-              />
-            </View>
-          )}
-        </View>
+                {item.type === 'a' && (
+                  <Input
+                    placeholder="Enter answer here"
+                    name="any"
+                    onChangeText={text => {
+                      let updatedItem = {
+                        ...item,
+                        answer: text,
+                      };
+                      console.log('e', text);
+                      console.log('updatedItem-->', updatedItem);
+                      let tmp = [...survey];
+                      console.log('old tmp-->', survey);
+                      tmp.splice(index, 1, updatedItem);
+                      console.log('new tmp-->', tmp);
+                      updateSurvey(tmp);
+                    }}
+                    value={item.answer}
+                    message={''}
+                    containerStyle={{
+                      alignItems: 'center',
+                      minWidth: screenWidth * 0.5,
+                    }}
+                  />
+                )}
+                {item.type === 'b' && (
+                  <View>
+                    <RadioButtons
+                      radioStyle={{
+                        borderWidth: 1,
+                        marginVertical: 2,
+                        borderColor: COLORS.orange,
+                      }}
+                      data={item.options}
+                      onValueChange={item => {
+                        console.log(item);
+                      }}
+                    />
+                  </View>
+                )}
+              </View>
+            );
+          }}
+        />
+        <View></View>
 
         <Button
           title={'Next'}
@@ -135,7 +161,7 @@ export default function CentreQuestionsScreen() {
             textAlign: 'center',
           }}
         />
-      </KeyboardAwareScrollView>
+      </ScrollView>
     </View>
   );
 }
