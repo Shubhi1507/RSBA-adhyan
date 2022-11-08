@@ -29,6 +29,7 @@ export const RadioButtons = ({data, onValueChange, radioStyle}) => {
                 {
                   flexDirection: 'row',
                   alignItems: 'center',
+                  paddingVertical: 5,
                 },
                 radioStyle || {},
               ]}>
@@ -38,7 +39,7 @@ export const RadioButtons = ({data, onValueChange, radioStyle}) => {
                 uncheckedColor={COLORS.black}
               />
 
-              <TextHandler>{item.value}</TextHandler>
+              <Text style={{marginHorizontal: 10}}>{item.value}</Text>
             </TouchableOpacity>
           </RadioButton.Group>
         );

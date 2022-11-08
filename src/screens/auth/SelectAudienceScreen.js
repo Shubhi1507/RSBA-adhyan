@@ -142,15 +142,15 @@ export default function SelectAudienceScreen() {
       case CENTRES[1].value:
         return navigate(ROUTES.AUTH.VARTAAMAAN_ABHIBHAVAK_SCREEN);
 
-        break;
       case CENTRES[2].value:
         break;
       case CENTRES[3].value:
         break;
       case CENTRES[4].value:
-        break;
+        return;
+      // return navigate(ROUTES.AUTH.TEACHERQUESTONSSCREEN);
       case CENTRES[5].value:
-        break;
+        return navigate(ROUTES.AUTH.KENDRASANCHALAKSCREEN);
       case CENTRES[6].value:
         break;
       case CENTRES[7].value:

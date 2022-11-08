@@ -12,6 +12,7 @@ import {
   Header,
   Input,
   RadioButtons,
+  SurveyCompletedModal,
   TextHandler,
 } from '../../components';
 import {useState} from 'react';
@@ -28,6 +29,7 @@ export default function VartaMaanAbhibhavakScreen() {
     answer6: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
+  const [visible, setVisible] = React.useState(false);
 
   const dispatch = useDispatch();
 
@@ -53,30 +55,33 @@ export default function VartaMaanAbhibhavakScreen() {
           </TouchableOpacity>
           <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
         </View>
-        <View style={{flex: 0.85}}>
+        <View style={{flex: 0.55}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {STRINGS.LOGIN.VARTAMAAN_ABHIBHAVAK}
+            {STRINGS.LOGIN.SURVEY}
           </Text>
         </View>
       </View>
     );
   };
 
+  const hideModal = () => setVisible(false);
+  const showModal = () => setVisible(true);
+
   const pageValidator = () => {
-    // const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    // if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please answer all questionaires',
-    //   });
-    // }
-    // if (answer1.length < 4 || answer1 > 2023 || answer1 < 1800) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Invalid year entered',
-    //   });
-    // }
-    navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
+    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+      return setError({
+        visible: true,
+        message: 'Please answer all questionaires',
+      });
+    }
+    if (answer1.length < 4 || answer1 > 2023 || answer1 < 1800) {
+      return setError({
+        visible: true,
+        message: 'Invalid year entered',
+      });
+    }
+    showModal();
   };
 
   return (
@@ -84,6 +89,7 @@ export default function VartaMaanAbhibhavakScreen() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
+      <SurveyCompletedModal visible={visible} hideModal={hideModal} />
       <CustomSnackBar
         visible={error.visible}
         message={error.message}
@@ -418,7 +424,7 @@ export default function VartaMaanAbhibhavakScreen() {
           </View>
         </View>
         <Button
-          title={'Next'}
+          title={'Submit'}
           onPress={pageValidator}
           ButtonContainerStyle={{
             marginVertical: 17,

@@ -54,6 +54,7 @@ export function DropDown({
             <Menu
               contentStyle={{
                 backgroundColor: COLORS.blue,
+                maxHeight: 300,
               }}
               visible={isVisible}
               onDismiss={closeAnchor}

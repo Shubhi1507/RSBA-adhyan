@@ -17,9 +17,14 @@ export default function DashboardScreen() {
   const dispatch = useDispatch();
   const store = useSelector(state => state.authReducer);
   const name = store?.userData?.userData?.data[0]?.name;
+
+
   useEffect(() => {
-    console.log('store', store);
+    dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
+    dispatch({type: ACTION_CONSTANTS.CLEAR_DISTRICTS_LIST});
+    dispatch({type: ACTION_CONSTANTS.CLEAR_STATE_LIST});
   }, []);
+
   const HeaderContent = () => {
     return (
       <View
@@ -28,7 +33,7 @@ export default function DashboardScreen() {
           flexDirection: 'row',
           justifyContent: 'space-around',
           alignItems: 'center',
-          width: screenWidth,
+          width: screenWidth, 
         }}>
         <View
           style={{

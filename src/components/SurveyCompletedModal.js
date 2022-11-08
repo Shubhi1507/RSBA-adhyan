@@ -37,7 +37,7 @@ export const SurveyCompletedModal = ({visible, hideModal}) => {
               justifyContent: 'space-around',
               alignItems: 'center',
             }}>
-            <Text>Survey Completed.</Text>
+            <Text>Submitted</Text>
             <Button
               title={'OK'}
               onPress={() => {

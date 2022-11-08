@@ -12,6 +12,7 @@ import {
   Header,
   Input,
   RadioButtons,
+  SurveyCompletedModal,
   TextHandler,
 } from '../../components';
 import {useState} from 'react';
@@ -28,9 +29,11 @@ export default function TeacherQuestionsScreen() {
     answer6: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
-
+  const [visible, setVisible] = React.useState(false);
   const dispatch = useDispatch();
 
+  const hideModal = () => setVisible(false);
+  const showModal = () => setVisible(true);
   const HeaderContent = () => {
     return (
       <View
@@ -53,9 +56,9 @@ export default function TeacherQuestionsScreen() {
           </TouchableOpacity>
           <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
         </View>
-        <View style={{flex: 0.65}}>
+        <View style={{flex: 0.55}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {STRINGS.LOGIN.CENTER_INFO}
+            {STRINGS.LOGIN.SURVEY}
           </Text>
         </View>
       </View>
@@ -70,12 +73,9 @@ export default function TeacherQuestionsScreen() {
         message: 'Please answer all questionaires',
       });
     }
-    if (answer1.length < 4 || answer1 > 2023 || answer1 < 1800) {
-      return setError({
-        visible: true,
-        message: 'Invalid year entered',
-      });
-    }
+
+    showModal();
+
     navigate(ROUTES.AUTH.TEACHERQUESTONSSCREEN);
   };
 
@@ -84,6 +84,7 @@ export default function TeacherQuestionsScreen() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
+      <SurveyCompletedModal visible={visible} hideModal={hideModal} />
       <CustomSnackBar
         visible={error.visible}
         message={error.message}
@@ -92,6 +93,73 @@ export default function TeacherQuestionsScreen() {
         }
       />
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
+        {/* QA0 */}
+        <View style={{marginBottom: 10}}>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {1}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {
+                  'Keeping current trend in mind, do we  teach concepts in English ?'
+                }
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value:
+                    'Almost all the students are attending the Kendra from 2+ years',
+                },
+                {
+                  key: 2,
+                  value: 'Half of the students attends the class from 2+ years',
+                },
+                {
+                  key: 3,
+                  value: 'Only 10 % students attends the vlass from 2+ years',
+                },
+              ]}
+              onValueChange={item => {
+                setAnswers({...answers, answer3: item});
+              }}
+            />
+          </View>
+        </View>
+
         {/* QA1 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
@@ -109,7 +177,7 @@ export default function TeacherQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {1}
+                {2}
               </TextHandler>
             </View>
 
@@ -147,71 +215,6 @@ export default function TeacherQuestionsScreen() {
           />
         </View>
 
-        {/* QA2 */}
-        <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {2}
-              </TextHandler>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {'How consistent are the students in attending the Kendra?'}
-              </TextHandler>
-            </View>
-          </View>
-
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value:
-                    'Almost all the students are attending the Kendra from 2+ years',
-                },
-                {
-                  key: 2,
-                  value: 'Half of the students attends the class from 2+ years',
-                },
-                {
-                  key: 3,
-                  value: 'Only 10 % students attends the vlass from 2+ years ',
-                },
-              ]}
-              onValueChange={item => {
-                setAnswers({...answers, answer2: item});
-              }}
-            />
-          </View>
-        </View>
-
         {/* QA3 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
@@ -244,6 +247,116 @@ export default function TeacherQuestionsScreen() {
                   // textAlign: 'left',
                 }}>
                 {
+                  'How many students have passed out from this Kendra? (Since inception)'
+                }
+              </TextHandler>
+            </View>
+          </View>
+
+          <Input
+            type={'numeric'}
+            number={4}
+            placeholder="Enter answer here"
+            name="any"
+            onChangeText={text => {
+              setAnswers({...answers, answer1: text});
+            }}
+            value={answers.answer1}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.5,
+            }}
+          />
+        </View>
+        {/* QA3 */}
+        <View style={{marginBottom: 10}}>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {4}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {
+                  'Keeping current trend in mind, do we  teach concepts in English ?'
+                }
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {key: 2, value: 'Yes , we use English everyday'},
+                {key: 2, value: 'Sometimes we teach in English'},
+                {key: 2, value: 'We rarely use English'},
+              ]}
+              onValueChange={item => {
+                setAnswers({...answers, answer3: item});
+              }}
+            />
+          </View>
+        </View>
+        {/* QA3 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {5}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {
                   'In which area we can see transformation  in our students? (Number should be  more than 50% of total students) - Comparison between before and after '
                 }
               </TextHandler>
@@ -261,7 +374,7 @@ export default function TeacherQuestionsScreen() {
                 {
                   key: 1,
                   value:
-                    '· Drastic Academic improvement – Rating between 1 to 10',
+                    'Drastic Academic improvement - Rating between 1 to 10',
                 },
                 {
                   key: 2,
@@ -299,7 +412,7 @@ export default function TeacherQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {4}
+                {6}
               </TextHandler>
             </View>
 
@@ -352,7 +465,7 @@ export default function TeacherQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {5}
+                {7}
               </TextHandler>
             </View>
 
@@ -379,9 +492,9 @@ export default function TeacherQuestionsScreen() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: '· Through story telling (Theory)'},
-                {key: 2, value: '· Through activity (Practical)'},
-                {key: 3, value: '· We donot focus on this area'},
+                {key: 1, value: 'Through story telling (Theory)'},
+                {key: 2, value: 'Through activity (Practical)'},
+                {key: 3, value: 'We donot focus on this area'},
               ]}
               onValueChange={item => {
                 setAnswers({...answers, answer5: item});
@@ -407,7 +520,7 @@ export default function TeacherQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {6}
+                {8}
               </TextHandler>
             </View>
 
@@ -439,7 +552,6 @@ export default function TeacherQuestionsScreen() {
                 {key: 1, value: 'Yes'},
                 {key: 2, value: 'No'},
                 {key: 3, value: 'Sometimes'},
-
               ]}
               onValueChange={item => {
                 setAnswers({...answers, answer6: item});
@@ -448,7 +560,7 @@ export default function TeacherQuestionsScreen() {
           </View>
         </View>
         <Button
-          title={'Next'}
+          title={'Submit'}
           onPress={pageValidator}
           ButtonContainerStyle={{
             marginVertical: 17,
@@ -481,14 +593,5 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontSize: 16,
     margin: 6,
-  },
-
-  textInput: {
-    height: 40,
-    margin: 5,
-    borderWidth: 1,
-    padding: 10,
-    textAlign: 'left',
-    color: 'grey',
   },
 });

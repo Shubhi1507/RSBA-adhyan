@@ -18,7 +18,7 @@ import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 
-export default function TeacherQuestionsScreen() {
+export default function KendraSanchalakQuestions() {
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',

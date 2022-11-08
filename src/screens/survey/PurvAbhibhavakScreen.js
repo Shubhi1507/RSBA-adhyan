@@ -58,9 +58,9 @@ export default function PurvAbhibhavakScreen() {
           </TouchableOpacity>
           <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
         </View>
-        <View style={{flex: 0.65}}>
+        <View style={{flex: 0.55}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {STRINGS.LOGIN.PURV_ABHIBHAVAK}
+            {STRINGS.LOGIN.SURVEY}
           </Text>
         </View>
       </View>

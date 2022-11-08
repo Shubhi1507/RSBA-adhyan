@@ -10,12 +10,14 @@ import DashboardScreen from '../screens/home/DashboardScreen';
 import CentreQuestionsScreen from '../screens/survey/CentreQuestionsScreen';
 import PurvAbhibhavakScreen from '../screens/survey/PurvAbhibhavakScreen';
 import VartaMaanAbhibhavakScreen from '../screens/survey/VartaMaanAbhibhavakScreen';
+import TeacherQuestionsScreen from '../screens/survey/TeacherQuestionsScreen';
+import KendraSanchalakQuestions from '../screens/survey/KendraSanchalakQuestions';
 
 const AppStack = createStackNavigator();
 
 export function App() {
   return (
-    <AppStack.Navigator initialRouteName={ROUTES.AUTH.SELECTAUDIENCESCREEN}>
+    <AppStack.Navigator initialRouteName={ROUTES.AUTH.DASHBOARDSCREEN}>
       <AppStack.Screen
         name={ROUTES.AUTH.DASHBOARDSCREEN}
         component={DashboardScreen}
@@ -61,14 +63,14 @@ export function App() {
         options={{headerShown: false}}
       />
 
-<AppStack.Screen
+      <AppStack.Screen
         name={ROUTES.AUTH.TEACHERQUESTONSSCREEN}
-        component={CentreQuestionsScreen}
+        component={TeacherQuestionsScreen}
         options={{headerShown: false}}
       />
-       <AppStack.Screen
+      <AppStack.Screen
         name={ROUTES.AUTH.KENDRASANCHALAKSCREEN}
-        component={CentreQuestionsScreen}
+        component={KendraSanchalakQuestions}
         options={{headerShown: false}}
       />
 
