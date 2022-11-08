@@ -51,7 +51,7 @@ export function Auth() {
         options={{headerShown: false}}
       />
       <AuthStack.Screen
-        name={ROUTES.AUTH.VOLUNTEERTEACHERSCREEN}
+        name={ROUTES.AUTH.SELECTAUDIENCESCREEN}
         component={SelectAudienceScreen}
         options={{headerShown: false}}
       />

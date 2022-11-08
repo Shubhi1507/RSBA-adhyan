@@ -32,7 +32,7 @@ export function App() {
         options={{headerShown: false}}
       />
       <AppStack.Screen
-        name={ROUTES.AUTH.VOLUNTEERTEACHERSCREEN}
+        name={ROUTES.AUTH.SELECTAUDIENCESCREEN}
         component={SelectAudienceScreen}
         options={{headerShown: false}}
       />

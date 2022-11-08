@@ -16,7 +16,8 @@ export const STRINGS = {
     CENTER_CONTACT_DETAILS: 'Center Contact Details',
     PARENT_ORG: 'Parent Organisation',
     AUDIENCE: 'Select Audience',
-    SURVEY:"Survey"
+    SURVEY: 'Survey',
+    CENTER_INFO: 'Center Information',
   },
   SIGNUP: {
     DURATION_OF_CLASS: 'Duration Of Class',
