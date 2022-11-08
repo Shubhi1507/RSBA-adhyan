@@ -3,32 +3,33 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Image,
   ScrollView,
+  FlatList,
 } from 'react-native';
 import React from 'react';
 import {screenWidth} from '../../libs';
 import {
   Button,
+  CustomCheckbox,
   CustomSnackBar,
-  DropDown,
   Header,
-  Input,
-  PageIndicator,
-  RadioButtons,
   TextHandler,
 } from '../../components/index';
 import {COLORS} from '../../utils/colors';
-import {TextInput} from 'react-native-gesture-handler';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {useState} from 'react';
 import {STRINGS} from '../../constants/strings';
 import DatePicker from 'react-native-datepicker';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import {useDispatch, useSelector} from 'react-redux';
+import { useEffect } from 'react';
 
 export default function SelectAudienceScreen() {
   let [selectedAudience, setAudience] = useState('');
+  const store = useSelector(state => state);
+  const dispatch = useDispatch();
   const [miscControllers, setmisControllers] = useState({
     CLASS_FREQUENCY: [
       {
@@ -48,84 +49,71 @@ export default function SelectAudienceScreen() {
       {
         key: `Student's Parents (Past Students)`,
         value: `Student's Parents (Past Students)`,
+        disabled: false,
+        checked: false,
+        completed: false,
       },
       {
         key: `Student's Parents (Current Students)`,
         value: `Student's Parents (Current Students)`,
+        disabled: false,
+        checked: false,
+        completed: false,
       },
       {
         key: 'Past Student',
         value: 'Past Student',
+        disabled: false,
+        checked: false,
+        completed: false,
       },
       {
         key: 'Current Student',
         value: 'Current Student',
+        disabled: false,
+        checked: false,
+        completed: false,
       },
       {
         key: 'Teacher',
         value: 'Teacher',
+        disabled: false,
+        checked: false,
+        completed: false,
       },
       {
         key: 'Kendra Sanchalak',
         value: 'Kendra Sanchalak',
+        disabled: false,
+        checked: false,
+        completed: false,
       },
       {
         key: 'Basti',
         value: 'Basti',
+        disabled: true,
+        checked: true,
+        completed: false,
       },
       {
         key: 'Prabuddha Jan',
         value: 'Prabuddha Jan',
+        disabled: false,
+        checked: false,
+        completed: false,
       },
     ],
   });
 
-  const [classControllers, setclassControllers] = useState({
-    DURATION: [
-      {
-        key: '1 Hour',
-        value: ' 1 Hour ',
-      },
-      {
-        key: '1.5 Hours',
-        value: '1.5 Hours',
-      },
-      {
-        key: '2 Hours',
-        value: '2 Hours',
-      },
-
-      {
-        key: '2.5 Hours',
-        value: '2.5 Hours',
-      },
-      {
-        key: '3 Hours or more than 3 Hours',
-        value: '3 Hours or more than 3 Hours',
-      },
-    ],
+  const [error, setError] = useState({
+    visible: false,
+    message: '',
+    type: 'error',
   });
 
-  const [placeContainer, setplaceContainer] = useState({
-    PLACE_USED: [
-      {key: 'Smalll Room', value: 'Small Room '},
-      {
-        key: ' Hall',
-        value: 'Hall',
-      },
-      {
-        key: 'Study Room',
-        value: 'Study Room',
-      },
-
-      {
-        key: 'Ground or etc',
-        value: ' Ground or etc',
-      },
-    ],
-  });
-
-  const [error, setError] = useState({visible: false, message: ''});
+  useEffect(() => {
+    console.log('store', store);
+  }, []);
 
   const pageNavigator = () => {
     const {CENTRES} = miscControllers;
@@ -133,8 +121,11 @@ export default function SelectAudienceScreen() {
       return setError({
         visible: true,
         message: 'Please select an audience',
+        type: 'error',
       });
     }
+
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: CENTRES});
 
     switch (selectedAudience) {
       case CENTRES[0].value:
@@ -150,10 +141,14 @@ export default function SelectAudienceScreen() {
         return navigate(ROUTES.AUTH.TEACHERQUESTONSSCREEN);
       case CENTRES[5].value:
         return navigate(ROUTES.AUTH.KENDRASANCHALAKSCREEN);
-      case CENTRES[5].value:
-        return navigate(ROUTES.AUTH.TEACHERQUESTONSSCREEN);
       case CENTRES[6].value:
-        return navigate(ROUTES.AUTH.BASTIQUESTIONS);
+        if (CENTRES[6].disabled) {
+          return setError({
+            visible: true,
+            type: 'ok',
+            message: 'Already submitted',
+          });
+        } else return navigate(ROUTES.AUTH.BASTIQUESTIONS);
       case CENTRES[7].value:
         return navigate(ROUTES.AUTH.PRABUDDHAJANQUESTIONS);
 
@@ -204,6 +199,7 @@ export default function SelectAudienceScreen() {
       <CustomSnackBar
         visible={error.visible}
         message={error.message}
+        type={error.type}
         onDismissSnackBar={() =>
           setError({...error, message: '', visible: false})
         }
@@ -220,10 +216,26 @@ export default function SelectAudienceScreen() {
             }}>
             {STRINGS.LOGIN.AUDIENCE}
           </TextHandler>
-          <RadioButtons
+
+          <FlatList
             data={miscControllers.CENTRES}
-            onValueChange={item => {
-              setAudience(item);
+            renderItem={({item, index}) => {
+              return (
+                <CustomCheckbox
+                  label={item.value}
+                  status={selectedAudience === item.value}
+                  disabled={item.disabled}
+                  onPress={() => {
+                    if (!item.disabled) {
+                      let tmp = [...miscControllers.CENTRES];
+                      let new_obj = {...item, checked: !item.checked};
+                      tmp.splice(index, 1, new_obj);
+                      setAudience(item.value);
+                      setmisControllers({...miscControllers, CENTRES: tmp});
+                    }
+                  }}
+                />
+              );
             }}
           />
         </View>
