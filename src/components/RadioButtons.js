@@ -34,6 +34,7 @@ export const RadioButtons = ({data, onValueChange, radioStyle}) => {
                 radioStyle || {},
               ]}>
               <RadioButton
+                disabled={item?.disabled}
                 value={item.value}
                 color={COLORS.blue}
                 uncheckedColor={COLORS.black}
