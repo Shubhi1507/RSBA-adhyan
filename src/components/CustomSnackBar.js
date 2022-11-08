@@ -11,6 +11,7 @@ export const CustomSnackBar = ({
   onToggleSnackBar,
   onDismissSnackBar,
   message,
+  type,
 }) => {
   useEffect(() => {}, [visible]);
   return (
@@ -19,7 +20,8 @@ export const CustomSnackBar = ({
         <Snackbar
           visible={visible}
           style={{
-            backgroundColor: COLORS.error,
+            backgroundColor:
+              type && type === 'ok' ? COLORS.success : COLORS.error,
             height: 60,
           }}
           action={{
