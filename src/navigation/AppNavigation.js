@@ -61,6 +61,17 @@ export function App() {
         options={{headerShown: false}}
       />
 
+<AppStack.Screen
+        name={ROUTES.AUTH.TEACHERQUESTONSSCREEN}
+        component={CentreQuestionsScreen}
+        options={{headerShown: false}}
+      />
+       <AppStack.Screen
+        name={ROUTES.AUTH.KENDRASANCHALAKSCREEN}
+        component={CentreQuestionsScreen}
+        options={{headerShown: false}}
+      />
+
       <AppStack.Screen
         name={ROUTES.AUTH.STUDENTENROLLMENTSCREEN}
         component={StudentEnrollmentScreen}
