@@ -18,6 +18,8 @@ export const STRINGS = {
     AUDIENCE: 'Select Audience',
     SURVEY: 'Survey',
     CENTER_INFO: 'Center Information',
+    PURV_ABHIBHAVAK: 'Purv Abhibhavak',
+    VARTAMAAN_ABHIBHAVAK: 'Vartamaan Abhibhavak'
   },
   SIGNUP: {
     DURATION_OF_CLASS: 'Duration Of Class',

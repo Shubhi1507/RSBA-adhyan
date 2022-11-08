@@ -10,6 +10,7 @@ import React from 'react';
 import {screenWidth} from '../../libs';
 import {
   Button,
+  CustomSnackBar,
   DropDown,
   Header,
   Input,
@@ -24,17 +25,10 @@ import {useState} from 'react';
 import {STRINGS} from '../../constants/strings';
 import DatePicker from 'react-native-datepicker';
 import {ROUTES} from '../../navigation/RouteConstants';
-import { ADIcons, FAIcons } from '../../libs/VectorIcons';
+import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 
 export default function SelectAudienceScreen() {
-  const [teacherInfo, setteacherInfo] = useState({
-    teacher_name: '',
-    phone_number: '',
-    class_frequency: '',
-    class_duration: '',
-    place_used: '',
-    audience: '',
-  });
+  let [selectedAudience, setAudience] = useState('');
   const [miscControllers, setmisControllers] = useState({
     CLASS_FREQUENCY: [
       {
@@ -51,7 +45,6 @@ export default function SelectAudienceScreen() {
       },
     ],
     CENTRES: [
-     
       {
         key: `Student's Parents (Past Students)`,
         value: `Student's Parents (Past Students)`,
@@ -132,6 +125,45 @@ export default function SelectAudienceScreen() {
     ],
   });
 
+  const [error, setError] = useState({visible: false, message: ''});
+
+  const pageNavigator = () => {
+    const {CENTRES} = miscControllers;
+    if (!selectedAudience) {
+      return setError({
+        visible: true,
+        message: 'Please select an audience',
+      });
+    }
+
+    switch (selectedAudience) {
+      case CENTRES[0].value:
+        return navigate(ROUTES.AUTH.PURV_ABHIBHAVAK_SCREEN);
+      case CENTRES[1].value:
+        return navigate(ROUTES.AUTH.VARTAAMAAN_ABHIBHAVAK_SCREEN);
+
+        break;
+      case CENTRES[2].value:
+        break;
+      case CENTRES[3].value:
+        break;
+      case CENTRES[4].value:
+        break;
+      case CENTRES[5].value:
+        break;
+      case CENTRES[6].value:
+        break;
+      case CENTRES[7].value:
+        break;
+
+      default:
+        break;
+    }
+
+    console.log('audie', selectedAudience);
+
+    // navigate(ROUTES.AUTH.SURVEYSCREEN);
+  };
   const HeaderContent = () => {
     return (
       <View
@@ -168,6 +200,13 @@ export default function SelectAudienceScreen() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
+      <CustomSnackBar
+        visible={error.visible}
+        message={error.message}
+        onDismissSnackBar={() =>
+          setError({...error, message: '', visible: false})
+        }
+      />
       <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
         <View>
           <TextHandler
@@ -183,14 +222,14 @@ export default function SelectAudienceScreen() {
           <RadioButtons
             data={miscControllers.CENTRES}
             onValueChange={item => {
-              setteacherInfo({...teacherInfo, audience: item});
+              setAudience(item);
             }}
           />
         </View>
 
         <Button
           title={'Next'}
-          onPress={() => navigate(ROUTES.AUTH.SURVEYSCREEN)}
+          onPress={() => pageNavigator()}
           ButtonContainerStyle={{
             marginVertical: 17,
             alignItems: 'center',

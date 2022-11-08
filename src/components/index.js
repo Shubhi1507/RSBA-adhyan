@@ -6,6 +6,7 @@ import {Input} from './Input';
 import {PageIndicator} from './PageIndicator';
 import {RadioButtons} from './RadioButtons';
 import {CustomSnackBar} from './CustomSnackBar';
+import {SurveyCompletedModal} from './SurveyCompletedModal';
 
 export {
   Header,
@@ -16,4 +17,5 @@ export {
   PageIndicator,
   RadioButtons,
   CustomSnackBar,
+  SurveyCompletedModal,
 };
