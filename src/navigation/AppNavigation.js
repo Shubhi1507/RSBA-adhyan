@@ -21,7 +21,7 @@ const AppStack = createStackNavigator();
 
 export function App() {
   return (
-    <AppStack.Navigator initialRouteName={ROUTES.AUTH.DASHBOARDSCREEN}>
+    <AppStack.Navigator initialRouteName={ROUTES.AUTH.SELECTAUDIENCESCREEN}>
       <AppStack.Screen
         name={ROUTES.AUTH.DASHBOARDSCREEN}
         component={DashboardScreen}

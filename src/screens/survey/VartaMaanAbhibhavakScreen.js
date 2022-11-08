@@ -86,7 +86,6 @@ export default function VartaMaanAbhibhavakScreen() {
     let tmp = store?.surveyStatus;
     let new_obj = {...tmp[1], checked: true, completed: true, disabled: true};
     tmp.splice(1, 1, new_obj);
-    dispatch({type: ACTION_CONSTANTS.ADD_COMPLETED_SURVEY_COUNT});
     dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: tmp});
     showModal();
   };

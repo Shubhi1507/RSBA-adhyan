@@ -24,7 +24,7 @@ import {ROUTES} from '../../navigation/RouteConstants';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 
 export default function SelectAudienceScreen() {
   let [selectedAudience, setAudience] = useState('');
@@ -91,8 +91,8 @@ export default function SelectAudienceScreen() {
       {
         key: 'Basti',
         value: 'Basti',
-        disabled: true,
-        checked: true,
+        disabled: false,
+        checked: false,
         completed: false,
       },
       {
@@ -129,20 +129,56 @@ export default function SelectAudienceScreen() {
 
     switch (selectedAudience) {
       case CENTRES[0].value:
-        return navigate(ROUTES.AUTH.PURV_ABHIBHAVAK_SCREEN);
+        if (CENTRES[0].disabled) {
+          return setError({
+            visible: true,
+            type: 'ok',
+            message: 'Already submitted',
+          });
+        } else return navigate(ROUTES.AUTH.PURV_ABHIBHAVAK_SCREEN);
       case CENTRES[1].value:
-        return navigate(ROUTES.AUTH.VARTAAMAAN_ABHIBHAVAK_SCREEN);
+        if (CENTRES[1].disabled) {
+          return setError({
+            visible: true,
+            type: 'ok',
+            message: 'Already submitted',
+          });
+        } else return navigate(ROUTES.AUTH.VARTAAMAAN_ABHIBHAVAK_SCREEN);
 
       case CENTRES[2].value:
-        return navigate (ROUTES.AUTH.PASTSTUDENTQUESTIONS)
+        if (CENTRES[2].disabled) {
+          return setError({
+            visible: true,
+            type: 'ok',
+            message: 'Already submitted',
+          });
+        } else return navigate(ROUTES.AUTH.PASTSTUDENTQUESTIONS);
         break;
       case CENTRES[3].value:
-        return navigate(ROUTES.AUTH.PRESENTSTUDENTQUESTIONS)
+        if (CENTRES[3].disabled) {
+          return setError({
+            visible: true,
+            type: 'ok',
+            message: 'Already submitted',
+          });
+        } else return navigate(ROUTES.AUTH.PRESENTSTUDENTQUESTIONS);
         break;
       case CENTRES[4].value:
-        return navigate(ROUTES.AUTH.TEACHERQUESTONSSCREEN);
+        if (CENTRES[4].disabled) {
+          return setError({
+            visible: true,
+            type: 'ok',
+            message: 'Already submitted',
+          });
+        } else return navigate(ROUTES.AUTH.TEACHERQUESTONSSCREEN);
       case CENTRES[5].value:
-        return navigate(ROUTES.AUTH.KENDRASANCHALAKSCREEN);
+        if (CENTRES[5].disabled) {
+          return setError({
+            visible: true,
+            type: 'ok',
+            message: 'Already submitted',
+          });
+        } else return navigate(ROUTES.AUTH.KENDRASANCHALAKSCREEN);
       case CENTRES[6].value:
         if (CENTRES[6].disabled) {
           return setError({
@@ -152,8 +188,13 @@ export default function SelectAudienceScreen() {
           });
         } else return navigate(ROUTES.AUTH.BASTIQUESTIONS);
       case CENTRES[7].value:
-        return navigate(ROUTES.AUTH.PRABUDDHAJANQUESTIONS);
-
+        if (CENTRES[7].disabled) {
+          return setError({
+            visible: true,
+            type: 'ok',
+            message: 'Already submitted',
+          });
+        } else return navigate(ROUTES.AUTH.PRABUDDHAJANQUESTIONS);
       default:
         break;
     }
@@ -220,7 +261,7 @@ export default function SelectAudienceScreen() {
           </TextHandler>
 
           <FlatList
-            data={miscControllers.CENTRES}
+            data={store?.surveyReducer?.surveyStatus}
             renderItem={({item, index}) => {
               return (
                 <CustomCheckbox

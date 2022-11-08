@@ -82,7 +82,7 @@ export default function PurvAbhibhavakScreen() {
     let tmp = store?.surveyStatus;
     let new_obj = {...tmp[0], checked: true, completed: true, disabled: true};
     tmp.splice(0, 1, new_obj);
-    dispatch({type: ACTION_CONSTANTS.ADD_COMPLETED_SURVEY_COUNT});
+    
     dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: tmp});
 
     showModal();

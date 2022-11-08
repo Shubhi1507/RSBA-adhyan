@@ -2,7 +2,7 @@ import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
 import React from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {STRINGS} from '../../constants/strings';
 import {COLORS} from '../../utils/colors';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -12,13 +12,17 @@ import {
   Header,
   Input,
   RadioButtons,
+  SurveyCompletedModal,
   TextHandler,
 } from '../../components';
 import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 
 export default function PresentStudentQuestions() {
+  const store = useSelector(state => state?.surveyReducer);
+  const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',
@@ -28,8 +32,9 @@ export default function PresentStudentQuestions() {
     answer6: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
-
-  const dispatch = useDispatch();
+  const [visible, setVisible] = React.useState(false);
+  const hideModal = () => setVisible(false);
+  const showModal = () => setVisible(true);
 
   const HeaderContent = () => {
     return (
@@ -63,20 +68,26 @@ export default function PresentStudentQuestions() {
   };
 
   const pageValidator = () => {
-    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
-      return setError({
-        visible: true,
-        message: 'Please answer all questionaires',
-      });
-    }
-    if (answer1.length < 4 || answer1 > 2023 || answer1 < 1800) {
-      return setError({
-        visible: true,
-        message: 'Invalid year entered',
-      });
-    }
-    navigate(ROUTES.AUTH.PRESENTSTUDENTQUESTIONS);
+    // const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    // if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please answer all questionaires',
+    //   });
+    // }
+    // if (answer1.length < 4 || answer1 > 2023 || answer1 < 1800) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Invalid year entered',
+    //   });
+    // }
+    // navigate(ROUTES.AUTH.PRESENTSTUDENTQUESTIONS);
+    let tmp = store?.surveyStatus;
+    let new_obj = {...tmp[3], checked: true, completed: true, disabled: true};
+    tmp.splice(3, 1, new_obj);
+    
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: tmp});
+    showModal();
   };
 
   return (
@@ -84,6 +95,7 @@ export default function PresentStudentQuestions() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
+      <SurveyCompletedModal visible={visible} hideModal={hideModal} />
       <CustomSnackBar
         visible={error.visible}
         message={error.message}
@@ -430,7 +442,9 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {' Since how long these childrean are coming  to the Prakalp  ? '}
+                {
+                  ' Since how long these childrean are coming  to the Prakalp  ? '
+                }
               </TextHandler>
             </View>
           </View>
