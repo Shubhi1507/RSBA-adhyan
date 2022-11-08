@@ -148,12 +148,16 @@ export default function SelectAudienceScreen() {
       case CENTRES[3].value:
         break;
       case CENTRES[4].value:
+        
         break;
       case CENTRES[5].value:
+        return navigate(ROUTES.AUTH.TEACHERQUESTONSSCREEN)
         break;
       case CENTRES[6].value:
+        return navigate(ROUTES.AUTH.BASTIQUESTIONS)
         break;
       case CENTRES[7].value:
+        return navigate(ROUTES.AUTH.PRABUDDHAJANQUESTIONS)
         break;
 
       default:
