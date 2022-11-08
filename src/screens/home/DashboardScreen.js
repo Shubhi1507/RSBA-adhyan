@@ -64,7 +64,7 @@ export default function DashboardScreen() {
       <View style={{flex: 1, justifyContent: 'center', paddingHorizontal: 20}}>
         <TextHandler
           style={{fontWeight: '700', fontSize: 20, paddingBottom: 30}}>
-          Welcome back {name && `, ${name}`}
+          Welcome {name && `, ${name}`}
         </TextHandler>
         <View
           style={{
