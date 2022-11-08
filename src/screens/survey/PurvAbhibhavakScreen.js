@@ -2,7 +2,7 @@ import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
 import React from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {STRINGS} from '../../constants/strings';
 import {COLORS} from '../../utils/colors';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -18,8 +18,11 @@ import {
 import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 
 export default function PurvAbhibhavakScreen() {
+  const store = useSelector(state => state?.surveyReducer);
+
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',
@@ -75,6 +78,13 @@ export default function PurvAbhibhavakScreen() {
     //     message: 'Please answer all questionaires',
     //   });
     // }
+
+    let tmp = store?.surveyStatus;
+    let new_obj = {...tmp[0], checked: true, completed: true, disabled: true};
+    tmp.splice(0, 1, new_obj);
+    dispatch({type: ACTION_CONSTANTS.ADD_COMPLETED_SURVEY_COUNT});
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: tmp});
+
     showModal();
 
     // navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
@@ -190,7 +200,7 @@ export default function PurvAbhibhavakScreen() {
             onChangeText={text => {
               setAnswers({...answers, answer2: text});
             }}
-            value={answers.answer1}
+            value={answers.answer2}
             message={''}
             containerStyle={{
               alignItems: 'center',
