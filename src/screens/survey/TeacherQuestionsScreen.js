@@ -76,7 +76,7 @@ export default function TeacherQuestionsScreen() {
         message: 'Invalid year entered',
       });
     }
-    navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
+    navigate(ROUTES.AUTH.TEACHERQUESTONSSCREEN);
   };
 
   return (
