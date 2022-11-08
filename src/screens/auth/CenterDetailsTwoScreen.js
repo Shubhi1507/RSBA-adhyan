@@ -59,7 +59,6 @@ export default function CenterDetailsTwoScreen() {
   const [error, setError] = useState({visible: false, message: ''});
 
   useEffect(() => {
-    console.log('authPageDataReducer', store);
   }, [store?.authData]);
 
   const HeaderContent = () => {

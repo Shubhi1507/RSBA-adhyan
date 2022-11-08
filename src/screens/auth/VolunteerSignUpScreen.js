@@ -27,7 +27,7 @@ import {getListofStates, Login} from '../../networking/API.controller';
 import {useDispatch, useSelector} from 'react-redux';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import LoaderIndicator from '../../components/Loader';
-import { ADIcons, FAIcons } from '../../libs/VectorIcons';
+import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 
 export default function VolunteerSignUpScreen() {
   const store = useSelector(state => state.RegionReducer);
@@ -121,8 +121,7 @@ export default function VolunteerSignUpScreen() {
         message: 'Please enter mobile number',
       });
     }
-    let data = {mobile: phone, state_id: '1', name};
-    console.log('Login', data);
+    let data = {mobile: phone, state_id: state_pranth?.key, name};
 
     setDataLoading(true);
     let response = await Login(data);
@@ -138,7 +137,6 @@ export default function VolunteerSignUpScreen() {
     });
     setDataLoading(false);
     navigate(ROUTES.AUTH.OTPSCREEN, data);
-    // navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN);
   };
 
   return (
@@ -191,11 +189,11 @@ export default function VolunteerSignUpScreen() {
             isVisible={miscControllers.state_pranth}
             title={''}
             onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, state_pranth: item.value});
+              setvolunteerInfo({...volunteerInfo, state_pranth: item});
             }}
             optionsArr={store?.stateList || []}
             error={'Pranth'}
-            value={volunteerInfo.state_pranth}
+            value={volunteerInfo.state_pranth?.value}
           />
         </View>
         <View style={styles.textBox}>
