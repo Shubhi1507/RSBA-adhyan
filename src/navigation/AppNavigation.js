@@ -10,6 +10,7 @@ import DashboardScreen from '../screens/home/DashboardScreen';
 import CentreQuestionsScreen from '../screens/survey/CentreQuestionsScreen';
 import PurvAbhibhavakScreen from '../screens/survey/PurvAbhibhavakScreen';
 import VartaMaanAbhibhavakScreen from '../screens/survey/VartaMaanAbhibhavakScreen';
+import BastiQuestions from '../screens/survey/BastiQuestions';
 
 const AppStack = createStackNavigator();
 
@@ -52,6 +53,12 @@ export function App() {
       <AppStack.Screen
         name={ROUTES.AUTH.VARTAAMAAN_ABHIBHAVAK_SCREEN}
         component={VartaMaanAbhibhavakScreen}
+        options={{headerShown: false}}
+      />
+
+<AppStack.Screen
+        name={ROUTES.AUTH.BASTIQUESTIONS}
+        component={BastiQuestions}
         options={{headerShown: false}}
       />
 
