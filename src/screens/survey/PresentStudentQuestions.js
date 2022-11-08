@@ -18,7 +18,7 @@ import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 
-export default function PastStudentQuestions() {
+export default function PresentStudentQuestions() {
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',
@@ -76,7 +76,7 @@ export default function PastStudentQuestions() {
         message: 'Invalid year entered',
       });
     }
-    navigate(ROUTES.AUTH.PASTSTUDENTQUESTIONS);
+    navigate(ROUTES.AUTH.PRESENTSTUDENTQUESTIONS);
   };
 
   return (
@@ -123,7 +123,7 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'During which years were you associated with the center ?'}
+                {'Current Student strength ?'}
               </TextHandler>
             </View>
           </View>
@@ -176,9 +176,7 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'What difference you experience between you & other students elder to you, due to the center ? '
-                }
+                {'Class group of the students ? '}
               </TextHandler>
             </View>
           </View>
@@ -193,20 +191,20 @@ export default function PastStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: 'Good Education',
+                  value: 'Play Group',
                 },
                 {
                   key: 2,
-                  value: 'Improved Social status',
+                  value: 'Primary',
                 },
                 {
                   key: 3,
-                  value: 'Improved financial status',
+                  value: 'Middle',
                 },
 
                 {
                   key: 4,
-                  value: 'Other',
+                  value: 'High School',
                 },
               ]}
               onValueChange={item => {
@@ -248,7 +246,7 @@ export default function PastStudentQuestions() {
                   // textAlign: 'left',
                 }}>
                 {
-                  'What difference you notice in the  parents, due to the center?'
+                  'Out of current strength how many students come regularly to attend the class?'
                 }
               </TextHandler>
             </View>
@@ -264,17 +262,17 @@ export default function PastStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: 'Improved respect',
+                  value: '20-25%',
                 },
                 {
                   key: 2,
-                  value: 'Changed habits',
+                  value: '40-50%',
                 },
                 {
                   key: 3,
-                  value: 'Organised',
+                  value: '65-75%',
                 },
-                {key: 4, value: ' Other'},
+                {key: 4, value: 'More than 75 %'},
               ]}
               onValueChange={item => {
                 setAnswers({...answers, answer3: item});
@@ -314,7 +312,9 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'How can you contribute in betterment of the center '}
+                {
+                  'Do they come alone or come together  with their siblings and neighbours '
+                }
               </TextHandler>
             </View>
           </View>
@@ -327,17 +327,16 @@ export default function PastStudentQuestions() {
             data={[
               {
                 key: 1,
-                value: 'Donating Time',
+                value: 'Alone',
               },
               {
                 key: 2,
-                value: 'Financial Help',
+                value: 'Sometimes',
               },
               {
                 key: 3,
-                value: 'Connecting Experts',
+                value: 'Come in group',
               },
-              {key: 4, value: ' Others'},
             ]}
             onValueChange={item => {
               setAnswers({...answers, answer3: item});
@@ -376,7 +375,7 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'For how many years were you coming to the centre'}
+                {'Interest of the students towards kendra?'}
               </TextHandler>
             </View>
           </View>
@@ -389,9 +388,9 @@ export default function PastStudentQuestions() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: 'less than 1 year '},
-                {key: 2, value: '1-3 years'},
-                {key: 3, value: 'More than 3 years'},
+                {key: 1, value: 'Need to remind'},
+                {key: 2, value: 'Parents force them'},
+                {key: 3, value: 'Wait for center to start'},
               ]}
               onValueChange={item => {
                 setAnswers({...answers, answer5: item});
@@ -431,9 +430,7 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'Reason for leaving the center?'
-                }
+                {' Since how long these childrean are coming  to the Prakalp  ? '}
               </TextHandler>
             </View>
           </View>
@@ -446,9 +443,9 @@ export default function PastStudentQuestions() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: 'Completion of education'},
-                {key: 2, value: 'Tranfer'},
-                {key: 3, value: 'Others'},
+                {key: 1, value: '6 Months'},
+                {key: 2, value: ' 6-24 months'},
+                {key: 3, value: '2 Years & above'},
               ]}
               onValueChange={item => {
                 setAnswers({...answers, answer6: item});
