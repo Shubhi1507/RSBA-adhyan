@@ -7,6 +7,7 @@ import {PageIndicator} from './PageIndicator';
 import {RadioButtons} from './RadioButtons';
 import {CustomSnackBar} from './CustomSnackBar';
 import {SurveyCompletedModal} from './SurveyCompletedModal';
+import {CustomCheckbox} from './CustomCheckbox';
 
 export {
   Header,
@@ -18,4 +19,5 @@ export {
   RadioButtons,
   CustomSnackBar,
   SurveyCompletedModal,
+  CustomCheckbox
 };
