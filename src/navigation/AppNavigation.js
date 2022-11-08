@@ -12,6 +12,7 @@ import PurvAbhibhavakScreen from '../screens/survey/PurvAbhibhavakScreen';
 import VartaMaanAbhibhavakScreen from '../screens/survey/VartaMaanAbhibhavakScreen';
 import BastiQuestions from '../screens/survey/BastiQuestions';
 import PrabuddhaJanQuestions from '../screens/survey/PrabuddhaJanQuestions';
+import PastStudentQuestions from '../screens/auth/PastStudentQuestions';
 
 const AppStack = createStackNavigator();
 
@@ -77,6 +78,13 @@ export function App() {
       <AppStack.Screen
         name={ROUTES.AUTH.KENDRASANCHALAKSCREEN}
         component={CentreQuestionsScreen}
+        options={{headerShown: false}}
+      />
+
+
+<AppStack.Screen
+        name={ROUTES.AUTH.PASTSTUDENTQUESTIONS}
+        component={PastStudentQuestions}
         options={{headerShown: false}}
       />
 
