@@ -61,10 +61,10 @@ export default function DashboardScreen() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
-      <View style={{flex: 1, justifyContent: 'center', paddingHorizontal: 20}}>
+      <View style={{flex: 1, justifyContent: 'center', paddingHorizontal: 15}}>
         <TextHandler
-          style={{fontWeight: '700', fontSize: 20, paddingBottom: 30}}>
-          Welcome {name && `, ${name}`}
+          style={{fontWeight: '700', fontSize: 23, paddingBottom: 30}}>
+          Welcome , {name && `, ${name}`}
         </TextHandler>
         <View
           style={{
@@ -72,10 +72,10 @@ export default function DashboardScreen() {
             justifyContent: 'space-between',
             flexDirection: 'row',
           }}>
-          <TextHandler style={{fontWeight: '500', fontSize: 18}}>
+          <TextHandler style={{fontWeight: '400', fontSize: 17 }}>
             Completed Surveys
           </TextHandler>
-          <TextHandler style={{fontWeight: '500', fontSize: 18}}>2</TextHandler>
+          <TextHandler style={{fontWeight: '400', fontSize: 17 , backgroundColor:"orange" , paddingHorizontal :7 , marginTop:10}}>2</TextHandler>
         </View>
         <View
           style={{
