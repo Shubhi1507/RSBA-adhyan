@@ -2,7 +2,7 @@ import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
 import React from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {STRINGS} from '../../constants/strings';
 import {COLORS} from '../../utils/colors';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -71,12 +71,12 @@ export default function BastiQuestions() {
 
   const pageValidator = () => {
     const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
-      return setError({
-        visible: true,
-        message: 'Please answer all questionaires',
-      });
-    }
+    // if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please answer all questionaires',
+    //   });
+    // }
 
     let tmp = store?.surveyStatus;
     let new_obj = {...tmp[6], checked: true, completed: true, disabled: true};

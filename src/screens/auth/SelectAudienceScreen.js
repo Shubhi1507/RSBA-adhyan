@@ -13,6 +13,7 @@ import {
   CustomCheckbox,
   CustomSnackBar,
   Header,
+  SurveyCompletedModal,
   TextHandler,
 } from '../../components/index';
 import {COLORS} from '../../utils/colors';
@@ -28,6 +29,7 @@ import {useEffect} from 'react';
 
 export default function SelectAudienceScreen() {
   let [selectedAudience, setAudience] = useState('');
+  const [isSurveyCompleted, setisSurveyCompleted] = useState(false);
   const store = useSelector(state => state);
   const dispatch = useDispatch();
   const [miscControllers, setmisControllers] = useState({
@@ -110,10 +112,32 @@ export default function SelectAudienceScreen() {
     message: '',
     type: 'error',
   });
+  const [visible, setVisible] = React.useState(false);
+
+  const hideModal = () => setVisible(false);
+  const showModal = () => setVisible(true);
 
   useEffect(() => {
     console.log('store', store);
-  }, []);
+    checkIfSurveyisCompleted();
+  }, [store]);
+
+  const checkIfSurveyisCompleted = () => {
+    let tmp = store?.surveyReducer?.surveyStatus;
+    console.log('tmp', tmp);
+    let arr = [];
+    if (tmp && Array.isArray(tmp) && tmp.length > 0) {
+      tmp.forEach(el => {
+        if (el.completed != null) {
+          arr.push(el.completed);
+        }
+      });
+    }
+    console.log('result', arr, checker(arr));
+    setisSurveyCompleted(checker(arr));
+  };
+
+  const checker = arr => arr.every(Boolean);
 
   const pageNavigator = () => {
     const {CENTRES} = miscControllers;
@@ -199,10 +223,13 @@ export default function SelectAudienceScreen() {
         break;
     }
 
-    console.log('audie', selectedAudience);
-
     // navigate(ROUTES.AUTH.SURVEYSCREEN);
   };
+  const submitSurvey = () => {
+    dispatch({type: ACTION_CONSTANTS.ADD_COMPLETED_SURVEY_COUNT});
+    navigate(ROUTES.AUTH.DASHBOARDSCREEN);
+  };
+
   const HeaderContent = () => {
     return (
       <View
@@ -247,6 +274,7 @@ export default function SelectAudienceScreen() {
           setError({...error, message: '', visible: false})
         }
       />
+      <SurveyCompletedModal visible={visible} hideModal={hideModal} />
       <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
         <View>
           <TextHandler
@@ -261,7 +289,12 @@ export default function SelectAudienceScreen() {
           </TextHandler>
 
           <FlatList
-            data={store?.surveyReducer?.surveyStatus}
+            data={
+              store?.surveyReducer?.surveyStatus &&
+              store?.surveyReducer?.surveyStatus.length > 0
+                ? store?.surveyReducer?.surveyStatus
+                : miscControllers.CENTRES
+            }
             renderItem={({item, index}) => {
               return (
                 <CustomCheckbox
@@ -284,8 +317,10 @@ export default function SelectAudienceScreen() {
         </View>
 
         <Button
-          title={'Next'}
-          onPress={() => pageNavigator()}
+          title={isSurveyCompleted ? 'Submit Survey' : 'Next'}
+          onPress={
+            isSurveyCompleted ? () => submitSurvey() : () => pageNavigator()
+          }
           ButtonContainerStyle={{
             marginVertical: 17,
             alignItems: 'center',

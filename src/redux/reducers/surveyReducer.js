@@ -38,8 +38,8 @@ const surveyReducer = (state = initialState, action) => {
         ...state,
         survey: [],
         surveyStatus: [],
-        completedSurvey: 0,
-        incompletedSurvey: 0,
+        // completedSurvey: 0,
+        // incompletedSurvey: 0,
       };
     default:
       return state;

@@ -2,7 +2,7 @@ import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
 import React from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {STRINGS} from '../../constants/strings';
 import {COLORS} from '../../utils/colors';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -12,13 +12,18 @@ import {
   Header,
   Input,
   RadioButtons,
+  SurveyCompletedModal,
   TextHandler,
 } from '../../components';
 import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 
 export default function PrabuddhaJanQuestions() {
+  const dispatch = useDispatch();
+  const store = useSelector(state => state?.surveyReducer);
+
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',
@@ -28,9 +33,10 @@ export default function PrabuddhaJanQuestions() {
     answer6: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
+  const [visible, setVisible] = React.useState(false);
 
-  const dispatch = useDispatch();
-
+  const hideModal = () => setVisible(false);
+  const showModal = () => setVisible(true);
   const HeaderContent = () => {
     return (
       <View
@@ -63,20 +69,18 @@ export default function PrabuddhaJanQuestions() {
   };
 
   const pageValidator = () => {
-    const {answer1, answer2, answer3, answer4, answer5, } = answers;
-    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 ) {
-      return setError({
-        visible: true,
-        message: 'Please answer all questionaires',
-      });
-    }
-    if (answer1.length < 4 || answer1 > 2023 || answer1 < 1800) {
-      return setError({
-        visible: true,
-        message: 'Invalid year entered',
-      });
-    }
-    navigate(ROUTES.AUTH.BASTIQUESTIONS);
+    const {answer1, answer2, answer3, answer4, answer5} = answers;
+    // if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please answer all questionaires',
+    //   });
+    // }
+    let tmp = store?.surveyStatus;
+    let new_obj = {...tmp[7], checked: true, completed: true, disabled: true};
+    tmp.splice(7, 1, new_obj);
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: tmp});
+    showModal();
   };
 
   return (
@@ -91,6 +95,7 @@ export default function PrabuddhaJanQuestions() {
           setError({...error, message: '', visible: false})
         }
       />
+      <SurveyCompletedModal visible={visible} hideModal={hideModal} />
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
         {/* QA1 */}
         <View>
@@ -126,29 +131,27 @@ export default function PrabuddhaJanQuestions() {
                 {'How does donors and well wishers help Economic'}
               </TextHandler>
             </View>
-
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: 'Social',
-                },
-                {
-                  key: 2,
-                  value: 'Others ',
-                },
-               
-              ]}
-              onValueChange={item => {
-                setAnswers({...answers, answer1: item});
-              }}
-            />
           </View>
+          <RadioButtons
+            radioStyle={{
+              borderWidth: 1,
+              marginVertical: 2,
+              borderColor: COLORS.orange,
+            }}
+            data={[
+              {
+                key: 1,
+                value: 'Social',
+              },
+              {
+                key: 2,
+                value: 'Others ',
+              },
+            ]}
+            onValueChange={item => {
+              setAnswers({...answers, answer1: item});
+            }}
+          />
         </View>
 
         {/* QA2 */}
@@ -182,9 +185,7 @@ export default function PrabuddhaJanQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'How does donors and well wishers are connected to us .'
-                }
+                {'How does donors and well wishers are connected to us .'}
               </TextHandler>
             </View>
           </View>
@@ -210,9 +211,9 @@ export default function PrabuddhaJanQuestions() {
                   value: 'Alumni',
                 },
                 {
-                    key: 4,
-                    value: 'Due to our social works',
-                  },
+                  key: 4,
+                  value: 'Due to our social works',
+                },
               ]}
               onValueChange={item => {
                 setAnswers({...answers, answer2: item});
@@ -384,7 +385,7 @@ export default function PrabuddhaJanQuestions() {
               data={[
                 {key: 1, value: 'Highly Influential'},
                 {key: 2, value: 'Not much '},
-                {key :3 , value :"Only in certain questions"}
+                {key: 3, value: 'Only in certain questions'},
               ]}
               onValueChange={item => {
                 setAnswers({...answers, answer4: item});

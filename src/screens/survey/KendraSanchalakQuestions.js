@@ -71,12 +71,12 @@ export default function KendraSanchalakQuestions() {
 
   const pageValidator = () => {
     const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
-      return setError({
-        visible: true,
-        message: 'Please answer all questionaires',
-      });
-    }
+    // if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please answer all questionaires',
+    //   });
+    // }
 
     let tmp = store?.surveyStatus;
     let new_obj = {...tmp[5], checked: true, completed: true, disabled: true};

@@ -15,16 +15,88 @@ import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 export default function DashboardScreen() {
   const [error, setError] = useState({visible: false, message: ''});
   const dispatch = useDispatch();
-  const store = useSelector(state => state.authReducer);
-  const name = store?.userData?.userData?.data[0]?.name;
+  const store = useSelector(state => state);
+  const name = store?.authReducer?.userData?.userData?.data[0]?.name;
+  const completedSurvey = store?.surveyReducer?.completedSurvey;
 
+  useEffect(() => {
+    console.log('survey', completedSurvey);
+  }, []);
 
   useEffect(() => {
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
     dispatch({type: ACTION_CONSTANTS.CLEAR_DISTRICTS_LIST});
     dispatch({type: ACTION_CONSTANTS.CLEAR_STATE_LIST});
+    dispatch({type: ACTION_CONSTANTS.CLEAR_SURVEY});
   }, []);
 
+  const pageNavigator = () => {
+    let CENTRES = [
+      {
+        key: `Student's Parents (Past Students)`,
+        value: `Student's Parents (Past Students)`,
+        disabled: false,
+        checked: false,
+        completed: false,
+      },
+      {
+        key: `Student's Parents (Current Students)`,
+        value: `Student's Parents (Current Students)`,
+        disabled: false,
+        checked: false,
+        completed: false,
+      },
+      {
+        key: 'Past Student',
+        value: 'Past Student',
+        disabled: false,
+        checked: false,
+        completed: false,
+      },
+      {
+        key: 'Current Student',
+        value: 'Current Student',
+        disabled: false,
+        checked: false,
+        completed: false,
+      },
+      {
+        key: 'Teacher',
+        value: 'Teacher',
+        disabled: false,
+        checked: false,
+        completed: false,
+      },
+      {
+        key: 'Kendra Sanchalak',
+        value: 'Kendra Sanchalak',
+        disabled: false,
+        checked: false,
+        completed: false,
+      },
+      {
+        key: 'Basti',
+        value: 'Basti',
+        disabled: false,
+        checked: false,
+        completed: false,
+      },
+      {
+        key: 'Prabuddha Jan',
+        value: 'Prabuddha Jan',
+        disabled: false,
+        checked: false,
+        completed: false,
+      },
+    ];
+
+    dispatch({
+      type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS,
+      payload: CENTRES,
+    });
+
+    navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN);
+  };
   const HeaderContent = () => {
     return (
       <View
@@ -33,7 +105,7 @@ export default function DashboardScreen() {
           flexDirection: 'row',
           justifyContent: 'space-around',
           alignItems: 'center',
-          width: screenWidth, 
+          width: screenWidth,
         }}>
         <View
           style={{
@@ -75,7 +147,9 @@ export default function DashboardScreen() {
           <TextHandler style={{fontWeight: '500', fontSize: 18}}>
             Completed Surveys
           </TextHandler>
-          <TextHandler style={{fontWeight: '500', fontSize: 18}}>2</TextHandler>
+          <TextHandler style={{fontWeight: '500', fontSize: 18}}>
+            {completedSurvey || 0}
+          </TextHandler>
         </View>
         <View
           style={{
@@ -91,7 +165,9 @@ export default function DashboardScreen() {
 
         <Button
           title={'Start Survey'}
-          onPress={() => navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN)}
+          onPress={() => {
+            pageNavigator();
+          }}
           ButtonContainerStyle={{
             marginVertical: 20,
             alignItems: 'center',
