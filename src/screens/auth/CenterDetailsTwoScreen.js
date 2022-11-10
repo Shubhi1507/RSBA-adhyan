@@ -127,24 +127,24 @@ export default function CenterDetailsTwoScreen() {
       volunteerInfo;
     console.log('volunteerInfo', volunteerInfo);
 
-    if (!type_of_center) {
-      return setError({visible: true, message: 'Select Center type'});
-    }
-    if (!center_head) {
-      return setError({visible: true, message: 'Center head is missing'});
-    }
-    if (!center_contact || center_contact.length < 10) {
-      return setError({
-        visible: true,
-        message: 'Please enter mobile number',
-      });
-    }
-    if (!parent_org) {
-      return setError({
-        visible: true,
-        message: 'Parent organisation is missing',
-      });
-    }
+    // if (!type_of_center) {
+    //   return setError({visible: true, message: 'Select Center type'});
+    // }
+    // if (!center_head) {
+    //   return setError({visible: true, message: 'Center head is missing'});
+    // }
+    // if (!center_contact || center_contact.length < 10) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please enter mobile number',
+    //   });
+    // }
+    // if (!parent_org) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Parent organisation is missing',
+    //   });
+    // }
     let payload = {
       ...store.authData,
       center_contact,

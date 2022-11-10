@@ -317,7 +317,7 @@ export default function SelectAudienceScreen() {
         </View>
 
         <Button
-          title={isSurveyCompleted ? 'Submit Survey' : 'Next'}
+          title={isSurveyCompleted ? 'Save and Review' : 'Next'}
           onPress={
             isSurveyCompleted ? () => submitSurvey() : () => pageNavigator()
           }

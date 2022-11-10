@@ -154,30 +154,30 @@ export default function CenterDetailsOneScreen() {
 
   const pageValidator = () => {
     const {address, district_jila, state_pranth, town_basti} = volunteerInfo;
-    if (!state_pranth) {
-      return setError({
-        visible: true,
-        message: 'Please select a State/ Pranth',
-      });
-    }
-    if (!district_jila) {
-      return setError({
-        visible: true,
-        message: 'Please select a District/ Jila',
-      });
-    }
-    if (!town_basti) {
-      return setError({
-        visible: true,
-        message: 'Please select a Town/ Basti',
-      });
-    }
-    if (!address) {
-      return setError({
-        visible: true,
-        message: 'Please add address',
-      });
-    }
+    // if (!state_pranth) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please select a State/ Pranth',
+    //   });
+    // }
+    // if (!district_jila) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please select a District/ Jila',
+    //   });
+    // }
+    // if (!town_basti) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please select a Town/ Basti',
+    //   });
+    // }
+    // if (!address) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please add address',
+    //   });
+    // }
     dispatch({
       type: ACTION_CONSTANTS.UPDATE_SURVEY_FORM,
       payload: volunteerInfo,
@@ -257,7 +257,7 @@ export default function CenterDetailsOneScreen() {
           />
         </View>
         <View>
-          <Text style={styles.headingInput}>Town/Basti</Text>
+          <Text style={styles.headingInput}>Centre ID</Text>
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, town_basti: true});
@@ -277,7 +277,7 @@ export default function CenterDetailsOneScreen() {
           />
         </View>
 
-        <Text style={styles.headingInput}>Address</Text>
+        {/* <Text style={styles.headingInput}>Address</Text>
         <Input
           placeholder="Enter here"
           name="first_name"
@@ -287,7 +287,7 @@ export default function CenterDetailsOneScreen() {
           value={volunteerInfo.address}
           message={'error'}
           containerStyle={{alignItems: 'center'}}
-        />
+        /> */}
 
         <Button
           title={'Next'}

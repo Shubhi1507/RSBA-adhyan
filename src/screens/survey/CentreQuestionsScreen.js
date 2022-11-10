@@ -64,18 +64,18 @@ export default function CentreQuestionsScreen() {
 
   const pageValidator = () => {
     const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
-      return setError({
-        visible: true,
-        message: 'Please answer all questionaires',
-      });
-    }
-    if (answer1.length < 4 || answer1 > 2023 || answer1 < 1800) {
-      return setError({
-        visible: true,
-        message: 'Invalid year entered',
-      });
-    }
+    // if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please answer all questionaires',
+    //   });
+    // }
+    // if (answer1.length < 4 || answer1 > 2023 || answer1 < 1800) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Invalid year entered',
+    //   });
+    // }
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
   };
 
