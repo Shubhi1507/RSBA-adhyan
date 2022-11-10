@@ -38,12 +38,16 @@ export default function VolunteerSignUpScreen() {
     name: '',
     state_pranth: '',
     phone: '',
+    jilla : ''
   });
   const [dataLoading, setDataLoading] = useState(false);
   const [miscControllers, setMiscControllers] = useState({
     state_pranth: false,
   });
 
+   const [profControllers , setprofControllers] = useState(
+    
+   )
   useEffect(() => {
     getListofStatesFunction();
   }, []);
@@ -195,6 +199,21 @@ export default function VolunteerSignUpScreen() {
             error={'Pranth'}
             value={volunteerInfo.state_pranth?.value}
           />
+          <View style ={styles.textBox}>
+            <Text style ={styles.headingInput}>
+            Jilla
+            </Text>
+            <Input
+            placeholder="Enter Jilla"
+            name="Jilla"
+            onChangeText={text =>
+              setvolunteerInfo({...volunteerInfo, jilla: text})
+            }
+            value={volunteerInfo.jilla}
+            message={'error'}
+            containerStyle={{alignItems: 'center'}}
+          />
+          </View>
         </View>
         <View style={styles.textBox}>
           <Text style={styles.headingInput}>Phone Number</Text>
