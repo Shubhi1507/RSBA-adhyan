@@ -27,12 +27,14 @@ export default function DashboardScreen() {
   const name = store?.authReducer?.userData?.userData?.data[0]?.name;
   const completedSurvey = store?.surveyReducer?.completedSurvey;
 
-  const CENTER_DATA = useState(
+  const [CENTER_DATA, SET_CENTRE_DATA] = useState([
     {key: '301', value: '301'},
     {key: '302', value: '302'},
     {key: '303', value: '303'},
     {key: '304', value: '304'},
-  );
+    {key: '305', value: '305'},
+
+  ]);
 
   useEffect(() => {
     console.log('survey', completedSurvey);
@@ -45,7 +47,9 @@ export default function DashboardScreen() {
     dispatch({type: ACTION_CONSTANTS.CLEAR_SURVEY});
   }, []);
 
-  const renderItem = ({item}) => <Text>{"jgv"}</Text>;
+  const renderItem = ({item}) => {
+    return <Text style={{color: 'black'}}>{'jgv'}</Text>;
+  };
 
   const pageNavigator = () => {
     let CENTRES = [
@@ -150,16 +154,17 @@ export default function DashboardScreen() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
-      <View style={{flex: 1, justifyContent: 'center', paddingHorizontal: 15}}>
+      <View style={{flex: 1, justifyContent: 'space-around', paddingHorizontal: 15}}>
         <TextHandler
           style={{fontWeight: '700', fontSize: 23, paddingBottom: 30}}>
           Welcome {name && `, ${name}`}
         </TextHandler>
         <View
           style={{
-            flex: 0.22,
+            flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
+            
           }}>
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
             Completed Surveys
@@ -177,12 +182,12 @@ export default function DashboardScreen() {
         </View>
         <View
           style={{
-            flex: 0.22,
+            flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
           }}>
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
-            Incompleted Surveys
+            Incomplete Surveys
           </TextHandler>
 
           <View
@@ -204,7 +209,7 @@ export default function DashboardScreen() {
 
         <View
           style={{
-            flex: 0.22,
+            flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
           }}>
@@ -239,26 +244,32 @@ export default function DashboardScreen() {
             style={{fontWeight: '600', fontSize: 18, paddingBottom: 30}}>
             Assigned Centres
           </TextHandler>
-          <View>
-            <FlatList
-              data={CENTER_DATA}
-              renderItem={renderItem}
-              keyExtractor={item => item.id}
-            />
-          </View>
+        </View>
+        <View style={{flex: 0.25}}>
+          <FlatList
+            scrollEnabled
+            data={CENTER_DATA}
+            renderItem={({item, index}) => {
+              return (
+                <TextHandler style={{color: 'black' , paddingBottom:8, fontSize:17, fontWeight:"400"}}>CENTER ID {item.key}</TextHandler>
+              );
+            }}
+            // keyExtractor={item => item.id}
+          />
         </View>
 
-        {/* <Button
+        <Button
           title={'Start Survey'}
           onPress={() => {
             pageNavigator();
           }}
           ButtonContainerStyle={{
-            marginVertical: 20,
-            alignItems: 'center',
-            textAlign: 'center',
+             alignItems: 'center',
+             textAlign: 'center',
+             
           }}
-        /> */}
+        />
+        
         <Button
           title={'Logout'}
           onPress={() => {
@@ -276,7 +287,7 @@ export default function DashboardScreen() {
             ]);
           }}
           ButtonContainerStyle={{
-            marginVertical: 70,
+            marginVertical: 50,
             alignItems: 'center',
             textAlign: 'center',
             backgroundColor: COLORS.error,
