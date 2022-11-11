@@ -10,7 +10,7 @@ export function CustomCheckbox({label, status, onPress, disabled}) {
           status={status || disabled ? 'checked' : 'unchecked'}
           disabled={disabled}
         />
-        <Text style={{marginHorizontal: 10}}>{label || ''}</Text>
+        <Text style={{marginHorizontal: 10 , color:'black'}}>{label || ''}</Text>
       </View>
     </TouchableOpacity>
   );

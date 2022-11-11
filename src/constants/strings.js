@@ -19,7 +19,8 @@ export const STRINGS = {
     SURVEY: 'Survey',
     CENTER_INFO: 'Center Information',
     PURV_ABHIBHAVAK: 'Purv Abhibhavak',
-    VARTAMAAN_ABHIBHAVAK: 'Vartamaan Abhibhavak'
+    VARTAMAAN_ABHIBHAVAK: 'Vartamaan Abhibhavak' ,
+    CENTER_DATA : "Center Data"
   },
   SIGNUP: {
     DURATION_OF_CLASS: 'Duration Of Class',

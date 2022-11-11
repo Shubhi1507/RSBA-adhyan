@@ -40,7 +40,7 @@ export const RadioButtons = ({data, onValueChange, radioStyle}) => {
                 uncheckedColor={COLORS.black}
               />
 
-              <Text style={{marginHorizontal: 10}}>{item.value}</Text>
+              <Text style={{marginHorizontal: 10 , color:"black"}}>{item.value}</Text>
             </TouchableOpacity>
           </RadioButton.Group>
         );

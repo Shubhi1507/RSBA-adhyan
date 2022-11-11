@@ -1,4 +1,11 @@
-import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  FlatList,
+} from 'react-native';
 import React from 'react';
 import LoaderIndicator from '../../components/Loader';
 import {Button, CustomSnackBar, Header, TextHandler} from '../../components';
@@ -11,6 +18,7 @@ import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {useEffect} from 'react';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
+import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 
 export default function DashboardScreen() {
   const [error, setError] = useState({visible: false, message: ''});
@@ -18,6 +26,13 @@ export default function DashboardScreen() {
   const store = useSelector(state => state);
   const name = store?.authReducer?.userData?.userData?.data[0]?.name;
   const completedSurvey = store?.surveyReducer?.completedSurvey;
+
+  const CENTER_DATA = useState(
+    {key: '301', value: '301'},
+    {key: '302', value: '302'},
+    {key: '303', value: '303'},
+    {key: '304', value: '304'},
+  );
 
   useEffect(() => {
     console.log('survey', completedSurvey);
@@ -29,6 +44,8 @@ export default function DashboardScreen() {
     dispatch({type: ACTION_CONSTANTS.CLEAR_STATE_LIST});
     dispatch({type: ACTION_CONSTANTS.CLEAR_SURVEY});
   }, []);
+
+  const renderItem = ({item}) => <Text>{"jgv"}</Text>;
 
   const pageNavigator = () => {
     let CENTRES = [
@@ -147,8 +164,15 @@ export default function DashboardScreen() {
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
             Completed Surveys
           </TextHandler>
-          <TextHandler style={{fontWeight: '400', fontSize: 18}}>
-            {completedSurvey || 0}
+          <TextHandler
+            style={{
+              fontWeight: '400',
+              fontSize: 16,
+              backgroundColor: 'green',
+              color: 'white',
+              padding: 8,
+            }}>
+            {completedSurvey || 2}
           </TextHandler>
         </View>
         <View
@@ -160,6 +184,7 @@ export default function DashboardScreen() {
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
             Incompleted Surveys
           </TextHandler>
+
           <View
             style={{
               marginTop: 0,
@@ -167,14 +192,63 @@ export default function DashboardScreen() {
             <TextHandler
               style={{
                 fontWeight: '400',
-                fontSize: 18,
+                fontSize: 16,
+                color: 'white',
+                backgroundColor: 'red',
+                padding: 8,
               }}>
               2
             </TextHandler>
           </View>
         </View>
 
-        <Button
+        <View
+          style={{
+            flex: 0.22,
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+          }}>
+          <View style={{flex: 0.8}}>
+            <TextHandler style={{fontWeight: '400', fontSize: 18}}>
+              Save & Review Questions
+            </TextHandler>
+            <Text style={{color: 'grey', fontSize: 12, fontWeight: '400'}}>
+              Completed survey will remain in this section for 48 hours to
+              review
+            </Text>
+          </View>
+          <View
+            style={{
+              marginTop: 0,
+            }}>
+            <TextHandler
+              style={{
+                fontWeight: '400',
+                fontSize: 16,
+                backgroundColor: 'red',
+                padding: 8,
+                color: 'white',
+              }}>
+              3
+            </TextHandler>
+          </View>
+        </View>
+
+        <View style={styles.headingInput}>
+          <TextHandler
+            style={{fontWeight: '600', fontSize: 18, paddingBottom: 30}}>
+            Assigned Centres
+          </TextHandler>
+          <View>
+            <FlatList
+              data={CENTER_DATA}
+              renderItem={renderItem}
+              keyExtractor={item => item.id}
+            />
+          </View>
+        </View>
+
+        {/* <Button
           title={'Start Survey'}
           onPress={() => {
             pageNavigator();
@@ -184,7 +258,7 @@ export default function DashboardScreen() {
             alignItems: 'center',
             textAlign: 'center',
           }}
-        />
+        /> */}
         <Button
           title={'Logout'}
           onPress={() => {

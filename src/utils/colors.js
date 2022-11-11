@@ -9,5 +9,7 @@ export const COLORS = {
   buttonColor: '#4087FF',
   lightGrey: '#D3D3D3',
   error: '#ff0033',
-  success: '#155724',
+  success: '#155724', 
+  red :"#E5432C" ,
+  green :"#18AF43"
 };
