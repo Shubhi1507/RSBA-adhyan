@@ -19,8 +19,9 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
 import {Snackbar} from 'react-native-paper';
-import { ACTION_CONSTANTS } from '../../redux/actions/actions';
-import { ADIcons, FAIcons } from '../../libs/VectorIcons';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import {ADIcons, FAIcons} from '../../libs/VectorIcons';
+import Geolocation from '@react-native-community/geolocation';
 
 export default function CenterDetailsTwoScreen() {
   const store = useSelector(state => state?.authPageDataReducer);
@@ -32,6 +33,8 @@ export default function CenterDetailsTwoScreen() {
     center_head: '',
     center_contact: '',
   });
+  const [Position, setPosition] = useState();
+
   const [miscControllers] = useState({
     CENTRES: [
       {
@@ -58,9 +61,17 @@ export default function CenterDetailsTwoScreen() {
   });
   const [error, setError] = useState({visible: false, message: ''});
 
-  useEffect(() => {
-  }, [store?.authData]);
-
+  useEffect(() => {}, [store?.authData]);
+  const getCurrentPosition = () => {
+    Geolocation.getCurrentPosition(
+      pos => {
+        console.log('GetCurrentPosition', JSON.stringify(pos)),
+          setPosition(JSON.stringify(pos));
+      },
+      error => Alert.alert('GetCurrentPosition Error', JSON.stringify(error)),
+      {enableHighAccuracy: true},
+    );
+  };
   const HeaderContent = () => {
     return (
       <View
@@ -184,11 +195,14 @@ export default function CenterDetailsTwoScreen() {
           Center Details
         </TextHandler> */}
         <View style={{paddingVertical: 5}}>
-          <Text style={{color: 'black',
-    fontWeight: '600',
-    marginTop: 8,
-    fontSize: 20,
-    margin: 6,} }>
+          <Text
+            style={{
+              color: 'black',
+              fontWeight: '600',
+              marginTop: 8,
+              fontSize: 20,
+              margin: 6,
+            }}>
             {STRINGS.LOGIN.TYPE_OF_CENTER}
           </Text>
           <RadioButtons
@@ -245,6 +259,10 @@ export default function CenterDetailsTwoScreen() {
             containerStyle={{alignItems: 'center'}}
           />
         </View>
+
+        <TouchableOpacity onPress={getCurrentPosition}>
+          <Text style={{color: 'blue'}}>Share your location</Text>
+        </TouchableOpacity>
 
         <Button
           title={'Next'}

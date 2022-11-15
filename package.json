@@ -13,6 +13,7 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.6",
     "@react-native-community/clipboard": "^1.5.1",
+    "@react-native-community/geolocation": "^3.0.3",
     "@react-native-firebase/app": "^14.8.0",
     "@react-native-firebase/firestore": "^14.8.0",
     "@react-navigation/native": "^6.0.2",
@@ -24,6 +25,7 @@
     "react-native": "0.66.1",
     "react-native-date-picker": "^4.2.5",
     "react-native-datepicker": "^1.7.2",
+    "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-paper": "^4.12.5",
