@@ -8,6 +8,7 @@ import {RadioButtons} from './RadioButtons';
 import {CustomSnackBar} from './CustomSnackBar';
 import {SurveyCompletedModal} from './SurveyCompletedModal';
 import {CustomCheckbox} from './CustomCheckbox';
+import {CustomSwitch} from './CustomSwitch';
 
 export {
   Header,
@@ -19,5 +20,6 @@ export {
   RadioButtons,
   CustomSnackBar,
   SurveyCompletedModal,
-  CustomCheckbox
+  CustomCheckbox,
+  CustomSwitch,
 };

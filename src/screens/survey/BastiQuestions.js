@@ -22,6 +22,8 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 
 export default function BastiQuestions() {
   const store = useSelector(state => state?.surveyReducer);
+  const store2 = useSelector(state => state);
+
   const dispatch = useDispatch();
 
   let [answers, setAnswers] = useState({
@@ -77,13 +79,19 @@ export default function BastiQuestions() {
     //     message: 'Please answer all questionaires',
     //   });
     // }
+    console.log('store', store, store2);
 
     let tmp = store?.surveyStatus;
-    let new_obj = {...tmp[6], checked: true, completed: true, disabled: true};
+    let new_obj = {
+      ...tmp[6],
+      checked: true,
+      disabled: true,
+      timestamp: new Date().getTime(),
+    };
     tmp.splice(6, 1, new_obj);
-
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: tmp});
-    showModal();
+    console.log('basti pl', new_obj);
+    // dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: tmp});
+    // showModal();
   };
 
   return (

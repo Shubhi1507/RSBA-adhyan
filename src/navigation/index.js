@@ -10,7 +10,6 @@ function AppNavigation() {
   let isloggedIn = useSelector(state => state?.authReducer?.loggedIn);;
   let role = 'teacher';
   let x = useSelector(state => state?.authReducer?.loggedIn);
-  console.log('-->', x);
   //   let role = useSelector(state => state?.authReducer?.userData?.role);
 
   return (

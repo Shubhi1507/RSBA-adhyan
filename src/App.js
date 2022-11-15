@@ -25,7 +25,8 @@ import Configurestore from './redux/store/store';
 const {store, persistor} = Configurestore();
 
 const App = () => {
-  LogBox.ignoreAllLogs();
+  LogBox.ignoreLogs(["Require cycle:", "console.error:"])
+
   return (
     <View style={styles.rootContainer}>
       <RNPaperProvider>

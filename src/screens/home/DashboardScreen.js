@@ -33,12 +33,9 @@ export default function DashboardScreen() {
     {key: '303', value: '303'},
     {key: '304', value: '304'},
     {key: '305', value: '305'},
-
   ]);
 
-  useEffect(() => {
-    console.log('survey', completedSurvey);
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
@@ -154,17 +151,22 @@ export default function DashboardScreen() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
-      <View style={{flex: 1, justifyContent: 'space-around', paddingHorizontal: 15}}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'space-around',
+          paddingHorizontal: 15,
+        }}>
         <TextHandler
           style={{fontWeight: '700', fontSize: 23, paddingBottom: 30}}>
           Welcome {name && `, ${name}`}
         </TextHandler>
-        <View
+        <TouchableOpacity
           style={{
             flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
-            
+            backgroundColor: 'teal',
           }}>
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
             Completed Surveys
@@ -179,12 +181,13 @@ export default function DashboardScreen() {
             }}>
             {completedSurvey || 2}
           </TextHandler>
-        </View>
-        <View
+        </TouchableOpacity>
+        <TouchableOpacity
           style={{
             flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
+            backgroundColor: 'teal',
           }}>
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
             Incomplete Surveys
@@ -205,13 +208,15 @@ export default function DashboardScreen() {
               2
             </TextHandler>
           </View>
-        </View>
+        </TouchableOpacity>
 
-        <View
+        <TouchableOpacity
+          onPress={() => navigate(ROUTES.AUTH.SAVED_SURVEYS_SCREEN)}
           style={{
             flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
+            backgroundColor: 'teal',
           }}>
           <View style={{flex: 0.8}}>
             <TextHandler style={{fontWeight: '400', fontSize: 18}}>
@@ -237,7 +242,7 @@ export default function DashboardScreen() {
               3
             </TextHandler>
           </View>
-        </View>
+        </TouchableOpacity>
 
         <View style={styles.headingInput}>
           <TextHandler
@@ -251,7 +256,15 @@ export default function DashboardScreen() {
             data={CENTER_DATA}
             renderItem={({item, index}) => {
               return (
-                <TextHandler style={{color: 'black' , paddingBottom:8, fontSize:17, fontWeight:"400"}}>CENTER ID {item.key}</TextHandler>
+                <TextHandler
+                  style={{
+                    color: 'black',
+                    paddingBottom: 8,
+                    fontSize: 17,
+                    fontWeight: '400',
+                  }}>
+                  CENTER ID {item.key}
+                </TextHandler>
               );
             }}
             // keyExtractor={item => item.id}
@@ -264,12 +277,11 @@ export default function DashboardScreen() {
             pageNavigator();
           }}
           ButtonContainerStyle={{
-             alignItems: 'center',
-             textAlign: 'center',
-             
+            alignItems: 'center',
+            textAlign: 'center',
           }}
         />
-        
+
         <Button
           title={'Logout'}
           onPress={() => {

@@ -2,7 +2,7 @@ import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
 import React from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {STRINGS} from '../../constants/strings';
 import {COLORS} from '../../utils/colors';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -17,8 +17,11 @@ import {
 import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
+import { ACTION_CONSTANTS } from '../../redux/actions/actions';
 
 export default function CentreQuestionsScreen() {
+  const store = useSelector(state => state?.authPageDataReducer?.authData);
+
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',
@@ -76,7 +79,12 @@ export default function CentreQuestionsScreen() {
     //     message: 'Invalid year entered',
     //   });
     // }
+
+    let payload = {...store, answers};
+    console.log('payload->', payload);
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload});
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
+
   };
 
   return (

@@ -4,6 +4,7 @@ import {screenWidth} from '../../libs';
 import {
   Button,
   CustomSnackBar,
+  CustomSwitch,
   DropDown,
   Header,
   Input,
@@ -23,7 +24,7 @@ import {
 } from '../../networking/API.controller';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import LoaderIndicator from '../../components/Loader';
-import { ADIcons, FAIcons } from '../../libs/VectorIcons';
+import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 
 export default function CenterDetailsOneScreen() {
   const store = useSelector(state => state.RegionReducer);
@@ -48,7 +49,7 @@ export default function CenterDetailsOneScreen() {
   });
 
   useEffect(() => {
-    getListofStatesFunction();
+    // getListofStatesFunction();
   }, []);
 
   useEffect(() => {}, [store.bastiList, store.stateList, store.districtList]);
@@ -180,7 +181,7 @@ export default function CenterDetailsOneScreen() {
     // }
     dispatch({
       type: ACTION_CONSTANTS.UPDATE_SURVEY_FORM,
-      payload: volunteerInfo,
+      payload: {...volunteerInfo, isCompleted: false, isSaved: true},
     });
     navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN);
   };
@@ -198,6 +199,7 @@ export default function CenterDetailsOneScreen() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
+
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
         <TextHandler
           style={{
