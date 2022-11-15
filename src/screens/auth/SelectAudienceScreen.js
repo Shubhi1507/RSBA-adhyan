@@ -137,7 +137,13 @@ export default function SelectAudienceScreen() {
     setisSurveyCompleted(checker(arr));
   };
 
-  const checker = arr => arr.every(Boolean);
+  const checker = arr => {
+    if (arr.length > 1) {
+      return arr.every(Boolean);
+    } else {
+    }
+    return false;
+  };
 
   const pageNavigator = () => {
     const {CENTRES} = miscControllers;

@@ -4,6 +4,7 @@ import {screenWidth} from '../../libs';
 import {
   Button,
   CustomSnackBar,
+  CustomSwitch,
   Header,
   Input,
   RadioButtons,
@@ -26,7 +27,7 @@ import Geolocation from '@react-native-community/geolocation';
 export default function CenterDetailsTwoScreen() {
   const store = useSelector(state => state?.authPageDataReducer);
   const dispatch = useDispatch();
-
+  const [isCenterOperational, setCenterOperational] = useState(true);
   const [volunteerInfo, setvolunteerInfo] = useState({
     parent_org: '',
     type_of_center: '',
@@ -61,7 +62,6 @@ export default function CenterDetailsTwoScreen() {
   });
   const [error, setError] = useState({visible: false, message: ''});
 
-  useEffect(() => {}, [store?.authData]);
   const getCurrentPosition = () => {
     Geolocation.getCurrentPosition(
       pos => {
@@ -72,6 +72,8 @@ export default function CenterDetailsTwoScreen() {
       {enableHighAccuracy: true},
     );
   };
+
+  useEffect(() => {}, [store?.authData]);
   const HeaderContent = () => {
     return (
       <View
@@ -184,97 +186,160 @@ export default function CenterDetailsTwoScreen() {
         <Header children={HeaderContent()} />
       </View>
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        {/* <TextHandler
+        <View
           style={{
-            color: 'black',
-            fontWeight: '600',
-            marginVertical: 20,
-            fontSize: 20,
-            textAlign: 'left',
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            paddingVertical: 20,
+            marginVertical: 10,
+            borderWidth: 1,
+            borderColor: COLORS.orange,
+            borderRadius: 5,
+            paddingHorizontal: 10,
           }}>
-          Center Details
-        </TextHandler> */}
-        <View style={{paddingVertical: 5}}>
-          <Text
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <TextHandler
+              style={{
+                color: 'black',
+                // fontWeight: '600',
+                fontSize: 20,
+                textAlign: 'left',
+              }}>
+              Is center opertional?
+            </TextHandler>
+          </View>
+
+          <View
             style={{
-              color: 'black',
-              fontWeight: '600',
-              marginTop: 8,
-              fontSize: 20,
-              margin: 6,
+              flex: 0.6,
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
             }}>
-            {STRINGS.LOGIN.TYPE_OF_CENTER}
-          </Text>
-          <RadioButtons
-            data={miscControllers.CENTRES}
-            onValueChange={item => {
-              setvolunteerInfo({...volunteerInfo, type_of_center: item});
-            }}
-          />
+            <TextHandler
+              style={{
+                color: 'black',
+                fontSize: 15,
+                textAlign: 'left',
+              }}>
+              No
+            </TextHandler>
+            <CustomSwitch
+              isSwitchOn={isCenterOperational}
+              setIsSwitchOn={() => setCenterOperational(!isCenterOperational)}
+            />
+            <TextHandler
+              style={{
+                color: 'black',
+                fontSize: 15,
+                textAlign: 'right',
+              }}>
+              Yes
+            </TextHandler>
+          </View>
         </View>
-        <View style={{paddingVertical: 5}}>
-          <Text style={styles.headingInput}>
-            {STRINGS.LOGIN.CENTER_HD_NAME}
-          </Text>
-          <Input
-            placeholder="Enter here"
-            name="center_head"
-            onChangeText={text =>
-              setvolunteerInfo({...volunteerInfo, center_head: text})
-            }
-            value={volunteerInfo.center_head}
-            message={'error'}
-            containerStyle={{alignItems: 'center'}}
-          />
-        </View>
+        {isCenterOperational ? (
+          <View style={styles.activeCenter}>
+            <View style={{paddingVertical: 5}}>
+              <Text
+                style={{
+                  color: 'black',
+                  fontWeight: '600',
+                  marginTop: 8,
+                  fontSize: 20,
+                  margin: 6,
+                }}>
+                {STRINGS.LOGIN.TYPE_OF_CENTER}
+              </Text>
+              <RadioButtons
+                data={miscControllers.CENTRES}
+                onValueChange={item => {
+                  setvolunteerInfo({...volunteerInfo, type_of_center: item});
+                }}
+              />
+            </View>
+            <View style={{paddingVertical: 5}}>
+              <Text style={styles.headingInput}>
+                {STRINGS.LOGIN.CENTER_HD_NAME}
+              </Text>
+              <Input
+                placeholder="Enter here"
+                name="center_head"
+                onChangeText={text =>
+                  setvolunteerInfo({...volunteerInfo, center_head: text})
+                }
+                value={volunteerInfo.center_head}
+                message={'error'}
+                containerStyle={{alignItems: 'center'}}
+              />
+            </View>
 
-        <View style={{paddingVertical: 5}}>
-          <Text style={styles.headingInput}>
-            {STRINGS.LOGIN.CENTER_CONTACT_DETAILS}
-          </Text>
-          <Input
-            placeholder="Enter here"
-            name="center_contact"
-            type={'numeric'}
-            number={10}
-            onChangeText={text =>
-              setvolunteerInfo({...volunteerInfo, center_contact: text})
-            }
-            value={volunteerInfo.center_contact}
-            message={'error'}
-            containerStyle={{alignItems: 'center'}}
-          />
-        </View>
+            <View style={{paddingVertical: 5}}>
+              <Text style={styles.headingInput}>
+                {STRINGS.LOGIN.CENTER_CONTACT_DETAILS}
+              </Text>
+              <Input
+                placeholder="Enter here"
+                name="center_contact"
+                type={'numeric'}
+                number={10}
+                onChangeText={text =>
+                  setvolunteerInfo({...volunteerInfo, center_contact: text})
+                }
+                value={volunteerInfo.center_contact}
+                message={'error'}
+                containerStyle={{alignItems: 'center'}}
+              />
+            </View>
 
-        <View style={{paddingVertical: 5}}>
-          <Text style={styles.headingInput}>{STRINGS.LOGIN.PARENT_ORG}</Text>
-          <Input
-            placeholder="Enter here"
-            name="first_name"
-            onChangeText={text =>
-              setvolunteerInfo({...volunteerInfo, parent_org: text})
-            }
-            value={volunteerInfo.parent_org}
-            message={'error'}
-            containerStyle={{alignItems: 'center'}}
-          />
-        </View>
+            <TouchableOpacity onPress={getCurrentPosition}>
+              <Text style={{color: 'blue'}}>Share your location</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity onPress={getCurrentPosition}>
-          <Text style={{color: 'blue'}}>Share your location</Text>
-        </TouchableOpacity>
+            <Button
+              title={'Next'}
+              onPress={() => {
+                PageValidator();
+              }}
+              ButtonContainerStyle={{
+                marginVertical: 17,
+                alignItems: 'center',
+                textAlign: 'center',
+              }}
+            />
+            <View style={{paddingVertical: 5}}>
+              <Text style={styles.headingInput}>
+                {STRINGS.LOGIN.PARENT_ORG}
+              </Text>
+              <Input
+                placeholder="Enter here"
+                name="first_name"
+                onChangeText={text =>
+                  setvolunteerInfo({...volunteerInfo, parent_org: text})
+                }
+                value={volunteerInfo.parent_org}
+                message={'error'}
+                containerStyle={{alignItems: 'center'}}
+              />
+            </View>
 
-        <Button
-          title={'Next'}
-          onPress={() => {
-            PageValidator();
-          }}
-          ButtonContainerStyle={{
-            marginVertical: 17,
-            alignItems: 'center',
-            textAlign: 'center',
-          }}
-        />
+            <Button
+              title={'Next'}
+              onPress={() => {
+                PageValidator();
+              }}
+              ButtonContainerStyle={{
+                marginVertical: 17,
+                alignItems: 'center',
+                textAlign: 'center',
+              }}
+            />
+          </View>
+        ) : (
+          <View style={styles.inActiveCenter}></View>
+        )}
       </KeyboardAwareScrollView>
     </View>
   );
@@ -307,5 +372,11 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'left',
     color: 'grey',
+  },
+  activeCenter: {
+    flex: 1,
+  },
+  inActiveCenter: {
+    flex: 1,
   },
 });

@@ -16,6 +16,7 @@ import BastiQuestions from '../screens/survey/BastiQuestions';
 import PrabuddhaJanQuestions from '../screens/survey/PrabuddhaJanQuestions';
 import PastStudentQuestions from '../screens/survey/PastStudentQuestions';
 import PresentStudentQuestions from '../screens/survey/PresentStudentQuestions';
+import SavedSurveysScreen from '../screens/survey/SavedSurveysScreen';
 
 const AppStack = createStackNavigator();
 
@@ -74,6 +75,12 @@ export function App() {
       />
 
       <AppStack.Screen
+        name={ROUTES.AUTH.SAVED_SURVEYS_SCREEN}
+        component={SavedSurveysScreen}
+        options={{headerShown: false}}
+      />
+
+      <AppStack.Screen
         name={ROUTES.AUTH.TEACHERQUESTONSSCREEN}
         component={TeacherQuestionsScreen}
         options={{headerShown: false}}
@@ -84,8 +91,7 @@ export function App() {
         options={{headerShown: false}}
       />
 
-
-<AppStack.Screen
+      <AppStack.Screen
         name={ROUTES.AUTH.PASTSTUDENTQUESTIONS}
         component={PastStudentQuestions}
         options={{headerShown: false}}
@@ -97,8 +103,7 @@ export function App() {
         options={{headerShown: false}}
       />
 
-      
-<AppStack.Screen
+      <AppStack.Screen
         name={ROUTES.AUTH.PRESENTSTUDENTQUESTIONS}
         component={PresentStudentQuestions}
         options={{headerShown: false}}

@@ -27,7 +27,6 @@ export default function DashboardScreen() {
   const name = store?.authReducer?.userData?.userData?.data[0]?.name;
   const completedSurvey = store?.surveyReducer?.completedSurvey;
 
-
   const [CENTER_DATA, SET_CENTRE_DATA] = useState([
     {key: '301', value: '301'},
     {key: '302', value: '302'},
@@ -36,9 +35,7 @@ export default function DashboardScreen() {
     {key: '305', value: '305'},
   ]);
 
-  useEffect(() => {
-    console.log('survey', completedSurvey);
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
@@ -50,8 +47,6 @@ export default function DashboardScreen() {
   const renderItem = ({item}) => {
     return <Text style={{color: 'black'}}>{'jgv'}</Text>;
   };
-
- 
 
   const pageNavigator = () => {
     let CENTRES = [
@@ -166,11 +161,12 @@ export default function DashboardScreen() {
           style={{fontWeight: '700', fontSize: 23, paddingBottom: 30}}>
           Welcome {name && `, ${name}`}
         </TextHandler>
-        <View
+        <TouchableOpacity
           style={{
             flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
+            backgroundColor: 'teal',
           }}>
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
             Completed Surveys
@@ -185,12 +181,13 @@ export default function DashboardScreen() {
             }}>
             {completedSurvey || 2}
           </TextHandler>
-        </View>
-        <View
+        </TouchableOpacity>
+        <TouchableOpacity
           style={{
             flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
+            backgroundColor: 'teal',
           }}>
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
             Incomplete Surveys
@@ -211,13 +208,15 @@ export default function DashboardScreen() {
               2
             </TextHandler>
           </View>
-        </View>
+        </TouchableOpacity>
 
-        <View
+        <TouchableOpacity
+          onPress={() => navigate(ROUTES.AUTH.SAVED_SURVEYS_SCREEN)}
           style={{
             flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
+            backgroundColor: 'teal',
           }}>
           <View style={{flex: 0.8}}>
             <TextHandler style={{fontWeight: '400', fontSize: 18}}>
@@ -243,7 +242,7 @@ export default function DashboardScreen() {
               3
             </TextHandler>
           </View>
-        </View>
+        </TouchableOpacity>
 
         <View style={styles.headingInput}>
           <TextHandler
@@ -282,8 +281,6 @@ export default function DashboardScreen() {
             textAlign: 'center',
           }}
         />
-
-      
 
         <Button
           title={'Logout'}
