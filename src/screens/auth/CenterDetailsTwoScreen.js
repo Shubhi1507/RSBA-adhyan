@@ -23,6 +23,7 @@ import {Snackbar} from 'react-native-paper';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import Geolocation from '@react-native-community/geolocation';
+import {getDistance, getPreciseDistance} from 'geolib';
 
 export default function CenterDetailsTwoScreen() {
   const store = useSelector(state => state?.authPageDataReducer);
@@ -60,6 +61,11 @@ export default function CenterDetailsTwoScreen() {
       },
     ],
   });
+
+  let [answers, setAnswers] = useState({
+    answer1: '',
+  });
+
   const [error, setError] = useState({visible: false, message: ''});
 
   const getCurrentPosition = () => {
@@ -71,6 +77,51 @@ export default function CenterDetailsTwoScreen() {
       error => Alert.alert('GetCurrentPosition Error', JSON.stringify(error)),
       {enableHighAccuracy: true},
     );
+  };
+
+  // getDistance({latitude: "51° 31' N", longitude: "7° 28' E"});
+  // Working with W3C Geolocation API
+  // const ok = () => {
+
+  //   Geolocation.getCurrentPosition(
+  //     position => {
+  //       console.log(
+  //         'You are ',
+  //         geolib.getDistance(
+  //           {
+  //             latitude: position.coords.latitude,
+  //             longitude: position.coords.longitude,
+  //           },
+  //           {
+  //             latitude: 29.2060007,
+  //             longitude: 78.9586059,
+  //           },
+  //           accuracy = 1 ,
+
+  //         ),
+  //         'meters away from 51.525, 7.4575',
+  //       );
+  //     },
+  //     () => {
+  //       alert('Position could not be determined.');
+  //     },
+  //   );
+  // };
+
+  const calculateDistance = () => {
+    var dis = getDistance(
+      {latitude: 29.2060007, longitude: 78.9586059},
+      {latitude: 23.833717, longitude: 80.420609},
+    );
+    alert(`Distance\n\n${dis} Meter\nOR\n${dis / 1000} KM`);
+  };
+
+  const calculatePreciseDistance = () => {
+    var pdis = getPreciseDistance(
+      {latitude: 29.210421, longitude: 78.96183},
+      {latitude: 29.210421, longitude: 78.96183},
+    );
+    alert(`Precise Distance\n\n${pdis} Meter\nOR\n${pdis / 1000} KM`);
   };
 
   useEffect(() => {}, [store?.authData]);
@@ -294,8 +345,12 @@ export default function CenterDetailsTwoScreen() {
               />
             </View>
 
-            <TouchableOpacity onPress={getCurrentPosition}>
-              <Text style={{color: 'blue'}}>Share your location</Text>
+            <TouchableOpacity onPress={calculateDistance}>
+              <Text style={{color: 'blue'}}>Calculate Distance</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={calculatePreciseDistance}>
+              <Text style={{color: 'blue'}}>Calculate Precise Distance</Text>
             </TouchableOpacity>
 
             <Button
@@ -338,7 +393,73 @@ export default function CenterDetailsTwoScreen() {
             />
           </View>
         ) : (
-          <View style={styles.inActiveCenter}></View>
+          <View style={styles.inActiveCenter}>
+            <View>
+              <View
+                style={{
+                  height: 20,
+                  width: 20,
+                  borderRadius: 40,
+                  justifyContent: 'flex-start',
+                  marginRight: 5,
+                }}>
+                <TextHandler
+                  style={{
+                    color: 'black',
+                    textAlign: 'center',
+                  }}></TextHandler>
+              </View>
+
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: 'flex-start',
+                }}>
+                <TextHandler
+                  style={{
+                    color: 'black',
+                    fontSize:18 ,
+                    fontWeight:"500"
+                    // textAlign: 'left',
+                  }}>
+                  {'Why is center non operational?'}
+                </TextHandler>
+              </View>
+            </View>
+
+            <View>
+              <RadioButtons
+                radioStyle={{
+                  borderWidth: 1,
+                  marginVertical: 2,
+                  borderColor: COLORS.orange,
+                }}
+                data={[
+                  {key: 1, value: ' Center work has been completed'},
+                  {key: 2, value: 'Resources were not available (Teacher,Place etc)' },
+                  {key: 3, value: 'Students were not responding'},
+                  {key: 4, value: 'Some problems of the Organization'},
+                  {key: 5, value: 'Local Social Problems'},
+                  {key: 6, value: 'Others'},
+                ]}
+                onValueChange={item => {
+                  setAnswers({...answers, answer1: item});
+                }}
+              />
+            </View>
+
+            <Button
+              title={'Submit'}
+              onPress={() => {
+                navigate(ROUTES.AUTH.DASHBOARDSCREEN);
+              }}
+              ButtonContainerStyle={{
+                marginVertical: 35,
+                alignItems: 'center',
+                textAlign: 'center',
+              }}
+            />
+          </View>
         )}
       </KeyboardAwareScrollView>
     </View>
