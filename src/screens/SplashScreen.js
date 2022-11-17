@@ -13,8 +13,19 @@ import {ROUTES} from '../navigation/RouteConstants';
 import {connecttoFBD} from '../networking/FirebaseAPI.controller';
 import {useDispatch} from 'react-redux';
 import {ACTION_CONSTANTS} from '../redux/actions/actions';
+import * as RNLocalize from 'react-native-localize';
 
 export default function SplashScreen() {
+  const options = [
+    {label: 'Hindi', value: 'hi'},
+    {label: 'English', value: 'en'},
+  ];
+
+  const App = () => {
+    alert(RNLocalize.getLocales()[0].languageCode);
+    const  [t,i18n] = useTranslation();
+  };
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -115,6 +126,12 @@ export default function SplashScreen() {
               Sign Up
             </Text>
           </TouchableOpacity>
+
+          <Button
+            type={options}
+            title={'Change Language'}
+            onPress={App}
+          />
         </View>
       </View>
     </View>
