@@ -6,7 +6,7 @@ import {
   Image,
   FlatList,
 } from 'react-native';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {COLORS} from '../utils/colors';
 import {navigate} from '../navigation/NavigationService';
 import {ROUTES} from '../navigation/RouteConstants';
@@ -17,18 +17,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ChangeLanguageAndReboot} from '../utils/utils';
 import LocalizationContext from '../context/LanguageContext';
 import {CustomCheckbox, Button} from '../components/index';
+import * as i18n from '../../i18n.js'
+
 export default function SplashScreen() {
   const [language, chooseLanguage] = useState({
     default: 'en',
     changed: false,
     label: 'English',
   });
-  const {t} = useContext(LocalizationContext);
+  const {t, locale, setLocale} = useContext(LocalizationContext);
 
   const options = [
     {label: 'Hindi', value: 'hi'},
     {label: 'English', value: 'en'},
   ];
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,7 +45,9 @@ export default function SplashScreen() {
           console.log('hindi');
           chooseLanguage({...language, label: 'Hindi', default: 'hi'});
         }
+        handleLocalizationChange(res);
       } else {
+        handleLocalizationChange('en');
       }
     });
   }, []);
@@ -52,6 +57,16 @@ export default function SplashScreen() {
     dispatch({type: ACTION_CONSTANTS.CLEAR_DISTRICTS_LIST});
     dispatch({type: ACTION_CONSTANTS.CLEAR_STATE_LIST});
   }, []);
+
+
+  const handleLocalizationChange = useCallback(
+    newLocale => {
+      const newSetLocale = i18n.setI18nConfig(newLocale)
+      setLocale(newSetLocale)
+    },
+    [locale],
+  )
+
 
   async function fetchData() {
     let val = await connecttoFBD();
