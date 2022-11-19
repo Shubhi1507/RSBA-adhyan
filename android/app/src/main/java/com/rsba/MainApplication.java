@@ -11,6 +11,7 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import androidx.multidex.MultiDexApplication;
+import com.reactnativerestart.RestartPackage;
 
 public class MainApplication extends MultiDexApplication implements ReactApplication {
 
