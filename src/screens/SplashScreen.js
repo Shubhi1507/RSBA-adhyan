@@ -17,7 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ChangeLanguageAndReboot} from '../utils/utils';
 import LocalizationContext from '../context/LanguageContext';
 import {CustomCheckbox, Button} from '../components/index';
-import * as i18n from '../../i18n.js'
+import * as i18n from '../../i18n.js';
 
 export default function SplashScreen() {
   const [language, chooseLanguage] = useState({
@@ -58,15 +58,13 @@ export default function SplashScreen() {
     dispatch({type: ACTION_CONSTANTS.CLEAR_STATE_LIST});
   }, []);
 
-
   const handleLocalizationChange = useCallback(
     newLocale => {
-      const newSetLocale = i18n.setI18nConfig(newLocale)
-      setLocale(newSetLocale)
+      const newSetLocale = i18n.setI18nConfig(newLocale);
+      setLocale(newSetLocale);
     },
     [locale],
-  )
-
+  );
 
   async function fetchData() {
     let val = await connecttoFBD();
@@ -103,7 +101,7 @@ export default function SplashScreen() {
             marginTop: 20,
             textAlign: 'center',
           }}>
-          Rashtriya Sewa Bharati
+          {t('RSB')}
         </Text>
         <Text
           style={{
@@ -113,7 +111,7 @@ export default function SplashScreen() {
             marginTop: 3,
             textAlign: 'center',
           }}>
-          Adhyayan Survey
+          {t('ADHAYAN')}
         </Text>
         <View
           style={{
