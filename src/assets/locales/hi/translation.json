@@ -1,4 +1,10 @@
 {
-    "TITLE": "Title in hindi"
-  }
-  
+  "TITLE": "शीर्षक",
+  "CANCEL": "रद्द करें",
+  "ALLOW": "स्वीकार",
+  "APP_LANGUAGE_CHANGED": "ऐप्लिकेशन की भाषा में बदलाव का पता चला है",
+  "APP_RESTART_REQUEST": "ऐप को कॉन्फ़िगर करने के लिए पुनरारंभ करने की आवश्यकता है",
+  "ENGLISH": "अंग्रेज़ी",
+  "HINDI": "हिन्दी",
+  "LANGUAGE_CHANGE": "भाषा परिवर्तन"
+}

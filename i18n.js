@@ -3,7 +3,7 @@ import * as RNLocalize from 'react-native-localize';
 import i18n from 'i18n-js';
 import memoize from 'lodash.memoize';
 
-export const DEFAULT_LANGUAGE = 'en';
+export const DEFAULT_LANGUAGE = 'hi';
 
 export const translationGetters = {
   // lazy requires (metro bundler does not support symlinks)

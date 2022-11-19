@@ -1,3 +1,10 @@
 {
-  "TITLE": "Title"
+  "TITLE": "Title",
+  "CANCEL": "Cancel",
+  "ALLOW": "Allow",
+  "APP_LANGUAGE_CHANGED": "App language change detected.",
+  "APP_RESTART_REQUEST": "App needs to restart to configure.",
+  "ENGLISH": "English",
+  "HINDI": "Hindi",
+  "LANGUAGE_CHANGE": "Change language"
 }

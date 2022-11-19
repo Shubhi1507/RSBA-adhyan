@@ -1,12 +1,11 @@
 const fs = require('fs');
 const chalk = require('chalk');
-
 module.exports = {
   input: [
-    'src/**/*.{js,jsx}',
+    './src/**/*.{js,jsx}',
     // Use ! to filter out files or directories
-    '!app/**/*.spec.{js,jsx}',
-    '!app/i18n/**',
+    './src/**/*.spec.{js,jsx}',
+    '!./src/app/i18n/**',
     '!**/node_modules/**',
   ],
   output: './',

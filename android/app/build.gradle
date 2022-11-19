@@ -190,6 +190,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-restart')
     implementation 'androidx.multidex:multidex:2.0.1'  
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
