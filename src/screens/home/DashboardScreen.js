@@ -6,7 +6,7 @@ import {
   Alert,
   FlatList,
 } from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import LoaderIndicator from '../../components/Loader';
 import {Button, CustomSnackBar, Header, TextHandler} from '../../components';
 import {COLORS} from '../../utils/colors';
@@ -19,8 +19,10 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {useEffect} from 'react';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {Item} from 'react-native-paper/lib/typescript/components/List/List';
+import LocalizationContext from '../../context/LanguageContext';
 
 export default function DashboardScreen() {
+  const {t} = useContext(LocalizationContext);
   const [error, setError] = useState({visible: false, message: ''});
   const dispatch = useDispatch();
   const store = useSelector(state => state);
@@ -41,7 +43,7 @@ export default function DashboardScreen() {
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
     dispatch({type: ACTION_CONSTANTS.CLEAR_DISTRICTS_LIST});
     dispatch({type: ACTION_CONSTANTS.CLEAR_STATE_LIST});
-    dispatch({type: ACTION_CONSTANTS.CLEAR_SURVEY});
+    dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
   }, []);
 
   const renderItem = ({item}) => {
@@ -139,7 +141,7 @@ export default function DashboardScreen() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 18}}>
-            Volunteer Dashboard
+            {t('VOLUNTEER_DASHBOARD')}
           </Text>
         </View>
       </View>
