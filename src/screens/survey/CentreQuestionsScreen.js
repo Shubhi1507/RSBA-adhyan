@@ -17,10 +17,13 @@ import {
 import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
-import { ACTION_CONSTANTS } from '../../redux/actions/actions';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import LocalizationContext from '../../context/LanguageContext';
+import {useContext} from 'react';
 
 export default function CentreQuestionsScreen() {
   const store = useSelector(state => state?.authPageDataReducer?.authData);
+  const {t} = useContext(LocalizationContext);
 
   let [answers, setAnswers] = useState({
     answer1: '',
@@ -84,7 +87,6 @@ export default function CentreQuestionsScreen() {
     console.log('payload->', payload);
     dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload});
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
-
   };
 
   return (
@@ -131,7 +133,8 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'What is the Establishment Year of the Kendra ?'}
+                {/* {'What is the Establishment Year of the Kendra ?'} */}
+                {t('CENTER_Q1')}
               </TextHandler>
             </View>
           </View>

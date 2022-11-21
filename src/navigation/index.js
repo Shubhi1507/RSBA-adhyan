@@ -8,6 +8,7 @@ const RootStack = createStackNavigator();
 
 function AppNavigation() {
   let isloggedIn = useSelector(state => state?.authReducer?.loggedIn);;
+  // let isloggedIn = true ;
   let role = 'teacher';
   let x = useSelector(state => state?.authReducer?.loggedIn);
   //   let role = useSelector(state => state?.authReducer?.userData?.role);
