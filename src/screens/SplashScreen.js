@@ -111,7 +111,7 @@ export default function SplashScreen() {
             marginTop: 3,
             textAlign: 'center',
           }}>
-          {t('ADHAYAN')}
+          {t('ADHYAYAN')}
         </Text>
         <View
           style={{

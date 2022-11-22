@@ -43,7 +43,7 @@ export default function DashboardScreen() {
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
     dispatch({type: ACTION_CONSTANTS.CLEAR_DISTRICTS_LIST});
     dispatch({type: ACTION_CONSTANTS.CLEAR_STATE_LIST});
-    dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
+    // dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
   }, []);
 
   const renderItem = ({item}) => {
@@ -168,7 +168,6 @@ export default function DashboardScreen() {
             flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
-            backgroundColor: 'teal',
           }}>
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
             Completed Surveys
@@ -189,7 +188,6 @@ export default function DashboardScreen() {
             flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
-            backgroundColor: 'teal',
           }}>
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
             Incomplete Surveys
@@ -218,7 +216,6 @@ export default function DashboardScreen() {
             flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
-            backgroundColor: 'teal',
           }}>
           <View style={{flex: 0.8}}>
             <TextHandler style={{fontWeight: '400', fontSize: 18}}>
