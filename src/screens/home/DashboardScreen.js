@@ -8,7 +8,13 @@ import {
 } from 'react-native';
 import React, {useContext} from 'react';
 import LoaderIndicator from '../../components/Loader';
-import {Button, CustomSnackBar, Header, RadioButtons, TextHandler} from '../../components';
+import {
+  Button,
+  CustomSnackBar,
+  Header,
+  RadioButtons,
+  TextHandler,
+} from '../../components';
 import {COLORS} from '../../utils/colors';
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
@@ -29,16 +35,15 @@ export default function DashboardScreen() {
   const name = store?.authReducer?.userData?.userData?.data[0]?.name;
   const completedSurvey = store?.surveyReducer?.completedSurvey;
   const [centerInfo, setcenterInfo] = useState({
-    type_of_id : ""
-  })
-
+    type_of_id: '',
+  });
 
   const [CENTER_DATA, SET_CENTRE_DATA] = useState([
-    {key: '301', value: '301'},
-    {key: '302', value: '302'},
-    {key: '303', value: '303'},
-    {key: '304', value: '304'},
-    {key: '305', value: '305'},
+    {key: 'CENTER ID 301', value: 'CENTER ID 301'},
+    {key: 'CENTER ID 302', value: 'CENTER ID 302'},
+    {key: 'CENTER ID 303', value: 'CENTER ID 303'},
+    {key: 'CENTER ID 304', value: 'CENTER ID 304'},
+    {key: 'CENTER ID 305', value: 'CENTER ID 305'},
   ]);
 
   useEffect(() => {}, []);
@@ -252,33 +257,13 @@ export default function DashboardScreen() {
             {t('ASSIGNED_CENTERS')}
           </TextHandler>
         </View>
-        <View style={{flex: 0.25}}>
-          <FlatList
-            scrollEnabled
+
+        <View style={{flex: 0.4}}>
+          <RadioButtons
             data={CENTER_DATA}
-            renderItem={({item, index}) => {
-              return (
-                <TextHandler
-                  style={{
-                    color: 'black',
-                    paddingBottom: 8,
-                    fontSize: 17,
-                    fontWeight: '400',
-                  }}>
-                  {t('CENTER_ID')} {item.key}
-                  <RadioButtons
-                    data={CENTER_DATA}
-                    onValueChange={item => {
-                      setcenterInfo({
-                        ...centerInfo,
-                        type_of_id: item,
-                      });
-                    }}
-                  />
-                </TextHandler>
-              );
+            onValueChange={item => {
+              setcenterInfo({...centerInfo, type_of_id: item});
             }}
-            // keyExtractor={item => item.id}
           />
         </View>
 
