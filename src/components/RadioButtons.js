@@ -1,11 +1,14 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RadioButton, Text} from 'react-native-paper';
+import LocalizationContext from '../context/LanguageContext';
 import {COLORS} from '../utils/colors';
 import {TextHandler} from './TextHandler';
 
 export const RadioButtons = ({data, onValueChange, radioStyle}) => {
   const [value, setValue] = React.useState('');
+  const {t} = useContext(LocalizationContext);
   return (
     <FlatList
       contentContainerStyle={styles.container}

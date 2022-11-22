@@ -19,10 +19,14 @@ import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import { useContext } from 'react';
+import LocalizationContext from '../../context/LanguageContext';
 
 export default function TeacherQuestionsScreen() {
   const store = useSelector(state => state?.surveyReducer);
   const dispatch = useDispatch();
+  const {t} = useContext(LocalizationContext);
+
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',
@@ -60,7 +64,7 @@ export default function TeacherQuestionsScreen() {
         </View>
         <View style={{flex: 0.55}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {STRINGS.LOGIN.SURVEY}
+            {t('SURVEY')}
           </Text>
         </View>
       </View>
@@ -568,7 +572,7 @@ export default function TeacherQuestionsScreen() {
           </View>
         </View>
         <Button
-          title={'Submit'}
+          title={t('SUBMIT')}
           onPress={pageValidator}
           ButtonContainerStyle={{
             marginVertical: 17,

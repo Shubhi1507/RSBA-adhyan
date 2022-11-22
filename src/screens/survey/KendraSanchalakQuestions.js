@@ -18,10 +18,14 @@ import {
 import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
-import { ACTION_CONSTANTS } from '../../redux/actions/actions';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import LocalizationContext from '../../context/LanguageContext';
+import { useContext } from 'react';
+
 
 export default function KendraSanchalakQuestions() {
   const store = useSelector(state => state?.surveyReducer);
+  const {t} = useContext(LocalizationContext);
   const dispatch = useDispatch();
 
   let [answers, setAnswers] = useState({
@@ -62,7 +66,7 @@ export default function KendraSanchalakQuestions() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {STRINGS.LOGIN.CENTER_INFO}
+            {t('SURVEY')}
           </Text>
         </View>
       </View>
@@ -460,7 +464,7 @@ export default function KendraSanchalakQuestions() {
           </View>
         </View>
         <Button
-          title={'Next'}
+          title={t('NEXT')}
           onPress={pageValidator}
           ButtonContainerStyle={{
             marginVertical: 17,

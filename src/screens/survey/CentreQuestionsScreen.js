@@ -61,7 +61,7 @@ export default function CentreQuestionsScreen() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {STRINGS.LOGIN.CENTER_INFO}
+           {t('CENTER_INFO')}
           </Text>
         </View>
       </View>
@@ -429,7 +429,7 @@ export default function CentreQuestionsScreen() {
           </View>
         </View>
         <Button
-          title={'Next'}
+          title={t('NEXT')}
           onPress={pageValidator}
           ButtonContainerStyle={{
             marginVertical: 17,

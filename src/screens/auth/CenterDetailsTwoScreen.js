@@ -24,11 +24,14 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import Geolocation from '@react-native-community/geolocation';
 import {getDistance, getPreciseDistance} from 'geolib';
+import LocalizationContext from '../../context/LanguageContext';
+import {useContext} from 'react';
 
 export default function CenterDetailsTwoScreen() {
   const store = useSelector(state => state?.authPageDataReducer);
   const dispatch = useDispatch();
   const [isCenterOperational, setCenterOperational] = useState(true);
+  const {t} = useContext(LocalizationContext);
   const [volunteerInfo, setvolunteerInfo] = useState({
     parent_org: '',
     type_of_center: '',
@@ -149,7 +152,7 @@ export default function CenterDetailsTwoScreen() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            Center Details
+            {t('CENTER_DETAILS')}
           </Text>
         </View>
       </View>
@@ -258,7 +261,7 @@ export default function CenterDetailsTwoScreen() {
                 fontSize: 20,
                 textAlign: 'left',
               }}>
-              Is center opertional?
+              {t('IS_CENTER_OPERATIONAL')}
             </TextHandler>
           </View>
 
@@ -275,7 +278,7 @@ export default function CenterDetailsTwoScreen() {
                 fontSize: 15,
                 textAlign: 'left',
               }}>
-              No
+              {t('NO')}
             </TextHandler>
             <CustomSwitch
               isSwitchOn={isCenterOperational}
@@ -287,7 +290,7 @@ export default function CenterDetailsTwoScreen() {
                 fontSize: 15,
                 textAlign: 'right',
               }}>
-              Yes
+              {t('YES')}
             </TextHandler>
           </View>
         </View>
@@ -302,7 +305,7 @@ export default function CenterDetailsTwoScreen() {
                   fontSize: 20,
                   margin: 6,
                 }}>
-                {STRINGS.LOGIN.TYPE_OF_CENTER}
+                {t('CENTER_TYPE')}
               </Text>
               <RadioButtons
                 data={miscControllers.CENTRES}
@@ -312,9 +315,7 @@ export default function CenterDetailsTwoScreen() {
               />
             </View>
             <View style={{paddingVertical: 5}}>
-              <Text style={styles.headingInput}>
-                {STRINGS.LOGIN.CENTER_HD_NAME}
-              </Text>
+              <Text style={styles.headingInput}>{t('CENTER_HEAD_NAME')}</Text>
               <Input
                 placeholder="Enter here"
                 name="center_head"
@@ -329,8 +330,9 @@ export default function CenterDetailsTwoScreen() {
 
             <View style={{paddingVertical: 5}}>
               <Text style={styles.headingInput}>
-                {STRINGS.LOGIN.CENTER_CONTACT_DETAILS}
-              </Text>
+                {t('CENTER_CONTACT_DETAILS')}
+              
+               </Text>
               <Input
                 placeholder="Enter here"
                 name="center_contact"
@@ -346,13 +348,10 @@ export default function CenterDetailsTwoScreen() {
             </View>
 
             <TouchableOpacity onPress={calculateDistance}>
-              <Text style={{color: 'blue'}}>Calculate Distance</Text>
+              <Text style={{color: 'blue'}}>{t('LOCATION')}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={calculatePreciseDistance}>
-              <Text style={{color: 'blue'}}>Calculate Precise Distance</Text>
-            </TouchableOpacity>
-
+            {/* 
             <Button
               title={'Next'}
               onPress={() => {
@@ -362,11 +361,11 @@ export default function CenterDetailsTwoScreen() {
                 marginVertical: 17,
                 alignItems: 'center',
                 textAlign: 'center',
-              }}
-            />
+              }} */}
+
             <View style={{paddingVertical: 5}}>
               <Text style={styles.headingInput}>
-                {STRINGS.LOGIN.PARENT_ORG}
+                {t('PARENT_ORGANIZATION')}
               </Text>
               <Input
                 placeholder="Enter here"
@@ -381,7 +380,7 @@ export default function CenterDetailsTwoScreen() {
             </View>
 
             <Button
-              title={'Next'}
+              title={t('NEXT')}
               onPress={() => {
                 PageValidator();
               }}
@@ -418,11 +417,11 @@ export default function CenterDetailsTwoScreen() {
                 <TextHandler
                   style={{
                     color: 'black',
-                    fontSize:18 ,
-                    fontWeight:"500"
+                    fontSize: 18,
+                    fontWeight: '500',
                     // textAlign: 'left',
                   }}>
-                  {'Why is center non operational?'}
+                  {t('WHY_IS_CENTER_NON_OPERATIONAL')}
                 </TextHandler>
               </View>
             </View>
@@ -435,8 +434,14 @@ export default function CenterDetailsTwoScreen() {
                   borderColor: COLORS.orange,
                 }}
                 data={[
-                  {key: 1, value: ' Center work has been completed'},
-                  {key: 2, value: 'Resources were not available (Teacher,Place etc)' },
+                  {
+                    key: 'NON_OPEARTIONAL_CENTER_OPT1',
+                    value: ' Center work has been completed',
+                  },
+                  {
+                    key: 'NON_OPEARTIONAL_CENTER_OPT2',
+                    value: 'Resources were not available (Teacher,Place etc)',
+                  },
                   {key: 3, value: 'Students were not responding'},
                   {key: 4, value: 'Some problems of the Organization'},
                   {key: 5, value: 'Local Social Problems'},
@@ -449,7 +454,7 @@ export default function CenterDetailsTwoScreen() {
             </View>
 
             <Button
-              title={'Submit'}
+              title={t('SUBMIT')}
               onPress={() => {
                 navigate(ROUTES.AUTH.DASHBOARDSCREEN);
               }}

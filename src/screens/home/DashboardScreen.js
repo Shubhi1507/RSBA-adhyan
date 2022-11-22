@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, {useContext} from 'react';
 import LoaderIndicator from '../../components/Loader';
-import {Button, CustomSnackBar, Header, TextHandler} from '../../components';
+import {Button, CustomSnackBar, Header, RadioButtons, TextHandler} from '../../components';
 import {COLORS} from '../../utils/colors';
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
@@ -28,6 +28,10 @@ export default function DashboardScreen() {
   const store = useSelector(state => state);
   const name = store?.authReducer?.userData?.userData?.data[0]?.name;
   const completedSurvey = store?.surveyReducer?.completedSurvey;
+  const [centerInfo, setcenterInfo] = useState({
+    type_of_id : ""
+  })
+
 
   const [CENTER_DATA, SET_CENTRE_DATA] = useState([
     {key: '301', value: '301'},
@@ -161,7 +165,7 @@ export default function DashboardScreen() {
         }}>
         <TextHandler
           style={{fontWeight: '700', fontSize: 23, paddingBottom: 30}}>
-          Welcome {name && `, ${name}`}
+          {t('WELCOME')} {name && `, ${name}`}
         </TextHandler>
         <TouchableOpacity
           style={{
@@ -170,7 +174,7 @@ export default function DashboardScreen() {
             flexDirection: 'row',
           }}>
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
-            Completed Surveys
+            {t('COMPLETED_SURVEYS')}
           </TextHandler>
           <TextHandler
             style={{
@@ -190,7 +194,7 @@ export default function DashboardScreen() {
             flexDirection: 'row',
           }}>
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
-            Incomplete Surveys
+            {t('INCOMPLETE_SUVEYS')}
           </TextHandler>
 
           <View
@@ -219,11 +223,10 @@ export default function DashboardScreen() {
           }}>
           <View style={{flex: 0.8}}>
             <TextHandler style={{fontWeight: '400', fontSize: 18}}>
-              Save & Review Questions
+              {t('SAVE_REVIEW_QUESTIONS')}
             </TextHandler>
             <Text style={{color: 'grey', fontSize: 12, fontWeight: '400'}}>
-              Completed survey will remain in this section for 48 hours to
-              review
+              {t('48_HRS_REVIEW')}
             </Text>
           </View>
           <View
@@ -246,7 +249,7 @@ export default function DashboardScreen() {
         <View style={styles.headingInput}>
           <TextHandler
             style={{fontWeight: '600', fontSize: 18, paddingBottom: 30}}>
-            Assigned Centres
+            {t('ASSIGNED_CENTERS')}
           </TextHandler>
         </View>
         <View style={{flex: 0.25}}>
@@ -262,7 +265,16 @@ export default function DashboardScreen() {
                     fontSize: 17,
                     fontWeight: '400',
                   }}>
-                  CENTER ID {item.key}
+                  {t('CENTER_ID')} {item.key}
+                  <RadioButtons
+                    data={CENTER_DATA}
+                    onValueChange={item => {
+                      setcenterInfo({
+                        ...centerInfo,
+                        type_of_id: item,
+                      });
+                    }}
+                  />
                 </TextHandler>
               );
             }}
@@ -271,7 +283,7 @@ export default function DashboardScreen() {
         </View>
 
         <Button
-          title={'Start Survey'}
+          title={t('START_SURVEY')}
           onPress={() => {
             pageNavigator();
           }}
@@ -282,7 +294,7 @@ export default function DashboardScreen() {
         />
 
         <Button
-          title={'Logout'}
+          title={t('LOGOUT')}
           onPress={() => {
             Alert.alert('Logout?', '', [
               {
