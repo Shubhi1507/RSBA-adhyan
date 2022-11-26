@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -23,7 +23,6 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 export default function PastStudentQuestions() {
   const store = useSelector(state => state?.surveyReducer);
   const dispatch = useDispatch();
-
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',
@@ -34,9 +33,78 @@ export default function PastStudentQuestions() {
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
+  let answersArrTmp =
+    store?.currentSurveyData?.surveyAnswers &&
+    store?.currentSurveyData?.surveyAnswers !== undefined &&
+    Array.isArray(store?.currentSurveyData?.surveyAnswers) &&
+    store?.currentSurveyData?.surveyAnswers.length > 0
+      ? [...store?.currentSurveyData?.surveyAnswers]
+      : [];
+
+  useEffect(() => {
+    answersArrTmp.some(function (entry, i) {
+      if (entry?.pastStudent) {
+        console.log('entry?.pastStudent', entry?.pastStudent);
+        setAnswers(entry.pastStudent);
+      }
+    });
+  }, []);
 
   const hideModal = () => setVisible(false);
   const showModal = () => setVisible(true);
+
+  const pageNavigator = () => {
+    navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
+  };
+
+  const pageValidator = () => {
+    console.log('store', store);
+    let tmp = store?.currentSurveyData.currentSurveyStatus;
+    let new_obj;
+    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+      new_obj = {
+        ...tmp[2],
+        attempted: true,
+        completed: false,
+        disabled: false,
+      };
+    } else {
+      new_obj = {...tmp[2], attempted: true, completed: true, disabled: true};
+    }
+    tmp.splice(2, 1, new_obj);
+    console.log('tmp', tmp);
+
+    let surveyAnswers = [...answersArrTmp];
+    let payload = {};
+    console.log('answersArrTmp;', answersArrTmp);
+
+    if (answersArrTmp.length > 0) {
+      let new_obj1 = {pastStudent: answers};
+      let index;
+      surveyAnswers.some(function (entry, i) {
+        if (entry?.pastStudent) {
+          index = i;
+        }
+      });
+      if (index != undefined) {
+        surveyAnswers.splice(index, 1, new_obj1);
+        console.log('exist past student ', index, surveyAnswers);
+      } else {
+        surveyAnswers.push({pastStudent: answers});
+      }
+    } else {
+      surveyAnswers.push({pastStudent: answers});
+    }
+    payload = {
+      ...store.currentSurveyData,
+      currentSurveyStatus: tmp,
+      surveyAnswers,
+    };
+    console.log('payload past student ', payload);
+    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    showModal();
+  };
 
   const HeaderContent = () => {
     return (
@@ -60,36 +128,13 @@ export default function PastStudentQuestions() {
           </TouchableOpacity>
           <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
         </View>
-        <View style={{flex: 0.65}}>
+        <View style={{flex: 0.85}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {STRINGS.LOGIN.CENTER_INFO}
+            Past Student's Survey
           </Text>
         </View>
       </View>
     );
-  };
-
-  const pageValidator = () => {
-    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    // if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please answer all questionaires',
-    //   });
-    // }
-    // if (answer1.length < 4 || answer1 > 2023 || answer1 < 1800) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Invalid year entered',
-    //   });
-    // }
-    // navigate(ROUTES.AUTH.PASTSTUDENTQUESTIONS);
-
-    let tmp = store?.surveyStatus;
-    let new_obj = {...tmp[2], checked: true, completed: true, disabled: true};
-    tmp.splice(2, 1, new_obj);
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: tmp});
-    showModal();
   };
 
   return (
@@ -97,8 +142,11 @@ export default function PastStudentQuestions() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
-      <SurveyCompletedModal visible={visible} hideModal={hideModal} />
-
+      <SurveyCompletedModal
+        visible={visible}
+        hideModal={hideModal}
+        onClick={pageNavigator}
+      />
       <CustomSnackBar
         visible={error.visible}
         message={error.message}
@@ -221,13 +269,29 @@ export default function PastStudentQuestions() {
 
                 {
                   key: 4,
-                  value: 'Other',
+                  value: 'Others',
                 },
               ]}
+              valueProp={answers.answer2}
               onValueChange={item => {
                 setAnswers({...answers, answer2: item});
               }}
             />
+            {answers.answer2?.value === 'Others' && (
+              <Input
+                placeholder="Enter reason here"
+                name="any"
+                onChangeText={text => {
+                  setAnswers({...answers, answer2: {...answers.answer2, text}});
+                }}
+                value={answers.answer2?.text}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -289,12 +353,28 @@ export default function PastStudentQuestions() {
                   key: 3,
                   value: 'Organised',
                 },
-                {key: 4, value: ' Other'},
+                {key: 4, value: 'Others'},
               ]}
+              valueProp={answers.answer3}
               onValueChange={item => {
                 setAnswers({...answers, answer3: item});
               }}
             />
+            {answers.answer3?.value === 'Others' && (
+              <Input
+                placeholder="Enter reason here"
+                name="any"
+                onChangeText={text => {
+                  setAnswers({...answers, answer3: {...answers.answer3, text}});
+                }}
+                value={answers.answer3?.text}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -352,12 +432,28 @@ export default function PastStudentQuestions() {
                 key: 3,
                 value: 'Connecting Experts',
               },
-              {key: 4, value: ' Others'},
+              {key: 4, value: 'Others'},
             ]}
+            valueProp={answers.answer4}
             onValueChange={item => {
-              setAnswers({...answers, answer3: item});
+              setAnswers({...answers, answer4: item});
             }}
           />
+          {answers.answer4?.value === 'Others' && (
+            <Input
+              placeholder="Enter reason here"
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, answer4: {...answers.answer4, text}});
+              }}
+              value={answers.answer4?.text}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
+          )}
         </View>
 
         {/* QA5  */}
@@ -408,6 +504,7 @@ export default function PastStudentQuestions() {
                 {key: 2, value: '1-3 years'},
                 {key: 3, value: 'More than 3 years'},
               ]}
+              valueProp={answers.answer5}
               onValueChange={item => {
                 setAnswers({...answers, answer5: item});
               }}
@@ -463,14 +560,30 @@ export default function PastStudentQuestions() {
                 {key: 2, value: 'Tranfer'},
                 {key: 3, value: 'Others'},
               ]}
+              valueProp={answers.answer6}
               onValueChange={item => {
                 setAnswers({...answers, answer6: item});
               }}
             />
+            {answers.answer6?.value === 'Others' && (
+              <Input
+                placeholder="Enter reason here"
+                name="any"
+                onChangeText={text => {
+                  setAnswers({...answers, answer6: {...answers.answer6, text}});
+                }}
+                value={answers.answer6?.text}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
         <Button
-          title={'Next'}
+          title={'Submit'}
           onPress={pageValidator}
           ButtonContainerStyle={{
             marginVertical: 17,
