@@ -1,20 +1,28 @@
 import {ACTION_CONSTANTS} from '../actions/actions';
 
 const initialState = {
-  survey: [],
-  surveyStatus: [],
   savedSurveys: [],
+  currentSurveyData: {},
   completedSurvey: 0,
   incompletedSurvey: 0,
 };
 
 const surveyReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTION_CONSTANTS.UPDATE_SURVEY:
+    // CURRENT
+    case ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY:
       return {
         ...state,
-        survey: action.payload,
+        currentSurveyData: action.payload,
       };
+
+    case ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY:
+      return {
+        ...state,
+        currentSurveyData: {},
+      };
+
+    //
 
     case ACTION_CONSTANTS.ADD_COMPLETED_SURVEY_COUNT:
       return {
@@ -28,11 +36,7 @@ const surveyReducer = (state = initialState, action) => {
         incompletedSurvey: +1,
       };
 
-    case ACTION_CONSTANTS.UPDATE_SURVEY_STATUS:
-      return {
-        ...state,
-        surveyStatus: action.payload,
-      };
+   
 
     case ACTION_CONSTANTS.UPDATE_SAVED_SURVEYS:
       return {
@@ -44,7 +48,7 @@ const surveyReducer = (state = initialState, action) => {
       return {
         ...state,
         survey: [],
-        surveyStatus: [],
+        currentSurveyData: {},
         // completedSurvey: 0,
         // incompletedSurvey: 0,
       };

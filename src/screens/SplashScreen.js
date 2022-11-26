@@ -56,6 +56,7 @@ export default function SplashScreen() {
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
     dispatch({type: ACTION_CONSTANTS.CLEAR_DISTRICTS_LIST});
     dispatch({type: ACTION_CONSTANTS.CLEAR_STATE_LIST});
+    // checkforAnyInCompleteSurveys();
   }, []);
 
   const handleLocalizationChange = useCallback(
