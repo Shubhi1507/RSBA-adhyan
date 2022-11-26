@@ -42,9 +42,6 @@ export default function PastStudentParentsScreen() {
 
   const dispatch = useDispatch();
 
-  const hideModal = () => setVisible(false);
-  const showModal = () => setVisible(true);
-
   useEffect(() => {
     answersArrTmp.forEach(el => {
       if (el?.pastStudentParent) {
@@ -53,6 +50,10 @@ export default function PastStudentParentsScreen() {
       } else console.log('not found');
     });
   }, []);
+
+  const hideModal = () => setVisible(false);
+  const showModal = () => setVisible(true);
+
   const pageValidator = () => {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
@@ -74,8 +75,14 @@ export default function PastStudentParentsScreen() {
     console.log('answersArrTmp;', answersArrTmp);
 
     if (answersArrTmp.length > 0) {
-      let new_obj = {pastStudentParent: answers};
-      surveyAnswers.splice(0, 1, new_obj);
+      let new_obj1 = {pastStudentParent: answers};
+      let index;
+      surveyAnswers.some(function (entry, i) {
+        if (entry?.pastStudentParent) {
+          index = i;
+        }
+      });
+      surveyAnswers.splice(index, 1, new_obj1);
       console.log('exits  past student parent', surveyAnswers);
       payload = {
         ...store.currentSurveyData,
@@ -83,12 +90,13 @@ export default function PastStudentParentsScreen() {
         surveyAnswers,
       };
     } else {
-      payload = {
-        ...store.currentSurveyData,
-        currentSurveyStatus: tmp,
-        surveyAnswers,
-      };
+      surveyAnswers = [...answersArrTmp, {pastStudentParent: answers}];
     }
+    payload = {
+      ...store.currentSurveyData,
+      currentSurveyStatus: tmp,
+      surveyAnswers,
+    };
     console.log('payload past student parent', payload);
 
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
@@ -419,6 +427,21 @@ export default function PastStudentParentsScreen() {
                 setAnswers({...answers, answer5: item});
               }}
             />
+            {answers.answer5?.value === 'Others' && (
+              <Input
+                placeholder="Enter reason here"
+                name="any"
+                onChangeText={text => {
+                  setAnswers({...answers, answer5: {...answers.answer5, text}});
+                }}
+                value={answers.answer5?.text}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -470,12 +493,27 @@ export default function PastStudentParentsScreen() {
                 {key: 1, value: 'By their own'},
                 {key: 2, value: 'Arranged by the centre Karyakartas'},
                 {key: 3, value: 'Directed by Parents'},
-                {key: 3, value: ' Others'},
+                {key: 3, value: 'Others'},
               ]}
               onValueChange={item => {
                 setAnswers({...answers, answer6: item});
               }}
             />
+            {answers.answer6?.value === 'Others' && (
+              <Input
+                placeholder="Enter reason here"
+                name="any"
+                onChangeText={text => {
+                  setAnswers({...answers, answer6: {...answers.answer6, text}});
+                }}
+                value={answers.answer6?.text}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
         <Button
