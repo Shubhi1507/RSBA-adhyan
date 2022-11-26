@@ -2,15 +2,18 @@ import * as React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {Checkbox} from 'react-native-paper';
 
-export function CustomCheckbox({label, status, onPress, disabled}) {
+export function CustomCheckbox({label, onPress, completed, attempted, status}) {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Checkbox
-          status={status || disabled ? 'checked' : 'unchecked'}
-          disabled={disabled}
+          status={status || attempted ? 'checked' : 'unchecked'}
+          color={attempted && completed ? 'green' : 'red'}
+          disabled={attempted && completed}
         />
-        <Text style={{marginHorizontal: 10 , color:'black'}}>{label || ''}</Text>
+        <Text style={{marginHorizontal: 10, color: 'black'}}>
+          {label || ''}
+        </Text>
       </View>
     </TouchableOpacity>
   );

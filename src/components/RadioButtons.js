@@ -4,7 +4,7 @@ import {RadioButton, Text} from 'react-native-paper';
 import {COLORS} from '../utils/colors';
 import {TextHandler} from './TextHandler';
 
-export const RadioButtons = ({data, onValueChange, radioStyle}) => {
+export const RadioButtons = ({data, onValueChange, radioStyle, valueProp}) => {
   const [value, setValue] = React.useState('');
   return (
     <FlatList
@@ -16,13 +16,13 @@ export const RadioButtons = ({data, onValueChange, radioStyle}) => {
           <RadioButton.Group
             key={index}
             onValueChange={newValue => {
-              onValueChange(item.value);
+              // onValueChange(item.value);
               setValue(item.value);
             }}
-            value={value}>
+            value={valueProp && valueProp.value ? valueProp.value : value}>
             <TouchableOpacity
               onPress={() => {
-                onValueChange(item.value);
+                onValueChange(item);
                 setValue(item.value);
               }}
               style={[
@@ -40,7 +40,9 @@ export const RadioButtons = ({data, onValueChange, radioStyle}) => {
                 uncheckedColor={COLORS.black}
               />
 
-              <Text style={{marginHorizontal: 10 , color:"black"}}>{item.value}</Text>
+              <Text style={{marginHorizontal: 10, color: 'black'}}>
+                {item.value}
+              </Text>
             </TouchableOpacity>
           </RadioButton.Group>
         );

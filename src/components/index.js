@@ -9,6 +9,7 @@ import {CustomSnackBar} from './CustomSnackBar';
 import {SurveyCompletedModal} from './SurveyCompletedModal';
 import {CustomCheckbox} from './CustomCheckbox';
 import {CustomSwitch} from './CustomSwitch';
+import {AppState} from './AppState';
 
 export {
   Header,
@@ -22,4 +23,5 @@ export {
   SurveyCompletedModal,
   CustomCheckbox,
   CustomSwitch,
+  AppState,
 };
