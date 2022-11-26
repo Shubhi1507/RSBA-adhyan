@@ -44,6 +44,7 @@ export default function PastStudentParentsScreen() {
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
       if (entry?.pastStudentParent) {
+        console.log('pastStudentParent', entry);
         setAnswers(entry.pastStudentParent);
       }
     });
@@ -80,15 +81,14 @@ export default function PastStudentParentsScreen() {
           index = i;
         }
       });
-      surveyAnswers.splice(index, 1, new_obj1);
-      console.log('exits  past student parent', surveyAnswers);
-      payload = {
-        ...store.currentSurveyData,
-        currentSurveyStatus: tmp,
-        surveyAnswers,
-      };
+      if (index != undefined) {
+        surveyAnswers.splice(index, 1, new_obj1);
+        console.log('exist past student parent ', index, surveyAnswers);
+      } else {
+        surveyAnswers.push({pastStudentParent: answers});
+      }
     } else {
-      surveyAnswers = [...answersArrTmp, {pastStudentParent: answers}];
+      surveyAnswers.push({pastStudentParent: answers});
     }
     payload = {
       ...store.currentSurveyData,
@@ -96,7 +96,6 @@ export default function PastStudentParentsScreen() {
       surveyAnswers,
     };
     console.log('payload past student parent', payload);
-
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
     showModal();
   };
