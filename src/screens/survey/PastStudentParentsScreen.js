@@ -22,6 +22,7 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 
 export default function PastStudentParentsScreen() {
   const store = useSelector(state => state?.surveyReducer);
+  const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',
@@ -40,14 +41,11 @@ export default function PastStudentParentsScreen() {
       ? [...store?.currentSurveyData?.surveyAnswers]
       : [];
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    answersArrTmp.forEach(el => {
-      if (el?.pastStudentParent) {
-        console.log('el', el.pastStudentParent);
-        setAnswers(el.pastStudentParent);
-      } else console.log('not found');
+    answersArrTmp.some(function (entry, i) {
+      if (entry?.pastStudentParent) {
+        setAnswers(entry.pastStudentParent);
+      }
     });
   }, []);
 
