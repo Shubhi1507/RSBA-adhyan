@@ -30,7 +30,7 @@ import {useEffect} from 'react';
 export default function SelectAudienceScreen() {
   let [selectedAudience, setAudience] = useState('');
   const [isSurveyCompleted, setisSurveyCompleted] = useState(false);
-  const store = useSelector(state => state);
+  const store = useSelector(state => state.surveyReducer);
   const dispatch = useDispatch();
   const [miscControllers, setmisControllers] = useState({
     CLASS_FREQUENCY: [
@@ -52,56 +52,56 @@ export default function SelectAudienceScreen() {
         key: `Student's Parents (Past Students)`,
         value: `Student's Parents (Past Students)`,
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: `Student's Parents (Current Students)`,
         value: `Student's Parents (Current Students)`,
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Past Student',
         value: 'Past Student',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Current Student',
         value: 'Current Student',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Teacher',
         value: 'Teacher',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Kendra Sanchalak',
         value: 'Kendra Sanchalak',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Basti',
         value: 'Basti',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Prabuddha Jan',
         value: 'Prabuddha Jan',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
     ],
@@ -118,13 +118,19 @@ export default function SelectAudienceScreen() {
   const showModal = () => setVisible(true);
 
   useEffect(() => {
-    console.log('store', store);
-    checkIfSurveyisCompleted();
+    // checkIfSurveyisCompleted();
+    console.log('pg4', store);
+
+    checkandUpdateSurveyProgress();
   }, [store]);
 
+  const checkandUpdateSurveyProgress = () => {
+    let tmp = store?.currentSurveyData.currentSurveyStatus;
+    console.log('currentSurveyStatus->', store);
+  };
+
   const checkIfSurveyisCompleted = () => {
-    let tmp = store?.surveyReducer?.surveyStatus;
-    console.log('tmp', tmp);
+    let tmp = store?.currentSurveyData.currentSurveyStatus;
     let arr = [];
     if (tmp && Array.isArray(tmp) && tmp.length > 0) {
       tmp.forEach(el => {
@@ -133,7 +139,7 @@ export default function SelectAudienceScreen() {
         }
       });
     }
-    console.log('result', arr, checker(arr));
+    // console.log('result', arr, checker(arr));
     setisSurveyCompleted(checker(arr));
   };
 
@@ -154,8 +160,6 @@ export default function SelectAudienceScreen() {
         type: 'error',
       });
     }
-
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: CENTRES});
 
     switch (selectedAudience) {
       case CENTRES[0].value:
@@ -296,21 +300,24 @@ export default function SelectAudienceScreen() {
 
           <FlatList
             data={
-              store?.surveyReducer?.surveyStatus &&
-              store?.surveyReducer?.surveyStatus.length > 0
-                ? store?.surveyReducer?.surveyStatus
-                : miscControllers.CENTRES
+              store.currentSurveyData?.currentSurveyStatus &&
+              store.currentSurveyData?.currentSurveyStatus.length > 0
+                ? store.currentSurveyData?.currentSurveyStatus
+                : []
             }
             renderItem={({item, index}) => {
               return (
                 <CustomCheckbox
                   label={item.value}
-                  status={selectedAudience === item.value}
-                  disabled={item.disabled}
+                  completed={item.completed}
+                  status={
+                    selectedAudience ? selectedAudience === item.value : false
+                  }
+                  attempted={item.attempted}
                   onPress={() => {
                     if (!item.disabled) {
                       let tmp = [...miscControllers.CENTRES];
-                      let new_obj = {...item, checked: !item.checked};
+                      let new_obj = {...item, attempted: !item.attempted};
                       tmp.splice(index, 1, new_obj);
                       setAudience(item.value);
                       setmisControllers({...miscControllers, CENTRES: tmp});

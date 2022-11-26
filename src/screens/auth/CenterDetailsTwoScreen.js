@@ -26,7 +26,7 @@ import Geolocation from '@react-native-community/geolocation';
 import {getDistance, getPreciseDistance} from 'geolib';
 
 export default function CenterDetailsTwoScreen() {
-  const store = useSelector(state => state?.authPageDataReducer);
+  const store = useSelector(state => state?.surveyReducer);
   const dispatch = useDispatch();
   const [isCenterOperational, setCenterOperational] = useState(true);
   const [volunteerInfo, setvolunteerInfo] = useState({
@@ -36,7 +36,6 @@ export default function CenterDetailsTwoScreen() {
     center_contact: '',
   });
   const [Position, setPosition] = useState();
-
   const [miscControllers] = useState({
     CENTRES: [
       {
@@ -65,48 +64,19 @@ export default function CenterDetailsTwoScreen() {
   let [answers, setAnswers] = useState({
     answer1: '',
   });
+  let [error, setError] = useState({visible: false, message: ''});
 
-  const [error, setError] = useState({visible: false, message: ''});
+  useEffect(() => {}, [store?.authData]);
 
   const getCurrentPosition = () => {
     Geolocation.getCurrentPosition(
       pos => {
-        console.log('GetCurrentPosition', JSON.stringify(pos)),
-          setPosition(JSON.stringify(pos));
+        setPosition(JSON.stringify(pos));
       },
       error => Alert.alert('GetCurrentPosition Error', JSON.stringify(error)),
       {enableHighAccuracy: true},
     );
   };
-
-  // getDistance({latitude: "51° 31' N", longitude: "7° 28' E"});
-  // Working with W3C Geolocation API
-  // const ok = () => {
-
-  //   Geolocation.getCurrentPosition(
-  //     position => {
-  //       console.log(
-  //         'You are ',
-  //         geolib.getDistance(
-  //           {
-  //             latitude: position.coords.latitude,
-  //             longitude: position.coords.longitude,
-  //           },
-  //           {
-  //             latitude: 29.2060007,
-  //             longitude: 78.9586059,
-  //           },
-  //           accuracy = 1 ,
-
-  //         ),
-  //         'meters away from 51.525, 7.4575',
-  //       );
-  //     },
-  //     () => {
-  //       alert('Position could not be determined.');
-  //     },
-  //   );
-  // };
 
   const calculateDistance = () => {
     var dis = getDistance(
@@ -124,7 +94,75 @@ export default function CenterDetailsTwoScreen() {
     alert(`Precise Distance\n\n${pdis} Meter\nOR\n${pdis / 1000} KM`);
   };
 
-  useEffect(() => {}, [store?.authData]);
+  function getAge(fromdate, todate) {
+    let doe = fromdate;
+    if (todate) todate = new Date(todate);
+    else todate = new Date();
+    var age = [],
+      fromdate = new Date(fromdate),
+      y = [todate.getFullYear(), fromdate.getFullYear()],
+      ydiff = y[0] - y[1],
+      m = [todate.getMonth(), fromdate.getMonth()],
+      mdiff = m[0] - m[1],
+      d = [todate.getDate(), fromdate.getDate()],
+      ddiff = d[0] - d[1];
+
+    if (mdiff < 0 || (mdiff === 0 && ddiff < 0)) --ydiff;
+    if (mdiff < 0) mdiff += 12;
+    if (ddiff < 0) {
+      fromdate.setMonth(m[1] + 1, 0);
+      ddiff = fromdate.getDate() - d[1] + d[0];
+      --mdiff;
+    }
+    if (ydiff > 0) age.push(ydiff + ' year' + (ydiff > 1 ? 's ' : ' '));
+    if (mdiff > 0) age.push(mdiff + ' month' + (mdiff > 1 ? 's' : ''));
+    if (mdiff < 0) mdiff += 11;
+    if (ddiff > 0) age.push(ddiff + ' day' + (ddiff > 1 ? 's' : ''));
+    if (age.length > 1) age.splice(age.length - 1, 0, ' and ');
+    return age.join('');
+  }
+
+  function PageValidator() {
+    const {center_contact, center_head, parent_org, type_of_center} =
+      volunteerInfo;
+
+    // if (!type_of_center) {
+    //   return setError({visible: true, message: 'Select Center type'});
+    // }
+    // if (!center_head) {
+    //   return setError({visible: true, message: 'Center head is missing'});
+    // }
+    // if (!center_contact || center_contact.length < 10) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please enter mobile number',
+    //   });
+    // }
+    // if (!parent_org) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Parent organisation is missing',
+    //   });
+    // }
+    let center_details = {
+      ...store.currentSurveyData.center_details,
+      center_contact,
+      center_head,
+      parent_org,
+      type_of_center,
+    };
+    let payload = {
+      ...store.currentSurveyData,
+      center_details,
+    };
+    console.log('pg2', payload, store);
+    dispatch({
+      type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+      payload: payload,
+    });
+    navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
+  }
+
   const HeaderContent = () => {
     return (
       <View
@@ -155,74 +193,6 @@ export default function CenterDetailsTwoScreen() {
       </View>
     );
   };
-
-  function getAge(fromdate, todate) {
-    let doe = fromdate;
-    if (todate) todate = new Date(todate);
-    else todate = new Date();
-    console.log('fromdate', fromdate);
-    var age = [],
-      fromdate = new Date(fromdate),
-      y = [todate.getFullYear(), fromdate.getFullYear()],
-      ydiff = y[0] - y[1],
-      m = [todate.getMonth(), fromdate.getMonth()],
-      mdiff = m[0] - m[1],
-      d = [todate.getDate(), fromdate.getDate()],
-      ddiff = d[0] - d[1];
-
-    if (mdiff < 0 || (mdiff === 0 && ddiff < 0)) --ydiff;
-    if (mdiff < 0) mdiff += 12;
-    if (ddiff < 0) {
-      fromdate.setMonth(m[1] + 1, 0);
-      ddiff = fromdate.getDate() - d[1] + d[0];
-      --mdiff;
-    }
-    if (ydiff > 0) age.push(ydiff + ' year' + (ydiff > 1 ? 's ' : ' '));
-    if (mdiff > 0) age.push(mdiff + ' month' + (mdiff > 1 ? 's' : ''));
-    if (mdiff < 0) mdiff += 11;
-    if (ddiff > 0) age.push(ddiff + ' day' + (ddiff > 1 ? 's' : ''));
-    if (age.length > 1) age.splice(age.length - 1, 0, ' and ');
-    console.log('age.join("")', ydiff, mdiff, ddiff, doe);
-    return age.join('');
-  }
-
-  function PageValidator() {
-    const {center_contact, center_head, parent_org, type_of_center} =
-      volunteerInfo;
-    console.log('volunteerInfo', volunteerInfo);
-
-    // if (!type_of_center) {
-    //   return setError({visible: true, message: 'Select Center type'});
-    // }
-    // if (!center_head) {
-    //   return setError({visible: true, message: 'Center head is missing'});
-    // }
-    // if (!center_contact || center_contact.length < 10) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please enter mobile number',
-    //   });
-    // }
-    // if (!parent_org) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Parent organisation is missing',
-    //   });
-    // }
-    let payload = {
-      ...store.authData,
-      center_contact,
-      center_head,
-      parent_org,
-      type_of_center,
-    };
-    console.log('payload', payload);
-    dispatch({
-      type: ACTION_CONSTANTS.UPDATE_SURVEY_FORM,
-      payload: payload,
-    });
-    navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
-  }
 
   return (
     <View style={styles.container}>
@@ -344,26 +314,15 @@ export default function CenterDetailsTwoScreen() {
                 containerStyle={{alignItems: 'center'}}
               />
             </View>
-
+            {/* 
             <TouchableOpacity onPress={calculateDistance}>
               <Text style={{color: 'blue'}}>Calculate Distance</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={calculatePreciseDistance}>
               <Text style={{color: 'blue'}}>Calculate Precise Distance</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
-            <Button
-              title={'Next'}
-              onPress={() => {
-                PageValidator();
-              }}
-              ButtonContainerStyle={{
-                marginVertical: 17,
-                alignItems: 'center',
-                textAlign: 'center',
-              }}
-            />
             <View style={{paddingVertical: 5}}>
               <Text style={styles.headingInput}>
                 {STRINGS.LOGIN.PARENT_ORG}
@@ -380,6 +339,17 @@ export default function CenterDetailsTwoScreen() {
               />
             </View>
 
+            <Button
+              title={'Get my location'}
+              onPress={() => {
+                calculatePreciseDistance();
+              }}
+              ButtonContainerStyle={{
+                marginVertical: 17,
+                alignItems: 'center',
+                textAlign: 'center',
+              }}
+            />
             <Button
               title={'Next'}
               onPress={() => {
@@ -418,8 +388,8 @@ export default function CenterDetailsTwoScreen() {
                 <TextHandler
                   style={{
                     color: 'black',
-                    fontSize:18 ,
-                    fontWeight:"500"
+                    fontSize: 18,
+                    fontWeight: '500',
                     // textAlign: 'left',
                   }}>
                   {'Why is center non operational?'}
@@ -436,7 +406,10 @@ export default function CenterDetailsTwoScreen() {
                 }}
                 data={[
                   {key: 1, value: ' Center work has been completed'},
-                  {key: 2, value: 'Resources were not available (Teacher,Place etc)' },
+                  {
+                    key: 2,
+                    value: 'Resources were not available (Teacher,Place etc)',
+                  },
                   {key: 3, value: 'Students were not responding'},
                   {key: 4, value: 'Some problems of the Organization'},
                   {key: 5, value: 'Local Social Problems'},

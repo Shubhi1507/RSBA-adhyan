@@ -56,64 +56,59 @@ export default function DashboardScreen() {
         key: `Student's Parents (Past Students)`,
         value: `Student's Parents (Past Students)`,
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: `Student's Parents (Current Students)`,
         value: `Student's Parents (Current Students)`,
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Past Student',
         value: 'Past Student',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Current Student',
         value: 'Current Student',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Teacher',
         value: 'Teacher',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Kendra Sanchalak',
         value: 'Kendra Sanchalak',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Basti',
         value: 'Basti',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Prabuddha Jan',
         value: 'Prabuddha Jan',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
     ];
-
-    dispatch({
-      type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS,
-      payload: CENTRES,
-    });
 
     navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN);
   };

@@ -39,33 +39,34 @@ export default function PresentStudentParentsScreen() {
 
   const pageValidator = () => {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
-    console.log('tmp', tmp);
     let new_obj;
-    // const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    // if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
-    //   new_obj = {
-    //     ...tmp[1],
-    //     attempted: true,
-    //     completed: false,
-    //     disabled: false,
-    //   };
-    // } else {
-    //   new_obj = {...tmp[1], attempted: true, completed: true, disabled: true};
-    // }
-    // tmp.splice(1, 1, new_obj);
+    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+      new_obj = {
+        ...tmp[1],
+        attempted: true,
+        completed: false,
+        disabled: false,
+      };
+    } else {
+      new_obj = {...tmp[1], attempted: true, completed: true, disabled: true};
+    }
+    tmp.splice(1, 1, new_obj);
 
-    // console.log('tmp', tmp);
-
+    let surveyAnswers = [
+      ...store?.currentSurveyData?.surveyAnswers,
+      {presentStudentParent: answers},
+    ];
     let payload = {
-      ...store,
-      currentSurveyData: {
-        ...store.currentSurveyData,
-        currentSurveyStatus: tmp,
-      },
+      ...store.currentSurveyData,
+      currentSurveyStatus: tmp,
+      surveyAnswers,
     };
+
+
     console.log('payload present student parent', payload);
-    // dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
-    // showModal();
+    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    showModal();
   };
 
   const pageNavigator = () => {

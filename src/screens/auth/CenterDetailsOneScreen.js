@@ -31,12 +31,68 @@ export default function CenterDetailsOneScreen() {
   const dispatch = useDispatch();
   const [dataLoading, setDataLoading] = useState(false);
   const [error, setError] = useState({visible: false, message: ''});
-
+  const CENTRES = [
+    {
+      key: `Student's Parents (Past Students)`,
+      value: `Student's Parents (Past Students)`,
+      disabled: false,
+      attempted: false,
+      completed: false,
+    },
+    {
+      key: `Student's Parents (Current Students)`,
+      value: `Student's Parents (Current Students)`,
+      disabled: false,
+      attempted: false,
+      completed: false,
+    },
+    {
+      key: 'Past Student',
+      value: 'Past Student',
+      disabled: false,
+      attempted: false,
+      completed: false,
+    },
+    {
+      key: 'Current Student',
+      value: 'Current Student',
+      disabled: false,
+      attempted: false,
+      completed: false,
+    },
+    {
+      key: 'Teacher',
+      value: 'Teacher',
+      disabled: false,
+      attempted: false,
+      completed: false,
+    },
+    {
+      key: 'Kendra Sanchalak',
+      value: 'Kendra Sanchalak',
+      disabled: false,
+      attempted: false,
+      completed: false,
+    },
+    {
+      key: 'Basti',
+      value: 'Basti',
+      disabled: false,
+      attempted: false,
+      completed: false,
+    },
+    {
+      key: 'Prabuddha Jan',
+      value: 'Prabuddha Jan',
+      disabled: false,
+      attempted: false,
+      completed: false,
+    },
+  ];
   const [volunteerInfo, setvolunteerInfo] = useState({
     state_pranth: '',
     district_jila: '',
-    town_basti: '',
-    address: '',
+    centre_id: '',
   });
   const [miscControllers, setMiscControllers] = useState({
     state_pranth: false,
@@ -122,6 +178,41 @@ export default function CenterDetailsOneScreen() {
     }
   };
 
+  const pageValidator = () => {
+    const {district_jila, state_pranth, centre_id} = volunteerInfo;
+    // if (!state_pranth) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please select a State/ Pranth',
+    //   });
+    // }
+    // if (!district_jila) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please select a District/ Jila',
+    //   });
+    // }
+    // if (!centre_id) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please select a Town/ Basti',
+    //   });
+    // }
+
+    let payload = {
+      center_details: {...volunteerInfo},
+      isCompleted: false,
+      isSaved: true,
+      currentSurveyStatus: CENTRES,
+    };
+    console.log('payload pg1', payload, store);
+    dispatch({
+      type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+      payload: payload,
+    });
+    navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN);
+  };
+
   const HeaderContent = () => {
     return (
       <View
@@ -152,40 +243,6 @@ export default function CenterDetailsOneScreen() {
       </View>
     );
   };
-
-  const pageValidator = () => {
-    const {address, district_jila, state_pranth, town_basti} = volunteerInfo;
-    // if (!state_pranth) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please select a State/ Pranth',
-    //   });
-    // }
-    // if (!district_jila) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please select a District/ Jila',
-    //   });
-    // }
-    // if (!town_basti) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please select a Town/ Basti',
-    //   });
-    // }
-    // if (!address) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please add address',
-    //   });
-    // }
-    dispatch({
-      type: ACTION_CONSTANTS.UPDATE_SURVEY_FORM,
-      payload: {...volunteerInfo, isCompleted: false, isSaved: true},
-    });
-    navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN);
-  };
-
   return (
     <View style={styles.container}>
       <LoaderIndicator loading={dataLoading} />
@@ -249,7 +306,7 @@ export default function CenterDetailsOneScreen() {
               setvolunteerInfo({
                 ...volunteerInfo,
                 district_jila: item.value,
-                town_basti: '',
+                centre_id: '',
               });
               getColoniesBasedUponDistrictID(item.key);
             }}
@@ -271,25 +328,13 @@ export default function CenterDetailsOneScreen() {
             isVisible={miscControllers.town_basti}
             title={''}
             onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, town_basti: item.value});
+              setvolunteerInfo({...volunteerInfo, centre_id: item.value});
             }}
             optionsArr={store?.bastiList || []}
             error={'City'}
-            value={volunteerInfo.town_basti}
+            value={volunteerInfo.centre_id}
           />
         </View>
-
-        {/* <Text style={styles.headingInput}>Address</Text>
-        <Input
-          placeholder="Enter here"
-          name="first_name"
-          onChangeText={text =>
-            setvolunteerInfo({...volunteerInfo, address: text})
-          }
-          value={volunteerInfo.address}
-          message={'error'}
-          containerStyle={{alignItems: 'center'}}
-        /> */}
 
         <Button
           title={'Next'}
