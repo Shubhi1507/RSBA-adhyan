@@ -323,6 +323,13 @@ export default function SelectAudienceScreen() {
                       setmisControllers({...miscControllers, CENTRES: tmp});
                     }
                   }}
+                  customTextStyle={
+                    selectedAudience
+                      ? selectedAudience === item.value
+                        ? {color: COLORS.buttonColor}
+                        : {color: COLORS.black}
+                      : {color: COLORS.black}
+                  }
                 />
               );
             }}
