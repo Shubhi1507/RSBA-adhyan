@@ -8,8 +8,8 @@ import SurveyScreen from '../screens/survey/SurveyScreen';
 import StudentEnrollmentScreen from '../screens/auth/StudentEnrollmentScreen';
 import DashboardScreen from '../screens/home/DashboardScreen';
 import CentreQuestionsScreen from '../screens/survey/CentreQuestionsScreen';
-import PurvAbhibhavakScreen from '../screens/survey/PurvAbhibhavakScreen';
-import VartaMaanAbhibhavakScreen from '../screens/survey/VartaMaanAbhibhavakScreen';
+import PastStudentParentsScreen from '../screens/survey/PastStudentParentsScreen';
+import PresentStudentParentsScreen from '../screens/survey/PresentStudentParentsScreen';
 import TeacherQuestionsScreen from '../screens/survey/TeacherQuestionsScreen';
 import KendraSanchalakQuestions from '../screens/survey/KendraSanchalakQuestions';
 import BastiQuestions from '../screens/survey/BastiQuestions';
@@ -52,13 +52,13 @@ export function App() {
       />
       <AppStack.Screen
         name={ROUTES.AUTH.PURV_ABHIBHAVAK_SCREEN}
-        component={PurvAbhibhavakScreen}
+        component={PastStudentParentsScreen}
         options={{headerShown: false}}
       />
 
       <AppStack.Screen
         name={ROUTES.AUTH.VARTAAMAAN_ABHIBHAVAK_SCREEN}
-        component={VartaMaanAbhibhavakScreen}
+        component={PresentStudentParentsScreen}
         options={{headerShown: false}}
       />
 
