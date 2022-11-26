@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -44,6 +44,7 @@ export default function PresentStudentParentsScreen() {
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
       if (entry?.presentStudentParent) {
+        console.log('presentStudentParent', entry);
         setAnswers(entry.presentStudentParent);
       }
     });
@@ -80,18 +81,21 @@ export default function PresentStudentParentsScreen() {
           index = i;
         }
       });
-      surveyAnswers.splice(index, 1, new_obj1);
-      console.log('exits  past student parent', surveyAnswers);
+      if (index != undefined) {
+        surveyAnswers.splice(index, 1, new_obj1);
+        console.log('exist present student parent ', index, surveyAnswers);
+      } else {
+        surveyAnswers.push({presentStudentParent: answers});
+      }
     } else {
-      surveyAnswers = [...answersArrTmp, {presentStudentParent: answers}];
+      surveyAnswers.push({presentStudentParent: answers});
     }
     payload = {
       ...store.currentSurveyData,
       currentSurveyStatus: tmp,
       surveyAnswers,
     };
-    console.log('payload past student parent', payload);
-
+    console.log('payload present student parent', payload);
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
     showModal();
   };
