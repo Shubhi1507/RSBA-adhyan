@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -33,6 +33,21 @@ export default function PresentStudentParentsScreen() {
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
+  let answersArrTmp =
+    store?.currentSurveyData?.surveyAnswers &&
+    store?.currentSurveyData?.surveyAnswers !== undefined &&
+    Array.isArray(store?.currentSurveyData?.surveyAnswers) &&
+    store?.currentSurveyData?.surveyAnswers.length > 0
+      ? [...store?.currentSurveyData?.surveyAnswers]
+      : [];
+
+  useEffect(() => {
+    answersArrTmp.some(function (entry, i) {
+      if (entry?.presentStudentParent) {
+        setAnswers(entry.presentStudentParent);
+      }
+    });
+  }, []);
 
   const hideModal = () => setVisible(false);
   const showModal = () => setVisible(true);
@@ -53,18 +68,30 @@ export default function PresentStudentParentsScreen() {
     }
     tmp.splice(1, 1, new_obj);
 
-    let surveyAnswers = [
-      ...store?.currentSurveyData?.surveyAnswers,
-      {presentStudentParent: answers},
-    ];
-    let payload = {
+    let surveyAnswers = [...answersArrTmp];
+    let payload = {};
+    console.log('answersArrTmp;', answersArrTmp);
+
+    if (answersArrTmp.length > 0) {
+      let new_obj1 = {presentStudentParent: answers};
+      let index;
+      surveyAnswers.some(function (entry, i) {
+        if (entry?.presentStudentParent) {
+          index = i;
+        }
+      });
+      surveyAnswers.splice(index, 1, new_obj1);
+      console.log('exits  past student parent', surveyAnswers);
+    } else {
+      surveyAnswers = [...answersArrTmp, {presentStudentParent: answers}];
+    }
+    payload = {
       ...store.currentSurveyData,
       currentSurveyStatus: tmp,
       surveyAnswers,
     };
+    console.log('payload past student parent', payload);
 
-
-    console.log('payload present student parent', payload);
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
     showModal();
   };
@@ -95,9 +122,9 @@ export default function PresentStudentParentsScreen() {
           </TouchableOpacity>
           <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
         </View>
-        <View style={{flex: 0.55}}>
+        <View style={{flex: 0.85}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {STRINGS.LOGIN.SURVEY}
+            Present Student's Parents
           </Text>
         </View>
       </View>
@@ -223,6 +250,7 @@ export default function PresentStudentParentsScreen() {
                 {key: 2, value: 'Classroom (rented or owned)'},
                 {key: 3, value: 'Community Hall'},
               ]}
+              valueProp={answers.answer2}
               onValueChange={item => {
                 setAnswers({...answers, answer2: item});
               }}
@@ -279,6 +307,7 @@ export default function PresentStudentParentsScreen() {
                 {key: 1, value: 'Regular Since Inception'},
                 {key: 2, value: 'Discontinued for some duration'},
               ]}
+              valueProp={answers.answer3}
               onValueChange={item => {
                 setAnswers({...answers, answer3: item});
               }}
@@ -385,6 +414,7 @@ export default function PresentStudentParentsScreen() {
                 {key: 2, value: 'Sewa basti'},
                 {key: 3, value: 'Village'},
               ]}
+              valueProp={answers.answer5}
               onValueChange={item => {
                 setAnswers({...answers, answer5: item});
               }}
@@ -441,6 +471,7 @@ export default function PresentStudentParentsScreen() {
                 {key: 1, value: 'Yes'},
                 {key: 3, value: 'No'},
               ]}
+              valueProp={answers.answer6}
               onValueChange={item => {
                 setAnswers({...answers, answer6: item});
               }}
