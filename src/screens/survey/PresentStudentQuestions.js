@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -23,6 +23,7 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 export default function PresentStudentQuestions() {
   const store = useSelector(state => state?.surveyReducer);
   const dispatch = useDispatch();
+
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',
@@ -33,8 +34,78 @@ export default function PresentStudentQuestions() {
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
+  let answersArrTmp =
+    store?.currentSurveyData?.surveyAnswers &&
+    store?.currentSurveyData?.surveyAnswers !== undefined &&
+    Array.isArray(store?.currentSurveyData?.surveyAnswers) &&
+    store?.currentSurveyData?.surveyAnswers.length > 0
+      ? [...store?.currentSurveyData?.surveyAnswers]
+      : [];
+
+  useEffect(() => {
+    answersArrTmp.some(function (entry, i) {
+      if (entry?.presentStudent) {
+        console.log('entry?.presentStudent', entry?.presentStudent);
+        setAnswers(entry.presentStudent);
+      }
+    });
+  }, []);
+
   const hideModal = () => setVisible(false);
   const showModal = () => setVisible(true);
+
+  const pageNavigator = () => {
+    navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
+  };
+
+    const pageValidator = () => {
+    console.log('store', store);
+    let tmp = store?.currentSurveyData.currentSurveyStatus;
+    let new_obj;
+    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+      new_obj = {
+        ...tmp[3],
+        attempted: true,
+        completed: false,
+        disabled: false,
+      };
+    } else {
+      new_obj = {...tmp[3], attempted: true, completed: true, disabled: true};
+    }
+    tmp.splice(3, 1, new_obj);
+    console.log('tmp', tmp);
+
+    let surveyAnswers = [...answersArrTmp];
+    let payload = {};
+    console.log('answersArrTmp;', answersArrTmp);
+
+    if (answersArrTmp.length > 0) {
+      let new_obj1 = {presentStudent: answers};
+      let index;
+      surveyAnswers.some(function (entry, i) {
+        if (entry?.presentStudent) {
+          index = i;
+        }
+      });
+      if (index != undefined) {
+        surveyAnswers.splice(index, 1, new_obj1);
+        console.log('exist presentStudent', index, surveyAnswers);
+      } else {
+        surveyAnswers.push({presentStudent: answers});
+      }
+    } else {
+      surveyAnswers.push({presentStudent: answers});
+    }
+    payload = {
+      ...store.currentSurveyData,
+      currentSurveyStatus: tmp,
+      surveyAnswers,
+    };
+    console.log('payload past student ', payload);
+    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    showModal();
+  };
 
   const HeaderContent = () => {
     return (
@@ -58,36 +129,13 @@ export default function PresentStudentQuestions() {
           </TouchableOpacity>
           <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
         </View>
-        <View style={{flex: 0.65}}>
+        <View style={{flex: 0.85}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {STRINGS.LOGIN.CENTER_INFO}
+            Present's Student Survey
           </Text>
         </View>
       </View>
     );
-  };
-
-  const pageValidator = () => {
-    // const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    // if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please answer all questionaires',
-    //   });
-    // }
-    // if (answer1.length < 4 || answer1 > 2023 || answer1 < 1800) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Invalid year entered',
-    //   });
-    // }
-    // navigate(ROUTES.AUTH.PRESENTSTUDENTQUESTIONS);
-    let tmp = store?.surveyStatus;
-    let new_obj = {...tmp[3], checked: true, completed: true, disabled: true};
-    tmp.splice(3, 1, new_obj);
-    
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: tmp});
-    showModal();
   };
 
   return (
@@ -95,7 +143,11 @@ export default function PresentStudentQuestions() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
-      <SurveyCompletedModal visible={visible} hideModal={hideModal} />
+      <SurveyCompletedModal
+        visible={visible}
+        hideModal={hideModal}
+        onClick={pageNavigator}
+      />
       <CustomSnackBar
         visible={error.visible}
         message={error.message}
@@ -219,7 +271,9 @@ export default function PresentStudentQuestions() {
                   value: 'High School',
                 },
               ]}
+              valueProp={answers.answer2}
               onValueChange={item => {
+                console.log('item', item);
                 setAnswers({...answers, answer2: item});
               }}
             />
@@ -286,6 +340,7 @@ export default function PresentStudentQuestions() {
                 },
                 {key: 4, value: 'More than 75 %'},
               ]}
+              valueProp={answers.answer3}
               onValueChange={item => {
                 setAnswers({...answers, answer3: item});
               }}
@@ -350,8 +405,9 @@ export default function PresentStudentQuestions() {
                 value: 'Come in group',
               },
             ]}
+            valueProp={answers.answer4}
             onValueChange={item => {
-              setAnswers({...answers, answer3: item});
+              setAnswers({...answers, answer4: item});
             }}
           />
         </View>
@@ -404,6 +460,7 @@ export default function PresentStudentQuestions() {
                 {key: 2, value: 'Parents force them'},
                 {key: 3, value: 'Wait for center to start'},
               ]}
+              valueProp={answers.answer5}
               onValueChange={item => {
                 setAnswers({...answers, answer5: item});
               }}
@@ -461,6 +518,7 @@ export default function PresentStudentQuestions() {
                 {key: 2, value: ' 6-24 months'},
                 {key: 3, value: '2 Years & above'},
               ]}
+              valueProp={answers.answer6}
               onValueChange={item => {
                 setAnswers({...answers, answer6: item});
               }}

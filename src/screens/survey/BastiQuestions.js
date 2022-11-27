@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -23,9 +23,7 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 export default function BastiQuestions() {
   const store = useSelector(state => state?.surveyReducer);
   const store2 = useSelector(state => state);
-
   const dispatch = useDispatch();
-
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',
@@ -36,9 +34,78 @@ export default function BastiQuestions() {
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
+  let answersArrTmp =
+    store?.currentSurveyData?.surveyAnswers &&
+    store?.currentSurveyData?.surveyAnswers !== undefined &&
+    Array.isArray(store?.currentSurveyData?.surveyAnswers) &&
+    store?.currentSurveyData?.surveyAnswers.length > 0
+      ? [...store?.currentSurveyData?.surveyAnswers]
+      : [];
+
+  useEffect(() => {
+    answersArrTmp.some(function (entry, i) {
+      if (entry?.basti) {
+        console.log('entry?.basti', entry?.basti);
+        setAnswers(entry.basti);
+      }
+    });
+  }, []);
 
   const hideModal = () => setVisible(false);
   const showModal = () => setVisible(true);
+
+  const pageNavigator = () => {
+    navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
+  };
+
+  const pageValidator = () => {
+    console.log('store', store);
+    let tmp = store?.currentSurveyData.currentSurveyStatus;
+    let new_obj;
+    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+      new_obj = {
+        ...tmp[6],
+        attempted: true,
+        completed: false,
+        disabled: false,
+      };
+    } else {
+      new_obj = {...tmp[6], attempted: true, completed: true, disabled: true};
+    }
+    tmp.splice(6, 1, new_obj);
+    console.log('tmp', tmp);
+
+    let surveyAnswers = [...answersArrTmp];
+    let payload = {};
+    console.log('answersArrTmp;', answersArrTmp);
+
+    if (answersArrTmp.length > 0) {
+      let new_obj1 = {basti: answers};
+      let index;
+      surveyAnswers.some(function (entry, i) {
+        if (entry?.basti) {
+          index = i;
+        }
+      });
+      if (index != undefined) {
+        surveyAnswers.splice(index, 1, new_obj1);
+        console.log('exist basti ', index, surveyAnswers);
+      } else {
+        surveyAnswers.push({basti: answers});
+      }
+    } else {
+      surveyAnswers.push({basti: answers});
+    }
+    payload = {
+      ...store.currentSurveyData,
+      currentSurveyStatus: tmp,
+      surveyAnswers,
+    };
+    console.log('payload basti', payload);
+    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    showModal();
+  };
 
   const HeaderContent = () => {
     return (
@@ -64,34 +131,11 @@ export default function BastiQuestions() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {STRINGS.LOGIN.CENTER_INFO}
+            Basti's Survey
           </Text>
         </View>
       </View>
     );
-  };
-
-  const pageValidator = () => {
-    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    // if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please answer all questionaires',
-    //   });
-    // }
-    console.log('store', store, store2);
-
-    let tmp = store?.surveyStatus;
-    let new_obj = {
-      ...tmp[6],
-      checked: true,
-      disabled: true,
-      timestamp: new Date().getTime(),
-    };
-    tmp.splice(6, 1, new_obj);
-    console.log('basti pl', new_obj);
-    // dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: tmp});
-    // showModal();
   };
 
   return (
@@ -106,7 +150,11 @@ export default function BastiQuestions() {
           setError({...error, message: '', visible: false})
         }
       />
-      <SurveyCompletedModal visible={visible} hideModal={hideModal} />
+      <SurveyCompletedModal
+        visible={visible}
+        hideModal={hideModal}
+        onClick={pageNavigator}
+      />
 
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
         {/* QA1 */}
@@ -221,6 +269,7 @@ export default function BastiQuestions() {
                   value: 'Increased',
                 },
               ]}
+              valueProp={answers.answer2}
               onValueChange={item => {
                 setAnswers({...answers, answer2: item});
               }}
@@ -287,6 +336,7 @@ export default function BastiQuestions() {
                   value: ' More than 70 % ',
                 },
               ]}
+              valueProp={answers.answer3}
               onValueChange={item => {
                 setAnswers({...answers, answer3: item});
               }}
@@ -392,10 +442,26 @@ export default function BastiQuestions() {
                 {key: 1, value: 'Hindu'},
                 {key: 2, value: 'Others'},
               ]}
+              valueProp={answers.answer5}
               onValueChange={item => {
                 setAnswers({...answers, answer5: item});
               }}
             />
+             {answers.answer5?.value === 'Others' && (
+              <Input
+                placeholder="Enter reason here"
+                name="any"
+                onChangeText={text => {
+                  setAnswers({...answers, answer5: {...answers.answer5, text}});
+                }}
+                value={answers.answer5?.text}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -448,6 +514,7 @@ export default function BastiQuestions() {
                 {key: 1, value: 'Yes'},
                 {key: 2, value: 'No'},
               ]}
+              valueProp={answers.answer6}
               onValueChange={item => {
                 setAnswers({...answers, answer6: item});
               }}
@@ -455,7 +522,7 @@ export default function BastiQuestions() {
           </View>
         </View>
         <Button
-          title={'Next'}
+          title={'Submit'}
           onPress={pageValidator}
           ButtonContainerStyle={{
             marginVertical: 17,

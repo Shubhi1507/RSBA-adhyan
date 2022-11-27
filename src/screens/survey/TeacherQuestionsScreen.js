@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -30,12 +30,84 @@ export default function TeacherQuestionsScreen() {
     answer4: '',
     answer5: '',
     answer6: '',
+    answer7: '',
+    answer8: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
+  let answersArrTmp =
+    store?.currentSurveyData?.surveyAnswers &&
+    store?.currentSurveyData?.surveyAnswers !== undefined &&
+    Array.isArray(store?.currentSurveyData?.surveyAnswers) &&
+    store?.currentSurveyData?.surveyAnswers.length > 0
+      ? [...store?.currentSurveyData?.surveyAnswers]
+      : [];
+
+  useEffect(() => {
+    answersArrTmp.some(function (entry, i) {
+      if (entry?.teacher) {
+        console.log('entry?.presentStudent', entry?.teacher);
+        setAnswers(entry.teacher);
+      }
+    });
+  }, []);
 
   const hideModal = () => setVisible(false);
   const showModal = () => setVisible(true);
+
+  const pageNavigator = () => {
+    navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
+  };
+
+  const pageValidator = () => {
+    console.log('store', store);
+    let tmp = store?.currentSurveyData.currentSurveyStatus;
+    let new_obj;
+    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+      new_obj = {
+        ...tmp[4],
+        attempted: true,
+        completed: false,
+        disabled: false,
+      };
+    } else {
+      new_obj = {...tmp[4], attempted: true, completed: true, disabled: true};
+    }
+    tmp.splice(4, 1, new_obj);
+    console.log('tmp', tmp);
+
+    let surveyAnswers = [...answersArrTmp];
+    let payload = {};
+    console.log('answersArrTmp;', answersArrTmp);
+
+    if (answersArrTmp.length > 0) {
+      let new_obj1 = {teacher: answers};
+      let index;
+      surveyAnswers.some(function (entry, i) {
+        if (entry?.teacher) {
+          index = i;
+        }
+      });
+      if (index != undefined) {
+        surveyAnswers.splice(index, 1, new_obj1);
+        console.log('exist teacher', index, surveyAnswers);
+      } else {
+        surveyAnswers.push({teacher: answers});
+      }
+    } else {
+      surveyAnswers.push({teacher: answers});
+    }
+    payload = {
+      ...store.currentSurveyData,
+      currentSurveyStatus: tmp,
+      surveyAnswers,
+    };
+    console.log('payload teacher', payload);
+    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    showModal();
+  };
+
   const HeaderContent = () => {
     return (
       <View
@@ -58,33 +130,13 @@ export default function TeacherQuestionsScreen() {
           </TouchableOpacity>
           <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
         </View>
-        <View style={{flex: 0.55}}>
+        <View style={{flex: 0.85}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {STRINGS.LOGIN.SURVEY}
+            Teacher's Survey
           </Text>
         </View>
       </View>
     );
-  };
-
-  const pageValidator = () => {
-    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    // if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please answer all questionaires',
-    //   });
-    // }
-
-    // showModal();
-
-    // navigate(ROUTES.AUTH.TEACHERQUESTONSSCREEN);
-    let tmp = store?.surveyStatus;
-    let new_obj = {...tmp[4], checked: true, completed: true, disabled: true};
-    tmp.splice(4, 1, new_obj);
-
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: tmp});
-    showModal();
   };
 
   return (
@@ -92,7 +144,11 @@ export default function TeacherQuestionsScreen() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
-      <SurveyCompletedModal visible={visible} hideModal={hideModal} />
+      <SurveyCompletedModal
+        visible={visible}
+        hideModal={hideModal}
+        onClick={pageNavigator}
+      />
       <CustomSnackBar
         visible={error.visible}
         message={error.message}
@@ -101,7 +157,7 @@ export default function TeacherQuestionsScreen() {
         }
       />
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        {/* QA0 */}
+        {/* QA1 */}
         <View style={{marginBottom: 10}}>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -161,14 +217,15 @@ export default function TeacherQuestionsScreen() {
                   value: 'Only 10 % students attends the vlass from 2+ years',
                 },
               ]}
+              valueProp={answers.answer1}
               onValueChange={item => {
-                setAnswers({...answers, answer3: item});
+                setAnswers({...answers, answer1: item});
               }}
             />
           </View>
         </View>
 
-        {/* QA1 */}
+        {/* QA2 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -212,9 +269,9 @@ export default function TeacherQuestionsScreen() {
             placeholder="Enter answer here"
             name="any"
             onChangeText={text => {
-              setAnswers({...answers, answer1: text});
+              setAnswers({...answers, answer2: text});
             }}
-            value={answers.answer1}
+            value={answers.answer2}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -267,9 +324,9 @@ export default function TeacherQuestionsScreen() {
             placeholder="Enter answer here"
             name="any"
             onChangeText={text => {
-              setAnswers({...answers, answer1: text});
+              setAnswers({...answers, answer3: text});
             }}
-            value={answers.answer1}
+            value={answers.answer3}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -277,7 +334,8 @@ export default function TeacherQuestionsScreen() {
             }}
           />
         </View>
-        {/* QA3 */}
+
+        {/* QA4 */}
         <View style={{marginBottom: 10}}>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -327,13 +385,15 @@ export default function TeacherQuestionsScreen() {
                 {key: 2, value: 'Sometimes we teach in English'},
                 {key: 2, value: 'We rarely use English'},
               ]}
+              valueProp={answers.answer4}
               onValueChange={item => {
-                setAnswers({...answers, answer3: item});
+                setAnswers({...answers, answer4: item});
               }}
             />
           </View>
         </View>
-        {/* QA3 */}
+
+        {/* QA5 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -396,14 +456,15 @@ export default function TeacherQuestionsScreen() {
                 },
                 {key: 4, value: ' None of the above'},
               ]}
+              valueProp={answers.answer5}
               onValueChange={item => {
-                setAnswers({...answers, answer3: item});
+                setAnswers({...answers, answer5: item});
               }}
             />
           </View>
         </View>
 
-        {/* QA4 */}
+        {/* QA6 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -445,9 +506,9 @@ export default function TeacherQuestionsScreen() {
             placeholder="Enter answer here"
             name="any"
             onChangeText={text => {
-              setAnswers({...answers, answer4: text});
+              setAnswers({...answers, answer6: text});
             }}
-            value={answers.answer4}
+            value={answers.answer6}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -456,7 +517,7 @@ export default function TeacherQuestionsScreen() {
           />
         </View>
 
-        {/* QA5  */}
+        {/* QA7  */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -504,14 +565,15 @@ export default function TeacherQuestionsScreen() {
                 {key: 2, value: 'Through activity (Practical)'},
                 {key: 3, value: 'We donot focus on this area'},
               ]}
+              valueProp={answers.answer7}
               onValueChange={item => {
-                setAnswers({...answers, answer5: item});
+                setAnswers({...answers, answer7: item});
               }}
             />
           </View>
         </View>
 
-        {/* QA6 */}
+        {/* QA8 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -561,8 +623,9 @@ export default function TeacherQuestionsScreen() {
                 {key: 2, value: 'No'},
                 {key: 3, value: 'Sometimes'},
               ]}
+              valueProp={answers.answer8}
               onValueChange={item => {
-                setAnswers({...answers, answer6: item});
+                setAnswers({...answers, answer8: item});
               }}
             />
           </View>
