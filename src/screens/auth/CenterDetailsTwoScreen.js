@@ -24,9 +24,11 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import Geolocation from '@react-native-community/geolocation';
 import {getDistance, getPreciseDistance} from 'geolib';
+import {FindAndUpdate} from '../../utils/utils';
 
 export default function CenterDetailsTwoScreen() {
   const store = useSelector(state => state?.surveyReducer);
+  let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
   const [isCenterOperational, setCenterOperational] = useState(true);
   const [volunteerInfo, setvolunteerInfo] = useState({
@@ -66,7 +68,9 @@ export default function CenterDetailsTwoScreen() {
   });
   let [error, setError] = useState({visible: false, message: ''});
 
-  useEffect(() => {}, [store?.authData]);
+  useEffect(() => {
+    // console.log('store', store);
+  }, [store]);
 
   const getCurrentPosition = () => {
     Geolocation.getCurrentPosition(
@@ -76,14 +80,6 @@ export default function CenterDetailsTwoScreen() {
       error => Alert.alert('GetCurrentPosition Error', JSON.stringify(error)),
       {enableHighAccuracy: true},
     );
-  };
-
-  const calculateDistance = () => {
-    var dis = getDistance(
-      {latitude: 29.2060007, longitude: 78.9586059},
-      {latitude: 23.833717, longitude: 80.420609},
-    );
-    alert(`Distance\n\n${dis} Meter\nOR\n${dis / 1000} KM`);
   };
 
   const calculatePreciseDistance = () => {
@@ -154,12 +150,18 @@ export default function CenterDetailsTwoScreen() {
     let payload = {
       ...store.currentSurveyData,
       center_details,
+      updatedAt: new Date().toString(),
     };
-    console.log('pg2', payload, store);
+
+    let tmp = FindAndUpdate(totalSurveys, payload);
+
+    console.log('pg2', payload);
+
     dispatch({
       type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
       payload: payload,
     });
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
     navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
   }
 

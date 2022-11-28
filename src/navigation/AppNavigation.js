@@ -17,6 +17,7 @@ import PrabuddhaJanQuestions from '../screens/survey/PrabuddhaJanQuestions';
 import PastStudentQuestions from '../screens/survey/PastStudentQuestions';
 import PresentStudentQuestions from '../screens/survey/PresentStudentQuestions';
 import SavedSurveysScreen from '../screens/survey/SavedSurveysScreen';
+import IncompleteSurveysScreen from '../screens/survey/IncompleteSurveysScreen';
 
 const AppStack = createStackNavigator();
 
@@ -30,7 +31,7 @@ export function App() {
       />
 
       <AppStack.Screen
-        name={ROUTES.AUTH.VOLUNTEERWELCOMESCREEN}
+        name={ROUTES.AUTH.CENTREDETAILSONESCREEN}
         component={CenterDetailsOneScreen}
         options={{headerShown: false}}
       />
@@ -106,6 +107,12 @@ export function App() {
       <AppStack.Screen
         name={ROUTES.AUTH.PRESENTSTUDENTQUESTIONS}
         component={PresentStudentQuestions}
+        options={{headerShown: false}}
+      />
+
+      <AppStack.Screen
+        name={ROUTES.AUTH.INCOMPLETESURVEYSSCREEN}
+        component={IncompleteSurveysScreen}
         options={{headerShown: false}}
       />
     </AppStack.Navigator>

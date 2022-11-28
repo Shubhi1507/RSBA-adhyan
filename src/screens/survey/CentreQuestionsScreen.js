@@ -17,11 +17,12 @@ import {
 import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
-import { ACTION_CONSTANTS } from '../../redux/actions/actions';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import {FindAndUpdate} from '../../utils/utils';
 
 export default function CentreQuestionsScreen() {
-  const store = useSelector(state => state?.authPageDataReducer?.authData);
-
+  const store = useSelector(state => state?.surveyReducer);
+  let totalSurveys = store.totalSurveys;
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',
@@ -67,6 +68,7 @@ export default function CentreQuestionsScreen() {
 
   const pageValidator = () => {
     const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    const {center_details} = store.currentSurveyData;
     // if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
     //   return setError({
     //     visible: true,
@@ -79,12 +81,29 @@ export default function CentreQuestionsScreen() {
     //     message: 'Invalid year entered',
     //   });
     // }
+    let new_centre_details = {
+      ...center_details,
+      establishment: answer1,
+      infrastructure: answer2,
+      regularity: answer3,
+      discontinued_due_to: answer4,
+      type_of_basti: answer5,
+      project_init_before: answer6,
+    };
 
-    let payload = {...store, answers};
-    console.log('payload->', payload);
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload});
+    let payload = {
+      ...store.currentSurveyData,
+      center_details: new_centre_details,
+      updatedAt: new Date().toString(),
+    };
+
+    let tmp = FindAndUpdate(totalSurveys, payload);
+    dispatch({
+      type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+      payload: payload,
+    });
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
-
   };
 
   return (

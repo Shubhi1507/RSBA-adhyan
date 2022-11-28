@@ -26,12 +26,13 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import LoaderIndicator from '../../components/Loader';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 
-export default function CenterDetailsOneScreen() {
-  const store = useSelector(state => state.RegionReducer);
+export default function CenterDetailsOneScreen({navition, route}) {
+  const store = useSelector(state => state);
   const dispatch = useDispatch();
   const [dataLoading, setDataLoading] = useState(false);
   const [error, setError] = useState({visible: false, message: ''});
-  const CENTRES = [
+  let totalSurveys = store.surveyReducer.totalSurveys;
+  const CENTRES_STATUS_FOR_ANEW_SURVEY = [
     {
       key: `Student's Parents (Past Students)`,
       value: `Student's Parents (Past Students)`,
@@ -89,10 +90,21 @@ export default function CenterDetailsOneScreen() {
       completed: false,
     },
   ];
+  let INCOMLETE_SURVEY_CENTER_SURVEYS_STATUS = [];
   const [volunteerInfo, setvolunteerInfo] = useState({
-    state_pranth: '',
+    state_pranth: 'new',
     district_jila: '',
-    centre_id: '',
+    center_contact: '',
+    center_head: '',
+    discontinued_due_to: '',
+    establishment: '',
+    infrastructure: '',
+    parent_org: '',
+    project_init_before: '',
+    regularity: '',
+    type_of_basti: '',
+    type_of_center: '',
+    centre_id: Math.random().toFixed(5) * 100000,
   });
   const [miscControllers, setMiscControllers] = useState({
     state_pranth: false,
@@ -105,10 +117,34 @@ export default function CenterDetailsOneScreen() {
   });
 
   useEffect(() => {
-    // getListofStatesFunction();
+    CheckSurveyviaParams();
   }, []);
 
-  useEffect(() => {}, [store.bastiList, store.stateList, store.districtList]);
+  const CheckSurveyviaParams = () => {
+    if (
+      route &&
+      route.params &&
+      route.params?.currentIncompleteSurvey &&
+      route.params?.currentIncompleteSurvey?.currentSurveyData
+    ) {
+      console.log('props', route.params?.currentIncompleteSurvey);
+      const {state_pranth, district_jila, centre_id} =
+        route.params?.currentIncompleteSurvey?.currentSurveyData
+          ?.center_details;
+      setvolunteerInfo({
+        ...volunteerInfo,
+        ...route.params?.currentIncompleteSurvey?.currentSurveyData
+          ?.center_details,
+        state_pranth,
+        district_jila,
+        centre_id,
+      });
+      INCOMLETE_SURVEY_CENTER_SURVEYS_STATUS = [
+        ...route.params?.currentIncompleteSurvey?.currentSurveyData
+          ?.currentSurveyStatus,
+      ];
+    }
+  };
 
   const getListofStatesFunction = async () => {
     setDataLoading(true);
@@ -200,16 +236,29 @@ export default function CenterDetailsOneScreen() {
     // }
 
     let payload = {
-      center_details: {...volunteerInfo},
+      centre_id: volunteerInfo.centre_id,
+      center_details: {
+        ...route.params?.currentIncompleteSurvey?.currentSurveyData
+          ?.center_details,
+        ...volunteerInfo,
+      },
       isCompleted: false,
-      isSaved: true,
-      currentSurveyStatus: CENTRES,
+      isSaved: false,
+      createdAt: new Date().toString(),
+      updatedAt: new Date().toString(),
+      currentSurveyStatus:
+        INCOMLETE_SURVEY_CENTER_SURVEYS_STATUS.length > 0
+          ? INCOMLETE_SURVEY_CENTER_SURVEYS_STATUS
+          : CENTRES_STATUS_FOR_ANEW_SURVEY,
     };
-    console.log('payload pg1', payload, store);
+
+    let tmp = [...totalSurveys];
+    tmp.push(payload);
     dispatch({
       type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
       payload: payload,
     });
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
     navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN);
   };
 
@@ -285,7 +334,7 @@ export default function CenterDetailsOneScreen() {
               setvolunteerInfo({...volunteerInfo, state_pranth: item.value});
               getListOfDistrictsfunc(item.key);
             }}
-            optionsArr={store?.stateList || []}
+            optionsArr={store?.RegionReducer?.stateList || []}
             error={'Pranth'}
             value={volunteerInfo.state_pranth}
           />
@@ -310,7 +359,7 @@ export default function CenterDetailsOneScreen() {
               });
               getColoniesBasedUponDistrictID(item.key);
             }}
-            optionsArr={store?.districtList || []}
+            optionsArr={store?.RegionReducer?.districtList || []}
             error={'Jila'}
             value={volunteerInfo.district_jila}
           />
@@ -330,7 +379,7 @@ export default function CenterDetailsOneScreen() {
             onSelect={item => {
               setvolunteerInfo({...volunteerInfo, centre_id: item.value});
             }}
-            optionsArr={store?.bastiList || []}
+            optionsArr={store?.RegionReducer?.bastiList || []}
             error={'City'}
             value={volunteerInfo.centre_id}
           />

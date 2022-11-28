@@ -37,7 +37,10 @@ export default function DashboardScreen() {
     {key: '305', value: '305'},
   ]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    // dispatch({type: ACTION_CONSTANTS.RESET_APP});
+    console.log(store.surveyReducer);
+  }, []);
 
   useEffect(() => {
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
@@ -51,67 +54,9 @@ export default function DashboardScreen() {
   };
 
   const pageNavigator = () => {
-    let CENTRES = [
-      {
-        key: `Student's Parents (Past Students)`,
-        value: `Student's Parents (Past Students)`,
-        disabled: false,
-        attempted: false,
-        completed: false,
-      },
-      {
-        key: `Student's Parents (Current Students)`,
-        value: `Student's Parents (Current Students)`,
-        disabled: false,
-        attempted: false,
-        completed: false,
-      },
-      {
-        key: 'Past Student',
-        value: 'Past Student',
-        disabled: false,
-        attempted: false,
-        completed: false,
-      },
-      {
-        key: 'Current Student',
-        value: 'Current Student',
-        disabled: false,
-        attempted: false,
-        completed: false,
-      },
-      {
-        key: 'Teacher',
-        value: 'Teacher',
-        disabled: false,
-        attempted: false,
-        completed: false,
-      },
-      {
-        key: 'Kendra Sanchalak',
-        value: 'Kendra Sanchalak',
-        disabled: false,
-        attempted: false,
-        completed: false,
-      },
-      {
-        key: 'Basti',
-        value: 'Basti',
-        disabled: false,
-        attempted: false,
-        completed: false,
-      },
-      {
-        key: 'Prabuddha Jan',
-        value: 'Prabuddha Jan',
-        disabled: false,
-        attempted: false,
-        completed: false,
-      },
-    ];
-
-    navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN);
+    navigate(ROUTES.AUTH.CENTREDETAILSONESCREEN);
   };
+
   const HeaderContent = () => {
     return (
       <View
@@ -163,7 +108,6 @@ export default function DashboardScreen() {
             flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
-            backgroundColor: 'teal',
           }}>
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
             Completed Surveys
@@ -176,15 +120,15 @@ export default function DashboardScreen() {
               color: 'white',
               padding: 8,
             }}>
-            {completedSurvey || 2}
+            {completedSurvey || 0}
           </TextHandler>
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={() => navigate(ROUTES.AUTH.INCOMPLETESURVEYSSCREEN)}
           style={{
             flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
-            backgroundColor: 'teal',
           }}>
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
             Incomplete Surveys
@@ -202,7 +146,10 @@ export default function DashboardScreen() {
                 backgroundColor: 'red',
                 padding: 8,
               }}>
-              2
+              {store?.surveyReducer?.incompleteSurveyData &&
+              Array.isArray(store.surveyReducer.incompleteSurveyData)
+                ? store.surveyReducer.incompleteSurveyData.length
+                : 0}
             </TextHandler>
           </View>
         </TouchableOpacity>
@@ -213,7 +160,6 @@ export default function DashboardScreen() {
             flex: 0.12,
             justifyContent: 'space-between',
             flexDirection: 'row',
-            backgroundColor: 'teal',
           }}>
           <View style={{flex: 0.8}}>
             <TextHandler style={{fontWeight: '400', fontSize: 18}}>
