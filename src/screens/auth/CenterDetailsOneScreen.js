@@ -25,14 +25,16 @@ import {
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import LoaderIndicator from '../../components/Loader';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
+import {FindAndUpdate, isSurveyExists} from '../../utils/utils';
 
 export default function CenterDetailsOneScreen({navition, route}) {
   const store = useSelector(state => state);
   const dispatch = useDispatch();
   const [dataLoading, setDataLoading] = useState(false);
   const [error, setError] = useState({visible: false, message: ''});
+  let [isSurveyContinuedFlag, setisSurveyContinuedFlag] = useState(false);
   let totalSurveys = store.surveyReducer.totalSurveys;
-  const CENTRES_STATUS_FOR_ANEW_SURVEY = [
+  let CENTRES_STATUS_FOR_ANEW_SURVEY = [
     {
       key: `Student's Parents (Past Students)`,
       value: `Student's Parents (Past Students)`,
@@ -90,7 +92,6 @@ export default function CenterDetailsOneScreen({navition, route}) {
       completed: false,
     },
   ];
-  let INCOMLETE_SURVEY_CENTER_SURVEYS_STATUS = [];
   const [volunteerInfo, setvolunteerInfo] = useState({
     state_pranth: 'new',
     district_jila: '',
@@ -122,28 +123,79 @@ export default function CenterDetailsOneScreen({navition, route}) {
 
   const CheckSurveyviaParams = () => {
     if (
-      route &&
-      route.params &&
-      route.params?.currentIncompleteSurvey &&
-      route.params?.currentIncompleteSurvey?.currentSurveyData
+      store &&
+      store?.surveyReducer &&
+      store?.surveyReducer?.currentSurveyData &&
+      Object.keys(store?.surveyReducer?.currentSurveyData).length > 0
     ) {
-      console.log('props', route.params?.currentIncompleteSurvey);
-      const {state_pranth, district_jila, centre_id} =
-        route.params?.currentIncompleteSurvey?.currentSurveyData
-          ?.center_details;
-      setvolunteerInfo({
-        ...volunteerInfo,
-        ...route.params?.currentIncompleteSurvey?.currentSurveyData
-          ?.center_details,
-        state_pranth,
-        district_jila,
-        centre_id,
-      });
-      INCOMLETE_SURVEY_CENTER_SURVEYS_STATUS = [
-        ...route.params?.currentIncompleteSurvey?.currentSurveyData
-          ?.currentSurveyStatus,
-      ];
+      let flag = isSurveyExists(
+        totalSurveys,
+        store?.surveyReducer?.currentSurveyData,
+      ).val;
+      let staledata = store?.surveyReducer?.currentSurveyData;
+      setisSurveyContinuedFlag(flag);
+      setvolunteerInfo(staledata.center_details);
     }
+  };
+
+  const pageValidator = () => {
+    const {district_jila, state_pranth, centre_id} = volunteerInfo;
+    // if (!state_pranth) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please select a State/ Pranth',
+    //   });
+    // }
+    // if (!district_jila) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please select a District/ Jila',
+    //   });
+    // }
+    // if (!centre_id) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please select a Town/ Basti',
+    //   });
+    // }
+    let payload = {};
+    let tmp = [...totalSurveys];
+
+    if (isSurveyContinuedFlag) {
+      let staledata = isSurveyExists(
+        totalSurveys,
+        store?.surveyReducer?.currentSurveyData,
+      ).payload;
+      payload = {
+        ...store?.surveyReducer?.currentSurveyData,
+        updatedAt: new Date().toString(),
+      };
+      console.log('old payload', payload);
+      tmp = FindAndUpdate(tmp, payload);
+    } else {
+      payload = {
+        centre_id: volunteerInfo.centre_id,
+        center_details: {
+          ...volunteerInfo,
+        },
+        isCompleted: false,
+        isSaved: false,
+        createdAt: new Date().toString(),
+        updatedAt: new Date().toString(),
+        currentSurveyStatus: CENTRES_STATUS_FOR_ANEW_SURVEY,
+      };
+      tmp.push(payload);
+      payload = {...payload, totalSurveys: tmp};
+    }
+
+    console.log('new payload', payload);
+
+    dispatch({
+      type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+      payload: payload,
+    });
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
+    navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN);
   };
 
   const getListofStatesFunction = async () => {
@@ -155,7 +207,6 @@ export default function CenterDetailsOneScreen({navition, route}) {
       temp.forEach(el => {
         states.push({key: el.id, value: el.name});
       });
-      console.log('states>', states);
       dispatch({
         type: ACTION_CONSTANTS.UPDATE_STATE_LIST,
         payload: states,
@@ -212,54 +263,6 @@ export default function CenterDetailsOneScreen({navition, route}) {
       console.log(error);
       setDataLoading(false);
     }
-  };
-
-  const pageValidator = () => {
-    const {district_jila, state_pranth, centre_id} = volunteerInfo;
-    // if (!state_pranth) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please select a State/ Pranth',
-    //   });
-    // }
-    // if (!district_jila) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please select a District/ Jila',
-    //   });
-    // }
-    // if (!centre_id) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please select a Town/ Basti',
-    //   });
-    // }
-
-    let payload = {
-      centre_id: volunteerInfo.centre_id,
-      center_details: {
-        ...route.params?.currentIncompleteSurvey?.currentSurveyData
-          ?.center_details,
-        ...volunteerInfo,
-      },
-      isCompleted: false,
-      isSaved: false,
-      createdAt: new Date().toString(),
-      updatedAt: new Date().toString(),
-      currentSurveyStatus:
-        INCOMLETE_SURVEY_CENTER_SURVEYS_STATUS.length > 0
-          ? INCOMLETE_SURVEY_CENTER_SURVEYS_STATUS
-          : CENTRES_STATUS_FOR_ANEW_SURVEY,
-    };
-
-    let tmp = [...totalSurveys];
-    tmp.push(payload);
-    dispatch({
-      type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
-      payload: payload,
-    });
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
-    navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN);
   };
 
   const HeaderContent = () => {
@@ -336,7 +339,7 @@ export default function CenterDetailsOneScreen({navition, route}) {
             }}
             optionsArr={store?.RegionReducer?.stateList || []}
             error={'Pranth'}
-            value={volunteerInfo.state_pranth}
+            value={volunteerInfo.state_pranth.toString()}
           />
         </View>
         <View>

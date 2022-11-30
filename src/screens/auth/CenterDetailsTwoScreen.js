@@ -69,8 +69,20 @@ export default function CenterDetailsTwoScreen() {
   let [error, setError] = useState({visible: false, message: ''});
 
   useEffect(() => {
-    // console.log('store', store);
+    CheckSurveyviaParams();
   }, [store]);
+
+  const CheckSurveyviaParams = () => {
+    if (
+      store &&
+      store?.currentSurveyData &&
+      Object.keys(store?.currentSurveyData).length > 0
+    ) {
+      let staledata = store;
+      console.log('c2', staledata?.currentSurveyData);
+      setvolunteerInfo(staledata?.currentSurveyData?.center_details);
+    }
+  };
 
   const getCurrentPosition = () => {
     Geolocation.getCurrentPosition(
@@ -156,6 +168,7 @@ export default function CenterDetailsTwoScreen() {
     let tmp = FindAndUpdate(totalSurveys, payload);
 
     console.log('pg2', payload);
+    console.log('TMP', tmp);
 
     dispatch({
       type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
@@ -278,6 +291,7 @@ export default function CenterDetailsTwoScreen() {
               </Text>
               <RadioButtons
                 data={miscControllers.CENTRES}
+                valueProp={volunteerInfo.type_of_center}
                 onValueChange={item => {
                   setvolunteerInfo({...volunteerInfo, type_of_center: item});
                 }}

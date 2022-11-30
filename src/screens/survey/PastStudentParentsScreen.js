@@ -19,9 +19,12 @@ import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import {FindAndUpdate} from '../../utils/utils';
 
 export default function PastStudentParentsScreen() {
   const store = useSelector(state => state?.surveyReducer);
+  let totalSurveys = store.totalSurveys;
+
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
     answer1: '',
@@ -94,9 +97,13 @@ export default function PastStudentParentsScreen() {
       ...store.currentSurveyData,
       currentSurveyStatus: tmp,
       surveyAnswers,
+      updatedAt: new Date().toString(),
     };
-    console.log('payload past student parent', payload);
+    let tmp1 = FindAndUpdate(totalSurveys, payload);
+
+    console.log('payload past student parent', payload, tmp1);
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
     showModal();
   };
 

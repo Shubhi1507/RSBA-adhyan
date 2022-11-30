@@ -20,6 +20,7 @@ import {useEffect} from 'react';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 import LocalizationContext from '../../context/LanguageContext';
+import {filterOutIncompleteSurveys} from '../../utils/utils';
 
 export default function DashboardScreen() {
   const {t} = useContext(LocalizationContext);
@@ -27,8 +28,7 @@ export default function DashboardScreen() {
   const dispatch = useDispatch();
   const store = useSelector(state => state);
   const name = store?.authReducer?.userData?.userData?.data[0]?.name;
-  const completedSurvey = store?.surveyReducer?.completedSurvey;
-
+  const totalSurveys = store.surveyReducer.totalSurveys;
   const [CENTER_DATA, SET_CENTRE_DATA] = useState([
     {key: '301', value: '301'},
     {key: '302', value: '302'},
@@ -39,8 +39,7 @@ export default function DashboardScreen() {
 
   useEffect(() => {
     // dispatch({type: ACTION_CONSTANTS.RESET_APP});
-    console.log(store.surveyReducer);
-  }, []);
+  }, [store.surveyReducer]);
 
   useEffect(() => {
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
@@ -54,6 +53,7 @@ export default function DashboardScreen() {
   };
 
   const pageNavigator = () => {
+    dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
     navigate(ROUTES.AUTH.CENTREDETAILSONESCREEN);
   };
 
@@ -120,11 +120,14 @@ export default function DashboardScreen() {
               color: 'white',
               padding: 8,
             }}>
-            {completedSurvey || 0}
+            {0}
           </TextHandler>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigate(ROUTES.AUTH.INCOMPLETESURVEYSSCREEN)}
+          onPress={() => {
+            navigate(ROUTES.AUTH.INCOMPLETESURVEYSSCREEN);
+            dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
+          }}
           style={{
             flex: 0.12,
             justifyContent: 'space-between',
@@ -146,10 +149,7 @@ export default function DashboardScreen() {
                 backgroundColor: 'red',
                 padding: 8,
               }}>
-              {store?.surveyReducer?.incompleteSurveyData &&
-              Array.isArray(store.surveyReducer.incompleteSurveyData)
-                ? store.surveyReducer.incompleteSurveyData.length
-                : 0}
+              {filterOutIncompleteSurveys(totalSurveys).length || 0}
             </TextHandler>
           </View>
         </TouchableOpacity>
@@ -218,6 +218,17 @@ export default function DashboardScreen() {
           title={'Start Survey'}
           onPress={() => {
             pageNavigator();
+          }}
+          ButtonContainerStyle={{
+            alignItems: 'center',
+            textAlign: 'center',
+          }}
+        />
+
+        <Button
+          title={'Reset'}
+          onPress={() => {
+            dispatch({type: ACTION_CONSTANTS.RESET_APP});
           }}
           ButtonContainerStyle={{
             alignItems: 'center',

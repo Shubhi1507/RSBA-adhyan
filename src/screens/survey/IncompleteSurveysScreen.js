@@ -9,10 +9,11 @@ import {Button, CustomCheckbox, CustomSnackBar, Header} from '../../components';
 import LocalizationContext from '../../context/LanguageContext';
 import {useDispatch, useSelector} from 'react-redux';
 import {ROUTES} from '../../navigation/RouteConstants';
-import {filterOutIncompleteSurveys} from '../../utils/utils';
+import {filterOutIncompleteSurveys, isSurveyExists} from '../../utils/utils';
+import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 
 export default function IncompleteSurveysScreen() {
-  let [selectedCenter, setCenter] = useState('');
+  let [selectedCenter, setCenter] = useState({});
   const [error, setError] = useState({visible: false, message: ''});
 
   const {t} = useContext(LocalizationContext);
@@ -21,12 +22,15 @@ export default function IncompleteSurveysScreen() {
   let totalSurveys = store.totalSurveys;
   const incompleteSurveyDataTmpArr = filterOutIncompleteSurveys(totalSurveys);
 
-  useEffect(() => {
-    console.log('store', incompleteSurveyDataTmpArr);
-  }, []);
+  useEffect(() => {}, []);
 
   const pageNavigator = () => {
     if (selectedCenter) {
+      console.log('old payload', selectedCenter);
+      dispatch({
+        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+        payload: selectedCenter,
+      });
       navigate(ROUTES.AUTH.CENTREDETAILSONESCREEN, {
         currentIncompleteSurvey: selectedCenter,
       });

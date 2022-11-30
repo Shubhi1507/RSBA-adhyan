@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -24,16 +24,32 @@ export default function CentreQuestionsScreen() {
   const store = useSelector(state => state?.surveyReducer);
   let totalSurveys = store.totalSurveys;
   let [answers, setAnswers] = useState({
-    answer1: '',
-    answer2: '',
-    answer3: '',
-    answer4: '',
-    answer5: '',
-    answer6: '',
+    establishment: '',
+    infrastructure: '',
+    regularity: '',
+    discontinued_due_to: '',
+    type_of_basti: '',
+    project_init_before: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    CheckSurveyviaParams();
+  }, [store]);
+  const CheckSurveyviaParams = () => {
+    if (
+      store &&
+      store?.currentSurveyData &&
+      Object.keys(store?.currentSurveyData).length > 0
+    ) {
+      let staledata = store;
+      console.log('c3', staledata?.currentSurveyData);
+      let tmp = {...staledata?.currentSurveyData?.center_details};
+      setAnswers(tmp);
+    }
+  };
 
   const HeaderContent = () => {
     return (
@@ -67,15 +83,22 @@ export default function CentreQuestionsScreen() {
   };
 
   const pageValidator = () => {
-    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    const {
+      establishment,
+      infrastructure,
+      regularity,
+      discontinued_due_to,
+      type_of_basti,
+      project_init_before,
+    } = answers;
     const {center_details} = store.currentSurveyData;
-    // if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+    // if (!establishment || !infrastructure || !regularity || !discontinued_due_to || !type_of_basti || !project_init_before) {
     //   return setError({
     //     visible: true,
     //     message: 'Please answer all questionaires',
     //   });
     // }
-    // if (answer1.length < 4 || answer1 > 2023 || answer1 < 1800) {
+    // if (establishment.length < 4 || establishment > 2023 || establishment < 1800) {
     //   return setError({
     //     visible: true,
     //     message: 'Invalid year entered',
@@ -83,12 +106,12 @@ export default function CentreQuestionsScreen() {
     // }
     let new_centre_details = {
       ...center_details,
-      establishment: answer1,
-      infrastructure: answer2,
-      regularity: answer3,
-      discontinued_due_to: answer4,
-      type_of_basti: answer5,
-      project_init_before: answer6,
+      establishment: establishment,
+      infrastructure: infrastructure,
+      regularity: regularity,
+      discontinued_due_to: discontinued_due_to,
+      type_of_basti: type_of_basti,
+      project_init_before: project_init_before,
     };
 
     let payload = {
@@ -98,6 +121,8 @@ export default function CentreQuestionsScreen() {
     };
 
     let tmp = FindAndUpdate(totalSurveys, payload);
+    console.log('new payload cqs', payload);
+    console.log('new sv arr', tmp);
     dispatch({
       type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
       payload: payload,
@@ -161,9 +186,9 @@ export default function CentreQuestionsScreen() {
             placeholder="Enter answer here"
             name="any"
             onChangeText={text => {
-              setAnswers({...answers, answer1: text});
+              setAnswers({...answers, establishment: text});
             }}
-            value={answers.answer1}
+            value={answers.establishment}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -220,8 +245,9 @@ export default function CentreQuestionsScreen() {
                 {key: 2, value: 'Classroom (rented or owned)'},
                 {key: 3, value: 'Community Hall'},
               ]}
+              valueProp={answers.infrastructure}
               onValueChange={item => {
-                setAnswers({...answers, answer2: item});
+                setAnswers({...answers, infrastructure: item});
               }}
             />
           </View>
@@ -276,8 +302,9 @@ export default function CentreQuestionsScreen() {
                 {key: 1, value: 'Regular Since Inception'},
                 {key: 2, value: 'Discontinued for some duration'},
               ]}
+              valueProp={answers.regularity}
               onValueChange={item => {
-                setAnswers({...answers, answer3: item});
+                setAnswers({...answers, regularity: item});
               }}
             />
           </View>
@@ -323,9 +350,9 @@ export default function CentreQuestionsScreen() {
             placeholder="Enter answer here"
             name="any"
             onChangeText={text => {
-              setAnswers({...answers, answer4: text});
+              setAnswers({...answers, discontinued_due_to: text});
             }}
-            value={answers.answer4}
+            value={answers.discontinued_due_to}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -382,8 +409,9 @@ export default function CentreQuestionsScreen() {
                 {key: 2, value: 'Sewa basti'},
                 {key: 3, value: 'Village'},
               ]}
+              valueProp={answers.type_of_basti}
               onValueChange={item => {
-                setAnswers({...answers, answer5: item});
+                setAnswers({...answers, type_of_basti: item});
               }}
             />
           </View>
@@ -438,8 +466,9 @@ export default function CentreQuestionsScreen() {
                 {key: 1, value: 'Yes'},
                 {key: 3, value: 'No'},
               ]}
+              valueProp={answers.project_init_before}
               onValueChange={item => {
-                setAnswers({...answers, answer6: item});
+                setAnswers({...answers, project_init_before: item});
               }}
             />
           </View>

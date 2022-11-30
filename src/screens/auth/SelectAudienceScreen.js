@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   FlatList,
+  Alert,
 } from 'react-native';
 import React from 'react';
 import {screenWidth} from '../../libs';
@@ -26,11 +27,13 @@ import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
+import {filterOutIncompleteSurveys} from '../../utils/utils';
 
 export default function SelectAudienceScreen() {
   let [selectedAudience, setAudience] = useState('');
   const [isSurveyCompleted, setisSurveyCompleted] = useState(false);
-  const store = useSelector(state => state.surveyReducer);
+  const store = useSelector(state => state?.surveyReducer);
+  let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
   const [miscControllers, setmisControllers] = useState({
     CLASS_FREQUENCY: [
@@ -118,38 +121,8 @@ export default function SelectAudienceScreen() {
   const showModal = () => setVisible(true);
 
   useEffect(() => {
-    // checkIfSurveyisCompleted();
-    console.log('pg4', store);
-
-    checkandUpdateSurveyProgress();
+    console.log('audience page', store);
   }, [store]);
-
-  const checkandUpdateSurveyProgress = () => {
-    let tmp = store?.currentSurveyData.currentSurveyStatus;
-    console.log('currentSurveyStatus->', store);
-  };
-
-  const checkIfSurveyisCompleted = () => {
-    let tmp = store?.currentSurveyData.currentSurveyStatus;
-    let arr = [];
-    if (tmp && Array.isArray(tmp) && tmp.length > 0) {
-      tmp.forEach(el => {
-        if (el.completed != null) {
-          arr.push(el.completed);
-        }
-      });
-    }
-    // console.log('result', arr, checker(arr));
-    setisSurveyCompleted(checker(arr));
-  };
-
-  const checker = arr => {
-    if (arr.length > 1) {
-      return arr.every(Boolean);
-    } else {
-    }
-    return false;
-  };
 
   const pageNavigator = () => {
     const {CENTRES} = miscControllers;
@@ -240,6 +213,29 @@ export default function SelectAudienceScreen() {
     navigate(ROUTES.AUTH.DASHBOARDSCREEN);
   };
 
+  const BackRefPageNavigator = () => {
+    Alert.alert('Go to', '', [
+      {
+        text: 'Dashboard',
+        onPress: () => {
+          navigate(ROUTES.AUTH.DASHBOARDSCREEN);
+        },
+      },
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'Previous Screen',
+        onPress: () => {
+          goBack();
+        },
+      },
+    ]);
+  };
+
+  const handleInCompleteSurveyStore = () => {};
   const HeaderContent = () => {
     return (
       <View
@@ -257,7 +253,7 @@ export default function SelectAudienceScreen() {
             flexDirection: 'row',
             flex: 0.33,
           }}>
-          <TouchableOpacity onPress={() => goBack()}>
+          <TouchableOpacity onPress={() => BackRefPageNavigator()}>
             <ADIcons name="left" color={COLORS.white} size={21} />
           </TouchableOpacity>
           <FAIcons name="user-circle-o" color={COLORS.white} size={21} />

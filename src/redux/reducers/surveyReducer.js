@@ -18,7 +18,7 @@ const surveyReducer = (state = initialState, action) => {
     case ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY:
       return {
         ...state,
-        currentSurveyData: {},
+        currentSurveyData: initialState.currentSurveyData,
       };
 
     case ACTION_CONSTANTS.UPDATE_SAVED_SURVEYS:

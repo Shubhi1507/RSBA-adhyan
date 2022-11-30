@@ -25,10 +25,20 @@ export const ChangeLanguageAndReboot = (lang, t) => {
   ]);
 };
 
-export const FindAndUpdate = (totalSurveys, obj) => {
-  totalSurveys.forEach(function (el, index) {
+export const isSurveyExists = (totalSurveys, obj) => {
+  let val = false;
+  let payload = {};
+  totalSurveys.some(function (el, index) {
     if (el.centre_id === obj.centre_id) {
-      console.log('found', obj, index);
+      val = true;
+      payload = {...el};
+    }
+  });
+  return {val, payload};
+};
+export const FindAndUpdate = (totalSurveys, obj) => {
+  totalSurveys.some(function (el, index) {
+    if (el.centre_id === obj.centre_id) {
       return totalSurveys.splice(index, 1, obj);
     }
   });

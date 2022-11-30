@@ -23,14 +23,12 @@ export const setI18nConfig = (codeLang = null) => {
   const fallback = {languageTag: DEFAULT_LANGUAGE, isRTL: false};
   const lang = codeLang ? {languageTag: codeLang, isRTL: false} : null;
 
-  console.log('lang languageTag', lang);
 
   const {languageTag, isRTL} = lang
     ? lang
     : RNLocalize.findBestAvailableLanguage(Object.keys(translationGetters)) ||
       fallback;
 
-  console.log('languageTag', languageTag);
   // clear translation cache
   translate.cache.clear();
   // update layout direction

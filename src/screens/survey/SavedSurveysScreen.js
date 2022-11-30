@@ -6,10 +6,10 @@ import {COLORS} from '../../utils/colors';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {goBack} from '../../navigation/NavigationService';
 import {screenWidth} from '../../libs';
-import { Header } from '../../components';
+import {Header} from '../../components';
 
 export default function SavedSurveysScreen() {
-  const store = useSelector(state => state?.authPageDataReducer?.authData);
+  const store = useSelector(state => state);
 
   useEffect(() => {
     console.log('saved', store);
