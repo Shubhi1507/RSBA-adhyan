@@ -110,7 +110,7 @@ export default function SavedSurveysScreen() {
       </View>
       <View>
         <Button
-          title={'Continue Survey'}
+          title={'Review Survey'}
           onPress={() => {
             pageNavigator();
           }}

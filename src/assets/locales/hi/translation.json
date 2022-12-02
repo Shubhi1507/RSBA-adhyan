@@ -8,6 +8,7 @@
   "CENTER_Q5": "क्या स्थापना के पश्चात से केंद्र निरंतर संचालित हो रहा है अथवा बीच में कुछ समय बंद भी रहा (कोविड कालावधी छोडकर)",
   "CENTER_Q5_OPT1": "निरंतर संचालित हो रहा है",
   "CENTER_Q5_OPT2": "कुछ समय के लिए बंद रहा",
+  "CENTER_Q5_OPT3": " सामुदायिक भवन",
 
   "CENTER_Q6_DISCONTINUED_CENTER": "यदि बंद रहा तो कितनी अवधि के लिए ",
   "CENTER_Q6_DISCONTINUED_CENTER_OPT1": "१ माह तक",
@@ -474,6 +475,10 @@
   "SUBMIT": "जमा करें",
   "CENTER_TYPE": "केंद्र का प्रकार",
   "BALSANSKAR_KENDRA": "बाल संस्कार केंद्र",
+  "ABYASIKA": "अभ्यासिका",
+  "PATHDAAN CENTRE": "पथदान केंद्र",
+  "BAL_GOKULAM": "बाल गोकुलम",
+  "BALWADI": "बालवाड़ी",
 
   "ENTER_HERE": "यहाँ दर्ज करें",
   "CENTER_HEAD_NAME": "केंद्र का नाम",
@@ -494,5 +499,11 @@
   "OK": "ठीक ह",
   "SURVEY": "सर्वेक्षण",
   "ENTER_ANSWER": "यहां दर्ज करें उत्तर",
-  "SUBMIT_SURVEY": "सर्वेक्षण प्रस्तुत करें"
+  "SUBMIT_SURVEY": "सर्वेक्षण प्रस्तुत करें",
+  "STUDENTS_PARENTS_PAST_STUDENTS": "अभिभावक (पूर्व छात्र)",
+  "STUDENTS_PARENTS_CURRENT_STUDENTS": "अभिभावक (वर्तमान छात्र)",
+  "CURRENT_STUDENT": "वर्तमान छात्र",
+  "PRABUDDHA_JAN": "बस्ती के प्रभावशाली लोग",
+  "LOCATION_SHARED": "स्थान साझा किया गया",
+  "TAP_TO_UPDATE":"अपडेट करने के लिए टैप करें"
 }

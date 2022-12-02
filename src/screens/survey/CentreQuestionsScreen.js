@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -19,9 +19,11 @@ import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
+import LocalizationContext from '../../context/LanguageContext';
 
 export default function CentreQuestionsScreen() {
   const store = useSelector(state => state?.surveyReducer);
+  const {t} = useContext(LocalizationContext);
   let totalSurveys = store.totalSurveys;
   let [answers, setAnswers] = useState({
     establishment: '',
@@ -75,7 +77,7 @@ export default function CentreQuestionsScreen() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {STRINGS.LOGIN.CENTER_INFO}
+            {t('CENTER_INFO')}
           </Text>
         </View>
       </View>
@@ -228,7 +230,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'What is the Infrastructure of Kendra (Place) ?'}
+                {t('CENTER_Q14')}
               </TextHandler>
             </View>
           </View>
@@ -241,9 +243,13 @@ export default function CentreQuestionsScreen() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: 'Open Air'},
-                {key: 2, value: 'Classroom (rented or owned)'},
-                {key: 3, value: 'Community Hall'},
+                {key: 1, label: 'CENTER_Q5_OPT1', value: 'Open Air'},
+                {
+                  key: 2,
+                  label: 'CENTER_Q5_OPT2',
+                  value: 'Classroom (rented or owned)',
+                },
+                {key: 3, label: 'CENTER_Q5_OPT3', value: 'Community Hall'},
               ]}
               valueProp={answers.infrastructure}
               onValueChange={item => {
@@ -299,8 +305,16 @@ export default function CentreQuestionsScreen() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: 'Regular Since Inception'},
-                {key: 2, value: 'Discontinued for some duration'},
+                {
+                  key: 1,
+                  value: 'Regular Since Inception',
+                  label: 'CENTER_Q5_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Discontinued for some duration',
+                  label: 'CENTER_Q5_OPT2',
+                },
               ]}
               valueProp={answers.regularity}
               onValueChange={item => {

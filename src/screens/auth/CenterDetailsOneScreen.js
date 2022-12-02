@@ -105,6 +105,7 @@ export default function CenterDetailsOneScreen({navition, route}) {
     regularity: '',
     type_of_basti: '',
     type_of_center: '',
+    volunteer_location: {},
     centre_id: Math.random().toFixed(5) * 100000,
   });
   const [miscControllers, setMiscControllers] = useState({

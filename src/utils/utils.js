@@ -4,6 +4,7 @@ import ReactNativeRestart from 'react-native-restart';
 import {Alert} from 'react-native';
 import I18n from 'i18n-js';
 import {useSelector} from 'react-redux';
+import LocalizationContext from '../context/LanguageContext';
 
 export const ChangeLanguageAndReboot = (lang, t) => {
   return Alert.alert(`${t('LANGUAGE_CHANGE')}`, `${t('APP_RESTART_REQUEST')}`, [
@@ -23,6 +24,26 @@ export const ChangeLanguageAndReboot = (lang, t) => {
       },
     },
   ]);
+};
+
+export const StringModifierWithFilter = (str: String) => {
+  const {t} = React.useContext(LocalizationContext);
+  let label = str
+    .replace(/[^a-zA-Z0-9 ]/g, '')
+    .replace(/ /g, '_')
+    .toUpperCase();
+  let j = t(label);
+  if (j.includes('missing')) return label;
+  else return j;
+};
+
+export const StringModifier = (str: String) => {
+  let k = str
+    .replace(/[^a-zA-Z0-9 ]/g, '')
+    .replace(/ /g, '_')
+    .toUpperCase();
+  console.log('k->', k);
+  return k;
 };
 
 export const isSurveyExists = (totalSurveys, obj) => {

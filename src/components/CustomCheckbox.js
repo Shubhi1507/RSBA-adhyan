@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {Checkbox} from 'react-native-paper';
+import LocalizationContext from '../context/LanguageContext';
+import {StringModifier, StringModifierWithFilter} from '../utils/utils';
 
 export function CustomCheckbox({
   label,

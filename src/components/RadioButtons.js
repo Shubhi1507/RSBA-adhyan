@@ -1,11 +1,15 @@
 import * as React from 'react';
+import {useContext} from 'react';
 import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RadioButton, Text} from 'react-native-paper';
+import LocalizationContext from '../context/LanguageContext';
 import {COLORS} from '../utils/colors';
 import {TextHandler} from './TextHandler';
 
 export const RadioButtons = ({data, onValueChange, radioStyle, valueProp}) => {
   const [value, setValue] = React.useState('');
+  const {t} = useContext(LocalizationContext);
+
   return (
     <FlatList
       contentContainerStyle={styles.container}
@@ -40,8 +44,15 @@ export const RadioButtons = ({data, onValueChange, radioStyle, valueProp}) => {
                 uncheckedColor={COLORS.black}
               />
 
-              <Text style={{marginHorizontal: 10, color: 'black'}}>
-                {item.value}
+              <Text
+                style={{
+                  marginHorizontal: 10,
+                  color: 'black',
+                  flexWrap: 'wrap',
+                }}>
+
+                {/* {StringModifier(`${t(item?.label || item.value)}`)} */}
+                {item?.label ? t(item?.label) : item.value}
               </Text>
             </TouchableOpacity>
           </RadioButton.Group>

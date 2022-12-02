@@ -1,5 +1,14 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  PermissionsAndroid,
+  Platform,
+  Alert,
+} from 'react-native';
+import React, {useContext} from 'react';
 import {screenWidth} from '../../libs';
 import {
   Button,
@@ -25,9 +34,11 @@ import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import Geolocation from '@react-native-community/geolocation';
 import {getDistance, getPreciseDistance} from 'geolib';
 import {FindAndUpdate} from '../../utils/utils';
+import LocalizationContext from '../../context/LanguageContext';
 
 export default function CenterDetailsTwoScreen() {
   const store = useSelector(state => state?.surveyReducer);
+  const {t} = useContext(LocalizationContext);
   let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
   const [isCenterOperational, setCenterOperational] = useState(true);
@@ -36,13 +47,14 @@ export default function CenterDetailsTwoScreen() {
     type_of_center: '',
     center_head: '',
     center_contact: '',
+    volunteer_location: {},
   });
   const [Position, setPosition] = useState();
   const [miscControllers] = useState({
     CENTRES: [
       {
-        key: 'Balsankar Kendra',
-        value: 'Balsankar Kendra',
+        key: 'Balsanskaar Kendra',
+        value: 'Balsanskaar Kendra',
       },
       {
         key: 'Abyasika',
@@ -53,8 +65,8 @@ export default function CenterDetailsTwoScreen() {
         value: 'Pathdaan Centre',
       },
       {
-        key: 'Bal Gokuldham',
-        value: 'Bal Gokuldham',
+        key: 'Bal Gokulam',
+        value: 'Bal Gokulam',
       },
       {
         key: 'Balwadi',
@@ -84,22 +96,54 @@ export default function CenterDetailsTwoScreen() {
     }
   };
 
-  const getCurrentPosition = () => {
-    Geolocation.getCurrentPosition(
-      pos => {
-        setPosition(JSON.stringify(pos));
-      },
-      error => Alert.alert('GetCurrentPosition Error', JSON.stringify(error)),
-      {enableHighAccuracy: true},
-    );
+  const requestLocationPermission1 = async () => {
+    try {
+      if (Platform.OS === 'android') {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: 'Geolocation Permission',
+            message: 'Can we access your location?',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        console.log('granted', granted);
+        if (granted === 'granted') {
+          console.log('You can use Geolocation');
+          return true;
+        } else {
+          console.log('You cannot use Geolocation');
+          return false;
+        }
+      } else {
+        requestLocationPermission();
+      }
+    } catch (err) {
+      return false;
+    }
   };
-
-  const calculatePreciseDistance = () => {
-    var pdis = getPreciseDistance(
-      {latitude: 29.210421, longitude: 78.96183},
-      {latitude: 29.210421, longitude: 78.96183},
+  const requestLocationPermission = () => {
+    // const result = requestLocationPermission();
+    Geolocation.getCurrentPosition(
+      position => {
+        console.log(position);
+        setvolunteerInfo({
+          ...volunteerInfo,
+          volunteer_location: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+            time: position.timestamp,
+          },
+        });
+      },
+      error => {
+        // See error code charts below.
+        console.log(error.code, error.message);
+      },
+      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
     );
-    alert(`Precise Distance\n\n${pdis} Meter\nOR\n${pdis / 1000} KM`);
   };
 
   function getAge(fromdate, todate) {
@@ -131,8 +175,13 @@ export default function CenterDetailsTwoScreen() {
   }
 
   function PageValidator() {
-    const {center_contact, center_head, parent_org, type_of_center} =
-      volunteerInfo;
+    const {
+      center_contact,
+      center_head,
+      parent_org,
+      type_of_center,
+      volunteer_location,
+    } = volunteerInfo;
 
     // if (!type_of_center) {
     //   return setError({visible: true, message: 'Select Center type'});
@@ -158,6 +207,7 @@ export default function CenterDetailsTwoScreen() {
       center_head,
       parent_org,
       type_of_center,
+      volunteer_location,
     };
     let payload = {
       ...store.currentSurveyData,
@@ -169,7 +219,6 @@ export default function CenterDetailsTwoScreen() {
 
     console.log('pg2', payload);
     console.log('TMP', tmp);
-
     dispatch({
       type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
       payload: payload,
@@ -312,10 +361,9 @@ export default function CenterDetailsTwoScreen() {
                 containerStyle={{alignItems: 'center'}}
               />
             </View>
-
             <View style={{paddingVertical: 5}}>
               <Text style={styles.headingInput}>
-                {STRINGS.LOGIN.CENTER_CONTACT_DETAILS}
+                {t('CENTER_CONTACT_DETAILS')}
               </Text>
               <Input
                 placeholder="Enter here"
@@ -330,21 +378,64 @@ export default function CenterDetailsTwoScreen() {
                 containerStyle={{alignItems: 'center'}}
               />
             </View>
-            {/* 
-            <TouchableOpacity onPress={calculateDistance}>
-              <Text style={{color: 'blue'}}>Calculate Distance</Text>
-            </TouchableOpacity>
 
-            <TouchableOpacity onPress={calculatePreciseDistance}>
-              <Text style={{color: 'blue'}}>Calculate Precise Distance</Text>
-            </TouchableOpacity> */}
+            {volunteerInfo.volunteer_location?.lat ? (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  marginVertical: 10,
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <ADIcons name="checkcircleo" color={'green'} />
+                <Text style={{color: 'black', paddingHorizontal: 20}}>
+                  {t('LOCATION_SHARED')}
+                </Text>
+                <Button
+                  title={`${t('TAP_TO_UPDATE')}}`}
+                  onPress={() => {
+                    Alert.alert(`${t('CENTER_CONTACT_DETAILS')}`, '', [
+                      {
+                        text: t('YES'),
+                        onPress: () => {
+                          requestLocationPermission();
+                        },
+                      },
+                      {
+                        text: t('NO'),
+                        onPress: () => console.log('Cancel Pressed'),
+                        style: 'cancel',
+                      },
+                    ]);
+                  }}
+                  // ButtonContainerStyle={{width: 100}}
+                />
+              </View>
+            ) : (
+              <TouchableOpacity
+                onPress={requestLocationPermission}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginVertical: 10,
+                }}>
+                <Image
+                  source={require('../../assets/images/Crosshair.png')}
+                  style={{
+                    height: 25,
+                    width: 25,
+                  }}
+                />
+                <Text style={{color: 'blue'}}>{t('LOCATION')}</Text>
+              </TouchableOpacity>
+            )}
 
             <View style={{paddingVertical: 5}}>
               <Text style={styles.headingInput}>
                 {STRINGS.LOGIN.PARENT_ORG}
               </Text>
               <Input
-                placeholder="Enter here"
+                placeholder="Enter herewqdqwd"
                 name="first_name"
                 onChangeText={text =>
                   setvolunteerInfo({...volunteerInfo, parent_org: text})
@@ -355,17 +446,6 @@ export default function CenterDetailsTwoScreen() {
               />
             </View>
 
-            <Button
-              title={'Get my location'}
-              onPress={() => {
-                calculatePreciseDistance();
-              }}
-              ButtonContainerStyle={{
-                marginVertical: 17,
-                alignItems: 'center',
-                textAlign: 'center',
-              }}
-            />
             <Button
               title={'Next'}
               onPress={() => {
@@ -400,6 +480,7 @@ export default function CenterDetailsTwoScreen() {
                 style={{
                   flex: 1,
                   alignItems: 'flex-start',
+                  marginBottom: 20,
                 }}>
                 <TextHandler
                   style={{
@@ -417,7 +498,7 @@ export default function CenterDetailsTwoScreen() {
               <RadioButtons
                 radioStyle={{
                   borderWidth: 1,
-                  marginVertical: 2,
+                  marginVertical: 5,
                   borderColor: COLORS.orange,
                 }}
                 data={[
