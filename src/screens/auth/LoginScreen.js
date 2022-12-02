@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import {
   Header,
   TextHandler,
@@ -19,12 +19,14 @@ import {useDispatch} from 'react-redux';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import LoaderIndicator from '../../components/Loader';
 import {FAIcons, ADIcons} from '../../libs/VectorIcons';
+import LocalizationContext from '../../context/LanguageContext';
 
 export default function LoginScreen() {
   const [phone, setPhone] = useState('');
   const [error, setError] = useState({visible: false, message: ''});
   const dispatch = useDispatch();
   const [dataLoading, setDataLoading] = useState(false);
+  const {t} = useContext(LocalizationContext);
 
   const HeaderContent = () => {
     return (
@@ -50,7 +52,7 @@ export default function LoginScreen() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 18}}>
-            Volunteer Login
+            {`${t('VOLUNTEER')}`} {`${t('LOGIN')}`}
           </Text>
         </View>
       </View>
@@ -102,7 +104,7 @@ export default function LoginScreen() {
         />
         <View style={{flex: 1}}>
           <TextHandler style={{fontSize: 18, textAlign: 'center'}}>
-            {STRINGS.LOGIN.ENTER_PHONE_NO}
+            {t('ENTER_PHONE_NUMBER_TO_CONTIUE')}
           </TextHandler>
           <View
             style={{
@@ -149,11 +151,11 @@ export default function LoginScreen() {
           </View>
 
           <TextHandler style={{fontSize: 12, textAlign: 'center'}}>
-            {STRINGS.LOGIN.SMS_VERIFY_MSG}
+            {t('SIX_DIGIT_CODE')}
           </TextHandler>
         </View>
         <Button
-          title={'Request OTP'}
+          title={t('REQUEST_OTP')}
           onPress={() => GetOTP()}
           // onPress={() => navigate(ROUTES.AUTH.OTPSCREEN)}
         />

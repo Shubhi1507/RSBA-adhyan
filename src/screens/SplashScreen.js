@@ -158,11 +158,11 @@ export default function SplashScreen() {
               fontSize: 18,
               textAlign: 'center',
             }}>
-            Volunteer Login
+            {`${t('VOLUNTEER')}`} {`${t('LOGIN')}`}
           </Text>
         </TouchableOpacity>
 
-        <View
+        {/* <View
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
@@ -190,7 +190,7 @@ export default function SplashScreen() {
               Sign Up
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     </View>
   );

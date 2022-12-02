@@ -1,4 +1,3 @@
-
 {
   // CENTER QUESTIONS
   "CENTER_Q1": "Establishment Year of the Kendra ?",
@@ -423,6 +422,9 @@
   "NO": "No",
   "WHY_IS_CENTER_NON_OPERATIONAL": "Why is center non operational ?",
 
+  //E
+  "ENTER_PHONE_NUMBER_TO_CONTIUE": "Enter phone number to contiue",
+
   "NON_OPEARTIONAL_CENTER_OPT1": "Center work has been completed",
   "NON_OPEARTIONAL_CENTER_OPT2": "Resources were not available (Teacher , Place etc.)",
   "NON_OPEARTIONAL_CENTER_OPT3": "Students were not responding",
@@ -437,6 +439,9 @@
   "PATHDAAN CENTRE": "Pathdaan Centre",
   "BAL_GOKULAM": "Bal Gokulam",
   "BALWADI": "Balwadi",
+
+  //L
+  "LOGIN": "Login",
 
   "CENTER_HEAD_NAME": "Center Head Name",
   "CENTER_CONTACT_DETAILS": "Center Contact Details",
@@ -462,6 +467,16 @@
   "BASTI": "Basti",
   "PRABUDDHA_JAN": "Influential Persons from the Basti",
   "LOCATION_SHARED": "Location shared",
-  "TAP_TO_UPDATE":"Tap to update"
 
+// R
+"REQUEST_OTP":"Request OTP",
+
+  // S
+  "SIX_DIGIT_CODE": "A 6-digit code will be sent via SMS to verify your mobile number.",
+
+  // T
+  "TAP_TO_UPDATE": "Tap to update",
+
+  // V
+  "VOLUNTEER": "Voluneer"
 }
