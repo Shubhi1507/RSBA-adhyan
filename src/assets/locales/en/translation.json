@@ -5,6 +5,8 @@
 
   // C
   "CENTRE": "Centre",
+  "CENTER_DETAILS": "Center Details",
+
   // CENTER QUESTIONS
   "CENTER_Q1": "Establishment Year of the Kendra ?",
   "CENTER_Q2": "With which object this kendra started? Explain ? ",
@@ -412,6 +414,9 @@
   // C
   "COMPLETED_SURVEYS": "Completed Surveys",
 
+  // D
+  "DISTRICT": "District",
+
   // F
   "48_HRS_REVIEW": "Completed Surveys will remain in this section for 48 Hours to review",
 
@@ -420,9 +425,7 @@
   "ASSIGNED_CENTERS": "Assigned Centers",
   "CENTER_ID": "Center ID",
   "LOGOUT": "Logout",
-  "CENTER_DETAILS": "Center Details",
-  "PRANTH": "",
-  "JILLA": "Jilla",
+  "PRANTH": "Praant",
   "IS_CENTER_OPERATIONAL": "Is center opeartional ?",
   "ENTER_HERE": "Enter Here",
   "YES": "Yes",

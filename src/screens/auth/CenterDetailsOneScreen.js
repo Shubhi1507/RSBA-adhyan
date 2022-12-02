@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import {screenWidth} from '../../libs';
 import {
   Button,
@@ -26,9 +26,11 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import LoaderIndicator from '../../components/Loader';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {FindAndUpdate, isSurveyExists} from '../../utils/utils';
+import LocalizationContext from '../../context/LanguageContext';
 
 export default function CenterDetailsOneScreen({navition, route}) {
   const store = useSelector(state => state);
+  const {t} = useContext(LocalizationContext);
   const dispatch = useDispatch();
   const [dataLoading, setDataLoading] = useState(false);
   const [error, setError] = useState({visible: false, message: ''});
@@ -290,7 +292,7 @@ export default function CenterDetailsOneScreen({navition, route}) {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 18}}>
-            Center Details
+            {t('CENTER_DETAILS')}
           </Text>
         </View>
       </View>
@@ -315,14 +317,12 @@ export default function CenterDetailsOneScreen({navition, route}) {
           style={{
             color: 'black',
             fontWeight: '600',
-            marginTop: 40,
+            marginTop: 20,
             fontSize: 20,
             textAlign: 'left',
-          }}>
-          Center Details
-        </TextHandler>
+          }}></TextHandler>
         <View>
-          <Text style={styles.headingInput}>Pranth</Text>
+          <Text style={styles.headingInput}>{t('PRANTH')}</Text>
           {/* states */}
           <DropDown
             openAnchor={() => {
@@ -344,7 +344,7 @@ export default function CenterDetailsOneScreen({navition, route}) {
           />
         </View>
         <View>
-          <Text style={styles.headingInput}>District/ Jilla</Text>
+          <Text style={styles.headingInput}>{t('DISTRICT')}</Text>
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, district_jila: true});
@@ -369,7 +369,7 @@ export default function CenterDetailsOneScreen({navition, route}) {
           />
         </View>
         <View>
-          <Text style={styles.headingInput}>Centre ID</Text>
+          <Text style={styles.headingInput}>{t('CENTRE')}</Text>
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, town_basti: true});

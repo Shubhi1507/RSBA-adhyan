@@ -63,10 +63,6 @@ export default function DashboardScreen() {
     dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
   }, []);
 
-  const renderItem = ({item}) => {
-    return <Text style={{color: 'black'}}>{'jgv'}</Text>;
-  };
-
   const pageNavigator = () => {
     if (selectedCenter) {
       console.log('selectedCenter', selectedCenter);
