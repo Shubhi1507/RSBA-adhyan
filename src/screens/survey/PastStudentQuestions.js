@@ -19,9 +19,11 @@ import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import { FindAndUpdate } from '../../utils/utils';
 
 export default function PastStudentQuestions() {
   const store = useSelector(state => state?.surveyReducer);
+  let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
     answer1: '',
@@ -73,7 +75,6 @@ export default function PastStudentQuestions() {
       new_obj = {...tmp[2], attempted: true, completed: true, disabled: true};
     }
     tmp.splice(2, 1, new_obj);
-    console.log('tmp', tmp);
 
     let surveyAnswers = [...answersArrTmp];
     let payload = {};
@@ -100,9 +101,13 @@ export default function PastStudentQuestions() {
       ...store.currentSurveyData,
       currentSurveyStatus: tmp,
       surveyAnswers,
+      updatedAt: new Date().toString(),
     };
+    let tmp1 = FindAndUpdate(totalSurveys, payload);
+
     console.log('payload past student ', payload);
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
     showModal();
   };
 

@@ -31,9 +31,7 @@ export default function IncompleteSurveysScreen() {
         type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
         payload: selectedCenter,
       });
-      navigate(ROUTES.AUTH.CENTREDETAILSONESCREEN, {
-        currentIncompleteSurvey: selectedCenter,
-      });
+      navigate(ROUTES.AUTH.CENTREDETAILSONESCREEN);
     } else
       return setError({
         visible: true,

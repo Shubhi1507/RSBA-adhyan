@@ -19,10 +19,12 @@ import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import {FindAndUpdate} from '../../utils/utils';
 
 export default function PrabuddhaJanQuestions() {
   const dispatch = useDispatch();
   const store = useSelector(state => state?.surveyReducer);
+  let totalSurveys = store.totalSurveys;
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',
@@ -61,7 +63,7 @@ export default function PrabuddhaJanQuestions() {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     const {answer1, answer2, answer3, answer4, answer5} = answers;
-    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 ) {
+    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5) {
       new_obj = {
         ...tmp[7],
         attempted: true,
@@ -72,7 +74,6 @@ export default function PrabuddhaJanQuestions() {
       new_obj = {...tmp[7], attempted: true, completed: true, disabled: true};
     }
     tmp.splice(7, 1, new_obj);
-    console.log('tmp', tmp);
 
     let surveyAnswers = [...answersArrTmp];
     let payload = {};
@@ -99,9 +100,13 @@ export default function PrabuddhaJanQuestions() {
       ...store.currentSurveyData,
       currentSurveyStatus: tmp,
       surveyAnswers,
+      updatedAt: new Date().toString(),
     };
+    let tmp1 = FindAndUpdate(totalSurveys, payload);
+
     console.log('payload prabbudhJan', payload);
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
     showModal();
   };
 
@@ -211,20 +216,20 @@ export default function PrabuddhaJanQuestions() {
             }}
           />
           {answers.answer1?.value === 'Others' && (
-              <Input
-                placeholder="Enter reason here"
-                name="any"
-                onChangeText={text => {
-                  setAnswers({...answers, answer1: {...answers.answer1, text}});
-                }}
-                value={answers.answer1?.text}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            )}
+            <Input
+              placeholder="Enter reason here"
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, answer1: {...answers.answer1, text}});
+              }}
+              value={answers.answer1?.text}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
+          )}
         </View>
 
         {/* QA2 */}
@@ -288,7 +293,7 @@ export default function PrabuddhaJanQuestions() {
                   value: 'Due to our social works',
                 },
               ]}
-            valueProp={answers.answer2}
+              valueProp={answers.answer2}
               onValueChange={item => {
                 setAnswers({...answers, answer2: item});
               }}
@@ -355,7 +360,7 @@ export default function PrabuddhaJanQuestions() {
                   value: ' Not much interested ',
                 },
               ]}
-            valueProp={answers.answer3}
+              valueProp={answers.answer3}
               onValueChange={item => {
                 setAnswers({...answers, answer3: item});
               }}
@@ -462,7 +467,7 @@ export default function PrabuddhaJanQuestions() {
                 {key: 2, value: 'Not much '},
                 {key: 3, value: 'Only in certain questions'},
               ]}
-            valueProp={answers.answer4}
+              valueProp={answers.answer4}
               onValueChange={item => {
                 setAnswers({...answers, answer4: item});
               }}
@@ -519,7 +524,7 @@ export default function PrabuddhaJanQuestions() {
                 {key: 1, value: 'Yes'},
                 {key: 2, value: 'No'},
               ]}
-            valueProp={answers.answer5}
+              valueProp={answers.answer5}
               onValueChange={item => {
                 setAnswers({...answers, answer5: item});
               }}

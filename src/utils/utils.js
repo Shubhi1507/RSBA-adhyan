@@ -51,3 +51,21 @@ export const filterOutIncompleteSurveys = totalSurveys => {
   });
   return tmp;
 };
+
+export const filterOutSavedSurveys = totalSurveys => {
+  let tmp = totalSurveys.filter(function (el) {
+    return el.isSaved == true;
+  });
+  return tmp;
+};
+
+export const checkSurveyReleaseDateandReturnCompletedSurveys = totalSurveys => {
+  let tmp = totalSurveys.filter(function (el) {
+    if (el.isSaved === true && el?.release_date) {
+      if (new Date(el.release_date).getTime() - new Date().getTime() <= 0) {
+        return el;
+      }
+    }
+  });
+  return tmp;
+};

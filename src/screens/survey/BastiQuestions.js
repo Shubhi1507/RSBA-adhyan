@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -19,10 +19,11 @@ import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import {FindAndUpdate} from '../../utils/utils';
 
 export default function BastiQuestions() {
   const store = useSelector(state => state?.surveyReducer);
-  const store2 = useSelector(state => state);
+  let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
     answer1: '',
@@ -74,7 +75,6 @@ export default function BastiQuestions() {
       new_obj = {...tmp[6], attempted: true, completed: true, disabled: true};
     }
     tmp.splice(6, 1, new_obj);
-    console.log('tmp', tmp);
 
     let surveyAnswers = [...answersArrTmp];
     let payload = {};
@@ -101,9 +101,13 @@ export default function BastiQuestions() {
       ...store.currentSurveyData,
       currentSurveyStatus: tmp,
       surveyAnswers,
+      updatedAt: new Date().toString(),
     };
+    let tmp1 = FindAndUpdate(totalSurveys, payload);
+
     console.log('payload basti', payload);
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
     showModal();
   };
 
@@ -447,7 +451,7 @@ export default function BastiQuestions() {
                 setAnswers({...answers, answer5: item});
               }}
             />
-             {answers.answer5?.value === 'Others' && (
+            {answers.answer5?.value === 'Others' && (
               <Input
                 placeholder="Enter reason here"
                 name="any"

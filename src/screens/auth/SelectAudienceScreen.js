@@ -27,7 +27,7 @@ import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
-import {filterOutIncompleteSurveys} from '../../utils/utils';
+import {filterOutIncompleteSurveys, FindAndUpdate} from '../../utils/utils';
 
 export default function SelectAudienceScreen() {
   let [selectedAudience, setAudience] = useState('');
@@ -121,9 +121,19 @@ export default function SelectAudienceScreen() {
   const showModal = () => setVisible(true);
 
   useEffect(() => {
-    console.log('audience page', store);
+    checkIsSurveyCompleted();
   }, [store]);
 
+  const checkIsSurveyCompleted = () => {
+    let flag = true;
+    let tmp = [...store.currentSurveyData?.currentSurveyStatus];
+    tmp.forEach(el => {
+      if (el.completed == false) {
+        return (flag = false);
+      }
+    });
+    setisSurveyCompleted(flag);
+  };
   const pageNavigator = () => {
     const {CENTRES} = miscControllers;
     if (!selectedAudience) {
@@ -209,8 +219,39 @@ export default function SelectAudienceScreen() {
     // navigate(ROUTES.AUTH.SURVEYSCREEN);
   };
   const submitSurvey = () => {
-    dispatch({type: ACTION_CONSTANTS.ADD_COMPLETED_SURVEY_COUNT});
+    let tmp = store?.currentSurveyData;
+    let payload = {};
+    if (tmp?.release_date) {
+      payload = {
+        ...store?.currentSurveyData,
+        isSaved: true,
+        updatedAt: new Date().toString(),
+      };
+    } else {
+      payload = {
+        ...store?.currentSurveyData,
+        isSaved: true,
+        updatedAt: new Date().toString(),
+        release_date: new Date(
+          new Date().setTime(new Date().getTime() + 1 * 60 * 60 * 1000),
+        ).toString(),
+      };
+      dispatch({
+        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+        payload: payload,
+      });
+    }
+    let tmp1 = FindAndUpdate(totalSurveys, payload);
+    console.log('final payload', payload);
+
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
     navigate(ROUTES.AUTH.DASHBOARDSCREEN);
+    setError({
+      ...error,
+      message: 'Survey submitted succesfully',
+      visible: true,
+      type: 'ok',
+    });
   };
 
   const BackRefPageNavigator = () => {
@@ -235,7 +276,6 @@ export default function SelectAudienceScreen() {
     ]);
   };
 
-  const handleInCompleteSurveyStore = () => {};
   const HeaderContent = () => {
     return (
       <View

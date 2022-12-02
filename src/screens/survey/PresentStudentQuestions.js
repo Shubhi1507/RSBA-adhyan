@@ -19,10 +19,12 @@ import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import { FindAndUpdate } from '../../utils/utils';
 
 export default function PresentStudentQuestions() {
   const store = useSelector(state => state?.surveyReducer);
   const dispatch = useDispatch();
+  let totalSurveys = store.totalSurveys;
 
   let [answers, setAnswers] = useState({
     answer1: '',
@@ -58,7 +60,7 @@ export default function PresentStudentQuestions() {
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
   };
 
-    const pageValidator = () => {
+  const pageValidator = () => {
     console.log('store', store);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
@@ -74,7 +76,6 @@ export default function PresentStudentQuestions() {
       new_obj = {...tmp[3], attempted: true, completed: true, disabled: true};
     }
     tmp.splice(3, 1, new_obj);
-    console.log('tmp', tmp);
 
     let surveyAnswers = [...answersArrTmp];
     let payload = {};
@@ -101,9 +102,13 @@ export default function PresentStudentQuestions() {
       ...store.currentSurveyData,
       currentSurveyStatus: tmp,
       surveyAnswers,
+      updatedAt: new Date().toString(),
     };
+    let tmp1 = FindAndUpdate(totalSurveys, payload);
+
     console.log('payload past student ', payload);
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
     showModal();
   };
 

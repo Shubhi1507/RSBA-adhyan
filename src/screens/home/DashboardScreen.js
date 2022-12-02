@@ -20,7 +20,11 @@ import {useEffect} from 'react';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 import LocalizationContext from '../../context/LanguageContext';
-import {filterOutIncompleteSurveys} from '../../utils/utils';
+import {
+  checkSurveyReleaseDateandReturnCompletedSurveys,
+  filterOutIncompleteSurveys,
+  filterOutSavedSurveys,
+} from '../../utils/utils';
 
 export default function DashboardScreen() {
   const {t} = useContext(LocalizationContext);
@@ -29,6 +33,9 @@ export default function DashboardScreen() {
   const store = useSelector(state => state);
   const name = store?.authReducer?.userData?.userData?.data[0]?.name;
   const totalSurveys = store.surveyReducer.totalSurveys;
+  const completedSurveysTmpArr =
+    checkSurveyReleaseDateandReturnCompletedSurveys(totalSurveys);
+
   const [CENTER_DATA, SET_CENTRE_DATA] = useState([
     {key: '301', value: '301'},
     {key: '302', value: '302'},
@@ -38,7 +45,8 @@ export default function DashboardScreen() {
   ]);
 
   useEffect(() => {
-    // dispatch({type: ACTION_CONSTANTS.RESET_APP});
+    console.log('store', store.surveyReducer);
+    console.log('completedSurveysTmpArr', completedSurveysTmpArr);
   }, [store.surveyReducer]);
 
   useEffect(() => {
@@ -120,7 +128,7 @@ export default function DashboardScreen() {
               color: 'white',
               padding: 8,
             }}>
-            {0}
+            {completedSurveysTmpArr.length}
           </TextHandler>
         </TouchableOpacity>
         <TouchableOpacity
@@ -182,7 +190,7 @@ export default function DashboardScreen() {
                 padding: 8,
                 color: 'white',
               }}>
-              3
+              {filterOutSavedSurveys(totalSurveys).length || 0}
             </TextHandler>
           </View>
         </TouchableOpacity>

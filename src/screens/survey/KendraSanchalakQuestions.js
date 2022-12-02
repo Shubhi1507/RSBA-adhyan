@@ -19,10 +19,12 @@ import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
+import { FindAndUpdate } from '../../utils/utils';
 
 export default function KendraSanchalakQuestions() {
   const store = useSelector(state => state?.surveyReducer);
   const dispatch = useDispatch();
+  let totalSurveys = store.totalSurveys;
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',
@@ -60,7 +62,6 @@ export default function KendraSanchalakQuestions() {
   };
 
   const pageValidator = () => {
-    console.log('store', store);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
@@ -75,7 +76,6 @@ export default function KendraSanchalakQuestions() {
       new_obj = {...tmp[5], attempted: true, completed: true, disabled: true};
     }
     tmp.splice(5, 1, new_obj);
-    console.log('tmp', tmp);
 
     let surveyAnswers = [...answersArrTmp];
     let payload = {};
@@ -102,9 +102,14 @@ export default function KendraSanchalakQuestions() {
       ...store.currentSurveyData,
       currentSurveyStatus: tmp,
       surveyAnswers,
+      updatedAt: new Date().toString(),
     };
+
+    let tmp1 = FindAndUpdate(totalSurveys, payload);
+
     console.log('payload kendraSanchalak ', payload);
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
     showModal();
   };
 
