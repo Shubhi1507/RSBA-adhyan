@@ -474,12 +474,13 @@
 
   // I
   "INCOMPLETE_SUVEYS": "अधूरे सर्वेक्षण",
+  "IS_CENTER_OPERATIONAL": "केंद्र चालू है?",
+
   "ASSIGNED_CENTERS": "असाइन किए गए केंद्र",
   "CENTER_ID": "केंद्र आईडी",
   "LOGOUT": "लॉगआउट",
   "PRANTH": "प्रान्त",
   "JILLA": "जिला",
-  "IS_CENTER_OPERATIONAL": "केंद्र चालू है?",
   "YES": "हाँ",
   "NO": "नहीं",
   "WHY_IS_CENTER_NON_OPERATIONAL": "केंद्र क्यों चालू नहीं है ?",
@@ -493,7 +494,7 @@
   "CENTER_TYPE": "केंद्र का प्रकार",
   "BALSANSKAR_KENDRA": "बाल संस्कार केंद्र",
   "ABYASIKA": "अभ्यासिका",
-  "PATHDAAN CENTRE": "पथदान केंद्र",
+  "PATHDAAN_CENTRE": "पथदान केंद्र",
   "BAL_GOKULAM": "बाल गोकुलम",
   "BALWADI": "बालवाड़ी",
 

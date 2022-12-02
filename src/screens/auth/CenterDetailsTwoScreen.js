@@ -55,22 +55,27 @@ export default function CenterDetailsTwoScreen() {
       {
         key: 'Balsanskaar Kendra',
         value: 'Balsanskaar Kendra',
+        label: 'BALSANSKAR_KENDRA',
       },
       {
         key: 'Abyasika',
         value: 'Abyasika',
+        label: 'ABYASIKA',
       },
       {
         key: 'Pathdaan Centre',
         value: 'Pathdaan Centre',
+        label: 'PATHDAAN_CENTRE',
       },
       {
         key: 'Bal Gokulam',
         value: 'Bal Gokulam',
+        label: 'BAL_GOKULAM',
       },
       {
         key: 'Balwadi',
         value: 'Balwadi',
+        label: 'BALWADI',
       },
     ],
   });
@@ -251,7 +256,7 @@ export default function CenterDetailsTwoScreen() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            Center Details
+            {t('CENTER_DETAILS')}
           </Text>
         </View>
       </View>
@@ -292,7 +297,7 @@ export default function CenterDetailsTwoScreen() {
                 fontSize: 20,
                 textAlign: 'left',
               }}>
-              Is center opertional?
+              {t('IS_CENTER_OPERATIONAL')}
             </TextHandler>
           </View>
 
@@ -309,7 +314,7 @@ export default function CenterDetailsTwoScreen() {
                 fontSize: 15,
                 textAlign: 'left',
               }}>
-              No
+              {t('NO')}
             </TextHandler>
             <CustomSwitch
               isSwitchOn={isCenterOperational}
@@ -321,7 +326,7 @@ export default function CenterDetailsTwoScreen() {
                 fontSize: 15,
                 textAlign: 'right',
               }}>
-              Yes
+              {t('YES')}
             </TextHandler>
           </View>
         </View>
@@ -336,7 +341,7 @@ export default function CenterDetailsTwoScreen() {
                   fontSize: 20,
                   margin: 6,
                 }}>
-                {STRINGS.LOGIN.TYPE_OF_CENTER}
+                {t('CENTER_TYPE')}
               </Text>
               <RadioButtons
                 data={miscControllers.CENTRES}
@@ -347,9 +352,7 @@ export default function CenterDetailsTwoScreen() {
               />
             </View>
             <View style={{paddingVertical: 5}}>
-              <Text style={styles.headingInput}>
-                {STRINGS.LOGIN.CENTER_HD_NAME}
-              </Text>
+              <Text style={styles.headingInput}>{t('CENTER_HEAD_NAME')}</Text>
               <Input
                 placeholder="Enter here"
                 name="center_head"
@@ -432,7 +435,7 @@ export default function CenterDetailsTwoScreen() {
 
             <View style={{paddingVertical: 5}}>
               <Text style={styles.headingInput}>
-                {STRINGS.LOGIN.PARENT_ORG}
+                {t('PARENT_ORGANIZATION')}
               </Text>
               <Input
                 placeholder="Enter herewqdqwd"
@@ -447,7 +450,7 @@ export default function CenterDetailsTwoScreen() {
             </View>
 
             <Button
-              title={'Next'}
+              title={t('NEXT')}
               onPress={() => {
                 PageValidator();
               }}
@@ -489,7 +492,7 @@ export default function CenterDetailsTwoScreen() {
                     fontWeight: '500',
                     // textAlign: 'left',
                   }}>
-                  {'Why is center non operational?'}
+                  {t('WHY_IS_CENTER_NON_OPERATIONAL')}
                 </TextHandler>
               </View>
             </View>
@@ -502,15 +505,36 @@ export default function CenterDetailsTwoScreen() {
                   borderColor: COLORS.orange,
                 }}
                 data={[
-                  {key: 1, value: ' Center work has been completed'},
+                  {
+                    key: 1,
+                    value: ' Center work has been completed',
+                    label: 'NON_OPEARTIONAL_CENTER_OPT1',
+                  },
                   {
                     key: 2,
                     value: 'Resources were not available (Teacher,Place etc)',
+                    label: 'NON_OPEARTIONAL_CENTER_OPT2',
                   },
-                  {key: 3, value: 'Students were not responding'},
-                  {key: 4, value: 'Some problems of the Organization'},
-                  {key: 5, value: 'Local Social Problems'},
-                  {key: 6, value: 'Others'},
+                  {
+                    key: 3,
+                    value: 'Students were not responding',
+                    label: 'NON_OPEARTIONAL_CENTER_OPT3',
+                  },
+                  {
+                    key: 4,
+                    value: 'Some problems of the Organization',
+                    label: 'NON_OPEARTIONAL_CENTER_OPT4',
+                  },
+                  {
+                    key: 5,
+                    value: 'Local Social Problems',
+                    label: 'NON_OPEARTIONAL_CENTER_OPT5',
+                  },
+                  {
+                    key: 6,
+                    value: 'Others',
+                    label: 'NON_OPEARTIONAL_CENTER_OPT6',
+                  },
                 ]}
                 onValueChange={item => {
                   setAnswers({...answers, answer1: item});
@@ -519,7 +543,7 @@ export default function CenterDetailsTwoScreen() {
             </View>
 
             <Button
-              title={'Submit'}
+              title={t('SUBMIT')}
               onPress={() => {
                 navigate(ROUTES.AUTH.DASHBOARDSCREEN);
               }}
