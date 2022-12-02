@@ -1,5 +1,10 @@
 {
+  // A
   "ADHAYAN": "अध्ययन",
+  "ASSIGNED_CENTRES": "आवंटित केंद्र",
+
+  // C
+  "CENTRE": "केंद्र",
 
   "CENTER_Q1": "केंद्र का स्थापना वर्ष",
   "CENTER_Q2": "केंद्र किस उद्देश्य से प्रारंभ हुआ ?",
@@ -457,14 +462,16 @@
   "INFLUENTIAL_PEOPELE_Q4_OPT1": "हां",
   "INFLUENTIAL_PEOPELE_Q4_OPT2": "ना",
   "INFLUENTIAL_PEOPELE_Q4_OPT3": "वर्ग विशेष में",
-  "WELCOME": "स्वागत है",
+  // C
   "COMPLETED_SURVEYS": "पूर्ण सर्वेक्षण ",
-  "INCOMPLETE_SUVEYS": "अधूरे सर्वेक्षण",
-  "SAVE_REVIEW_QUESTIONS": "सहेजें और समीक्षा प्रश्न",
+
+  // F
   "48_HRS_REVIEW": "पूर्ण सर्वेक्षण समीक्षा के लिए 48 घंटे के लिए इस खंड में रहेगा",
+
+  // I
+  "INCOMPLETE_SUVEYS": "अधूरे सर्वेक्षण",
   "ASSIGNED_CENTERS": "असाइन किए गए केंद्र",
   "CENTER_ID": "केंद्र आईडी",
-  "START_SURVEY": "सर्वेक्षण प्रारंभ करें",
   "LOGOUT": "लॉगआउट",
   "CENTER_DETAILS": "केंद्र का विवरण",
   "PRANTH": "",
@@ -512,16 +519,23 @@
   "CURRENT_STUDENT": "वर्तमान छात्र",
   "PRABUDDHA_JAN": "बस्ती के प्रभावशाली लोग",
   "LOCATION_SHARED": "स्थान साझा किया गया",
+  // P
+  "PLS_SELECT_A_CENTER": "कृपया एक केंद्र का चयन करें",
 
   // R
   "REQUEST_OTP": "ओटीपी का अनुरोध करें",
 
   // S
+  "START_SURVEY": "सर्वेक्षण प्रारंभ करें",
+  "SAVE_REVIEW_QUESTIONS": "सहेजें और समीक्षा प्रश्न",
   "SIX_DIGIT_CODE": "आपके मोबाइल नंबर को सत्यापित करने के लिए एक 6 अंकों का कोड एसएमएस के माध्यम से भेजा जाएगा।",
 
   // T
   "TAP_TO_UPDATE": "अपडेट करने के लिए टैप करें",
 
   // V
-  "VOLUNTEER": "स्वयंसेवी"
+  "VOLUNTEER": "स्वयंसेवी",
+
+  // W
+  "WELCOME": "स्वागत है"
 }

@@ -1,4 +1,10 @@
 {
+  // A
+  "ADHYAYAN": "Adhyayan Survey",
+  "ASSIGNED_CENTRES": "Assigned Centres",
+
+  // C
+  "CENTRE": "Centre",
   // CENTER QUESTIONS
   "CENTER_Q1": "Establishment Year of the Kendra ?",
   "CENTER_Q2": "With which object this kendra started? Explain ? ",
@@ -99,7 +105,6 @@
   "CURRENT_STUDENTS_PARENTS_Q12": "Your observations about kendra teacher. Please elaborate ",
   "CURRENT_STUDENTS_PARENTS_Q13 ": "  Expectations from the centre ",
 
-  "ADHYAYAN": "Adhyayan Survey",
   "VOLUNTEER_DASHBOARD": "Volunteer Dashboard",
 
   "PAST_STUDENTS_PARENTS_Q1": "No of parents present",
@@ -404,14 +409,16 @@
   "INFLUENTIAL_PEOPELE_Q4_OPT2": "Not much   ",
   "INFLUENTIAL_PEOPELE_Q4_OPT3": "Only in certain sections",
 
-  "WELCOME": "Welcome",
+  // C
   "COMPLETED_SURVEYS": "Completed Surveys",
-  "INCOMPLETE_SUVEYS": "Incomplete Surveys",
-  "SAVE_REVIEW_QUESTIONS": "Save & Review Questions",
+
+  // F
   "48_HRS_REVIEW": "Completed Surveys will remain in this section for 48 Hours to review",
+
+  // I
+  "INCOMPLETE_SUVEYS": "Incomplete Surveys",
   "ASSIGNED_CENTERS": "Assigned Centers",
   "CENTER_ID": "Center ID",
-  "START_SURVEY": "Start Survey",
   "LOGOUT": "Logout",
   "CENTER_DETAILS": "Center Details",
   "PRANTH": "",
@@ -468,15 +475,23 @@
   "PRABUDDHA_JAN": "Influential Persons from the Basti",
   "LOCATION_SHARED": "Location shared",
 
-// R
-"REQUEST_OTP":"Request OTP",
+  // P
+  "PLS_SELECT_A_CENTER": "Please select a center",
+
+  // R
+  "REQUEST_OTP": "Request OTP",
 
   // S
+  "SAVE_REVIEW_QUESTIONS": "Save & Review Questions",
   "SIX_DIGIT_CODE": "A 6-digit code will be sent via SMS to verify your mobile number.",
+  "START_SURVEY": "Start Survey",
 
   // T
   "TAP_TO_UPDATE": "Tap to update",
 
   // V
-  "VOLUNTEER": "Voluneer"
+  "VOLUNTEER": "Voluneer",
+
+  // W
+  "WELCOME": "Welcome"
 }

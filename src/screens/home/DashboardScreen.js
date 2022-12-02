@@ -8,7 +8,13 @@ import {
 } from 'react-native';
 import React, {useContext} from 'react';
 import LoaderIndicator from '../../components/Loader';
-import {Button, CustomSnackBar, Header, TextHandler} from '../../components';
+import {
+  Button,
+  CustomCheckbox,
+  CustomSnackBar,
+  Header,
+  TextHandler,
+} from '../../components';
 import {COLORS} from '../../utils/colors';
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
@@ -29,6 +35,7 @@ import {
 export default function DashboardScreen() {
   const {t} = useContext(LocalizationContext);
   const [error, setError] = useState({visible: false, message: ''});
+  let [selectedCenter, setCenter] = useState(null);
   const dispatch = useDispatch();
   const store = useSelector(state => state);
   const name = store?.authReducer?.userData?.userData?.data[0]?.name;
@@ -36,7 +43,7 @@ export default function DashboardScreen() {
   const completedSurveysTmpArr =
     checkSurveyReleaseDateandReturnCompletedSurveys(totalSurveys);
 
-  const [CENTER_DATA, SET_CENTRE_DATA] = useState([
+  const [CENTER_DATA] = useState([
     {key: '301', value: '301'},
     {key: '302', value: '302'},
     {key: '303', value: '303'},
@@ -61,8 +68,15 @@ export default function DashboardScreen() {
   };
 
   const pageNavigator = () => {
-    dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
-    navigate(ROUTES.AUTH.CENTREDETAILSONESCREEN);
+    if (selectedCenter) {
+      console.log('selectedCenter', selectedCenter);
+      dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
+      navigate(ROUTES.AUTH.CENTREDETAILSONESCREEN);
+    } else
+      return setError({
+        visible: true,
+        message: t('PLS_SELECT_A_CENTER'),
+      });
   };
 
   const HeaderContent = () => {
@@ -101,15 +115,23 @@ export default function DashboardScreen() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
+      <CustomSnackBar
+        visible={error.visible}
+        message={error.message}
+        onDismissSnackBar={() =>
+          setError({...error, message: '', visible: false})
+        }
+      />
       <View
         style={{
           flex: 1,
           justifyContent: 'space-around',
-          paddingHorizontal: 15,
+          paddingHorizontal: 20,
+          marginTop: 10,
         }}>
         <TextHandler
           style={{fontWeight: '700', fontSize: 23, paddingBottom: 30}}>
-          Welcome {name && `, ${name}`}
+          {`${t('WELCOME')}`} {name && `, ${name}`}
         </TextHandler>
         <TouchableOpacity
           style={{
@@ -118,7 +140,7 @@ export default function DashboardScreen() {
             flexDirection: 'row',
           }}>
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
-            Completed Surveys
+            {t('COMPLETED_SURVEYS')}
           </TextHandler>
           <TextHandler
             style={{
@@ -142,7 +164,7 @@ export default function DashboardScreen() {
             flexDirection: 'row',
           }}>
           <TextHandler style={{fontWeight: '400', fontSize: 18}}>
-            Incomplete Surveys
+            {t('INCOMPLETE_SUVEYS')}
           </TextHandler>
 
           <View
@@ -171,11 +193,10 @@ export default function DashboardScreen() {
           }}>
           <View style={{flex: 0.8}}>
             <TextHandler style={{fontWeight: '400', fontSize: 18}}>
-              Save & Review Questions
+              {t('SAVE_REVIEW_QUESTIONS')}
             </TextHandler>
             <Text style={{color: 'grey', fontSize: 12, fontWeight: '400'}}>
-              Completed survey will remain in this section for 48 hours to
-              review
+              {t('48_HRS_REVIEW')}
             </Text>
           </View>
           <View
@@ -197,33 +218,43 @@ export default function DashboardScreen() {
 
         <View style={styles.headingInput}>
           <TextHandler
-            style={{fontWeight: '600', fontSize: 18, paddingBottom: 30}}>
-            Assigned Centres
+            style={{fontWeight: '600', fontSize: 18, paddingBottom: 0}}>
+            {t('ASSIGNED_CENTRES')}
           </TextHandler>
         </View>
-        <View style={{flex: 0.25}}>
+        <View style={{flex: 0.4}}>
           <FlatList
-            scrollEnabled
             data={CENTER_DATA}
             renderItem={({item, index}) => {
               return (
-                <TextHandler
-                  style={{
-                    color: 'black',
-                    paddingBottom: 8,
-                    fontSize: 17,
-                    fontWeight: '400',
-                  }}>
-                  CENTER ID {item.key}
-                </TextHandler>
+                <CustomCheckbox
+                  color={COLORS.success}
+                  label={`${t('CENTRE')} - ` + item.value}
+                  completed={false}
+                  status={
+                    selectedCenter && selectedCenter?.value
+                      ? selectedCenter?.value === item.value
+                      : false
+                  }
+                  attempted={false}
+                  onPress={() => {
+                    setCenter(item);
+                  }}
+                  customTextStyle={
+                    selectedCenter
+                      ? selectedCenter?.value === item.value
+                        ? {color: COLORS.buttonColor}
+                        : {color: COLORS.black}
+                      : {color: COLORS.black}
+                  }
+                />
               );
             }}
-            // keyExtractor={item => item.id}
           />
         </View>
 
         <Button
-          title={'Start Survey'}
+          title={t('START_SURVEY')}
           onPress={() => {
             pageNavigator();
           }}
@@ -234,18 +265,7 @@ export default function DashboardScreen() {
         />
 
         <Button
-          title={'Reset'}
-          onPress={() => {
-            dispatch({type: ACTION_CONSTANTS.RESET_APP});
-          }}
-          ButtonContainerStyle={{
-            alignItems: 'center',
-            textAlign: 'center',
-          }}
-        />
-
-        <Button
-          title={'Logout'}
+          title={t('LOGOUT')}
           onPress={() => {
             Alert.alert('Logout?', '', [
               {
@@ -261,7 +281,7 @@ export default function DashboardScreen() {
             ]);
           }}
           ButtonContainerStyle={{
-            marginVertical: 50,
+            marginVertical: 20,
             alignItems: 'center',
             textAlign: 'center',
             backgroundColor: COLORS.error,
