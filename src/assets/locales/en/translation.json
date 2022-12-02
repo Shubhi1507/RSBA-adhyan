@@ -453,11 +453,14 @@
   //L
   "LOGIN": "Login",
 
+  // N
+  "NEXT": "Next",
+
+
   "CENTER_HEAD_NAME": "Center Head Name",
   "CENTER_CONTACT_DETAILS": "Center Contact Details",
   "LOCATION": "Share your Location",
   "PARENT_ORGANIZATION": "Parent Organization",
-  "NEXT": "Next",
   "CENTER_INFO": "Center Information",
   "SELECT_AUDIENCE": "Select Audience",
   "PAST_STUDENTS_PARENTS": "Student's Parents (Past Students)",

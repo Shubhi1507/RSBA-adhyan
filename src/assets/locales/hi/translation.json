@@ -502,7 +502,6 @@
   "CENTER_CONTACT_DETAILS": "केंद्र संपर्क विवरण",
   "LOCATION": "अपना स्थान साझा करें",
   "PARENT_ORGANIZATION": "मूल संगठन",
-  "NEXT": "अगला पृष्ठ ",
   "CENTER_INFO": "केंद्र की जानकारी",
   "SELECT_AUDIENCE": "ऑडियंस का चयन करें",
   "PAST_STUDENTS_PARENTS": "छात्र के माता-पिता (पिछले छात्र)",
@@ -522,6 +521,10 @@
   "CURRENT_STUDENT": "वर्तमान छात्र",
   "PRABUDDHA_JAN": "बस्ती के प्रभावशाली लोग",
   "LOCATION_SHARED": "स्थान साझा किया गया",
+
+  // N
+  "NEXT": "अगला पृष्ठ",
+
   // P
   "PLS_SELECT_A_CENTER": "कृपया एक केंद्र का चयन करें",
 

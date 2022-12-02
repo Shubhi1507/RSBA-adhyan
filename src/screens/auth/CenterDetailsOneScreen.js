@@ -390,7 +390,7 @@ export default function CenterDetailsOneScreen({navition, route}) {
         </View>
 
         <Button
-          title={'Next'}
+          title={t('NEXT')}
           onPress={pageValidator}
           ButtonContainerStyle={{
             marginVertical: 20,
