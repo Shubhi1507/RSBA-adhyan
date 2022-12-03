@@ -48,7 +48,7 @@ export default function CenterDetailsTwoScreen() {
     center_head: '',
     center_contact: '',
     volunteer_location: {},
-    is_centre_operational: 1,
+    is_centre_operational: true,
     non_operational_due_to: '',
   });
 
@@ -209,7 +209,7 @@ export default function CenterDetailsTwoScreen() {
     //   });
     // }
 
-    if (!is_centre_operational) {
+    if (is_centre_operational) {
       let center_details = {
         ...store.currentSurveyData.center_details,
         center_contact,
@@ -217,12 +217,14 @@ export default function CenterDetailsTwoScreen() {
         parent_org,
         type_of_center,
         volunteer_location,
-        is_centre_operational: !is_centre_operational,
+        is_centre_operational,
         non_operational_due_to,
       };
       let payload = {
         ...store.currentSurveyData,
         center_details,
+        isSaved: false,
+        release_date: '',
         updatedAt: new Date().toString(),
       };
 
@@ -243,7 +245,7 @@ export default function CenterDetailsTwoScreen() {
         parent_org,
         type_of_center,
         volunteer_location,
-        is_centre_operational: !is_centre_operational,
+        is_centre_operational,
         non_operational_due_to,
       };
       let payload = {
@@ -375,7 +377,7 @@ export default function CenterDetailsTwoScreen() {
             </TextHandler>
           </View>
         </View>
-        {!isCenterOperational ? (
+        {volunteerInfo.is_centre_operational ? (
           <View style={styles.activeCenter}>
             <View style={{paddingVertical: 5}}>
               <Text
@@ -440,7 +442,7 @@ export default function CenterDetailsTwoScreen() {
                   {t('LOCATION_SHARED')}
                 </Text>
                 <Button
-                  title={`${t('TAP_TO_UPDATE')}}`}
+                  title={`${t('TAP_TO_UPDATE')}`}
                   onPress={() => {
                     Alert.alert(`${t('CENTER_CONTACT_DETAILS')}`, '', [
                       {

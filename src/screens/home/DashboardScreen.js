@@ -301,6 +301,17 @@ export default function DashboardScreen() {
             textAlign: 'center',
           }}
         />
+        {/* <Button
+          title={'RESET'}
+          onPress={() => {
+            dispatch({type: ACTION_CONSTANTS.RESET_APP});
+          }}
+          ButtonContainerStyle={{
+            alignItems: 'center',
+            textAlign: 'center',
+            backgroundColor: COLORS.error,
+          }}
+        /> */}
 
         <Button
           title={t('LANGUAGE_CHANGE')}
