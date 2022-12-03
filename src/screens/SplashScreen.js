@@ -51,6 +51,7 @@ export default function SplashScreen() {
       }
     });
   }, []);
+  
   useEffect(() => {
     // fetchData();
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});

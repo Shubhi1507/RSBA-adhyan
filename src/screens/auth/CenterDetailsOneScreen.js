@@ -28,7 +28,7 @@ import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {FindAndUpdate, isSurveyExists} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
 
-export default function CenterDetailsOneScreen({navition, route}) {
+export default function CenterDetailsOneScreen({navigation, route}) {
   const store = useSelector(state => state);
   const {t} = useContext(LocalizationContext);
   const dispatch = useDispatch();
@@ -95,20 +95,44 @@ export default function CenterDetailsOneScreen({navition, route}) {
     },
   ];
   const [volunteerInfo, setvolunteerInfo] = useState({
-    state_pranth: 'new',
+    state_pranth: '',
     district_jila: '',
     center_contact: '',
     center_head: '',
     discontinued_due_to: '',
-    establishment: '',
-    infrastructure: '',
+
     parent_org: '',
-    project_init_before: '',
     regularity: '',
-    type_of_basti: '',
     type_of_center: '',
     volunteer_location: {},
-    centre_id: Math.random().toFixed(5) * 100000,
+    centre_id: '',
+    // centre qa acc. to documentation https://docs.google.com/spreadsheets/d/19Aq1V-Lz5b42i3BR37FhYKxSIC3p1MYR/edit#gid=2138728367
+    establishment: '',
+    centre_commence_motive: '',
+    students_passed_out_from_centre: '',
+    centre_not_operational_aftermath: '',
+    center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time:
+      '',
+    discontinuation_time_period: '',
+    type_of_basti: '',
+    infrastructure: '',
+    project_init_before: '',
+    pictures_of_bharatmata_and_indian_legends: '',
+    sewa_sanstha_running_the_center: '',
+    visitors_details_captured: '',
+    availability_of_infrastructure: '',
+    participation_of_the_basti_people: '',
+    is_participation_of_basti_satisfactory: '',
+    oppose_of_the_kendras_activities_by_basti: '',
+    divyang_and_single_parent_students_enrolled: '',
+    basti_toli_active: '',
+    members_of_basti_toli_reside_in_same_area: '',
+    role_of_our_kendra_in_our_basti_during__corona: '',
+    kendra_effect_on_anti_social_problems: '',
+    majorprevelant_problems_in_the_basti_: '',
+    total_population_of_the_basti_hindu: '',
+    total_population_of_sewa_bharti_beneficiaries: '',
+    is_centre_operational: 1,
   });
   const [miscControllers, setMiscControllers] = useState({
     state_pranth: false,
@@ -121,6 +145,13 @@ export default function CenterDetailsOneScreen({navition, route}) {
   });
 
   useEffect(() => {
+    console.log('route', route);
+    if (route && route?.params && route.params?.centre) {
+      setvolunteerInfo({
+        ...volunteerInfo,
+        centre_id: route.params.centre.value,
+      });
+    }
     CheckSurveyviaParams();
   }, []);
 
@@ -369,7 +400,7 @@ export default function CenterDetailsOneScreen({navition, route}) {
           />
         </View>
         <View>
-          <Text style={styles.headingInput}>{t('CENTRE')}</Text>
+          <Text style={styles.headingInput}>{t('CENTRE')} </Text>
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, town_basti: true});

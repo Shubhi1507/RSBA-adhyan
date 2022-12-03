@@ -26,12 +26,37 @@ export default function CentreQuestionsScreen() {
   const {t} = useContext(LocalizationContext);
   let totalSurveys = store.totalSurveys;
   let [answers, setAnswers] = useState({
+    // establishment: '',
+    // infrastructure: '',
+    // regularity: '',
+    // discontinued_due_to: '',
+    // type_of_basti: '',
+    // project_init_before: '',
     establishment: '',
-    infrastructure: '',
-    regularity: '',
-    discontinued_due_to: '',
+    centre_commence_motive: '',
+    students_passed_out_from_centre: '',
+    centre_not_operational_aftermath: '',
+    center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time:
+      '',
+    discontinuation_time_period: '',
     type_of_basti: '',
+    infrastructure: '',
     project_init_before: '',
+    pictures_of_bharatmata_and_indian_legends: '',
+    sewa_sanstha_running_the_center: '',
+    visitors_details_captured: '',
+    availability_of_infrastructure: '',
+    participation_of_the_basti_people: '',
+    is_participation_of_basti_satisfactory: '',
+    oppose_of_the_kendras_activities_by_basti: '',
+    divyang_and_single_parent_students_enrolled: '',
+    basti_toli_active: '',
+    members_of_basti_toli_reside_in_same_area: '',
+    role_of_our_kendra_in_our_basti_during__corona: '',
+    kendra_effect_on_anti_social_problems: '',
+    majorprevelant_problems_in_the_basti_: '',
+    total_population_of_the_basti_hindu: '',
+    total_population_of_sewa_bharti_beneficiaries: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
 
@@ -146,7 +171,7 @@ export default function CentreQuestionsScreen() {
         }
       />
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        {/* QA1 */}
+        {/* QA1 - OK - establishment */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -177,7 +202,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'What is the Establishment Year of the Kendra ?'}
+                {t('CENTER_Q1')}
               </TextHandler>
             </View>
           </View>
@@ -199,7 +224,7 @@ export default function CentreQuestionsScreen() {
           />
         </View>
 
-        {/* QA2 */}
+        {/* QA2 -OK - centre_commence_motive*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -217,6 +242,367 @@ export default function CentreQuestionsScreen() {
                   textAlign: 'center',
                 }}>
                 {2}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CENTER_Q2')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <Input
+            placeholder="Enter answer here"
+            name="any"
+            onChangeText={text => {
+              setAnswers({...answers, centre_commence_motive: text});
+            }}
+            value={answers.centre_commence_motive}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.5,
+            }}
+          />
+        </View>
+
+        {/* QA3 - OK - students_passed_out_from_centre */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {3}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CENTER_Q3')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <Input
+              placeholder="Enter answer here"
+              type={'numeric'}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, students_passed_out_from_centre: text});
+              }}
+              value={answers.students_passed_out_from_centre}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA4 - OK - centre_not_operational_aftermath */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {4}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CENTER_Q4')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <Input
+              placeholder="Enter answer here"
+              name="any"
+              onChangeText={text => {
+                setAnswers({
+                  ...answers,
+                  centre_not_operational_aftermath: text,
+                });
+              }}
+              value={answers.centre_not_operational_aftermath}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA5 - OK - center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {5}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CENTER_Q5')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Regular Since Inception',
+                  label: 'CENTER_Q5_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Discontinued for some duration',
+                  label: 'CENTER_Q5_OPT2',
+                },
+              ]}
+              valueProp={
+                answers.center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time
+              }
+              onValueChange={item => {
+                setAnswers({
+                  ...answers,
+                  center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time:
+                    item,
+                });
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA5A - OK - center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time item */}
+        {answers
+          .center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time
+          ?.key === 2 && (
+          <View>
+            <View style={{flexDirection: 'row', marginVertical: 20}}>
+              <View
+                style={{
+                  backgroundColor: COLORS.orange,
+                  height: 20,
+                  width: 20,
+                  borderRadius: 40,
+                  justifyContent: 'flex-start',
+                  marginRight: 5,
+                }}>
+                <TextHandler
+                  style={{
+                    color: 'black',
+                    textAlign: 'center',
+                  }}>
+                  {5 + '.a'}
+                </TextHandler>
+              </View>
+
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: 'flex-start',
+                }}>
+                <TextHandler
+                  style={{
+                    color: 'black',
+                    // textAlign: 'left',
+                  }}>
+                  {t('CENTER_Q6_DISCONTINUED_CENTER')}
+                </TextHandler>
+              </View>
+            </View>
+
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Less than 1 month',
+                  label: 'CENTER_Q6_DISCONTINUED_CENTER_OPT1',
+                },
+                {
+                  key: 2,
+                  value: '1 to 6 months',
+                  label: 'CENTER_Q6_DISCONTINUED_CENTER_OPT2',
+                },
+                {
+                  key: 3,
+                  value: '6 to 12 months',
+                  label: 'CENTER_Q6_DISCONTINUED_CENTER_OPT3',
+                },
+                {
+                  key: 4,
+                  value: 'More than 12 months',
+                  label: 'CENTER_Q6_DISCONTINUED_CENTER_OPT4',
+                },
+              ]}
+              valueProp={answers.discontinuation_time_period}
+              onValueChange={item => {
+                setAnswers({...answers, discontinuation_time_period: item});
+              }}
+            />
+          </View>
+        )}
+
+        {/* QA6 - OK - type_of_basti*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {6}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CENTER_Q7')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {key: 1, value: 'Ordinary basti', label: 'CENTER_Q7_OPT1'},
+                {key: 2, value: 'Sewa basti', label: 'CENTER_Q7_OPT2'},
+                {key: 3, value: 'Village', label: 'CENTER_Q7_OPT3'},
+              ]}
+              valueProp={answers.type_of_basti}
+              onValueChange={item => {
+                setAnswers({...answers, type_of_basti: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA7 - OK - infrastructure*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {7}
               </TextHandler>
             </View>
 
@@ -259,7 +645,7 @@ export default function CentreQuestionsScreen() {
           </View>
         </View>
 
-        {/* QA3 */}
+        {/* QA8 - OK - project_init_before*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -276,7 +662,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {3}
+                {8}
               </TextHandler>
             </View>
 
@@ -288,11 +674,8 @@ export default function CentreQuestionsScreen() {
               <TextHandler
                 style={{
                   color: 'black',
-                  // textAlign: 'left',
                 }}>
-                {
-                  'Whether the center is operating continuously since its inception or is it closed for some time in between ?'
-                }
+                {t('CENTER_Q9')}
               </TextHandler>
             </View>
           </View>
@@ -307,178 +690,14 @@ export default function CentreQuestionsScreen() {
               data={[
                 {
                   key: 1,
-                  value: 'Regular Since Inception',
-                  label: 'CENTER_Q5_OPT1',
+                  value: 'Yes',
+                  label: 'YES',
                 },
                 {
                   key: 2,
-                  value: 'Discontinued for some duration',
-                  label: 'CENTER_Q5_OPT2',
+                  value: 'No',
+                  label: 'NO',
                 },
-              ]}
-              valueProp={answers.regularity}
-              onValueChange={item => {
-                setAnswers({...answers, regularity: item});
-              }}
-            />
-          </View>
-        </View>
-
-        {/* QA4 */}
-        <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {4}
-              </TextHandler>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {'If it was discontinued, then mention duration '}
-              </TextHandler>
-            </View>
-          </View>
-
-          <Input
-            placeholder="Enter answer here"
-            name="any"
-            onChangeText={text => {
-              setAnswers({...answers, discontinued_due_to: text});
-            }}
-            value={answers.discontinued_due_to}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
-        </View>
-
-        {/* QA5  */}
-        <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {5}
-              </TextHandler>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {'Type of Basti '}
-              </TextHandler>
-            </View>
-          </View>
-
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {key: 1, value: 'Ordinary basti'},
-                {key: 2, value: 'Sewa basti'},
-                {key: 3, value: 'Village'},
-              ]}
-              valueProp={answers.type_of_basti}
-              onValueChange={item => {
-                setAnswers({...answers, type_of_basti: item});
-              }}
-            />
-          </View>
-        </View>
-
-        {/* QA6 */}
-        <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {6}
-              </TextHandler>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {
-                  'Has any other Prakalp Started by us in the same Basti after the inception of this kendra'
-                }
-              </TextHandler>
-            </View>
-          </View>
-
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {key: 1, value: 'Yes'},
-                {key: 3, value: 'No'},
               ]}
               valueProp={answers.project_init_before}
               onValueChange={item => {
@@ -487,8 +706,398 @@ export default function CentreQuestionsScreen() {
             />
           </View>
         </View>
+        {/* QA8A - OK - project_init_before item */}
+        {answers.project_init_before?.key === 1 && (
+          <View>
+            <View style={{flexDirection: 'row', marginVertical: 20}}>
+              <View
+                style={{
+                  backgroundColor: COLORS.orange,
+                  height: 20,
+                  width: 20,
+                  borderRadius: 40,
+                  justifyContent: 'flex-start',
+                  marginRight: 5,
+                }}>
+                <TextHandler
+                  style={{
+                    color: 'black',
+                    textAlign: 'center',
+                  }}>
+                  {8 + '.a'}
+                </TextHandler>
+              </View>
+
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: 'flex-start',
+                }}>
+                <TextHandler
+                  style={{
+                    color: 'black',
+                  }}>
+                  {t('CENTER_Q9_OPT1')}
+                </TextHandler>
+              </View>
+            </View>
+
+            <View>
+              <RadioButtons
+                radioStyle={{
+                  borderWidth: 1,
+                  marginVertical: 2,
+                  borderColor: COLORS.orange,
+                }}
+                data={[
+                  {
+                    key: 1,
+                    label: 'CENTER_Q9_OPT1_PT1',
+                    value: 'Same as the current',
+                  },
+                  {
+                    key: 3,
+                    value: 'CENTER_Q9_OPT1_PT2',
+                    value:
+                      'New initiative (Health camp / Blood donation camp / aadhar card or any other initiative)',
+                  },
+                ]}
+                valueProp={answers.project_init_before?.item}
+                onValueChange={item => {
+                  setAnswers({
+                    ...answers,
+                    project_init_before: {...answers.project_init_before, item},
+                  });
+                }}
+              />
+            </View>
+          </View>
+        )}
+
+        {/* QA9 - OK - pictures_of_bharatmata_and_indian_legends */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {9}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                }}>
+                {t('CENTER_Q10')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+              ]}
+              valueProp={answers.pictures_of_bharatmata_and_indian_legends}
+              onValueChange={item => {
+                setAnswers({
+                  ...answers,
+                  pictures_of_bharatmata_and_indian_legends: item,
+                });
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA10 - OK - sewa_sanstha_running_the_centerx */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {10}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                }}>
+                {t('CENTER_Q11')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+              ]}
+              valueProp={answers.sewa_sanstha_running_the_center}
+              onValueChange={item => {
+                setAnswers({...answers, sewa_sanstha_running_the_center: item});
+              }}
+            />
+          </View>
+        </View>
+        {/* QA11 - OK - visitors_details_captured */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {11}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                }}>
+                {t('CENTER_Q12')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+              ]}
+              valueProp={answers.visitors_details_captured}
+              onValueChange={item => {
+                setAnswers({...answers, visitors_details_captured: item});
+              }}
+            />
+          </View>
+        </View>
+
+         {/* QA12 - OK - availability_of_infrastructure */}
+         <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {12}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                }}>
+                {t('CENTER_Q13')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Sufficient',
+                  label: 'CENTER_Q13_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Insufficient',
+                  label: 'CENTER_Q13_OPT2',
+                },
+              ]}
+              valueProp={answers.availability_of_infrastructure}
+              onValueChange={item => {
+                setAnswers({...answers, availability_of_infrastructure: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA13 - OK - participation_of_the_basti_people */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {13}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                }}>
+                {t('CENTER_Q14')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'only attendence',
+                  label: 'CENTER_Q14_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Average participation',
+                  label: 'CENTER_Q14_OPT2',
+                },
+                {
+                  key: 2,
+                  value: 'Enthusiastic participation',
+                  label: 'CENTER_Q14_OPT3',
+                },
+                {
+                  key: 2,
+                  value: 'No such programs are organised',
+                  label: 'CENTER_Q14_OPT4',
+                },
+              ]}
+              valueProp={answers.participation_of_the_basti_people}
+              onValueChange={item => {
+                setAnswers({...answers, participation_of_the_basti_people: item});
+              }}
+            />
+          </View>
+        </View>
+
         <Button
-          title={'Next'}
+          title={t('NEXT')}
           onPress={pageValidator}
           ButtonContainerStyle={{
             marginVertical: 17,

@@ -6,7 +6,7 @@ import {
   Alert,
   FlatList,
 } from 'react-native';
-import React, {useContext} from 'react';
+import React, {useCallback, useContext} from 'react';
 import LoaderIndicator from '../../components/Loader';
 import {
   Button,
@@ -27,14 +27,22 @@ import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 import LocalizationContext from '../../context/LanguageContext';
 import {
+  ChangeLanguageAndReboot,
   checkSurveyReleaseDateandReturnCompletedSurveys,
   filterOutIncompleteSurveys,
   filterOutSavedSurveys,
 } from '../../utils/utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as i18n from '../../../i18n.js';
 
 export default function DashboardScreen() {
-  const {t} = useContext(LocalizationContext);
+  const {t, locale, setLocale} = useContext(LocalizationContext);
   const [error, setError] = useState({visible: false, message: ''});
+  const [language, chooseLanguage] = useState({
+    default: 'en',
+    changed: false,
+    label: 'English',
+  });
   let [selectedCenter, setCenter] = useState(null);
   const dispatch = useDispatch();
   const store = useSelector(state => state);
@@ -52,6 +60,24 @@ export default function DashboardScreen() {
   ]);
 
   useEffect(() => {
+    AsyncStorage.getItem('lang').then(res => {
+      if (res) {
+        if (res === 'en') {
+          console.log('english');
+          chooseLanguage({...language, label: 'English', default: 'en'});
+        }
+        if (res === 'hi') {
+          console.log('hindi');
+          chooseLanguage({...language, label: 'Hindi', default: 'hi'});
+        }
+        handleLocalizationChange(res);
+      } else {
+        handleLocalizationChange('en');
+      }
+    });
+  }, []);
+
+  useEffect(() => {
     console.log('store', store.surveyReducer);
     console.log('completedSurveysTmpArr', completedSurveysTmpArr);
   }, [store.surveyReducer]);
@@ -63,16 +89,32 @@ export default function DashboardScreen() {
     dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
   }, []);
 
+  const handleLocalizationChange = useCallback(
+    newLocale => {
+      const newSetLocale = i18n.setI18nConfig(newLocale);
+      setLocale(newSetLocale);
+    },
+    [locale],
+  );
+
   const pageNavigator = () => {
     if (selectedCenter) {
       console.log('selectedCenter', selectedCenter);
       dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
-      navigate(ROUTES.AUTH.CENTREDETAILSONESCREEN);
+      navigate(ROUTES.AUTH.CENTREDETAILSONESCREEN, {centre: selectedCenter});
     } else
       return setError({
         visible: true,
         message: t('PLS_SELECT_A_CENTER'),
       });
+  };
+
+  const LangugeConverter = data => {
+    if (language.default) {
+      language.default !== data.value
+        ? ChangeLanguageAndReboot(data.value, t)
+        : null;
+    }
   };
 
   const HeaderContent = () => {
@@ -261,6 +303,21 @@ export default function DashboardScreen() {
         />
 
         <Button
+          title={t('LANGUAGE_CHANGE')}
+          onPress={() => {
+            if (language.default === 'hi') {
+              LangugeConverter({label: 'English', value: 'en'});
+            } else {
+              LangugeConverter({label: 'Hindi', value: 'hi'});
+            }
+          }}
+          ButtonContainerStyle={{
+            alignItems: 'center',
+            textAlign: 'center',
+          }}
+        />
+
+        <Button
           title={t('LOGOUT')}
           onPress={() => {
             Alert.alert('Logout?', '', [
@@ -277,10 +334,10 @@ export default function DashboardScreen() {
             ]);
           }}
           ButtonContainerStyle={{
-            marginVertical: 20,
+            margin: 20,
             alignItems: 'center',
             textAlign: 'center',
-            backgroundColor: COLORS.error,
+            backgroundColor: COLORS.buttonColor,
           }}
         />
       </View>

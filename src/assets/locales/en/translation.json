@@ -9,19 +9,24 @@
 
   // CENTER QUESTIONS
   "CENTER_Q1": "Establishment Year of the Kendra ?",
+
   "CENTER_Q2": "With which object this kendra started? Explain ? ",
+
   "CENTER_Q3": "How many students have passed out from this Kendra? (Since inception)",
+
   "CENTER_Q4": "What will happen if this kendra did not function?",
+
   "CENTER_Q5": "Whether the center is operating  continuously since its inception or is it closed for some time in between?  (Excluding Covid period)",
   "CENTER_Q5_OPT1": "Regular Since Inception ",
   "CENTER_Q5_OPT2": " Discontinued for some duration ",
   "CENTER_Q5_OPT3": " Community hall",
-  "CENTER_Q6_DISCONTINUED_CENTER": "If it was discontinued, than for how long ?  ",
 
-  "CENTER_Q6_DISCONTINUED_CENTER_OPT1": "Less than 1 month  ",
+  "CENTER_Q6_DISCONTINUED_CENTER": "If it was discontinued, than for how long ?  ",
+  "CENTER_Q6_DISCONTINUED_CENTER_OPT1": "Less than 1 month",
   "CENTER_Q6_DISCONTINUED_CENTER_OPT2": "1 to 6 months",
-  "CENTER_Q6_DISCONTINUED_CENTER_OPT3": "6 to 12 months  ",
+  "CENTER_Q6_DISCONTINUED_CENTER_OPT3": "6 to 12 months",
   "CENTER_Q6_DISCONTINUED_CENTER_OPT4": "More than 12 months",
+
   "CENTER_Q7": "Basti Type",
   "CENTER_Q7_OPT1": " Ordinary Basti",
   "CENTER_Q7_OPT2": " Sewa Basti",
@@ -31,25 +36,50 @@
   "CENTER_Q8_OPT1": " Community Hall",
   "CENTER_Q8_OPT2": " Classroom (rented or owned)",
   "CENTER_Q8_OPT3": " Open Air",
+
   "CENTER_Q9": "Has any other Prakalp Started by us in the same Basti after the inception of this kendra",
   "CENTER_Q9_OPT1": " Yes (Please select from below) ",
-  "CENTER_Q9_OPT1_PT1": "- Same as the current  ",
+  "CENTER_Q9_OPT1_PT1": "Same as the current",
   "CENTER_Q9_OPT1_PT2": " New initiative (Health camp / Blood donation camp / aadhar card or any  other initiative)",
   "CENTER_Q9_OPT2": "NO",
-  "CENTER_Q10": "Does kendra use Pictures of Bharatmata  & Indian Legends (Mahapurush)?",
-  "CENTER_Q10_OPT1": "Yes",
-  "CENTER_Q10_OPT2": "No",
-  "CENTER_Q11": "Is there a board of Sewa sanstha  running the center?",
-  "CENTER_Q11_OPT1": "Yes",
-  "CENTER_Q11_OPT2": "No",
+
+  "CENTER_Q10": "Does kendra use Pictures of Bharatmata & Indian Legends (Mahapurush)?",
+
+  "CENTER_Q11": "Is there a board of Sewa sanstha running the center?",
+
   "CENTER_Q12": "Visitor’s details are properly captured and preserved?",
-  "CENTER_Q12_OPT1": "Yes",
-  "CENTER_Q12_OPT2": "No",
-  "CENTER_Q13": "Are we facliating other welfare activities or organizing such camps through kendra, and if yes what is their frequency ?",
-  "CENTER_Q13_OPT1": "No",
-  "CENTER_Q13_OPT2": "Twice a year",
-  "CENTER_Q13_OPT3": "Five times of more in a year",
-  "CENTER_Q14": "What is the Infrastructure of Kendra (Place) ?",
+
+  "CENTER_Q13": "Availability of  infrastructure in kendra",
+  "CENTER_Q13_OPT1": "Sufficient",
+  "CENTER_Q13_OPT2": "Insufficient",
+
+  "CENTER_Q14": "How is the participation of the basti people in various cultural activities- festivals organised by Kendra?",
+  "CENTER_Q14_OPT1": "only attendence",
+  "CENTER_Q14_OPT2": "Average participation",
+  "CENTER_Q14_OPT3": "Enthusiastic participation",
+  "CENTER_Q14_OPT4": "No such programs are organised",
+
+  "CENTER_Q15": "Is the participation of Basti residents is satisfactory (More than 30%) in these events",
+
+  "CENTER_Q16": "Is there any oppose of the Kendra 's Activities by Basti resident",
+  "CENTER_Q16_OPT1": "Yes (Enter details)",
+
+  "CENTER_Q17": "Are Divyang & Single parent students enrolled in our centre?",
+  "CENTER_Q17_OPT1": "- Yes ( Divyang - ?     Single / No parent - ?",
+
+  "CENTER_Q18": "Has centre's Basti Toli been formed and is active?",
+
+  "CENTER_Q19": "Do all members of Basti Toli reside in that basti only?",
+
+  "CENTER_Q20": "Role of our Kendra in our Basti during  Corona",
+
+  "CENTER_Q21": "Kendra  effect on anti -social problems such as (drug, child marriage) on the Basti",
+
+  "CENTER_Q22": "Majorprevelant  problems in the Basti",
+
+  "CENTER_Q23": "Total population of the Basti",
+
+  "CENTER_Q24": "Total population of Sewa Bharti beneficiaries",
 
   "TITLE": "Title",
   "CANCEL": "Cancel",
@@ -455,7 +485,6 @@
 
   // N
   "NEXT": "Next",
-
 
   "CENTER_HEAD_NAME": "Center Head Name",
   "CENTER_CONTACT_DETAILS": "Center Contact Details",

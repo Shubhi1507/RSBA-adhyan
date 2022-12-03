@@ -120,6 +120,8 @@ export default function IncompleteSurveysScreen() {
           ButtonContainerStyle={{
             alignItems: 'center',
             textAlign: 'center',
+            marginHorizontal: 50,
+            // width: screenWidth * 0.8,
           }}
         />
       </View>

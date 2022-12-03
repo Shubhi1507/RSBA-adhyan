@@ -117,6 +117,7 @@ export default function SavedSurveysScreen() {
           ButtonContainerStyle={{
             alignItems: 'center',
             textAlign: 'center',
+            marginHorizontal: 50,
           }}
         />
       </View>

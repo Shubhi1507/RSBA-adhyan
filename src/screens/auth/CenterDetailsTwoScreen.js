@@ -48,7 +48,10 @@ export default function CenterDetailsTwoScreen() {
     center_head: '',
     center_contact: '',
     volunteer_location: {},
+    is_centre_operational: 1,
+    non_operational_due_to: '',
   });
+
   const [Position, setPosition] = useState();
   const [miscControllers] = useState({
     CENTRES: [
@@ -80,9 +83,6 @@ export default function CenterDetailsTwoScreen() {
     ],
   });
 
-  let [answers, setAnswers] = useState({
-    answer1: '',
-  });
   let [error, setError] = useState({visible: false, message: ''});
 
   useEffect(() => {
@@ -186,6 +186,8 @@ export default function CenterDetailsTwoScreen() {
       parent_org,
       type_of_center,
       volunteer_location,
+      is_centre_operational,
+      non_operational_due_to,
     } = volunteerInfo;
 
     // if (!type_of_center) {
@@ -206,30 +208,66 @@ export default function CenterDetailsTwoScreen() {
     //     message: 'Parent organisation is missing',
     //   });
     // }
-    let center_details = {
-      ...store.currentSurveyData.center_details,
-      center_contact,
-      center_head,
-      parent_org,
-      type_of_center,
-      volunteer_location,
-    };
-    let payload = {
-      ...store.currentSurveyData,
-      center_details,
-      updatedAt: new Date().toString(),
-    };
 
-    let tmp = FindAndUpdate(totalSurveys, payload);
+    if (!is_centre_operational) {
+      let center_details = {
+        ...store.currentSurveyData.center_details,
+        center_contact,
+        center_head,
+        parent_org,
+        type_of_center,
+        volunteer_location,
+        is_centre_operational: !is_centre_operational,
+        non_operational_due_to,
+      };
+      let payload = {
+        ...store.currentSurveyData,
+        center_details,
+        updatedAt: new Date().toString(),
+      };
 
-    console.log('pg2', payload);
-    console.log('TMP', tmp);
-    dispatch({
-      type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
-      payload: payload,
-    });
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
-    navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
+      let tmp = FindAndUpdate(totalSurveys, payload);
+      console.log('pg2', payload);
+      console.log('TMP', tmp);
+      dispatch({
+        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+        payload: payload,
+      });
+      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
+      navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
+    } else {
+      let center_details = {
+        ...store.currentSurveyData.center_details,
+        center_contact,
+        center_head,
+        parent_org,
+        type_of_center,
+        volunteer_location,
+        is_centre_operational: !is_centre_operational,
+        non_operational_due_to,
+      };
+      let payload = {
+        ...store.currentSurveyData,
+        center_details,
+        isSaved: true,
+        release_date: new Date(
+          new Date().setTime(new Date().getTime() + 48 * 60 * 60 * 1000),
+        ).toString(),
+        updatedAt: new Date().toString(),
+      };
+
+      let tmp = FindAndUpdate(totalSurveys, payload);
+      console.log('pg2b', payload);
+      console.log('total surveys->', tmp);
+
+      dispatch({
+        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+        payload: payload,
+      });
+      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
+      navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
+      navigate(ROUTES.AUTH.DASHBOARDSCREEN);
+    }
   }
 
   const HeaderContent = () => {
@@ -317,8 +355,15 @@ export default function CenterDetailsTwoScreen() {
               {t('NO')}
             </TextHandler>
             <CustomSwitch
-              isSwitchOn={isCenterOperational}
-              setIsSwitchOn={() => setCenterOperational(!isCenterOperational)}
+              isSwitchOn={volunteerInfo.is_centre_operational}
+              setIsSwitchOn={() => {
+                setCenterOperational(!isCenterOperational);
+                console.log(volunteerInfo.is_centre_operational);
+                setvolunteerInfo({
+                  ...volunteerInfo,
+                  is_centre_operational: !volunteerInfo.is_centre_operational,
+                });
+              }}
             />
             <TextHandler
               style={{
@@ -330,7 +375,7 @@ export default function CenterDetailsTwoScreen() {
             </TextHandler>
           </View>
         </View>
-        {isCenterOperational ? (
+        {!isCenterOperational ? (
           <View style={styles.activeCenter}>
             <View style={{paddingVertical: 5}}>
               <Text
@@ -536,16 +581,49 @@ export default function CenterDetailsTwoScreen() {
                     label: 'NON_OPEARTIONAL_CENTER_OPT6',
                   },
                 ]}
+                valueProp={volunteerInfo.non_operational_due_to}
                 onValueChange={item => {
-                  setAnswers({...answers, answer1: item});
+                  setvolunteerInfo({
+                    ...volunteerInfo,
+                    non_operational_due_to: item,
+                  });
                 }}
               />
+              {volunteerInfo.non_operational_due_to?.key === 6 && (
+                <View style={{paddingVertical: 10}}>
+                  <TextHandler
+                    style={{
+                      color: 'black',
+                      // fontWeight: '600',
+                      // fontSize: 20,
+                      textAlign: 'left',
+                    }}>
+                    {t('TEACHER_Q12_OPT3')}
+                  </TextHandler>
+                  <Input
+                    placeholder="Enter here"
+                    name="center_head"
+                    onChangeText={text =>
+                      setvolunteerInfo({
+                        ...volunteerInfo,
+                        non_operational_due_to: {
+                          ...volunteerInfo.non_operational_due_to,
+                          reason: text,
+                        },
+                      })
+                    }
+                    value={volunteerInfo.non_operational_due_to?.reason}
+                    message={'error'}
+                    containerStyle={{alignItems: 'center'}}
+                  />
+                </View>
+              )}
             </View>
 
             <Button
               title={t('SUBMIT')}
               onPress={() => {
-                navigate(ROUTES.AUTH.DASHBOARDSCREEN);
+                PageValidator();
               }}
               ButtonContainerStyle={{
                 marginVertical: 35,
