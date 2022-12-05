@@ -43,6 +43,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
+      totalQue: 6,
     },
     {
       key: `Student's Parents (Current Students)`,
@@ -50,6 +51,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
+      totalQue: 6,
     },
     {
       key: 'Past Student',
@@ -57,6 +59,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
+      totalQue: 6,
     },
     {
       key: 'Current Student',
@@ -64,6 +67,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
+      totalQue: 6,
     },
     {
       key: 'Teacher',
@@ -71,6 +75,8 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
+      totalQue: 6,
+      answered: 0,
     },
     {
       key: 'Kendra Sanchalak',
@@ -78,6 +84,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
+      totalQue: 6,
     },
     {
       key: 'Basti',
@@ -85,6 +92,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
+      totalQue: 6,
     },
     {
       key: 'Prabuddha Jan',
@@ -92,6 +100,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
+      totalQue: 6,
     },
   ];
   const [volunteerInfo, setvolunteerInfo] = useState({
@@ -100,7 +109,6 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     center_contact: '',
     center_head: '',
     discontinued_due_to: '',
-
     parent_org: '',
     regularity: '',
     type_of_center: '',
@@ -145,7 +153,6 @@ export default function CenterDetailsOneScreen({navigation, route}) {
   });
 
   useEffect(() => {
-    console.log('route', route);
     if (route && route?.params && route.params?.centre) {
       setvolunteerInfo({
         ...volunteerInfo,
@@ -204,7 +211,6 @@ export default function CenterDetailsOneScreen({navigation, route}) {
         ...store?.surveyReducer?.currentSurveyData,
         updatedAt: new Date().toString(),
       };
-      console.log('old payload', payload);
       tmp = FindAndUpdate(tmp, payload);
     } else {
       payload = {
@@ -260,7 +266,6 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       temp.forEach(el => {
         districts.push({key: el.id, value: el.name});
       });
-      console.log('districts', districts);
       dispatch({
         type: ACTION_CONSTANTS.UPDATE_DISTRICTS_LIST,
         payload: districts,
