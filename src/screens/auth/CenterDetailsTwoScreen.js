@@ -444,7 +444,7 @@ export default function CenterDetailsTwoScreen() {
                 <Button
                   title={`${t('TAP_TO_UPDATE')}`}
                   onPress={() => {
-                    Alert.alert(`${t('CENTER_CONTACT_DETAILS')}`, '', [
+                    Alert.alert(`${t('LOCATION')}?`, '', [
                       {
                         text: t('YES'),
                         onPress: () => {
