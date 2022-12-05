@@ -46,7 +46,6 @@ export default function BastiQuestions() {
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
       if (entry?.basti) {
-        console.log('entry?.basti', entry?.basti);
         setAnswers(entry.basti);
       }
     });
@@ -64,21 +63,35 @@ export default function BastiQuestions() {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    let q = Object.keys(answers).length;
+    let tmp2 = Object.values(answers).filter(el => {
+      if (el) return el;
+    });
+    let p = tmp2.length;
+    console.log(p, '/', q);
     if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
       new_obj = {
         ...tmp[6],
         attempted: true,
         completed: false,
         disabled: false,
+        totalQue: q,
+        answered: p,
       };
     } else {
-      new_obj = {...tmp[6], attempted: true, completed: true, disabled: true};
+      new_obj = {
+        ...tmp[6],
+        attempted: true,
+        completed: true,
+        disabled: true,
+        totalQue: q,
+        answered: p,
+      };
     }
     tmp.splice(6, 1, new_obj);
 
     let surveyAnswers = [...answersArrTmp];
     let payload = {};
-    console.log('answersArrTmp;', answersArrTmp);
 
     if (answersArrTmp.length > 0) {
       let new_obj1 = {basti: answers};
@@ -90,7 +103,6 @@ export default function BastiQuestions() {
       });
       if (index != undefined) {
         surveyAnswers.splice(index, 1, new_obj1);
-        console.log('exist basti ', index, surveyAnswers);
       } else {
         surveyAnswers.push({basti: answers});
       }

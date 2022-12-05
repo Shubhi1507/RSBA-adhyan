@@ -19,7 +19,7 @@ import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
-import { FindAndUpdate } from '../../utils/utils';
+import {FindAndUpdate} from '../../utils/utils';
 
 export default function PresentStudentQuestions() {
   const store = useSelector(state => state?.surveyReducer);
@@ -65,15 +65,30 @@ export default function PresentStudentQuestions() {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    let q = Object.keys(answers).length;
+    let tmp2 = Object.values(answers).filter(el => {
+      if (el) return el;
+    });
+    let p = tmp2.length;
+    console.log(p, '/', q);
     if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
       new_obj = {
         ...tmp[3],
         attempted: true,
         completed: false,
         disabled: false,
+        totalQue: q,
+        answered: p,
       };
     } else {
-      new_obj = {...tmp[3], attempted: true, completed: true, disabled: true};
+      new_obj = {
+        ...tmp[3],
+        attempted: true,
+        completed: true,
+        disabled: true,
+        totalQue: q,
+        answered: p,
+      };
     }
     tmp.splice(3, 1, new_obj);
 

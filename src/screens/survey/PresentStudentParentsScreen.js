@@ -46,7 +46,6 @@ export default function PresentStudentParentsScreen() {
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
       if (entry?.presentStudentParent) {
-        console.log('presentStudentParent', entry);
         setAnswers(entry.presentStudentParent);
       }
     });
@@ -59,15 +58,30 @@ export default function PresentStudentParentsScreen() {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    let q = Object.keys(answers).length;
+    let tmp2 = Object.values(answers).filter(el => {
+      if (el) return el;
+    });
+    let p = tmp2.length;
+    console.log(p, '/', q);
     if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
       new_obj = {
         ...tmp[1],
         attempted: true,
         completed: false,
         disabled: false,
+        totalQue: q,
+        answered: p,
       };
     } else {
-      new_obj = {...tmp[1], attempted: true, completed: true, disabled: true};
+      new_obj = {
+        ...tmp[1],
+        attempted: true,
+        completed: true,
+        disabled: true,
+        totalQue: q,
+        answered: p,
+      };
     }
     tmp.splice(1, 1, new_obj);
 
@@ -85,7 +99,6 @@ export default function PresentStudentParentsScreen() {
       });
       if (index != undefined) {
         surveyAnswers.splice(index, 1, new_obj1);
-        console.log('exist present student parent ', index, surveyAnswers);
       } else {
         surveyAnswers.push({presentStudentParent: answers});
       }
@@ -99,8 +112,6 @@ export default function PresentStudentParentsScreen() {
       updatedAt: new Date().toString(),
     };
     let tmp1 = FindAndUpdate(totalSurveys, payload);
-
-    console.log('payload present student parent', payload, tmp1);
 
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
     dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});

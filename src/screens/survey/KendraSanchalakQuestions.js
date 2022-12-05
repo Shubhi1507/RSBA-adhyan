@@ -19,7 +19,7 @@ import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
-import { FindAndUpdate } from '../../utils/utils';
+import {FindAndUpdate} from '../../utils/utils';
 
 export default function KendraSanchalakQuestions() {
   const store = useSelector(state => state?.surveyReducer);
@@ -48,7 +48,6 @@ export default function KendraSanchalakQuestions() {
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
       if (entry?.kendraSanchalak) {
-        console.log('entry?.kendraSanchalak', entry?.kendraSanchalak);
         setAnswers(entry.kendraSanchalak);
       }
     });
@@ -65,21 +64,35 @@ export default function KendraSanchalakQuestions() {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    let q = Object.keys(answers).length;
+    let tmp2 = Object.values(answers).filter(el => {
+      if (el) return el;
+    });
+    let p = tmp2.length;
+    console.log(p, '/', q);
     if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
       new_obj = {
         ...tmp[5],
         attempted: true,
         completed: false,
         disabled: false,
+        totalQue: q,
+        answered: p,
       };
     } else {
-      new_obj = {...tmp[5], attempted: true, completed: true, disabled: true};
+      new_obj = {
+        ...tmp[5],
+        attempted: true,
+        completed: true,
+        disabled: true,
+        totalQue: q,
+        answered: p,
+      };
     }
     tmp.splice(5, 1, new_obj);
 
     let surveyAnswers = [...answersArrTmp];
     let payload = {};
-    console.log('answersArrTmp;', answersArrTmp);
 
     if (answersArrTmp.length > 0) {
       let new_obj1 = {kendraSanchalak: answers};
@@ -91,7 +104,6 @@ export default function KendraSanchalakQuestions() {
       });
       if (index != undefined) {
         surveyAnswers.splice(index, 1, new_obj1);
-        console.log('exist kendraSanchalak ', index, surveyAnswers);
       } else {
         surveyAnswers.push({kendraSanchalak: answers});
       }

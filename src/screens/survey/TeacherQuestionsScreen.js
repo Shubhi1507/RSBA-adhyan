@@ -48,7 +48,6 @@ export default function TeacherQuestionsScreen() {
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
       if (entry?.teacher) {
-        console.log('entry?.presentStudent', entry?.teacher);
         setAnswers(entry.teacher);
       }
     });
@@ -65,21 +64,35 @@ export default function TeacherQuestionsScreen() {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    let q = Object.keys(answers).length;
+    let tmp2 = Object.values(answers).filter(el => {
+      if (el) return el;
+    });
+    let p = tmp2.length;
+    console.log(p, '/', q);
     if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
       new_obj = {
         ...tmp[4],
         attempted: true,
         completed: false,
         disabled: false,
+        totalQue: q,
+        answered: p,
       };
     } else {
-      new_obj = {...tmp[4], attempted: true, completed: true, disabled: true};
+      new_obj = {
+        ...tmp[4],
+        attempted: true,
+        completed: true,
+        disabled: true,
+        totalQue: q,
+        answered: p,
+      };
     }
     tmp.splice(4, 1, new_obj);
 
     let surveyAnswers = [...answersArrTmp];
     let payload = {};
-    console.log('answersArrTmp;', answersArrTmp);
 
     if (answersArrTmp.length > 0) {
       let new_obj1 = {teacher: answers};
@@ -91,7 +104,6 @@ export default function TeacherQuestionsScreen() {
       });
       if (index != undefined) {
         surveyAnswers.splice(index, 1, new_obj1);
-        console.log('exist teacher', index, surveyAnswers);
       } else {
         surveyAnswers.push({teacher: answers});
       }
