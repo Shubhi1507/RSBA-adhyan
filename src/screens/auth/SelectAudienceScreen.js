@@ -134,84 +134,26 @@ export default function SelectAudienceScreen() {
     });
     setisSurveyCompleted(flag);
   };
-  const pageNavigator = () => {
+  const pageNavigator = audience => {
     const {CENTRES} = miscControllers;
-    if (!selectedAudience) {
-      return setError({
-        visible: true,
-        message: 'Please select an audience',
-        type: 'error',
-      });
-    }
 
-    switch (selectedAudience) {
+    switch (audience) {
       case CENTRES[0].value:
-        if (CENTRES[0].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.PURV_ABHIBHAVAK_SCREEN);
+        return navigate(ROUTES.AUTH.PURV_ABHIBHAVAK_SCREEN);
       case CENTRES[1].value:
-        if (CENTRES[1].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.VARTAAMAAN_ABHIBHAVAK_SCREEN);
-
+        return navigate(ROUTES.AUTH.VARTAAMAAN_ABHIBHAVAK_SCREEN);
       case CENTRES[2].value:
-        if (CENTRES[2].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.PASTSTUDENTQUESTIONS);
-        break;
+        return navigate(ROUTES.AUTH.PASTSTUDENTQUESTIONS);
       case CENTRES[3].value:
-        if (CENTRES[3].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.PRESENTSTUDENTQUESTIONS);
-        break;
+        return navigate(ROUTES.AUTH.PRESENTSTUDENTQUESTIONS);
       case CENTRES[4].value:
-        if (CENTRES[4].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.TEACHERQUESTONSSCREEN);
+        return navigate(ROUTES.AUTH.TEACHERQUESTONSSCREEN);
       case CENTRES[5].value:
-        if (CENTRES[5].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.KENDRASANCHALAKSCREEN);
+        return navigate(ROUTES.AUTH.KENDRASANCHALAKSCREEN);
       case CENTRES[6].value:
-        if (CENTRES[6].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.BASTIQUESTIONS);
+        return navigate(ROUTES.AUTH.BASTIQUESTIONS);
       case CENTRES[7].value:
-        if (CENTRES[7].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.PRABUDDHAJANQUESTIONS);
+        return navigate(ROUTES.AUTH.PRABUDDHAJANQUESTIONS);
       default:
         break;
     }
@@ -307,6 +249,21 @@ export default function SelectAudienceScreen() {
     );
   };
 
+  const statusColorGrader = (p, q) => {
+    let j = parseInt((p / q) * 100);
+    switch (j) {
+      case 0 < j < 50:
+        return COLORS.error;
+        break;
+      case 50 < j < 100:
+        return COLORS.orange;
+      case j == 100:
+        return COLORS.black;
+      default:
+        return COLORS.black;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
@@ -343,46 +300,63 @@ export default function SelectAudienceScreen() {
             }
             renderItem={({item, index}) => {
               return (
-                <CustomCheckbox
-                  label={item.value}
-                  completed={item.completed}
-                  status={
-                    selectedAudience ? selectedAudience === item.value : false
-                  }
-                  attempted={item.attempted}
-                  onPress={() => {
-                    if (!item.disabled) {
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}>
+                  <CustomCheckbox
+                    label={item.value}
+                    completed={item.completed}
+                    status={
+                      selectedAudience ? selectedAudience === item.value : false
+                    }
+                    attempted={item.attempted}
+                    onPress={() => {
                       let tmp = [...miscControllers.CENTRES];
                       let new_obj = {...item, attempted: !item.attempted};
                       tmp.splice(index, 1, new_obj);
                       setAudience(item.value);
                       setmisControllers({...miscControllers, CENTRES: tmp});
-                    }
-                  }}
-                  customTextStyle={
-                    selectedAudience
-                      ? selectedAudience === item.value
-                        ? {color: COLORS.buttonColor}
+                      pageNavigator(item.value);
+                    }}
+                    customTextStyle={
+                      selectedAudience
+                        ? selectedAudience === item.value
+                          ? {color: COLORS.buttonColor}
+                          : {color: COLORS.black}
                         : {color: COLORS.black}
-                      : {color: COLORS.black}
-                  }
-                />
+                    }
+                  />
+                  {item?.answered && (
+                    <TextHandler
+                      style={{
+                        color:
+                          item.answered < item.totalQue
+                            ? COLORS.error
+                            : COLORS.green,
+                      }}>
+                      {item.answered}/ {item?.totalQue}
+                    </TextHandler>
+                  )}
+                </View>
               );
             }}
           />
         </View>
 
-        <Button
-          title={isSurveyCompleted ? 'Save and Review' : 'Next'}
-          onPress={
-            isSurveyCompleted ? () => submitSurvey() : () => pageNavigator()
-          }
-          ButtonContainerStyle={{
-            marginVertical: 17,
-            alignItems: 'center',
-            textAlign: 'center',
-          }}
-        />
+        {isSurveyCompleted && (
+          <Button
+            title={'Save and Review'}
+            onPress={() => submitSurvey()}
+            ButtonContainerStyle={{
+              marginVertical: 17,
+              alignItems: 'center',
+              textAlign: 'center',
+            }}
+          />
+        )}
       </ScrollView>
     </View>
   );
