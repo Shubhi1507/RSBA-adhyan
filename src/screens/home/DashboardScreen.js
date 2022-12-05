@@ -63,11 +63,9 @@ export default function DashboardScreen() {
     AsyncStorage.getItem('lang').then(res => {
       if (res) {
         if (res === 'en') {
-          console.log('english');
           chooseLanguage({...language, label: 'English', default: 'en'});
         }
         if (res === 'hi') {
-          console.log('hindi');
           chooseLanguage({...language, label: 'Hindi', default: 'hi'});
         }
         handleLocalizationChange(res);
@@ -78,8 +76,6 @@ export default function DashboardScreen() {
   }, []);
 
   useEffect(() => {
-    console.log('store', store.surveyReducer);
-    console.log('completedSurveysTmpArr', completedSurveysTmpArr);
   }, [store.surveyReducer]);
 
   useEffect(() => {
