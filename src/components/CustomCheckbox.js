@@ -14,19 +14,14 @@ export function CustomCheckbox({
   customTextStyle,
   color,
 }) {
+  let isCompleted = attempted && completed;
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Checkbox
           status={status || attempted ? 'checked' : 'unchecked'}
-          color={
-            color
-              ? color
-              : attempted && completed
-              ? COLORS.success
-              : COLORS.error
-          }
-          disabled={attempted && completed}
+          color={isCompleted ? COLORS.green : COLORS.error}
+          uncheckedColor={COLORS.orange}
         />
         <Text
           style={[
