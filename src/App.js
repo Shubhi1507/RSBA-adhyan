@@ -45,7 +45,6 @@ const App = () => {
   
   const handleLocalizationChange = useCallback(
     newLocale => {
-      console.log('newLocale',newLocale);
       const newSetLocale = i18n.setI18nConfig(newLocale);
       setLocale(newSetLocale);
     },

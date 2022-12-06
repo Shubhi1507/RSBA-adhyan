@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -19,18 +19,12 @@ import {useState} from 'react';
 import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
-import LocalizationContext from '../../context/LanguageContext';
-import { useContext } from 'react';
-
+import {FindAndUpdate} from '../../utils/utils';
 
 export default function BastiQuestions() {
   const store = useSelector(state => state?.surveyReducer);
-  const store2 = useSelector(state => state);
-  const {t} = useContext(LocalizationContext);
-
-
+  let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
-
   let [answers, setAnswers] = useState({
     answer1: '',
     answer2: '',
@@ -41,9 +35,93 @@ export default function BastiQuestions() {
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
+  let answersArrTmp =
+    store?.currentSurveyData?.surveyAnswers &&
+    store?.currentSurveyData?.surveyAnswers !== undefined &&
+    Array.isArray(store?.currentSurveyData?.surveyAnswers) &&
+    store?.currentSurveyData?.surveyAnswers.length > 0
+      ? [...store?.currentSurveyData?.surveyAnswers]
+      : [];
+
+  useEffect(() => {
+    answersArrTmp.some(function (entry, i) {
+      if (entry?.basti) {
+        setAnswers(entry.basti);
+      }
+    });
+  }, []);
 
   const hideModal = () => setVisible(false);
   const showModal = () => setVisible(true);
+
+  const pageNavigator = () => {
+    navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
+  };
+
+  const pageValidator = () => {
+    console.log('store', store);
+    let tmp = store?.currentSurveyData.currentSurveyStatus;
+    let new_obj;
+    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
+    let q = Object.keys(answers).length;
+    let tmp2 = Object.values(answers).filter(el => {
+      if (el) return el;
+    });
+    let p = tmp2.length;
+    console.log(p, '/', q);
+    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+      new_obj = {
+        ...tmp[6],
+        attempted: true,
+        completed: false,
+        disabled: false,
+        totalQue: q,
+        answered: p,
+      };
+    } else {
+      new_obj = {
+        ...tmp[6],
+        attempted: true,
+        completed: true,
+        disabled: true,
+        totalQue: q,
+        answered: p,
+      };
+    }
+    tmp.splice(6, 1, new_obj);
+
+    let surveyAnswers = [...answersArrTmp];
+    let payload = {};
+
+    if (answersArrTmp.length > 0) {
+      let new_obj1 = {basti: answers};
+      let index;
+      surveyAnswers.some(function (entry, i) {
+        if (entry?.basti) {
+          index = i;
+        }
+      });
+      if (index != undefined) {
+        surveyAnswers.splice(index, 1, new_obj1);
+      } else {
+        surveyAnswers.push({basti: answers});
+      }
+    } else {
+      surveyAnswers.push({basti: answers});
+    }
+    payload = {
+      ...store.currentSurveyData,
+      currentSurveyStatus: tmp,
+      surveyAnswers,
+      updatedAt: new Date().toString(),
+    };
+    let tmp1 = FindAndUpdate(totalSurveys, payload);
+
+    console.log('payload basti', payload);
+    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
+    showModal();
+  };
 
   const HeaderContent = () => {
     return (
@@ -69,34 +147,11 @@ export default function BastiQuestions() {
         </View>
         <View style={{flex: 0.65}}>
           <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-          {t('SURVEY')}
+            Basti's Survey
           </Text>
         </View>
       </View>
     );
-  };
-
-  const pageValidator = () => {
-    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    // if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please answer all questionaires',
-    //   });
-    // }
-    console.log('store', store, store2);
-
-    let tmp = store?.surveyStatus;
-    let new_obj = {
-      ...tmp[6],
-      checked: true,
-      disabled: true,
-      timestamp: new Date().getTime(),
-    };
-    tmp.splice(6, 1, new_obj);
-    console.log('basti pl', new_obj);
-    // dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: tmp});
-    // showModal();
   };
 
   return (
@@ -111,7 +166,11 @@ export default function BastiQuestions() {
           setError({...error, message: '', visible: false})
         }
       />
-      <SurveyCompletedModal visible={visible} hideModal={hideModal} />
+      <SurveyCompletedModal
+        visible={visible}
+        hideModal={hideModal}
+        onClick={pageNavigator}
+      />
 
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
         {/* QA1 */}
@@ -226,6 +285,7 @@ export default function BastiQuestions() {
                   value: 'Increased',
                 },
               ]}
+              valueProp={answers.answer2}
               onValueChange={item => {
                 setAnswers({...answers, answer2: item});
               }}
@@ -292,6 +352,7 @@ export default function BastiQuestions() {
                   value: ' More than 70 % ',
                 },
               ]}
+              valueProp={answers.answer3}
               onValueChange={item => {
                 setAnswers({...answers, answer3: item});
               }}
@@ -397,10 +458,26 @@ export default function BastiQuestions() {
                 {key: 1, value: 'Hindu'},
                 {key: 2, value: 'Others'},
               ]}
+              valueProp={answers.answer5}
               onValueChange={item => {
                 setAnswers({...answers, answer5: item});
               }}
             />
+            {answers.answer5?.value === 'Others' && (
+              <Input
+                placeholder="Enter reason here"
+                name="any"
+                onChangeText={text => {
+                  setAnswers({...answers, answer5: {...answers.answer5, text}});
+                }}
+                value={answers.answer5?.text}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -453,6 +530,7 @@ export default function BastiQuestions() {
                 {key: 1, value: 'Yes'},
                 {key: 2, value: 'No'},
               ]}
+              valueProp={answers.answer6}
               onValueChange={item => {
                 setAnswers({...answers, answer6: item});
               }}
@@ -460,7 +538,7 @@ export default function BastiQuestions() {
           </View>
         </View>
         <Button
-          title={t('SUBMIT')}
+          title={'Submit'}
           onPress={pageValidator}
           ButtonContainerStyle={{
             marginVertical: 17,

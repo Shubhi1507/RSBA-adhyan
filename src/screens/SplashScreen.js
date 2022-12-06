@@ -51,11 +51,13 @@ export default function SplashScreen() {
       }
     });
   }, []);
+  
   useEffect(() => {
     // fetchData();
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
     dispatch({type: ACTION_CONSTANTS.CLEAR_DISTRICTS_LIST});
     dispatch({type: ACTION_CONSTANTS.CLEAR_STATE_LIST});
+    // checkforAnyInCompleteSurveys();
   }, []);
 
   const handleLocalizationChange = useCallback(
@@ -157,11 +159,11 @@ export default function SplashScreen() {
               fontSize: 18,
               textAlign: 'center',
             }}>
-            Volunteer Login
+            {`${t('VOLUNTEER')}`} {`${t('LOGIN')}`}
           </Text>
         </TouchableOpacity>
 
-        <View
+        {/* <View
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
@@ -189,7 +191,7 @@ export default function SplashScreen() {
               Sign Up
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     </View>
   );

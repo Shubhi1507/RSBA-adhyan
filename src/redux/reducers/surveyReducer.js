@@ -1,37 +1,24 @@
 import {ACTION_CONSTANTS} from '../actions/actions';
 
 const initialState = {
-  survey: [],
-  surveyStatus: [],
-  savedSurveys: [],
+  currentSurveyData: {},
   completedSurvey: 0,
   incompletedSurvey: 0,
+  totalSurveys: [],
 };
 
 const surveyReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTION_CONSTANTS.UPDATE_SURVEY:
+    case ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY:
       return {
         ...state,
-        survey: action.payload,
+        currentSurveyData: action.payload,
       };
 
-    case ACTION_CONSTANTS.ADD_COMPLETED_SURVEY_COUNT:
+    case ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY:
       return {
         ...state,
-        completedSurvey: state.completedSurvey + 1,
-      };
-
-    case ACTION_CONSTANTS.ADD_INCOMPLETED_SURVEY_COUNT:
-      return {
-        ...state,
-        incompletedSurvey: +1,
-      };
-
-    case ACTION_CONSTANTS.UPDATE_SURVEY_STATUS:
-      return {
-        ...state,
-        surveyStatus: action.payload,
+        currentSurveyData: initialState.currentSurveyData,
       };
 
     case ACTION_CONSTANTS.UPDATE_SAVED_SURVEYS:
@@ -40,13 +27,25 @@ const surveyReducer = (state = initialState, action) => {
         savedSurveys: action.payload,
       };
 
-    case ACTION_CONSTANTS.CLEAR_SURVEY:
+    case ACTION_CONSTANTS.UPDATE_INCOMPLETE_SURVEYS:
       return {
         ...state,
-        survey: [],
-        surveyStatus: [],
-        // completedSurvey: 0,
-        // incompletedSurvey: 0,
+        incompleteSurveyData: action.payload,
+        incompletedSurvey: state.incompletedSurvey + 1,
+      };
+
+    case ACTION_CONSTANTS.RESET_APP:
+      return {
+        currentSurveyData: {},
+        completedSurvey: 0,
+        incompletedSurvey: 0,
+        totalSurveys: [],
+      };
+
+    case ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY:
+      return {
+        ...state,
+        totalSurveys: action.payload,
       };
     default:
       return state;

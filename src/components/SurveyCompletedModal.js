@@ -6,7 +6,7 @@ import {navigate} from '../navigation/NavigationService';
 import {ROUTES} from '../navigation/RouteConstants';
 import {Button} from './Button';
 
-export const SurveyCompletedModal = ({visible, hideModal}) => {
+export const SurveyCompletedModal = ({visible, hideModal, onClick}) => {
   const containerStyle = {
     backgroundColor: 'white',
     padding: 20,
@@ -42,7 +42,7 @@ export const SurveyCompletedModal = ({visible, hideModal}) => {
               title={'OK'}
               onPress={() => {
                 hideModal();
-                navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
+                onClick();
               }}
               ButtonContainerStyle={{
                 marginVertical: 20,

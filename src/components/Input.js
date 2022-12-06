@@ -60,6 +60,7 @@ export const Input = ({
         keyboardType={type ? type : 'default'}
         maxLength={number}
         disabled={disabled}
+        // multiline={true}
         autoCorrect={false}
         autoCapitalize={'none'}
         style={[styles.textInputStyle, containerCustomStyle]}
@@ -97,7 +98,7 @@ export const Input = ({
 
 const styles = StyleSheet.create({
   textInputStyle: {
-    paddingHorizontal: 10,
+    padding: 10,
     minHeight: 50,
     marginVertical: 10,
     borderColor: COLORS.orange,

@@ -1,11 +1,20 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import {COLORS} from '../utils/colors';
+import {TextHandler} from './TextHandler';
+import {useSelector} from 'react-redux';
+import LocalizationContext from '../context/LanguageContext';
+import {useContext} from 'react';
 
 export function Header({children}) {
+  let store = useSelector(state => state?.surveyReducer?.currentSurveyData);
+  const {t} = useContext(LocalizationContext);
   return (
     <View style={styles.container}>
       {children}
+      <TextHandler style={{color: COLORS.white}}>
+        {store?.centre_id ? `(${t('CENTRE')} - ` + store.centre_id +')': ''}
+      </TextHandler>
       {/* <View style={styles.topView}>
         <View style={styles.topInnerView}>{children1}</View>
       </View>

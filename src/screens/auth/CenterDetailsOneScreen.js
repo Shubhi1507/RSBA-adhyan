@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import {screenWidth} from '../../libs';
 import {
   Button,
@@ -28,19 +28,124 @@ import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import LocalizationContext from '../../context/LanguageContext';
 import { useContext } from 'react';
 
+import {FindAndUpdate, isSurveyExists} from '../../utils/utils';
+import LocalizationContext from '../../context/LanguageContext';
 
-export default function CenterDetailsOneScreen() {
-  const store = useSelector(state => state.RegionReducer);
+export default function CenterDetailsOneScreen({navigation, route}) {
+  const store = useSelector(state => state);
+  const {t} = useContext(LocalizationContext);
   const dispatch = useDispatch();
   const [dataLoading, setDataLoading] = useState(false);
   const [error, setError] = useState({visible: false, message: ''});
   const {t} = useContext(LocalizationContext);
 
+  let [isSurveyContinuedFlag, setisSurveyContinuedFlag] = useState(false);
+  let totalSurveys = store.surveyReducer.totalSurveys;
+  let CENTRES_STATUS_FOR_ANEW_SURVEY = [
+    {
+      key: `Student's Parents (Past Students)`,
+      value: `Student's Parents (Past Students)`,
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 6,
+    },
+    {
+      key: `Student's Parents (Current Students)`,
+      value: `Student's Parents (Current Students)`,
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 6,
+    },
+    {
+      key: 'Past Student',
+      value: 'Past Student',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 6,
+    },
+    {
+      key: 'Current Student',
+      value: 'Current Student',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 6,
+    },
+    {
+      key: 'Teacher',
+      value: 'Teacher',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 6,
+      answered: 0,
+    },
+    {
+      key: 'Kendra Sanchalak',
+      value: 'Kendra Sanchalak',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 6,
+    },
+    {
+      key: 'Basti',
+      value: 'Basti',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 6,
+    },
+    {
+      key: 'Prabuddha Jan',
+      value: 'Prabuddha Jan',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 6,
+    },
+  ];
   const [volunteerInfo, setvolunteerInfo] = useState({
     state_pranth: '',
     district_jila: '',
-    town_basti: '',
-    address: '',
+    center_contact: '',
+    center_head: '',
+    discontinued_due_to: '',
+    parent_org: '',
+    regularity: '',
+    type_of_center: '',
+    volunteer_location: {},
+    centre_id: '',
+    // centre qa acc. to documentation https://docs.google.com/spreadsheets/d/19Aq1V-Lz5b42i3BR37FhYKxSIC3p1MYR/edit#gid=2138728367
+    establishment: '',
+    centre_commence_motive: '',
+    students_passed_out_from_centre: '',
+    centre_not_operational_aftermath: '',
+    center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time:
+      '',
+    discontinuation_time_period: '',
+    type_of_basti: '',
+    infrastructure: '',
+    project_init_before: '',
+    pictures_of_bharatmata_and_indian_legends: '',
+    sewa_sanstha_running_the_center: '',
+    visitors_details_captured: '',
+    availability_of_infrastructure: '',
+    participation_of_the_basti_people: '',
+    is_participation_of_basti_satisfactory: '',
+    oppose_of_the_kendras_activities_by_basti: '',
+    divyang_and_single_parent_students_enrolled: '',
+    basti_toli_active: '',
+    members_of_basti_toli_reside_in_same_area: '',
+    role_of_our_kendra_in_our_basti_during__corona: '',
+    kendra_effect_on_anti_social_problems: '',
+    majorprevelant_problems_in_the_basti_: '',
+    total_population_of_the_basti_hindu: '',
+    total_population_of_sewa_bharti_beneficiaries: '',
+    is_centre_operational: true,
   });
   const [miscControllers, setMiscControllers] = useState({
     state_pranth: false,
@@ -53,10 +158,90 @@ export default function CenterDetailsOneScreen() {
   });
 
   useEffect(() => {
-    // getListofStatesFunction();
+    if (route && route?.params && route.params?.centre) {
+      setvolunteerInfo({
+        ...volunteerInfo,
+        centre_id: route.params.centre.value,
+      });
+    }
+    CheckSurveyviaParams();
   }, []);
 
-  useEffect(() => {}, [store.bastiList, store.stateList, store.districtList]);
+  const CheckSurveyviaParams = () => {
+    if (
+      store &&
+      store?.surveyReducer &&
+      store?.surveyReducer?.currentSurveyData &&
+      Object.keys(store?.surveyReducer?.currentSurveyData).length > 0
+    ) {
+      let flag = isSurveyExists(
+        totalSurveys,
+        store?.surveyReducer?.currentSurveyData,
+      ).val;
+      let staledata = store?.surveyReducer?.currentSurveyData;
+      setisSurveyContinuedFlag(flag);
+      setvolunteerInfo(staledata.center_details);
+    }
+  };
+
+  const pageValidator = () => {
+    const {district_jila, state_pranth, centre_id} = volunteerInfo;
+    // if (!state_pranth) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please select a State/ Pranth',
+    //   });
+    // }
+    // if (!district_jila) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please select a District/ Jila',
+    //   });
+    // }
+    // if (!centre_id) {
+    //   return setError({
+    //     visible: true,
+    //     message: 'Please select a Town/ Basti',
+    //   });
+    // }
+    let payload = {};
+    let tmp = [...totalSurveys];
+
+    if (isSurveyContinuedFlag) {
+      let staledata = isSurveyExists(
+        totalSurveys,
+        store?.surveyReducer?.currentSurveyData,
+      ).payload;
+      payload = {
+        ...store?.surveyReducer?.currentSurveyData,
+        updatedAt: new Date().toString(),
+      };
+      tmp = FindAndUpdate(tmp, payload);
+    } else {
+      payload = {
+        centre_id: volunteerInfo.centre_id,
+        center_details: {
+          ...volunteerInfo,
+        },
+        isCompleted: false,
+        isSaved: false,
+        createdAt: new Date().toString(),
+        updatedAt: new Date().toString(),
+        currentSurveyStatus: CENTRES_STATUS_FOR_ANEW_SURVEY,
+      };
+      tmp.push(payload);
+      payload = {...payload, totalSurveys: tmp};
+    }
+
+    console.log('new payload', payload);
+
+    dispatch({
+      type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+      payload: payload,
+    });
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
+    navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN);
+  };
 
   const getListofStatesFunction = async () => {
     setDataLoading(true);
@@ -67,7 +252,6 @@ export default function CenterDetailsOneScreen() {
       temp.forEach(el => {
         states.push({key: el.id, value: el.name});
       });
-      console.log('states>', states);
       dispatch({
         type: ACTION_CONSTANTS.UPDATE_STATE_LIST,
         payload: states,
@@ -87,7 +271,6 @@ export default function CenterDetailsOneScreen() {
       temp.forEach(el => {
         districts.push({key: el.id, value: el.name});
       });
-      console.log('districts', districts);
       dispatch({
         type: ACTION_CONSTANTS.UPDATE_DISTRICTS_LIST,
         payload: districts,
@@ -156,40 +339,6 @@ export default function CenterDetailsOneScreen() {
       </View>
     );
   };
-
-  const pageValidator = () => {
-    const {address, district_jila, state_pranth, town_basti} = volunteerInfo;
-    // if (!state_pranth) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please select a State/ Pranth',
-    //   });
-    // }
-    // if (!district_jila) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please select a District/ Jila',
-    //   });
-    // }
-    // if (!town_basti) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please select a Town/ Basti',
-    //   });
-    // }
-    // if (!address) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please add address',
-    //   });
-    // }
-    dispatch({
-      type: ACTION_CONSTANTS.UPDATE_SURVEY_FORM,
-      payload: {...volunteerInfo, isCompleted: false, isSaved: true},
-    });
-    navigate(ROUTES.AUTH.VOLUNTEERPARENTALORGSCREEN);
-  };
-
   return (
     <View style={styles.container}>
       <LoaderIndicator loading={dataLoading} />
@@ -209,15 +358,13 @@ export default function CenterDetailsOneScreen() {
           style={{
             color: 'black',
             fontWeight: '600',
-            marginTop: 40,
+            marginTop: 20,
             fontSize: 20,
             textAlign: 'left',
-          }}>
-               {t('CENTER_DETAILS')}
-        </TextHandler>
-        {/* <View>
-          <Text style={styles.headingInput}>Pranth</Text>
-        
+          }}></TextHandler>
+        <View>
+          <Text style={styles.headingInput}>{t('PRANTH')}</Text>
+          {/* states */}
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, state_pranth: true});
@@ -232,13 +379,13 @@ export default function CenterDetailsOneScreen() {
               setvolunteerInfo({...volunteerInfo, state_pranth: item.value});
               getListOfDistrictsfunc(item.key);
             }}
-            optionsArr={store?.stateList || []}
+            optionsArr={store?.RegionReducer?.stateList || []}
             error={'Pranth'}
-            value={volunteerInfo.state_pranth}
+            value={volunteerInfo.state_pranth.toString()}
           />
         </View>
-        {/* <View>
-          <Text style={styles.headingInput}>District/ Jilla</Text>
+        <View>
+          <Text style={styles.headingInput}>{t('DISTRICT')}</Text>
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, district_jila: true});
@@ -253,17 +400,17 @@ export default function CenterDetailsOneScreen() {
               setvolunteerInfo({
                 ...volunteerInfo,
                 district_jila: item.value,
-                town_basti: '',
+                centre_id: '',
               });
               getColoniesBasedUponDistrictID(item.key);
             }}
-            optionsArr={store?.districtList || []}
+            optionsArr={store?.RegionReducer?.districtList || []}
             error={'Jila'}
             value={volunteerInfo.district_jila}
           />
-        </View> */}
+        </View> 
         <View>
-          <Text style={styles.headingInput}>{t('CENTER_ID')}</Text>
+          <Text style={styles.headingInput}>{t('CENTRE')} </Text>
           <DropDown
             openAnchor={() => {
               setMiscControllers({...miscControllers, town_basti: true});
@@ -275,25 +422,13 @@ export default function CenterDetailsOneScreen() {
             isVisible={miscControllers.town_basti}
             title={''}
             onSelect={item => {
-              setvolunteerInfo({...volunteerInfo, town_basti: item.value});
+              setvolunteerInfo({...volunteerInfo, centre_id: item.value});
             }}
-            optionsArr={store?.bastiList || []}
+            optionsArr={store?.RegionReducer?.bastiList || []}
             error={'City'}
-            value={volunteerInfo.town_basti}
+            value={volunteerInfo.centre_id}
           />
         </View>
-
-        {/* <Text style={styles.headingInput}>Address</Text>
-        <Input
-          placeholder="Enter here"
-          name="first_name"
-          onChangeText={text =>
-            setvolunteerInfo({...volunteerInfo, address: text})
-          }
-          value={volunteerInfo.address}
-          message={'error'}
-          containerStyle={{alignItems: 'center'}}
-        /> */}
 
         <Button
           title={t('NEXT')}

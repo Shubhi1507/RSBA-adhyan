@@ -40,7 +40,7 @@ export function Auth() {
       />
 
       {/* <AuthStack.Screen
-        name={ROUTES.AUTH.VOLUNTEERWELCOMESCREEN}
+        name={ROUTES.AUTH.CENTREDETAILSONESCREEN}
         component={CenterDetailsOneScreen}
         options={{headerShown: false}}
       />

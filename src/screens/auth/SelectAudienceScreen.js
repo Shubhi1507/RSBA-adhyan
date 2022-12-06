@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   FlatList,
+  Alert,
 } from 'react-native';
 import React from 'react';
 import {screenWidth} from '../../libs';
@@ -26,11 +27,13 @@ import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
+import {filterOutIncompleteSurveys, FindAndUpdate} from '../../utils/utils';
 
 export default function SelectAudienceScreen() {
   let [selectedAudience, setAudience] = useState('');
   const [isSurveyCompleted, setisSurveyCompleted] = useState(false);
-  const store = useSelector(state => state);
+  const store = useSelector(state => state?.surveyReducer);
+  let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
   const [miscControllers, setmisControllers] = useState({
     CLASS_FREQUENCY: [
@@ -52,56 +55,56 @@ export default function SelectAudienceScreen() {
         key: `Student's Parents (Past Students)`,
         value: `Student's Parents (Past Students)`,
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: `Student's Parents (Current Students)`,
         value: `Student's Parents (Current Students)`,
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Past Student',
         value: 'Past Student',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Current Student',
         value: 'Current Student',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Teacher',
         value: 'Teacher',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Kendra Sanchalak',
         value: 'Kendra Sanchalak',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Basti',
         value: 'Basti',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
       {
         key: 'Prabuddha Jan',
         value: 'Prabuddha Jan',
         disabled: false,
-        checked: false,
+        attempted: false,
         completed: false,
       },
     ],
@@ -118,113 +121,39 @@ export default function SelectAudienceScreen() {
   const showModal = () => setVisible(true);
 
   useEffect(() => {
-    console.log('store', store);
-    checkIfSurveyisCompleted();
+    checkIsSurveyCompleted();
   }, [store]);
 
-  const checkIfSurveyisCompleted = () => {
-    let tmp = store?.surveyReducer?.surveyStatus;
-    console.log('tmp', tmp);
-    let arr = [];
-    if (tmp && Array.isArray(tmp) && tmp.length > 0) {
-      tmp.forEach(el => {
-        if (el.completed != null) {
-          arr.push(el.completed);
-        }
-      });
-    }
-    console.log('result', arr, checker(arr));
-    setisSurveyCompleted(checker(arr));
+  const checkIsSurveyCompleted = () => {
+    let flag = true;
+    let tmp = [...store.currentSurveyData?.currentSurveyStatus];
+    tmp.forEach(el => {
+      if (el.completed == false) {
+        return (flag = false);
+      }
+    });
+    setisSurveyCompleted(flag);
   };
-
-  const checker = arr => {
-    if (arr.length > 1) {
-      return arr.every(Boolean);
-    } else {
-    }
-    return false;
-  };
-
-  const pageNavigator = () => {
+  const pageNavigator = audience => {
     const {CENTRES} = miscControllers;
-    if (!selectedAudience) {
-      return setError({
-        visible: true,
-        message: 'Please select an audience',
-        type: 'error',
-      });
-    }
 
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS, payload: CENTRES});
-
-    switch (selectedAudience) {
+    switch (audience) {
       case CENTRES[0].value:
-        if (CENTRES[0].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.PURV_ABHIBHAVAK_SCREEN);
+        return navigate(ROUTES.AUTH.PURV_ABHIBHAVAK_SCREEN);
       case CENTRES[1].value:
-        if (CENTRES[1].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.VARTAAMAAN_ABHIBHAVAK_SCREEN);
-
+        return navigate(ROUTES.AUTH.VARTAAMAAN_ABHIBHAVAK_SCREEN);
       case CENTRES[2].value:
-        if (CENTRES[2].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.PASTSTUDENTQUESTIONS);
-        break;
+        return navigate(ROUTES.AUTH.PASTSTUDENTQUESTIONS);
       case CENTRES[3].value:
-        if (CENTRES[3].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.PRESENTSTUDENTQUESTIONS);
-        break;
+        return navigate(ROUTES.AUTH.PRESENTSTUDENTQUESTIONS);
       case CENTRES[4].value:
-        if (CENTRES[4].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.TEACHERQUESTONSSCREEN);
+        return navigate(ROUTES.AUTH.TEACHERQUESTONSSCREEN);
       case CENTRES[5].value:
-        if (CENTRES[5].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.KENDRASANCHALAKSCREEN);
+        return navigate(ROUTES.AUTH.KENDRASANCHALAKSCREEN);
       case CENTRES[6].value:
-        if (CENTRES[6].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.BASTIQUESTIONS);
+        return navigate(ROUTES.AUTH.BASTIQUESTIONS);
       case CENTRES[7].value:
-        if (CENTRES[7].disabled) {
-          return setError({
-            visible: true,
-            type: 'ok',
-            message: 'Already submitted',
-          });
-        } else return navigate(ROUTES.AUTH.PRABUDDHAJANQUESTIONS);
+        return navigate(ROUTES.AUTH.PRABUDDHAJANQUESTIONS);
       default:
         break;
     }
@@ -232,8 +161,61 @@ export default function SelectAudienceScreen() {
     // navigate(ROUTES.AUTH.SURVEYSCREEN);
   };
   const submitSurvey = () => {
-    dispatch({type: ACTION_CONSTANTS.ADD_COMPLETED_SURVEY_COUNT});
+    let tmp = store?.currentSurveyData;
+    let payload = {};
+    if (tmp?.release_date) {
+      payload = {
+        ...store?.currentSurveyData,
+        isSaved: true,
+        updatedAt: new Date().toString(),
+      };
+    } else {
+      payload = {
+        ...store?.currentSurveyData,
+        isSaved: true,
+        updatedAt: new Date().toString(),
+        release_date: new Date(
+          new Date().setTime(new Date().getTime() + 48 * 60 * 60 * 1000),
+        ).toString(),
+      };
+      dispatch({
+        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+        payload: payload,
+      });
+    }
+    let tmp1 = FindAndUpdate(totalSurveys, payload);
+    console.log('final payload', payload);
+
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
     navigate(ROUTES.AUTH.DASHBOARDSCREEN);
+    setError({
+      ...error,
+      message: 'Survey submitted succesfully',
+      visible: true,
+      type: 'ok',
+    });
+  };
+
+  const BackRefPageNavigator = () => {
+    Alert.alert('Go to', '', [
+      {
+        text: 'Dashboard',
+        onPress: () => {
+          navigate(ROUTES.AUTH.DASHBOARDSCREEN);
+        },
+      },
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'Previous Screen',
+        onPress: () => {
+          goBack();
+        },
+      },
+    ]);
   };
 
   const HeaderContent = () => {
@@ -253,7 +235,7 @@ export default function SelectAudienceScreen() {
             flexDirection: 'row',
             flex: 0.33,
           }}>
-          <TouchableOpacity onPress={() => goBack()}>
+          <TouchableOpacity onPress={() => BackRefPageNavigator()}>
             <ADIcons name="left" color={COLORS.white} size={21} />
           </TouchableOpacity>
           <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
@@ -265,6 +247,21 @@ export default function SelectAudienceScreen() {
         </View>
       </View>
     );
+  };
+
+  const statusColorGrader = (p, q) => {
+    let j = parseInt((p / q) * 100);
+    switch (j) {
+      case 0 < j < 50:
+        return COLORS.error;
+        break;
+      case 50 < j < 100:
+        return COLORS.orange;
+      case j == 100:
+        return COLORS.black;
+      default:
+        return COLORS.black;
+    }
   };
 
   return (
@@ -296,43 +293,70 @@ export default function SelectAudienceScreen() {
 
           <FlatList
             data={
-              store?.surveyReducer?.surveyStatus &&
-              store?.surveyReducer?.surveyStatus.length > 0
-                ? store?.surveyReducer?.surveyStatus
-                : miscControllers.CENTRES
+              store.currentSurveyData?.currentSurveyStatus &&
+              store.currentSurveyData?.currentSurveyStatus.length > 0
+                ? store.currentSurveyData?.currentSurveyStatus
+                : []
             }
             renderItem={({item, index}) => {
               return (
-                <CustomCheckbox
-                  label={item.value}
-                  status={selectedAudience === item.value}
-                  disabled={item.disabled}
-                  onPress={() => {
-                    if (!item.disabled) {
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}>
+                  <CustomCheckbox
+                    label={item.value}
+                    completed={item.completed}
+                    status={
+                      selectedAudience ? selectedAudience === item.value : false
+                    }
+                    attempted={item.attempted}
+                    onPress={() => {
                       let tmp = [...miscControllers.CENTRES];
-                      let new_obj = {...item, checked: !item.checked};
+                      let new_obj = {...item, attempted: !item.attempted};
                       tmp.splice(index, 1, new_obj);
                       setAudience(item.value);
                       setmisControllers({...miscControllers, CENTRES: tmp});
+                      pageNavigator(item.value);
+                    }}
+                    customTextStyle={
+                      selectedAudience
+                        ? selectedAudience === item.value
+                          ? {color: COLORS.buttonColor}
+                          : {color: COLORS.black}
+                        : {color: COLORS.black}
                     }
-                  }}
-                />
+                  />
+                  {item?.answered && (
+                    <TextHandler
+                      style={{
+                        color:
+                          item.answered < item.totalQue
+                            ? COLORS.error
+                            : COLORS.green,
+                      }}>
+                      {item.answered}/ {item?.totalQue}
+                    </TextHandler>
+                  )}
+                </View>
               );
             }}
           />
         </View>
 
-        <Button
-          title={isSurveyCompleted ? 'Save and Review' : 'Next'}
-          onPress={
-            isSurveyCompleted ? () => submitSurvey() : () => pageNavigator()
-          }
-          ButtonContainerStyle={{
-            marginVertical: 17,
-            alignItems: 'center',
-            textAlign: 'center',
-          }}
-        />
+        {isSurveyCompleted && (
+          <Button
+            title={'Save and Review'}
+            onPress={() => submitSurvey()}
+            ButtonContainerStyle={{
+              marginVertical: 17,
+              alignItems: 'center',
+              textAlign: 'center',
+            }}
+          />
+        )}
       </ScrollView>
     </View>
   );

@@ -39,6 +39,9 @@ const RegionReducer = (state = initialState, action) => {
     case ACTION_CONSTANTS.CLEAR_BASTI_LIST:
       return {...state, loading: false, bastiList: []};
 
+    case ACTION_CONSTANTS.RESET_APP:
+      return {state: initialState};
+
     default:
       return state;
   }

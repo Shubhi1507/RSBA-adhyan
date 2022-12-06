@@ -6,13 +6,13 @@ import {
   Alert,
   FlatList,
 } from 'react-native';
-import React, {useContext} from 'react';
+import React, {useCallback, useContext} from 'react';
 import LoaderIndicator from '../../components/Loader';
 import {
   Button,
+  CustomCheckbox,
   CustomSnackBar,
   Header,
-  RadioButtons,
   TextHandler,
 } from '../../components';
 import {COLORS} from '../../utils/colors';
@@ -26,27 +26,57 @@ import {useEffect} from 'react';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 import LocalizationContext from '../../context/LanguageContext';
+import {
+  ChangeLanguageAndReboot,
+  checkSurveyReleaseDateandReturnCompletedSurveys,
+  filterOutIncompleteSurveys,
+  filterOutSavedSurveys,
+} from '../../utils/utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as i18n from '../../../i18n.js';
 
 export default function DashboardScreen() {
-  const {t} = useContext(LocalizationContext);
+  const {t, locale, setLocale} = useContext(LocalizationContext);
   const [error, setError] = useState({visible: false, message: ''});
+  const [language, chooseLanguage] = useState({
+    default: 'en',
+    changed: false,
+    label: 'English',
+  });
+  let [selectedCenter, setCenter] = useState(null);
   const dispatch = useDispatch();
   const store = useSelector(state => state);
   const name = store?.authReducer?.userData?.userData?.data[0]?.name;
-  const completedSurvey = store?.surveyReducer?.completedSurvey;
-  const [centerInfo, setcenterInfo] = useState({
-    type_of_id: '',
-  });
+  const totalSurveys = store.surveyReducer.totalSurveys;
+  const completedSurveysTmpArr =
+    checkSurveyReleaseDateandReturnCompletedSurveys(totalSurveys);
 
-  const [CENTER_DATA, SET_CENTRE_DATA] = useState([
-    {key: 'CENTER ID 301', value: 'CENTER ID 301'},
-    {key: 'CENTER ID 302', value: 'CENTER ID 302'},
-    {key: 'CENTER ID 303', value: 'CENTER ID 303'},
-    {key: 'CENTER ID 304', value: 'CENTER ID 304'},
-    {key: 'CENTER ID 305', value: 'CENTER ID 305'},
+  const [CENTER_DATA] = useState([
+    {key: '301', value: '301'},
+    {key: '302', value: '302'},
+    {key: '303', value: '303'},
+    {key: '304', value: '304'},
+    {key: '305', value: '305'},
   ]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    AsyncStorage.getItem('lang').then(res => {
+      if (res) {
+        if (res === 'en') {
+          chooseLanguage({...language, label: 'English', default: 'en'});
+        }
+        if (res === 'hi') {
+          chooseLanguage({...language, label: 'Hindi', default: 'hi'});
+        }
+        handleLocalizationChange(res);
+      } else {
+        handleLocalizationChange('en');
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+  }, [store.surveyReducer]);
 
   useEffect(() => {
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
@@ -55,77 +85,34 @@ export default function DashboardScreen() {
     // dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
   }, []);
 
-  const renderItem = ({item}) => {
-    return <Text style={{color: 'black'}}>{'jgv'}</Text>;
-  };
+  const handleLocalizationChange = useCallback(
+    newLocale => {
+      const newSetLocale = i18n.setI18nConfig(newLocale);
+      setLocale(newSetLocale);
+    },
+    [locale],
+  );
 
   const pageNavigator = () => {
-    let CENTRES = [
-      {
-        key: `Student's Parents (Past Students)`,
-        value: `Student's Parents (Past Students)`,
-        disabled: false,
-        checked: false,
-        completed: false,
-      },
-      {
-        key: `Student's Parents (Current Students)`,
-        value: `Student's Parents (Current Students)`,
-        disabled: false,
-        checked: false,
-        completed: false,
-      },
-      {
-        key: 'Past Student',
-        value: 'Past Student',
-        disabled: false,
-        checked: false,
-        completed: false,
-      },
-      {
-        key: 'Current Student',
-        value: 'Current Student',
-        disabled: false,
-        checked: false,
-        completed: false,
-      },
-      {
-        key: 'Teacher',
-        value: 'Teacher',
-        disabled: false,
-        checked: false,
-        completed: false,
-      },
-      {
-        key: 'Kendra Sanchalak',
-        value: 'Kendra Sanchalak',
-        disabled: false,
-        checked: false,
-        completed: false,
-      },
-      {
-        key: 'Basti',
-        value: 'Basti',
-        disabled: false,
-        checked: false,
-        completed: false,
-      },
-      {
-        key: 'Prabuddha Jan',
-        value: 'Prabuddha Jan',
-        disabled: false,
-        checked: false,
-        completed: false,
-      },
-    ];
-
-    dispatch({
-      type: ACTION_CONSTANTS.UPDATE_SURVEY_STATUS,
-      payload: CENTRES,
-    });
-
-    navigate(ROUTES.AUTH.VOLUNTEERWELCOMESCREEN);
+    if (selectedCenter) {
+      console.log('selectedCenter', selectedCenter);
+      dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
+      navigate(ROUTES.AUTH.CENTREDETAILSONESCREEN, {centre: selectedCenter});
+    } else
+      return setError({
+        visible: true,
+        message: t('PLS_SELECT_A_CENTER'),
+      });
   };
+
+  const LangugeConverter = data => {
+    if (language.default) {
+      language.default !== data.value
+        ? ChangeLanguageAndReboot(data.value, t)
+        : null;
+    }
+  };
+
   const HeaderContent = () => {
     return (
       <View
@@ -162,15 +149,23 @@ export default function DashboardScreen() {
       <View style={{flex: 0.2}}>
         <Header children={HeaderContent()} />
       </View>
+      <CustomSnackBar
+        visible={error.visible}
+        message={error.message}
+        onDismissSnackBar={() =>
+          setError({...error, message: '', visible: false})
+        }
+      />
       <View
         style={{
           flex: 1,
           justifyContent: 'space-around',
-          paddingHorizontal: 15,
+          paddingHorizontal: 20,
+          marginTop: 10,
         }}>
         <TextHandler
           style={{fontWeight: '700', fontSize: 23, paddingBottom: 30}}>
-          {t('WELCOME')} {name && `, ${name}`}
+          {`${t('WELCOME')}`} {name && `, ${name}`}
         </TextHandler>
         <TouchableOpacity
           style={{
@@ -189,10 +184,14 @@ export default function DashboardScreen() {
               color: 'white',
               padding: 8,
             }}>
-            {completedSurvey || 2}
+            {completedSurveysTmpArr.length}
           </TextHandler>
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={() => {
+            navigate(ROUTES.AUTH.INCOMPLETESURVEYSSCREEN);
+            dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
+          }}
           style={{
             flex: 0.12,
             justifyContent: 'space-between',
@@ -214,7 +213,7 @@ export default function DashboardScreen() {
                 backgroundColor: 'red',
                 padding: 8,
               }}>
-              2
+              {filterOutIncompleteSurveys(totalSurveys).length || 0}
             </TextHandler>
           </View>
         </TouchableOpacity>
@@ -246,23 +245,44 @@ export default function DashboardScreen() {
                 padding: 8,
                 color: 'white',
               }}>
-              3
+              {filterOutSavedSurveys(totalSurveys).length || 0}
             </TextHandler>
           </View>
         </TouchableOpacity>
 
         <View style={styles.headingInput}>
           <TextHandler
-            style={{fontWeight: '600', fontSize: 18, paddingBottom: 30}}>
-            {t('ASSIGNED_CENTERS')}
+            style={{fontWeight: '600', fontSize: 18, paddingBottom: 0}}>
+            {t('ASSIGNED_CENTRES')}
           </TextHandler>
         </View>
-
         <View style={{flex: 0.4}}>
-          <RadioButtons
+          <FlatList
             data={CENTER_DATA}
-            onValueChange={item => {
-              setcenterInfo({...centerInfo, type_of_id: item});
+            renderItem={({item, index}) => {
+              return (
+                <CustomCheckbox
+                  color={COLORS.success}
+                  label={`${t('CENTRE')} - ` + item.value}
+                  completed={false}
+                  status={
+                    selectedCenter && selectedCenter?.value
+                      ? selectedCenter?.value === item.value
+                      : false
+                  }
+                  attempted={false}
+                  onPress={() => {
+                    setCenter(item);
+                  }}
+                  customTextStyle={
+                    selectedCenter
+                      ? selectedCenter?.value === item.value
+                        ? {color: COLORS.buttonColor}
+                        : {color: COLORS.black}
+                      : {color: COLORS.black}
+                  }
+                />
+              );
             }}
           />
         </View>
@@ -271,6 +291,32 @@ export default function DashboardScreen() {
           title={t('START_SURVEY')}
           onPress={() => {
             pageNavigator();
+          }}
+          ButtonContainerStyle={{
+            alignItems: 'center',
+            textAlign: 'center',
+          }}
+        />
+        {/* <Button
+          title={'RESET'}
+          onPress={() => {
+            dispatch({type: ACTION_CONSTANTS.RESET_APP});
+          }}
+          ButtonContainerStyle={{
+            alignItems: 'center',
+            textAlign: 'center',
+            backgroundColor: COLORS.error,
+          }}
+        /> */}
+
+        <Button
+          title={t('LANGUAGE_CHANGE')}
+          onPress={() => {
+            if (language.default === 'hi') {
+              LangugeConverter({label: 'English', value: 'en'});
+            } else {
+              LangugeConverter({label: 'Hindi', value: 'hi'});
+            }
           }}
           ButtonContainerStyle={{
             alignItems: 'center',
@@ -295,10 +341,10 @@ export default function DashboardScreen() {
             ]);
           }}
           ButtonContainerStyle={{
-            marginVertical: 50,
+            margin: 20,
             alignItems: 'center',
             textAlign: 'center',
-            backgroundColor: COLORS.error,
+            backgroundColor: COLORS.buttonColor,
           }}
         />
       </View>

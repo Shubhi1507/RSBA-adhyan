@@ -11,14 +11,15 @@ const Login = async data => {
     formdata.append('mobile', data.mobile);
     formdata.append('state_id', data.state_id || '1');
     formdata.append('name', data.name || '');
-
     const response = await fetch(URL, {
       method: 'POST',
       headers: headers,
       body: formdata,
     });
-    let respJson = await response.json();
-    return respJson;
+    if (response.status === 200) {
+      let respJson = await response.json();
+      return respJson;
+    }
   } catch (error) {
     console.log(error);
     return error;
