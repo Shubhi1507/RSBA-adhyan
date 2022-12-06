@@ -12,7 +12,7 @@ import {screenWidth} from '../../libs';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {STRINGS} from '../../constants/strings';
 import {ROUTES} from '../../navigation/RouteConstants';
-import {VerifyOTP} from '../../networking/API.controller';
+import {Login, VerifyOTP} from '../../networking/API.controller';
 import {useDispatch, useSelector} from 'react-redux';
 import LoaderIndicator from '../../components/Loader';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
@@ -30,6 +30,7 @@ export default function OTPScreen({route, navigation}) {
   const [error, setError] = useState({visible: false, message: ''});
   const [dataLoading, setDataLoading] = useState(false);
   const {mobile} = route.params;
+  const phone = mobile;
 
   React.useEffect(() => {
     const timer =
@@ -62,6 +63,27 @@ export default function OTPScreen({route, navigation}) {
     navigate(ROUTES.AUTH.DASHBOARDSCREEN);
   };
 
+  const GetOTP = async () => {
+    if (!phone || phone.length < 10) {
+      return setError({visible: true, message: 'Invalid phone number'});
+    }
+    setCounter(60);
+    setDataLoading(true);
+    let data = {mobile: phone};
+    let response = await Login(data);
+    console.log('Login', response);
+    let payload = {
+      access_token: response.access_token,
+      expires_in: response.expires_in,
+      startedAt: new Date().getTime(),
+    };
+    dispatch({
+      type: ACTION_CONSTANTS.LOGIN_DATA_UPDATE,
+      payload: payload,
+    });
+    setDataLoading(false);
+  };
+
   return (
     <View style={styles.container}>
       {/* <LoaderIndicator loading={dataLoading} /> */}
@@ -92,11 +114,11 @@ export default function OTPScreen({route, navigation}) {
               textAlign: 'left',
               paddingVertical: 10,
             }}>
-            {STRINGS.LOGIN.ENTER_VERIFICATION_CODE}
+            {t('ENTER_VERIFICATION_CODE')}
           </TextHandler>
           <View style={{flexDirection: 'row'}}>
             <TextHandler style={{fontWeight: '300', paddingVertical: 10}}>
-              {STRINGS.LOGIN.OTP_SENT} :
+              {t('OTP_SENT')} :
             </TextHandler>
             <TextHandler
               style={{
@@ -127,9 +149,19 @@ export default function OTPScreen({route, navigation}) {
               justifyContent: 'space-between',
               alignItems: 'flex-start',
             }}>
-            <TouchableOpacity>
-              <TextHandler style={{color: COLORS.orange}}>
-                {STRINGS.LOGIN.RESEND_OTP}
+            <TouchableOpacity
+              onPress={
+                counter == 0
+                  ? () => GetOTP()
+                  : () => {
+                      alert('disabled');
+                    }
+              }>
+              <TextHandler
+                style={{
+                  color: counter !== 0 ? COLORS.lightGrey : COLORS.orange,
+                }}>
+                {t('RESEND_OTP')}
               </TextHandler>
             </TouchableOpacity>
             <TextHandler style={{color: COLORS.orange}}>
@@ -139,7 +171,7 @@ export default function OTPScreen({route, navigation}) {
         </View>
 
         <Button
-          title={'Submit'}
+          title={t('SUBMIT')}
           onPress={() => {
             verifyOTP();
           }}

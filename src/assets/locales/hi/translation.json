@@ -147,6 +147,9 @@
   "CURRENT_STUDENTS_PARENTS_Q12": "शिक्षक के बारे मै आपका आकलन कृपया संक्षेप मै लिखे",
   "CURRENT_STUDENTS_PARENTS_Q13 ": "केंद्र से अपेक्षा ",
 
+  // E
+
+  "ENTER_VERIFICATION_CODE": "सत्यापन कोड दर्ज करें",
   "VOLUNTEER_DASHBOARD": "स्वयंसेवक डैशबोर्ड",
 
   "PAST_STUDENTS_PARENTS_Q1": "कुल उपस्थित अभिभावक ",
@@ -523,14 +526,13 @@
   "PRABUDDHA_JAN": "बस्ती के प्रभावशाली लोग",
   "LOCATION_SHARED": "स्थान अपडेट किया गया",
 
-
   // L
   "LEFT": "शेष",
 
-
-
   // N
   "NEXT": "अगला पृष्ठ",
+
+  "OTP_SENT": "पर ओटीपी भेज दिया गया है",
 
   // P
   "PLS_SELECT_A_CENTER": "कृपया एक केंद्र का चयन करें",
@@ -538,9 +540,9 @@
   // Q
   "QUESTIONS": "प्रश्न",
 
-
   // R
   "REQUEST_OTP": "ओटीपी का अनुरोध करें",
+  "RESEND_OTP": "ओटीपी पुनः भेजें",
 
   // S
   "START_SURVEY": "सर्वेक्षण प्रारंभ करें",

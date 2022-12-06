@@ -128,8 +128,8 @@ export default function LoginScreen() {
         </View>
         <Button
           title={t('REQUEST_OTP')}
-          onPress={() => GetOTP()}
-          // onPress={() => navigate(ROUTES.AUTH.OTPSCREEN)}
+          // onPress={() => GetOTP()}
+          onPress={() => navigate(ROUTES.AUTH.OTPSCREEN, {mobile: phone})}
         />
       </View>
     </View>

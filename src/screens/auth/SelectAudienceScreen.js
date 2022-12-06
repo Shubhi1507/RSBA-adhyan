@@ -259,7 +259,7 @@ export default function SelectAudienceScreen() {
               fontSize: 20,
               textAlign: 'left',
             }}>
-            {STRINGS.LOGIN.AUDIENCE}
+            {t('SELECT_AUDIENCE')}
           </TextHandler>
 
           <FlatList

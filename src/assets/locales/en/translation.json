@@ -82,6 +82,9 @@
 
   "CENTER_Q24": "Total population of Sewa Bharti beneficiaries",
 
+  // E
+
+  "ENTER_VERIFICATION_CODE": "Enter Verification Code",
   "TITLE": "Title",
   "CANCEL": "Cancel",
   "ALLOW": "Allow",
@@ -488,6 +491,9 @@
   // N
   "NEXT": "Next",
 
+  // O
+  "OTP_SENT": "OTP has been send to",
+
   "CENTER_HEAD_NAME": "Center Head Name",
   "CENTER_CONTACT_DETAILS": "Center Contact Details",
   "LOCATION": "Share your Location",
@@ -519,6 +525,7 @@
   "QUESTIONS": "Questions",
   // R
   "REQUEST_OTP": "Request OTP",
+  "RESEND_OTP": "Resend OTP",
 
   // S
   "SAVE_REVIEW_QUESTIONS": "Save & Review",
