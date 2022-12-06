@@ -272,37 +272,6 @@ export default function CenterDetailsTwoScreen() {
     }
   }
 
-  const HeaderContent = () => {
-    return (
-      <View
-        style={{
-          flex: 0.3,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          width: screenWidth,
-        }}>
-        <View
-          style={{
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            flexDirection: 'row',
-            flex: 0.33,
-          }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <ADIcons name="left" color={COLORS.white} size={21} />
-          </TouchableOpacity>
-          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
-        </View>
-        <View style={{flex: 0.65}}>
-          <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {t('CENTER_DETAILS')}
-          </Text>
-        </View>
-      </View>
-    );
-  };
-
   return (
     <View style={styles.container}>
       <CustomSnackBar
@@ -313,7 +282,7 @@ export default function CenterDetailsTwoScreen() {
         }
       />
       <View style={{flex: 0.2}}>
-        <Header children={HeaderContent()} />
+        <Header title={t('CENTER_DETAILS')} onPressBack={goBack} />
       </View>
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
         <View
@@ -323,8 +292,8 @@ export default function CenterDetailsTwoScreen() {
             justifyContent: 'space-around',
             paddingVertical: 20,
             marginVertical: 10,
-            borderWidth: 1,
-            borderColor: COLORS.orange,
+            // borderWidth: 1,
+            // borderColor: COLORS.orange,
             borderRadius: 5,
             paddingHorizontal: 10,
           }}>
@@ -334,7 +303,7 @@ export default function CenterDetailsTwoScreen() {
               style={{
                 color: 'black',
                 // fontWeight: '600',
-                fontSize: 20,
+                fontSize: 18,
                 textAlign: 'left',
               }}>
               {t('IS_CENTER_OPERATIONAL')}
@@ -351,7 +320,7 @@ export default function CenterDetailsTwoScreen() {
             <TextHandler
               style={{
                 color: 'black',
-                fontSize: 15,
+                fontSize: 18,
                 textAlign: 'left',
               }}>
               {t('NO')}
@@ -370,7 +339,7 @@ export default function CenterDetailsTwoScreen() {
             <TextHandler
               style={{
                 color: 'black',
-                fontSize: 15,
+                fontSize: 18,
                 textAlign: 'right',
               }}>
               {t('YES')}
@@ -385,7 +354,7 @@ export default function CenterDetailsTwoScreen() {
                   color: 'black',
                   fontWeight: '600',
                   marginTop: 8,
-                  fontSize: 20,
+                  fontSize: 18,
                   margin: 6,
                 }}>
                 {t('CENTER_TYPE')}
@@ -430,37 +399,38 @@ export default function CenterDetailsTwoScreen() {
             </View>
 
             {volunteerInfo.volunteer_location?.lat ? (
-              <View
+              <TouchableOpacity
+                onPress={() => {
+                  Alert.alert(`${t('LOCATION')}?`, '', [
+                    {
+                      text: t('YES'),
+                      onPress: () => {
+                        requestLocationPermission();
+                      },
+                    },
+                    {
+                      text: t('NO'),
+                      onPress: () => console.log('Cancel Pressed'),
+                      style: 'cancel',
+                    },
+                  ]);
+                }}
                 style={{
-                  flexDirection: 'row',
                   marginVertical: 10,
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
+                  justifyContent: 'center',
                 }}>
-                <ADIcons name="checkcircleo" color={'green'} />
-                <Text style={{color: 'black', paddingHorizontal: 20}}>
-                  {t('LOCATION_SHARED')}
-                </Text>
-                <Button
-                  title={`${t('TAP_TO_UPDATE')}`}
-                  onPress={() => {
-                    Alert.alert(`${t('LOCATION')}?`, '', [
-                      {
-                        text: t('YES'),
-                        onPress: () => {
-                          requestLocationPermission();
-                        },
-                      },
-                      {
-                        text: t('NO'),
-                        onPress: () => console.log('Cancel Pressed'),
-                        style: 'cancel',
-                      },
-                    ]);
-                  }}
-                  // ButtonContainerStyle={{width: 100}}
-                />
-              </View>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <ADIcons name="checkcircleo" color={'green'} size={25} />
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style={styles.headingInput}>
+                      {t('LOCATION_SHARED')}
+                    </Text>
+                    <Text style={{color: COLORS.lightGrey, fontSize: 15}}>
+                      ({t('TAP_TO_UPDATE')})
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
             ) : (
               <TouchableOpacity
                 onPress={requestLocationPermission}
@@ -476,7 +446,9 @@ export default function CenterDetailsTwoScreen() {
                     width: 25,
                   }}
                 />
-                <Text style={{color: 'blue'}}>{t('LOCATION')}</Text>
+                <Text style={[styles.headingInput, {color: 'blue'}]}>
+                  {t('LOCATION')}
+                </Text>
               </TouchableOpacity>
             )}
 
@@ -547,7 +519,7 @@ export default function CenterDetailsTwoScreen() {
             <View>
               <RadioButtons
                 radioStyle={{
-                  borderWidth: 1,
+                  borderWidth: 0.7,
                   marginVertical: 5,
                   borderColor: COLORS.orange,
                 }}
@@ -656,7 +628,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '600',
     marginTop: 8,
-    fontSize: 16,
+    fontSize: 18,
     margin: 6,
   },
 

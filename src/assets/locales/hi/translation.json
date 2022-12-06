@@ -1,6 +1,7 @@
 {
   // A
   "ADHAYAN": "अध्ययन",
+  "ALL_SURVEYS": "सभी सर्वेक्षण",
   "ASSIGNED_CENTRES": "आवंटित केंद्र",
 
   // C
@@ -87,7 +88,7 @@
   "CENTER_Q23": " बस्ती की कुल जनसांख्या  ",
   "CENTER_Q23_OPT1": "हिंदू ",
   "CENTER_Q23_OPT2": "अन्य",
-  
+
   "CENTER_Q24": "बस्ती की कुल सेकवत जनसांख्या लघुउत्तर",
 
   "TITLE": "शीर्षक",
@@ -463,7 +464,7 @@
   "INFLUENTIAL_PEOPELE_Q4_OPT2": "ना",
   "INFLUENTIAL_PEOPELE_Q4_OPT3": "वर्ग विशेष में",
   // C
-  "COMPLETED_SURVEYS": "पूर्ण सर्वेक्षण ",
+  "COMPLETED_SURVEYS": "पूर्ण",
 
   // D
   "DISTRICT": "जिला",
@@ -472,7 +473,7 @@
   "48_HRS_REVIEW": "पूर्ण सर्वेक्षण समीक्षा के लिए 48 घंटे के लिए इस खंड में रहेगा",
 
   // I
-  "INCOMPLETE_SUVEYS": "अधूरे सर्वेक्षण",
+  "INCOMPLETE_SUVEYS": "अधूरे",
   "IS_CENTER_OPERATIONAL": "केंद्र चालू है?",
 
   "ASSIGNED_CENTERS": "असाइन किए गए केंद्र",
@@ -504,8 +505,8 @@
   "PARENT_ORGANIZATION": "मूल संगठन",
   "CENTER_INFO": "केंद्र की जानकारी",
   "SELECT_AUDIENCE": "ऑडियंस का चयन करें",
-  "PAST_STUDENTS_PARENTS": "छात्र के माता-पिता (पिछले छात्र)",
-  "PRESENT_STUDENTS_PARENTS": "छात्र के माता-पिता (वर्तमान छात्र)",
+  "PAST_STUDENTS_PARENTS": "छात्र के माता-पिता (पूर्व)",
+  "PRESENT_STUDENTS_PARENTS": "छात्र के माता-पिता (वर्तमान)",
   "PAST_STUDENT": "पिछले छात्र",
   "PRESENT_STUDENT": "वर्तमान छात्र",
   "TEACHER": "शिक्षक",
@@ -520,13 +521,23 @@
   "STUDENTS_PARENTS_CURRENT_STUDENTS": "अभिभावक (वर्तमान छात्र)",
   "CURRENT_STUDENT": "वर्तमान छात्र",
   "PRABUDDHA_JAN": "बस्ती के प्रभावशाली लोग",
-  "LOCATION_SHARED": "स्थान साझा किया गया",
+  "LOCATION_SHARED": "स्थान अपडेट किया गया",
+
+
+  // L
+  "LEFT": "शेष",
+
+
 
   // N
   "NEXT": "अगला पृष्ठ",
 
   // P
   "PLS_SELECT_A_CENTER": "कृपया एक केंद्र का चयन करें",
+
+  // Q
+  "QUESTIONS": "प्रश्न",
+
 
   // R
   "REQUEST_OTP": "ओटीपी का अनुरोध करें",
@@ -538,6 +549,7 @@
 
   // T
   "TAP_TO_UPDATE": "अपडेट करने के लिए टैप करें",
+  "TEACHERS_SURVERS": "शिक्षक सर्वेक्षण",
 
   // V
   "VOLUNTEER": "स्वयंसेवी",

@@ -1,6 +1,7 @@
 {
   // A
   "ADHYAYAN": "Adhyayan Survey",
+  "ALL_SURVEYS": "All Surveys",
   "ASSIGNED_CENTRES": "Assigned Centres",
 
   // C
@@ -442,7 +443,7 @@
   "INFLUENTIAL_PEOPELE_Q4_OPT3": "Only in certain sections",
 
   // C
-  "COMPLETED_SURVEYS": "Completed Surveys",
+  "COMPLETED_SURVEYS": "Completed",
 
   // D
   "DISTRICT": "District",
@@ -451,12 +452,12 @@
   "48_HRS_REVIEW": "Completed Surveys will remain in this section for 48 Hours to review",
 
   // I
-  "INCOMPLETE_SUVEYS": "Incomplete Surveys",
+  "INCOMPLETE_SUVEYS": "Incomplete",
   "ASSIGNED_CENTERS": "Assigned Centers",
   "CENTER_ID": "Center ID",
   "LOGOUT": "Logout",
   "PRANTH": "Praant",
-  "IS_CENTER_OPERATIONAL": "Is center opeartional ?",
+  "IS_CENTER_OPERATIONAL": "Is center operational ?",
   "ENTER_HERE": "Enter Here",
   "YES": "Yes",
   "NO": "No",
@@ -482,6 +483,7 @@
 
   //L
   "LOGIN": "Login",
+  "LEFT": "Left",
 
   // N
   "NEXT": "Next",
@@ -492,8 +494,8 @@
   "PARENT_ORGANIZATION": "Parent Organization",
   "CENTER_INFO": "Center Information",
   "SELECT_AUDIENCE": "Select Audience",
-  "PAST_STUDENTS_PARENTS": "Student's Parents (Past Students)",
-  "PRESENT_STUDENTS_PARENTS": "Student's Parents (Current Students)",
+  "PAST_STUDENTS_PARENTS": "Student's Parents (Past)",
+  "PRESENT_STUDENTS_PARENTS": "Student's Parents (Current)",
   "PAST_STUDENT": "Past Student",
   "PRESENT_STUDENT": "Present Student",
   "PRABUDHHA_JAN": "Prabuddha Jan",
@@ -508,21 +510,24 @@
   "KENDRA_SANCHALAK": "Kendra Sanchalak",
   "BASTI": "Basti",
   "PRABUDDHA_JAN": "Influential Persons from the Basti",
-  "LOCATION_SHARED": "Location shared",
+  "LOCATION_SHARED": "Location updated",
 
   // P
   "PLS_SELECT_A_CENTER": "Please select a center",
 
+  // Q
+  "QUESTIONS": "Questions",
   // R
   "REQUEST_OTP": "Request OTP",
 
   // S
-  "SAVE_REVIEW_QUESTIONS": "Save & Review Questions",
+  "SAVE_REVIEW_QUESTIONS": "Save & Review",
   "SIX_DIGIT_CODE": "A 6-digit code will be sent via SMS to verify your mobile number.",
   "START_SURVEY": "Start Survey",
 
   // T
   "TAP_TO_UPDATE": "Tap to update",
+  "TEACHERS_SURVERS": "Teacher's Survey",
 
   // V
   "VOLUNTEER": "Voluneer",

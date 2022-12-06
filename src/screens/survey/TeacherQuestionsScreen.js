@@ -158,7 +158,7 @@ export default function TeacherQuestionsScreen() {
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
-        <Header children={HeaderContent()} />
+        <Header title={t('TEACHERS_SURVERS')} onPressBack={goBack} />
       </View>
       <SurveyCompletedModal
         visible={visible}

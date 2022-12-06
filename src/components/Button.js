@@ -15,7 +15,7 @@ export function Button({
       style={[Styles.ButtonContainer, ButtonContainerStyle || {}]}
       onPress={() => (onPress ? onPress() : {})}>
       {icon && icon}
-      <TextHandler style={[textstyle || {}, Styles.localtextstyle]}>
+      <TextHandler style={[Styles.localtextstyle, textstyle || {}]}>
         {title}
       </TextHandler>
     </TouchableOpacity>
@@ -36,6 +36,9 @@ const Styles = StyleSheet.create({
     // marginHorizontal: 60,
     textAlign: 'center',
     color: COLORS.white,
+    fontSize: 20,
+    fontWeight: '500',
+    lineHeight: 24,
   },
   inner: {},
 });

@@ -3,13 +3,12 @@ import React, {useContext, useEffect, useState} from 'react';
 import {screenWidth} from '../../libs';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {COLORS} from '../../utils/colors';
-import {STRINGS} from '../../constants/strings';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {Button, CustomCheckbox, CustomSnackBar, Header} from '../../components';
 import LocalizationContext from '../../context/LanguageContext';
 import {useDispatch, useSelector} from 'react-redux';
 import {ROUTES} from '../../navigation/RouteConstants';
-import {filterOutIncompleteSurveys, isSurveyExists} from '../../utils/utils';
+import {filterOutIncompleteSurveys} from '../../utils/utils';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 
 export default function IncompleteSurveysScreen() {
@@ -22,10 +21,13 @@ export default function IncompleteSurveysScreen() {
   let totalSurveys = store.totalSurveys;
   const incompleteSurveyDataTmpArr = filterOutIncompleteSurveys(totalSurveys);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setCenter({});
+  }, []);
 
   const pageNavigator = () => {
-    if (selectedCenter) {
+    console.log('selectedCenter', selectedCenter);
+    if (Object.keys(selectedCenter).length > 0) {
       console.log('old payload', selectedCenter);
       dispatch({
         type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
@@ -39,41 +41,13 @@ export default function IncompleteSurveysScreen() {
       });
   };
 
-  const HeaderContent = () => {
-    return (
-      <View
-        style={{
-          flex: 0.3,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          width: screenWidth,
-        }}>
-        <View
-          style={{
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            flexDirection: 'row',
-            flex: 0.33,
-          }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <ADIcons name="left" color={COLORS.white} size={21} />
-          </TouchableOpacity>
-          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
-        </View>
-        <View style={{flex: 0.85}}>
-          <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            Incomplete surveys
-          </Text>
-        </View>
-      </View>
-    );
-  };
-
   return (
     <View style={styles.container}>
-      <View style={{flex: 0.2}}>
-        <Header children={HeaderContent()} />
+      <View style={{flex: 0.25}}>
+        <Header
+          title={t('INCOMPLETE_SUVEYS') + ' ' + t('SURVEY')}
+          onPressBack={goBack}
+        />
       </View>
       <CustomSnackBar
         visible={error.visible}
@@ -120,7 +94,7 @@ export default function IncompleteSurveysScreen() {
           ButtonContainerStyle={{
             alignItems: 'center',
             textAlign: 'center',
-            marginHorizontal: 50,
+            marginHorizontal: 20,
             // width: screenWidth * 0.8,
           }}
         />

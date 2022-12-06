@@ -21,16 +21,18 @@ import {COLORS} from '../../utils/colors';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {useState} from 'react';
 import {STRINGS} from '../../constants/strings';
-import DatePicker from 'react-native-datepicker';
 import {ROUTES} from '../../navigation/RouteConstants';
-import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
 import {filterOutIncompleteSurveys, FindAndUpdate} from '../../utils/utils';
+import LocalizationContext from '../../context/LanguageContext';
+import {useContext} from 'react';
+import {ADIcons, EnIcons} from '../../libs/VectorIcons';
 
 export default function SelectAudienceScreen() {
   let [selectedAudience, setAudience] = useState('');
+  const {t} = useContext(LocalizationContext);
   const [isSurveyCompleted, setisSurveyCompleted] = useState(false);
   const store = useSelector(state => state?.surveyReducer);
   let totalSurveys = store.totalSurveys;
@@ -218,37 +220,6 @@ export default function SelectAudienceScreen() {
     ]);
   };
 
-  const HeaderContent = () => {
-    return (
-      <View
-        style={{
-          flex: 0.3,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          width: screenWidth,
-        }}>
-        <View
-          style={{
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            flexDirection: 'row',
-            flex: 0.33,
-          }}>
-          <TouchableOpacity onPress={() => BackRefPageNavigator()}>
-            <ADIcons name="left" color={COLORS.white} size={21} />
-          </TouchableOpacity>
-          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
-        </View>
-        <View style={{flex: 0.65}}>
-          <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {STRINGS.LOGIN.AUDIENCE}
-          </Text>
-        </View>
-      </View>
-    );
-  };
-
   const statusColorGrader = (p, q) => {
     let j = parseInt((p / q) * 100);
     switch (j) {
@@ -267,7 +238,7 @@ export default function SelectAudienceScreen() {
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
-        <Header children={HeaderContent()} />
+        <Header title={t('SELECT_AUDIENCE')} onPressBack={goBack} />
       </View>
       <CustomSnackBar
         visible={error.visible}
@@ -298,49 +269,107 @@ export default function SelectAudienceScreen() {
                 ? store.currentSurveyData?.currentSurveyStatus
                 : []
             }
+            style={{flex: 1}}
             renderItem={({item, index}) => {
+              console.log('item', item);
               return (
-                <View
+                <TouchableOpacity
                   style={{
+                    flex: 1,
+                    marginVertical: 9,
+                    backgroundColor: COLORS.tile,
                     flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
+                    padding: 10,
+                    justifyContent: 'center',
+                    // height: 8,
+                  }}
+                  onPress={() => {
+                    let tmp = [...miscControllers.CENTRES];
+                    let new_obj = {...item, attempted: !item.attempted};
+                    tmp.splice(index, 1, new_obj);
+                    setAudience(item.value);
+                    setmisControllers({...miscControllers, CENTRES: tmp});
+                    pageNavigator(item.value);
                   }}>
-                  <CustomCheckbox
-                    label={item.value}
-                    completed={item.completed}
-                    status={
-                      selectedAudience ? selectedAudience === item.value : false
-                    }
-                    attempted={item.attempted}
-                    onPress={() => {
-                      let tmp = [...miscControllers.CENTRES];
-                      let new_obj = {...item, attempted: !item.attempted};
-                      tmp.splice(index, 1, new_obj);
-                      setAudience(item.value);
-                      setmisControllers({...miscControllers, CENTRES: tmp});
-                      pageNavigator(item.value);
-                    }}
-                    customTextStyle={
-                      selectedAudience
-                        ? selectedAudience === item.value
-                          ? {color: COLORS.buttonColor}
-                          : {color: COLORS.black}
-                        : {color: COLORS.black}
-                    }
-                  />
-                  {item?.answered && (
-                    <TextHandler
-                      style={{
-                        color:
-                          item.answered < item.totalQue
-                            ? COLORS.error
-                            : COLORS.green,
-                      }}>
-                      {item.answered}/ {item?.totalQue}
-                    </TextHandler>
-                  )}
-                </View>
+                  {/* marker */}
+                  <View style={{flex: 0.15, paddingTop: 8}}>
+                    {selectedAudience === item.value ? (
+                      <ADIcons
+                        name="checkcircleo"
+                        color={COLORS.blue}
+                        size={20}
+                      />
+                    ) : (
+                      <EnIcons name="circle" color={COLORS.blue} size={20} />
+                    )}
+                  </View>
+                  {/* other labels */}
+                  <View style={{flex: 1}}>
+                    <View style={{flex: 0.8, flexDirection: 'row'}}>
+                      <View
+                        style={{
+                          flex: 1,
+                          paddingVertical: 5,
+                        }}>
+                        <TextHandler
+                          style={{
+                            fontSize: 16,
+                            fontWeight: '400',
+                            lineHeight: 22,
+                            color:
+                              selectedAudience === item.value
+                                ? COLORS.blue
+                                : COLORS.black,
+                          }}>
+                          {item.value}
+                        </TextHandler>
+                      </View>
+                      <View style={{flex: 0.1, paddingTop: 8}}>
+                        <TextHandler
+                          style={{
+                            fontSize: 16,
+                            fontWeight: '400',
+                            lineHeight: 22,
+                            textAlign: 'center',
+                            color: item?.answered
+                              ? item?.answered < item?.totalQue
+                                ? COLORS.orange
+                                : COLORS.green
+                              : COLORS.black,
+                          }}>
+                          {item?.answered
+                            ? item?.answered + '/' + item?.totalQue
+                            : item.totalQue}
+                        </TextHandler>
+                      </View>
+                    </View>
+
+                    <View style={{flex: 0.5}}>
+                      <TextHandler
+                        style={{
+                          fontSize: 12,
+                          fontWeight: '400',
+                          lineHeight: 22,
+                          color: COLORS.black,
+                        }}>
+                        {item?.answered
+                          ? item.answered === item.totalQue
+                            ? t('COMPLETED_SURVEYS')
+                            : item.totalQue -
+                                item?.answered +
+                                ' ' +
+                                t('QUESTIONS') +
+                                ' ' +
+                                t('LEFT') || 0
+                          : item.totalQue +
+                            ' ' +
+                            t('QUESTIONS') +
+                            ' ' +
+                            t('LEFT')}
+                      </TextHandler>
+                    </View>
+                  </View>
+                </TouchableOpacity>
               );
             }}
           />

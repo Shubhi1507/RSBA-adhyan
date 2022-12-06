@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Checkbox} from 'react-native-paper';
 import LocalizationContext from '../context/LanguageContext';
 import {COLORS} from '../utils/colors';
@@ -23,14 +23,16 @@ export function CustomCheckbox({
           color={isCompleted ? COLORS.green : COLORS.error}
           uncheckedColor={COLORS.orange}
         />
-        <Text
-          style={[
-            {marginHorizontal: 10, color: 'black'},
-            customTextStyle || {},
-          ]}>
-          {label || ''}
-        </Text>
+        <Text style={[styles.title, customTextStyle || {}]}>{label || ''}</Text>
       </View>
     </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  title: {
+    marginHorizontal: 10,
+    color: 'black',
+    fontSize: 18,
+  },
+});

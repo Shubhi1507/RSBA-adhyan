@@ -1,9 +1,8 @@
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useContext} from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {useDispatch, useSelector} from 'react-redux';
-import {STRINGS} from '../../constants/strings';
 import {COLORS} from '../../utils/colors';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
@@ -20,9 +19,12 @@ import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
+import LocalizationContext from '../../context/LanguageContext';
 
 export default function PresentStudentParentsScreen() {
   const store = useSelector(state => state?.surveyReducer);
+  const {t} = useContext(LocalizationContext);
+
   let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
@@ -156,7 +158,7 @@ export default function PresentStudentParentsScreen() {
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
-        <Header children={HeaderContent()} />
+        <Header title={t('PRESENT_STUDENTS_PARENTS')} onPressBack={goBack} />
       </View>
       <SurveyCompletedModal
         visible={visible}

@@ -51,7 +51,7 @@ export default function SplashScreen() {
       }
     });
   }, []);
-  
+
   useEffect(() => {
     // fetchData();
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
@@ -128,7 +128,15 @@ export default function SplashScreen() {
               return (
                 <Button
                   ButtonContainerStyle={{
-                    marginBottom: 20,
+                    marginVertical: 10,
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    backgroundColor: COLORS.backgroundColor,
+                    borderWidth: 1,
+                    borderColor: COLORS.orange,
+                  }}
+                  textstyle={{
+                    color: COLORS.orange,
                   }}
                   title={t(item.label.toUpperCase())}
                   onPress={() => LangugeConverter(item)}
@@ -141,57 +149,18 @@ export default function SplashScreen() {
       </View>
 
       <View>
-        <TouchableOpacity
+        <Button
+          ButtonContainerStyle={{
+            marginVertical: 10,
+            marginHorizontal: 20,
+            alignItems: 'center',
+            textAlign: 'center',
+            borderWidth: 1,
+            borderColor: COLORS.blue,
+          }}
+          title={`${t('VOLUNTEER')} ${t('LOGIN')}`}
           onPress={() => navigate(ROUTES.AUTH.LOGINSCREEN)}
-          style={{
-            backgroundColor: COLORS.buttonColor,
-            alignSelf: 'center',
-            borderRadius: 6,
-            width: '80%',
-            justifyContent: 'center',
-            padding: 10,
-          }}>
-          <Text
-            style={{
-              alignItems: 'center',
-              color: 'white',
-              fontWeight: '500',
-              fontSize: 18,
-              textAlign: 'center',
-            }}>
-            {`${t('VOLUNTEER')}`} {`${t('LOGIN')}`}
-          </Text>
-        </TouchableOpacity>
-
-        {/* <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginTop: 20,
-          }}>
-          <Text
-            style={{
-              color: COLORS.black,
-              textAlign: 'center',
-              fontSize: 16,
-              fontWeight: '500',
-            }}>
-            New Volunteer ?
-          </Text>
-
-          <TouchableOpacity
-            onPress={() => navigate(ROUTES.AUTH.VOLUNTEERSIGNUPSCREEN)}>
-            <Text
-              style={{
-                color: COLORS.buttonColor,
-                fontWeight: '700',
-                fontSize: 16,
-              }}>
-              {' '}
-              Sign Up
-            </Text>
-          </TouchableOpacity>
-        </View> */}
+        />
       </View>
     </View>
   );

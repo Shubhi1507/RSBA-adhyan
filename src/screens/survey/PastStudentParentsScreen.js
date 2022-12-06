@@ -20,10 +20,13 @@ import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
+import LocalizationContext from '../../context/LanguageContext';
+import {useContext} from 'react';
 
 export default function PastStudentParentsScreen() {
   const store = useSelector(state => state?.surveyReducer);
   let totalSurveys = store.totalSurveys;
+  const {t} = useContext(LocalizationContext);
 
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
@@ -124,42 +127,10 @@ export default function PastStudentParentsScreen() {
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
   };
 
-  const HeaderContent = () => {
-    return (
-      <View
-        style={{
-          flex: 0.3,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          width: screenWidth,
-        }}>
-        <View
-          style={{
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            flexDirection: 'row',
-            flex: 0.33,
-          }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <ADIcons name="left" color={COLORS.white} size={21} />
-          </TouchableOpacity>
-          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
-        </View>
-        <View style={{flex: 0.95}}>
-          <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {/* {STRINGS.LOGIN.SURVEY} */}
-            Past Student's Parents
-          </Text>
-        </View>
-      </View>
-    );
-  };
-
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
-        <Header children={HeaderContent()} />
+        <Header title={t('PAST_STUDENTS_PARENTS')} onPressBack={goBack} />
         <SurveyCompletedModal
           visible={visible}
           hideModal={hideModal}
