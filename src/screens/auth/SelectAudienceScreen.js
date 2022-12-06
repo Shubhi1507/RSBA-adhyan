@@ -238,7 +238,7 @@ export default function SelectAudienceScreen() {
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
-        <Header title={t('SELECT_AUDIENCE')} onPressBack={goBack} />
+        <Header title={t('SELECT_AUDIENCE')} onPressBack={BackRefPageNavigator} />
       </View>
       <CustomSnackBar
         visible={error.visible}

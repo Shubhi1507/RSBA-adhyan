@@ -526,6 +526,7 @@
   // R
   "REQUEST_OTP": "Request OTP",
   "RESEND_OTP": "Resend OTP",
+  "REVIEW_SURVEYS":"Review Surveys",
 
   // S
   "SAVE_REVIEW_QUESTIONS": "Save & Review",

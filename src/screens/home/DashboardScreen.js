@@ -32,12 +32,13 @@ import {
   checkSurveyReleaseDateandReturnCompletedSurveys,
   filterOutIncompleteSurveys,
   filterOutSavedSurveys,
+  findMinimumTimeLeft,
 } from '../../utils/utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as i18n from '../../../i18n.js';
 import {images} from '../../assets';
 
-export default function DashboardScreen() {
+export default function DashboardScreen({route, navigation}) {
   const {t, locale, setLocale} = useContext(LocalizationContext);
   const [error, setError] = useState({visible: false, message: ''});
   const [language, chooseLanguage] = useState({
@@ -52,7 +53,7 @@ export default function DashboardScreen() {
   const totalSurveys = store.surveyReducer.totalSurveys;
   const completedSurveysTmpArr =
     checkSurveyReleaseDateandReturnCompletedSurveys(totalSurveys);
-
+  const [ReviewTimeLeft, setReviewTimeLeft] = useState('');
   const [CENTER_DATA] = useState([
     {key: '301', value: '301'},
     {key: '302', value: '302'},
@@ -77,7 +78,16 @@ export default function DashboardScreen() {
     });
   }, []);
 
-  useEffect(() => {}, [store.surveyReducer]);
+  useEffect(() => {
+    const focus = navigation.addListener('focus', () => {
+      let x = findMinimumTimeLeft(totalSurveys);
+      console.log('x', x);
+      if (x) {
+        setReviewTimeLeft(x.toString());
+      }
+    });
+    return focus;
+  }, [store.surveyReducer, navigation]);
 
   useEffect(() => {
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
@@ -278,9 +288,13 @@ export default function DashboardScreen() {
                 <TextHandler
                   style={[
                     styles.subheading,
-                    {fontSize: 12, paddingVertical: 5},
+                    {
+                      fontSize: 12,
+                      paddingVertical: 5,
+                      textTransform: 'lowercase',
+                    },
                   ]}>
-                  48 hrs left
+                  {ReviewTimeLeft + ' ' + 'hr ' + t('LEFT')}
                 </TextHandler>
               </View>
             </View>
