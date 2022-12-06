@@ -34,9 +34,7 @@ import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import Geolocation from '@react-native-community/geolocation';
 import {getDistance, getPreciseDistance} from 'geolib';
 import LocalizationContext from '../../context/LanguageContext';
-import {useContext} from 'react';
 import {FindAndUpdate} from '../../utils/utils';
-import LocalizationContext from '../../context/LanguageContext';
 
 export default function CenterDetailsTwoScreen() {
   const store = useSelector(state => state?.surveyReducer);

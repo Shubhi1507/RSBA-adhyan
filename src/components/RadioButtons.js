@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import {useContext} from 'react';
 import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RadioButton, Text} from 'react-native-paper';
 import LocalizationContext from '../context/LanguageContext';

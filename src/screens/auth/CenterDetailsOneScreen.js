@@ -26,10 +26,8 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import LoaderIndicator from '../../components/Loader';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import LocalizationContext from '../../context/LanguageContext';
-import { useContext } from 'react';
 
 import {FindAndUpdate, isSurveyExists} from '../../utils/utils';
-import LocalizationContext from '../../context/LanguageContext';
 
 export default function CenterDetailsOneScreen({navigation, route}) {
   const store = useSelector(state => state);
@@ -37,7 +35,6 @@ export default function CenterDetailsOneScreen({navigation, route}) {
   const dispatch = useDispatch();
   const [dataLoading, setDataLoading] = useState(false);
   const [error, setError] = useState({visible: false, message: ''});
-  const {t} = useContext(LocalizationContext);
 
   let [isSurveyContinuedFlag, setisSurveyContinuedFlag] = useState(false);
   let totalSurveys = store.surveyReducer.totalSurveys;
