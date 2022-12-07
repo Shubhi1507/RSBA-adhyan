@@ -131,14 +131,14 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     availability_of_infrastructure: '',
     participation_of_the_basti_people: '',
     is_participation_of_basti_satisfactory: '',
-    oppose_of_the_kendras_activities_by_basti: '',
     divyang_and_single_parent_students_enrolled: '',
     basti_toli_active: '',
+    oppose_of_the_kendras_activities_by_basti: '',
     members_of_basti_toli_reside_in_same_area: '',
     role_of_our_kendra_in_our_basti_during__corona: '',
     kendra_effect_on_anti_social_problems: '',
     majorprevelant_problems_in_the_basti_: '',
-    total_population_of_the_basti_hindu: '',
+    total_population_of_the_basti: '',
     total_population_of_sewa_bharti_beneficiaries: '',
     is_centre_operational: true,
   });
@@ -180,25 +180,6 @@ export default function CenterDetailsOneScreen({navigation, route}) {
   };
 
   const pageValidator = () => {
-    const {district_jila, state_pranth, centre_id} = volunteerInfo;
-    // if (!state_pranth) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please select a State/ Pranth',
-    //   });
-    // }
-    // if (!district_jila) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please select a District/ Jila',
-    //   });
-    // }
-    // if (!centre_id) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please select a Town/ Basti',
-    //   });
-    // }
     let payload = {};
     let tmp = [...totalSurveys];
 
