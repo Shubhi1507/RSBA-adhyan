@@ -37,6 +37,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as i18n from '../../../i18n.js';
 import {images} from '../../assets';
+import {Menu} from 'react-native-paper';
 
 export default function DashboardScreen({route, navigation}) {
   const {t, locale, setLocale} = useContext(LocalizationContext);
@@ -51,6 +52,7 @@ export default function DashboardScreen({route, navigation}) {
   const store = useSelector(state => state);
   const name = store?.authReducer?.userData?.userData?.data[0]?.name;
   const totalSurveys = store.surveyReducer.totalSurveys;
+  const [visible, setVisible] = React.useState(false);
   const completedSurveysTmpArr =
     checkSurveyReleaseDateandReturnCompletedSurveys(totalSurveys);
   const [ReviewTimeLeft, setReviewTimeLeft] = useState('');
@@ -124,6 +126,10 @@ export default function DashboardScreen({route, navigation}) {
     }
   };
 
+  const openMenu = () => setVisible(true);
+
+  const closeMenu = () => setVisible(false);
+
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
@@ -153,6 +159,35 @@ export default function DashboardScreen({route, navigation}) {
           <TextHandler style={styles.title}>
             {`${t('WELCOME')}`} {name && `, ${name}`}
           </TextHandler>
+
+          <Menu
+            visible={visible}
+            onDismiss={closeMenu}
+            anchor={
+              <TouchableOpacity
+                onPress={openMenu}
+                style={styles.languageToggler}>
+                <TextHandler style={{textTransform: 'uppercase'}}>
+                  {language.default}
+                </TextHandler>
+                <ADIcons name="down" size={18}></ADIcons>
+              </TouchableOpacity>
+            }>
+            <Menu.Item
+              onPress={() => {
+                LangugeConverter({label: 'English', value: 'en'});
+                closeMenu();
+              }}
+              title="English"
+            />
+            <Menu.Item
+              onPress={() => {
+                closeMenu();
+                LangugeConverter({label: 'Hindi', value: 'hi'});
+              }}
+              title="Hindi"
+            />
+          </Menu>
           {/* <Button
             title={t('LANGUAGE_CHANGE')}
             onPress={() => {
@@ -281,7 +316,7 @@ export default function DashboardScreen({route, navigation}) {
               dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
             }}>
             <View style={{flex: 1}}>
-              <TextHandler style={styles.subheading}>
+              <TextHandler style={[styles.subheading, {padding: 0}]}>
                 {t('SAVE_REVIEW_QUESTIONS')}
               </TextHandler>
               <View>
@@ -290,11 +325,13 @@ export default function DashboardScreen({route, navigation}) {
                     styles.subheading,
                     {
                       fontSize: 12,
-                      paddingVertical: 5,
+                      paddingVertical: 0,
                       textTransform: 'lowercase',
                     },
                   ]}>
-                  {ReviewTimeLeft + ' ' + 'hr ' + t('LEFT')}
+                  {ReviewTimeLeft
+                    ? ReviewTimeLeft + ' ' + 'hr ' + t('LEFT')
+                    : ''}
                 </TextHandler>
               </View>
             </View>
@@ -477,5 +514,12 @@ const styles = StyleSheet.create({
     fontSize: 25,
     lineHight: 34,
     color: COLORS.blue,
+  },
+  languageToggler: {
+    flexDirection: 'row',
+    backgroundColor: COLORS.tile,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
   },
 });

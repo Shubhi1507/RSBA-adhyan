@@ -43,7 +43,7 @@ export default function IncompleteSurveysScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={{flex: 0.25}}>
+      <View style={{flex: 0.2}}>
         <Header
           title={t('INCOMPLETE_SUVEYS') + ' ' + t('SURVEY')}
           onPressBack={goBack}
