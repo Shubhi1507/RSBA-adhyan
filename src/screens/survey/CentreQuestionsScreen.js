@@ -708,8 +708,8 @@ export default function CentreQuestionsScreen() {
                     value: 'Same as the current',
                   },
                   {
-                    key: 3,
-                    value: 'CENTER_Q9_OPT1_PT2',
+                    key: 2,
+                    label: 'CENTER_Q9_OPT1_PT2',
                     value:
                       'New initiative (Health camp / Blood donation camp / aadhar card or any other initiative)',
                   },

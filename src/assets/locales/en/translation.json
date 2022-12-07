@@ -81,6 +81,7 @@
   "CENTER_Q21_OPT3": "Not much",
 
   "CENTER_Q22": "Major prevelant  problems in the Basti",
+  "CONTINUE_SURVEY": "Continue Survey",
 
   "CENTER_Q23": "Total population of the Basti",
   "HINDU": "Hindu",
@@ -513,6 +514,8 @@
   "PAST_STUDENTS_PARENTS": "Student's Parents (Past)",
   "PRESENT_STUDENTS_PARENTS": "Student's Parents (Current)",
   "PAST_STUDENT": "Past Student",
+  "PAST_STUDENTS": "Past Student",
+
   "PRESENT_STUDENT": "Present Student",
   "PRABUDHHA_JAN": "Prabuddha Jan",
   "SURVEY": "Survey",

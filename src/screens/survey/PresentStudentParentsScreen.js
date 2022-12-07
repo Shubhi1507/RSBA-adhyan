@@ -124,37 +124,6 @@ export default function PresentStudentParentsScreen() {
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
   };
 
-  const HeaderContent = () => {
-    return (
-      <View
-        style={{
-          flex: 0.3,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          width: screenWidth,
-        }}>
-        <View
-          style={{
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            flexDirection: 'row',
-            flex: 0.33,
-          }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <ADIcons name="left" color={COLORS.white} size={21} />
-          </TouchableOpacity>
-          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
-        </View>
-        <View style={{flex: 0.85}}>
-          <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            Present Student's Parents
-          </Text>
-        </View>
-      </View>
-    );
-  };
-
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
@@ -212,7 +181,7 @@ export default function PresentStudentParentsScreen() {
           <Input
             type={'numeric'}
             number={4}
-            placeholder="Enter answer here"
+            placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
               setAnswers({...answers, answer1: text});
@@ -376,7 +345,7 @@ export default function PresentStudentParentsScreen() {
           </View>
 
           <Input
-            placeholder="Enter answer here"
+            placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
               setAnswers({...answers, answer4: text});

@@ -62,7 +62,7 @@ export default function IncompleteSurveysScreen() {
           renderItem={({item, index}) => {
             return (
               <CustomCheckbox
-                label={'Centre ID : ' + item.centre_id}
+                label={t('CENTRE') + ' : ' + item.centre_id}
                 completed={false}
                 status={
                   selectedCenter && selectedCenter?.centre_id
@@ -87,7 +87,7 @@ export default function IncompleteSurveysScreen() {
       </View>
       <View>
         <Button
-          title={'Continue Survey'}
+          title={t('CONTINUE_SURVEY')}
           onPress={() => {
             pageNavigator();
           }}

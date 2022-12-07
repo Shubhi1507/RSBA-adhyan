@@ -107,7 +107,7 @@ export default function SurveyScreen() {
                 {item.type === 'a' && (
                   <Input
                     type={'numeric'}
-                    placeholder="Enter answer here"
+                    placeholder={`${t('ENTER_ANSWER')}`}
                     name="any"
                     onChangeText={text => {
                       let updatedItem = {...item, answer: text};

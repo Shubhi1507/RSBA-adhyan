@@ -8,7 +8,6 @@ import {
   Alert,
 } from 'react-native';
 import React from 'react';
-import {screenWidth} from '../../libs';
 import {
   Button,
   CustomCheckbox,
@@ -56,6 +55,7 @@ export default function SelectAudienceScreen() {
       {
         key: `Student's Parents (Past Students)`,
         value: `Student's Parents (Past Students)`,
+        label: 'STUDENTS_PARENTS_PAST_STUDENTS',
         disabled: false,
         attempted: false,
         completed: false,
@@ -63,6 +63,7 @@ export default function SelectAudienceScreen() {
       {
         key: `Student's Parents (Current Students)`,
         value: `Student's Parents (Current Students)`,
+        label: 'STUDENTS_PARENTS_CURRENT_STUDENTS',
         disabled: false,
         attempted: false,
         completed: false,
@@ -70,6 +71,7 @@ export default function SelectAudienceScreen() {
       {
         key: 'Past Student',
         value: 'Past Student',
+        label: 'PAST_STUDENT',
         disabled: false,
         attempted: false,
         completed: false,
@@ -77,6 +79,7 @@ export default function SelectAudienceScreen() {
       {
         key: 'Current Student',
         value: 'Current Student',
+        label: 'CURRENT_STUDENT',
         disabled: false,
         attempted: false,
         completed: false,
@@ -84,6 +87,7 @@ export default function SelectAudienceScreen() {
       {
         key: 'Teacher',
         value: 'Teacher',
+        label: 'TEACHER',
         disabled: false,
         attempted: false,
         completed: false,
@@ -91,6 +95,7 @@ export default function SelectAudienceScreen() {
       {
         key: 'Kendra Sanchalak',
         value: 'Kendra Sanchalak',
+        label: 'KENDRA_SANCHALAK',
         disabled: false,
         attempted: false,
         completed: false,
@@ -98,13 +103,15 @@ export default function SelectAudienceScreen() {
       {
         key: 'Basti',
         value: 'Basti',
+        label: 'BASTI',
         disabled: false,
         attempted: false,
         completed: false,
       },
       {
-        key: 'Prabuddha Jan',
-        value: 'Prabuddha Jan',
+        key: 'Influential Persons from the Basti',
+        value: 'Influential Persons from the Basti',
+        label: 'PRABUDDHA_JAN',
         disabled: false,
         attempted: false,
         completed: false,
@@ -238,7 +245,10 @@ export default function SelectAudienceScreen() {
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
-        <Header title={t('SELECT_AUDIENCE')} onPressBack={BackRefPageNavigator} />
+        <Header
+          title={t('SELECT_AUDIENCE')}
+          onPressBack={BackRefPageNavigator}
+        />
       </View>
       <CustomSnackBar
         visible={error.visible}
@@ -271,7 +281,6 @@ export default function SelectAudienceScreen() {
             }
             style={{flex: 1}}
             renderItem={({item, index}) => {
-              console.log('item', item);
               return (
                 <TouchableOpacity
                   style={{
@@ -321,7 +330,7 @@ export default function SelectAudienceScreen() {
                                 ? COLORS.blue
                                 : COLORS.black,
                           }}>
-                          {item.value}
+                          {t(item.label)}
                         </TextHandler>
                       </View>
                       <View style={{flex: 0.1, paddingTop: 8}}>
