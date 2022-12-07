@@ -329,17 +329,17 @@ export default function SelectAudienceScreen() {
                         : {color: COLORS.black}
                     }
                   />
-                  {item?.answered && (
-                    <TextHandler
-                      style={{
-                        color:
-                          item.answered < item.totalQue
-                            ? COLORS.error
-                            : COLORS.green,
-                      }}>
-                      {item.answered}/ {item?.totalQue}
-                    </TextHandler>
-                  )}
+              <TextHandler
+                    style={{
+                      color:
+                        item?.answered < item?.totalQue
+                          ? COLORS.error
+                          : COLORS.green,
+                    }}>
+                    {item?.answered
+                      ? item?.answered + '/' + item?.totalQue
+                      : ''}
+                  </TextHandler>
                 </View>
               );
             }}

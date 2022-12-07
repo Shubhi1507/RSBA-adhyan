@@ -485,7 +485,7 @@ export default function CenterDetailsTwoScreen() {
                 {t('PARENT_ORGANIZATION')}
               </Text>
               <Input
-                placeholder="Enter herewqdqwd"
+                placeholder="Enter here"
                 name="first_name"
                 onChangeText={text =>
                   setvolunteerInfo({...volunteerInfo, parent_org: text})
