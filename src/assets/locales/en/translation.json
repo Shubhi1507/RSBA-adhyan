@@ -71,16 +71,26 @@
   "CENTER_Q18": "Has centre's Basti Toli been formed and is active?",
 
   "CENTER_Q19": "Do all members of Basti Toli reside in that basti only?",
+  "CENTER_Q19_OPT": "What measures we can take",
 
   "CENTER_Q20": "Role of our Kendra in our Basti during  Corona",
 
   "CENTER_Q21": "Kendra  effect on anti -social problems such as (drug, child marriage) on the Basti",
+  "CENTER_Q21_OPT1": "Became less",
+  "CENTER_Q21_OPT2": "Increased",
+  "CENTER_Q21_OPT3": "Not much",
 
-  "CENTER_Q22": "Majorprevelant  problems in the Basti",
+  "CENTER_Q22": "Major prevelant  problems in the Basti",
 
   "CENTER_Q23": "Total population of the Basti",
+  "HINDU": "Hindu",
+  "OTHERS": "Others",
 
   "CENTER_Q24": "Total population of Sewa Bharti beneficiaries",
+
+  // D
+  "DIVYANG": "Divyang",
+  "SINGLE_OR_NO_PARENT": "Single / No parent",
 
   // E
 
@@ -526,7 +536,7 @@
   // R
   "REQUEST_OTP": "Request OTP",
   "RESEND_OTP": "Resend OTP",
-  "REVIEW_SURVEYS":"Review Surveys",
+  "REVIEW_SURVEYS": "Review Surveys",
 
   // S
   "SAVE_REVIEW_QUESTIONS": "Save & Review",
