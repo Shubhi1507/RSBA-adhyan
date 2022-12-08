@@ -184,7 +184,7 @@ export default function PastStudentParentsScreen() {
           <Input
             type={'numeric'}
             number={4}
-            placeholder="Enter answer here"
+            placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
               setAnswers({...answers, answer1: text});
@@ -236,7 +236,7 @@ export default function PastStudentParentsScreen() {
 
           <Input
             type={'numeric'}
-            placeholder="Enter answer here"
+            placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
               setAnswers({...answers, answer2: text});

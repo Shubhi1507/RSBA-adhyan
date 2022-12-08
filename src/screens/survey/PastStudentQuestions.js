@@ -183,7 +183,7 @@ export default function PastStudentQuestions() {
           <Input
             type={'numeric'}
             number={4}
-            placeholder="Enter answer here"
+            placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
               setAnswers({...answers, answer1: text});

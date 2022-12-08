@@ -34,6 +34,21 @@ export default function PresentStudentParentsScreen() {
     answer4: '',
     answer5: '',
     answer6: '',
+    // FROM DOCS
+    current_students: 0,
+    no_of_parents_present: 0,
+    educational_background: '',
+    economic_status: '',
+    reason_for_sending_children_to_the_centre: '',
+    how_these_children_go_to_the_centre: '',
+    days_children_are_going_to_the_centre: '',
+    experience_due_to_the_centre_education_before: '',
+    experience_due_to_the_centre_education_after: '',
+    benefits_of_the_centre: '',
+    involvement_in_the_programs_of_the_centre: '',
+    contribution_in_running_centre_more_effectively: '',
+    observations_about_kendra_teacher: '',
+    expectations_from_the_centre: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -124,37 +139,6 @@ export default function PresentStudentParentsScreen() {
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
   };
 
-  const HeaderContent = () => {
-    return (
-      <View
-        style={{
-          flex: 0.3,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          width: screenWidth,
-        }}>
-        <View
-          style={{
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            flexDirection: 'row',
-            flex: 0.33,
-          }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <ADIcons name="left" color={COLORS.white} size={21} />
-          </TouchableOpacity>
-          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
-        </View>
-        <View style={{flex: 0.85}}>
-          <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            Present Student's Parents
-          </Text>
-        </View>
-      </View>
-    );
-  };
-
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
@@ -173,7 +157,7 @@ export default function PresentStudentParentsScreen() {
         }
       />
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        {/* QA1 */}
+        {/* QA1 - ok - current_students */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -204,7 +188,7 @@ export default function PresentStudentParentsScreen() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'What is the Establishment Year of the Kendra ?'}
+                {t('CURRENT_STUDENTS_PARENTS_Q1')}
               </TextHandler>
             </View>
           </View>
@@ -212,12 +196,12 @@ export default function PresentStudentParentsScreen() {
           <Input
             type={'numeric'}
             number={4}
-            placeholder="Enter answer here"
+            placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
-              setAnswers({...answers, answer1: text});
+              setAnswers({...answers, current_students: text});
             }}
-            value={answers.answer1}
+            value={answers.current_students}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -257,32 +241,31 @@ export default function PresentStudentParentsScreen() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'What is the Infrastructure of Kendra (Place) ?'}
+                {t('CURRENT_STUDENTS_PARENTS_Q2')}
               </TextHandler>
             </View>
           </View>
 
           <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
+            <Input
+              type={'numeric'}
+              number={4}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, no_of_parents_present: text});
               }}
-              data={[
-                {key: 1, value: 'Open Air'},
-                {key: 2, value: 'Classroom (rented or owned)'},
-                {key: 3, value: 'Community Hall'},
-              ]}
-              valueProp={answers.answer2}
-              onValueChange={item => {
-                setAnswers({...answers, answer2: item});
+              value={answers.no_of_parents_present}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
               }}
             />
           </View>
         </View>
 
-        {/* QA3 */}
+        {/* QA3 - ok - educational_background */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -313,9 +296,7 @@ export default function PresentStudentParentsScreen() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'Whether the center is operating continuously since its inception or is it closed for some time in between ?'
-                }
+                {t('CURRENT_STUDENTS_PARENTS_Q3')}
               </TextHandler>
             </View>
           </View>
@@ -328,12 +309,14 @@ export default function PresentStudentParentsScreen() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: 'Regular Since Inception'},
-                {key: 2, value: 'Discontinued for some duration'},
+                {key: 1, value: 'Illiterate', label: 'ILLITERATE'},
+                {key: 2, value: 'Literate', label: 'LITERATE'},
+                {key: 3, value: 'Educated', label: 'EDUCATED'},
+                {key: 4, value: 'Mix', label: 'MIX'},
               ]}
-              valueProp={answers.answer3}
+              valueProp={answers.educational_background}
               onValueChange={item => {
-                setAnswers({...answers, answer3: item});
+                setAnswers({...answers, educational_background: item});
               }}
             />
           </View>
@@ -376,7 +359,7 @@ export default function PresentStudentParentsScreen() {
           </View>
 
           <Input
-            placeholder="Enter answer here"
+            placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
               setAnswers({...answers, answer4: text});

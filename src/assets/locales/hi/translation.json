@@ -5,6 +5,8 @@
   "ASSIGNED_CENTRES": "आवंटित केंद्र",
 
   // C
+  "CONTINUE_SURVEY": "सर्वेक्षण जारी रखें",
+
   "CENTRE": "केंद्र",
   "CENTER_DETAILS": "केंद्र का विवरण",
 
@@ -70,12 +72,9 @@
   "CENTER_Q17_OPT2": "नहीं",
 
   "CENTER_Q18": "केंद्र की बस्ती टोली बनी है एवं सक्रिय है ?",
-  "CENTER_Q18_OPT1": "हाँ",
-  "CENTER_Q18_OPT2": "नहीं",
 
   "CENTER_Q19": "क्या बस्ती टोली के सभी सदस्य उसी बस्ती के निवासी है ?",
-  "CENTER_Q19_OPT1": "हाँ",
-  "CENTER_Q19_OPT2": "नहीं",
+  "CENTER_Q19_OPT": "हम क्या उपाय कर सकते हैं",
 
   "CENTER_Q20": " कोरोना काल में हमारे केंद्र की भूमिका बस्ती में लघु उत्तर ",
 
@@ -85,9 +84,9 @@
   "CENTER_Q21_OPT3": "कोई ख़ास असर नही ",
 
   "CENTER_Q22": " बस्ती की प्रमुख समस्या लघु उत्तर  ",
-  "CENTER_Q23": " बस्ती की कुल जनसांख्या  ",
-  "CENTER_Q23_OPT1": "हिंदू ",
-  "CENTER_Q23_OPT2": "अन्य",
+  "CENTER_Q23": " बस्ती की कुल जनसांख्या",
+  "HINDU": "हिंदू ",
+  "OTHERS": "अन्य",
 
   "CENTER_Q24": "बस्ती की कुल सेकवत जनसांख्या लघुउत्तर",
 
@@ -105,10 +104,10 @@
   "CURRENT_STUDENTS_PARENTS_Q1": "वर्तमान छात्र",
   "CURRENT_STUDENTS_PARENTS_Q2": "कुल उपस्थित अभिभावक",
   "CURRENT_STUDENTS_PARENTS_Q3": "सभीकी शैक्षिक पृष्ठभूमी ",
-  "CURRENT_STUDENTS_PARENTS_Q3_OPT1": "निरक्षर",
-  "CURRENT_STUDENTS_PARENTS_Q3_OPT2": "साक्षर",
-  "CURRENT_STUDENTS_PARENTS_Q3_OPT3": "अच्छे पढे लिखे ",
-  "CURRENT_STUDENTS_PARENTS_Q3_OPT4": "अन्य",
+  "ILLITERATE": "निरक्षर",
+  "LITERATE": "साक्षर",
+  "EDUCATED": "अच्छे पढे लिखे",
+  "MIX": "अन्य",
   "CURRENT_STUDENTS_PARENTS_Q4": "आर्थिक स्तर ",
   "CURRENT_STUDENTS_PARENTS_Q4_OPT1": "अतिसामान्य",
   "CURRENT_STUDENTS_PARENTS_Q4_OPT2": "सामान्य ",
@@ -146,6 +145,11 @@
   "CURRENT_STUDENTS_PARENTS_Q11": "केंद्र को और अच्छे से चलाने के लिये आप क्या कर सकते है? ",
   "CURRENT_STUDENTS_PARENTS_Q12": "शिक्षक के बारे मै आपका आकलन कृपया संक्षेप मै लिखे",
   "CURRENT_STUDENTS_PARENTS_Q13 ": "केंद्र से अपेक्षा ",
+
+  // D
+
+  "DIVYANG": "दिव्यांग",
+  "SINGLE_OR_NO_PARENT": "एकल / माता-पिता नहीं",
 
   // E
 
@@ -511,6 +515,7 @@
   "PAST_STUDENTS_PARENTS": "छात्र के माता-पिता (पूर्व)",
   "PRESENT_STUDENTS_PARENTS": "छात्र के माता-पिता (वर्तमान)",
   "PAST_STUDENT": "पिछले छात्र",
+  "PAST_STUDENTS": "पिछले छात्र",
   "PRESENT_STUDENT": "वर्तमान छात्र",
   "TEACHER": "शिक्षक",
   "KENDRA_SANCHALAK": "केंद्र संचलक",

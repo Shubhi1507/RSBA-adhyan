@@ -26,12 +26,6 @@ export default function CentreQuestionsScreen() {
   const {t} = useContext(LocalizationContext);
   let totalSurveys = store.totalSurveys;
   let [answers, setAnswers] = useState({
-    // establishment: '',
-    // infrastructure: '',
-    // regularity: '',
-    // discontinued_due_to: '',
-    // type_of_basti: '',
-    // project_init_before: '',
     establishment: '',
     centre_commence_motive: '',
     students_passed_out_from_centre: '',
@@ -48,14 +42,14 @@ export default function CentreQuestionsScreen() {
     availability_of_infrastructure: '',
     participation_of_the_basti_people: '',
     is_participation_of_basti_satisfactory: '',
-    oppose_of_the_kendras_activities_by_basti: '',
     divyang_and_single_parent_students_enrolled: '',
     basti_toli_active: '',
+    oppose_of_the_kendras_activities_by_basti: '',
     members_of_basti_toli_reside_in_same_area: '',
     role_of_our_kendra_in_our_basti_during__corona: '',
     kendra_effect_on_anti_social_problems: '',
     majorprevelant_problems_in_the_basti_: '',
-    total_population_of_the_basti_hindu: '',
+    total_population_of_the_basti: '',
     total_population_of_sewa_bharti_beneficiaries: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
@@ -82,32 +76,56 @@ export default function CentreQuestionsScreen() {
     const {
       establishment,
       infrastructure,
-      regularity,
-      discontinued_due_to,
       type_of_basti,
       project_init_before,
+      availability_of_infrastructure,
+      basti_toli_active,
+      center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time,
+      centre_commence_motive,
+      centre_not_operational_aftermath,
+      discontinuation_time_period,
+      divyang_and_single_parent_students_enrolled,
+      is_participation_of_basti_satisfactory,
+      kendra_effect_on_anti_social_problems,
+      majorprevelant_problems_in_the_basti_,
+      members_of_basti_toli_reside_in_same_area,
+      oppose_of_the_kendras_activities_by_basti,
+      participation_of_the_basti_people,
+      pictures_of_bharatmata_and_indian_legends,
+      role_of_our_kendra_in_our_basti_during__corona,
+      sewa_sanstha_running_the_center,
+      students_passed_out_from_centre,
+      total_population_of_sewa_bharti_beneficiaries,
+      total_population_of_the_basti,
+      visitors_details_captured,
     } = answers;
     const {center_details} = store.currentSurveyData;
-    // if (!establishment || !infrastructure || !regularity || !discontinued_due_to || !type_of_basti || !project_init_before) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please answer all questionaires',
-    //   });
-    // }
-    // if (establishment.length < 4 || establishment > 2023 || establishment < 1800) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Invalid year entered',
-    //   });
-    // }
     let new_centre_details = {
       ...center_details,
-      establishment: establishment,
-      infrastructure: infrastructure,
-      regularity: regularity,
-      discontinued_due_to: discontinued_due_to,
-      type_of_basti: type_of_basti,
-      project_init_before: project_init_before,
+      establishment,
+      infrastructure,
+      type_of_basti,
+      project_init_before,
+      availability_of_infrastructure,
+      basti_toli_active,
+      center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time,
+      centre_commence_motive,
+      centre_not_operational_aftermath,
+      discontinuation_time_period,
+      divyang_and_single_parent_students_enrolled,
+      is_participation_of_basti_satisfactory,
+      kendra_effect_on_anti_social_problems,
+      majorprevelant_problems_in_the_basti_,
+      members_of_basti_toli_reside_in_same_area,
+      oppose_of_the_kendras_activities_by_basti,
+      participation_of_the_basti_people,
+      pictures_of_bharatmata_and_indian_legends,
+      role_of_our_kendra_in_our_basti_during__corona,
+      sewa_sanstha_running_the_center,
+      students_passed_out_from_centre,
+      total_population_of_sewa_bharti_beneficiaries,
+      total_population_of_the_basti,
+      visitors_details_captured,
     };
 
     let payload = {
@@ -175,7 +193,7 @@ export default function CentreQuestionsScreen() {
           <Input
             type={'numeric'}
             number={4}
-            placeholder="Enter answer here"
+            placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
               setAnswers({...answers, establishment: text});
@@ -222,7 +240,7 @@ export default function CentreQuestionsScreen() {
           </View>
 
           <Input
-            placeholder="Enter answer here"
+            placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
               setAnswers({...answers, centre_commence_motive: text});
@@ -270,7 +288,7 @@ export default function CentreQuestionsScreen() {
 
           <View>
             <Input
-              placeholder="Enter answer here"
+              placeholder={`${t('ENTER_ANSWER')}`}
               type={'numeric'}
               name="any"
               onChangeText={text => {
@@ -320,7 +338,7 @@ export default function CentreQuestionsScreen() {
 
           <View>
             <Input
-              placeholder="Enter answer here"
+              placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
                 setAnswers({
@@ -690,8 +708,8 @@ export default function CentreQuestionsScreen() {
                     value: 'Same as the current',
                   },
                   {
-                    key: 3,
-                    value: 'CENTER_Q9_OPT1_PT2',
+                    key: 2,
+                    label: 'CENTER_Q9_OPT1_PT2',
                     value:
                       'New initiative (Health camp / Blood donation camp / aadhar card or any other initiative)',
                   },
@@ -1013,6 +1031,751 @@ export default function CentreQuestionsScreen() {
                   ...answers,
                   participation_of_the_basti_people: item,
                 });
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA14 - OK - is_participation_of_basti_satisfactory */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {14}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CENTER_Q15')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+              ]}
+              valueProp={answers.is_participation_of_basti_satisfactory}
+              onValueChange={item => {
+                setAnswers({
+                  ...answers,
+                  is_participation_of_basti_satisfactory: item,
+                });
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA15 - OK - divyang_and_single_parent_students_enrolled */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {15}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CENTER_Q17')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+              ]}
+              valueProp={answers.divyang_and_single_parent_students_enrolled}
+              onValueChange={item => {
+                setAnswers({
+                  ...answers,
+                  divyang_and_single_parent_students_enrolled: item,
+                });
+              }}
+            />
+            {answers.divyang_and_single_parent_students_enrolled?.key == 1 && (
+              <View>
+                <TextHandler
+                  style={{
+                    color: 'black',
+                  }}>
+                  {t('DIVYANG')}
+                </TextHandler>
+                <Input
+                  type={'numeric'}
+                  number={4}
+                  placeholder={`${t('ENTER_ANSWER')}`}
+                  name="any"
+                  onChangeText={text => {
+                    setAnswers({
+                      ...answers,
+                      divyang_and_single_parent_students_enrolled: {
+                        ...answers.divyang_and_single_parent_students_enrolled,
+                        divyang_count: text,
+                      },
+                    });
+                  }}
+                  value={
+                    answers.divyang_and_single_parent_students_enrolled
+                      ?.divyang_count
+                  }
+                  message={''}
+                  containerStyle={{
+                    alignItems: 'center',
+                    minWidth: screenWidth * 0.5,
+                  }}
+                />
+                <TextHandler
+                  style={{
+                    color: 'black',
+                  }}>
+                  {t('SINGLE_OR_NO_PARENT')}
+                </TextHandler>
+                <Input
+                  type={'numeric'}
+                  number={4}
+                  placeholder={`${t('ENTER_ANSWER')}`}
+                  name="any"
+                  onChangeText={text => {
+                    setAnswers({
+                      ...answers,
+                      divyang_and_single_parent_students_enrolled: {
+                        ...answers.divyang_and_single_parent_students_enrolled,
+                        no_or_single_parent_count: text,
+                      },
+                    });
+                  }}
+                  value={
+                    answers.divyang_and_single_parent_students_enrolled
+                      ?.no_or_single_parent_count
+                  }
+                  message={''}
+                  containerStyle={{
+                    alignItems: 'center',
+                    minWidth: screenWidth * 0.5,
+                  }}
+                />
+              </View>
+            )}
+          </View>
+        </View>
+
+        {/* QA16 - OK - basti_toli_active */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {16}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CENTER_Q18')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+              ]}
+              valueProp={answers.basti_toli_active}
+              onValueChange={item => {
+                setAnswers({
+                  ...answers,
+                  basti_toli_active: item,
+                });
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA17 - OK - oppose_of_the_kendras_activities_by_basti */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {17}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CENTER_Q16')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+              ]}
+              valueProp={answers.oppose_of_the_kendras_activities_by_basti}
+              onValueChange={item => {
+                setAnswers({
+                  ...answers,
+                  oppose_of_the_kendras_activities_by_basti: item,
+                });
+              }}
+            />
+            {answers.oppose_of_the_kendras_activities_by_basti?.key == 1 && (
+              <Input
+                type={'default'}
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    oppose_of_the_kendras_activities_by_basti: {
+                      ...answers.oppose_of_the_kendras_activities_by_basti,
+                      reason: text,
+                    },
+                  });
+                }}
+                value={
+                  answers.oppose_of_the_kendras_activities_by_basti?.reason
+                }
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
+          </View>
+        </View>
+
+        {/* QA18 - OK - members_of_basti_toli_reside_in_same_area */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {18}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CENTER_Q19')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+              ]}
+              valueProp={answers.members_of_basti_toli_reside_in_same_area}
+              onValueChange={item => {
+                setAnswers({
+                  ...answers,
+                  members_of_basti_toli_reside_in_same_area: item,
+                });
+              }}
+            />
+            {answers.members_of_basti_toli_reside_in_same_area?.key == 2 && (
+              <View style={{marginTop: 10}}>
+                <TextHandler
+                  style={{
+                    color: 'black',
+                  }}>
+                  {t('CENTER_Q19_OPT')}
+                </TextHandler>
+                <Input
+                  type={'default'}
+                  placeholder={`${t('ENTER_ANSWER')}`}
+                  name="any"
+                  onChangeText={text => {
+                    setAnswers({
+                      ...answers,
+                      members_of_basti_toli_reside_in_same_area: {
+                        ...answers.members_of_basti_toli_reside_in_same_area,
+                        reason: text,
+                      },
+                    });
+                  }}
+                  value={
+                    answers.members_of_basti_toli_reside_in_same_area?.reason
+                  }
+                  message={''}
+                  containerStyle={{
+                    alignItems: 'center',
+                    minWidth: screenWidth * 0.5,
+                  }}
+                />
+              </View>
+            )}
+          </View>
+        </View>
+
+        {/* QA19 - OK - role_of_our_kendra_in_our_basti_during__corona */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {19}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CENTER_Q20')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <Input
+            type={'default'}
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="any"
+            onChangeText={text => {
+              setAnswers({
+                ...answers,
+                role_of_our_kendra_in_our_basti_during__corona: text,
+              });
+            }}
+            value={answers.role_of_our_kendra_in_our_basti_during__corona}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.5,
+            }}
+          />
+        </View>
+
+        {/* QA20 - OK - kendra_effect_on_anti_social_problems*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {20}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CENTER_Q21')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Became less',
+                  label: 'CENTER_Q21_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Increased',
+                  label: 'CENTER_Q21_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Not much',
+                  label: 'CENTER_Q21_OPT3',
+                },
+              ]}
+              valueProp={answers.kendra_effect_on_anti_social_problems}
+              onValueChange={item => {
+                setAnswers({
+                  ...answers,
+                  kendra_effect_on_anti_social_problems: item,
+                });
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA21 - OK - majorprevelant_problems_in_the_basti_ */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {21}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CENTER_Q22')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <Input
+            type={'default'}
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="any"
+            onChangeText={text => {
+              setAnswers({
+                ...answers,
+                majorprevelant_problems_in_the_basti_: text,
+              });
+            }}
+            value={answers.majorprevelant_problems_in_the_basti_}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.5,
+            }}
+          />
+        </View>
+
+        {/* QA22 - OK - total_population_of_the_basti */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {21}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CENTER_Q23')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View style={{marginTop: 10}}>
+            <TextHandler
+              style={{
+                color: 'black',
+              }}>
+              {t('HINDU')}
+            </TextHandler>
+            <Input
+              type={'numeric'}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({
+                  ...answers,
+                  total_population_of_the_basti: {
+                    ...answers.total_population_of_the_basti,
+                    hindu: text,
+                  },
+                });
+              }}
+              value={answers.total_population_of_the_basti?.hindu}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
+            <TextHandler
+              style={{
+                color: 'black',
+                marginTop: 10,
+              }}>
+              {t('OTHERS')}
+            </TextHandler>
+            <Input
+              type={'numeric'}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({
+                  ...answers,
+                  total_population_of_the_basti: {
+                    ...answers.total_population_of_the_basti,
+                    others: text,
+                  },
+                });
+              }}
+              value={answers.total_population_of_the_basti?.others}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA2 - OK - total_population_of_sewa_bharti_beneficiaries */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {21}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CENTER_Q24')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View style={{marginTop: 10}}>
+            <Input
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({
+                  ...answers,
+                  total_population_of_sewa_bharti_beneficiaries: {
+                    ...answers.total_population_of_sewa_bharti_beneficiaries,
+                    hindu: text,
+                  },
+                });
+              }}
+              value={
+                answers.total_population_of_sewa_bharti_beneficiaries?.hindu
+              }
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
               }}
             />
           </View>

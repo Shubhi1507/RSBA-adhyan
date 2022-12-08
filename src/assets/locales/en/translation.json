@@ -71,16 +71,27 @@
   "CENTER_Q18": "Has centre's Basti Toli been formed and is active?",
 
   "CENTER_Q19": "Do all members of Basti Toli reside in that basti only?",
+  "CENTER_Q19_OPT": "What measures we can take",
 
   "CENTER_Q20": "Role of our Kendra in our Basti during  Corona",
 
   "CENTER_Q21": "Kendra  effect on anti -social problems such as (drug, child marriage) on the Basti",
+  "CENTER_Q21_OPT1": "Became less",
+  "CENTER_Q21_OPT2": "Increased",
+  "CENTER_Q21_OPT3": "Not much",
 
-  "CENTER_Q22": "Majorprevelant  problems in the Basti",
+  "CENTER_Q22": "Major prevelant  problems in the Basti",
+  "CONTINUE_SURVEY": "Continue Survey",
 
   "CENTER_Q23": "Total population of the Basti",
+  "HINDU": "Hindu",
+  "OTHERS": "Others",
 
   "CENTER_Q24": "Total population of Sewa Bharti beneficiaries",
+
+  // D
+  "DIVYANG": "Divyang",
+  "SINGLE_OR_NO_PARENT": "Single / No parent",
 
   // E
 
@@ -99,10 +110,10 @@
   "CURRENT_STUDENTS_PARENTS_Q1": "Current Students",
   "CURRENT_STUDENTS_PARENTS_Q2": "No. of parents present",
   "CURRENT_STUDENTS_PARENTS_Q3": "Educational background ",
-  "CURRENT_STUDENTS_PARENTS_Q3_OPT1": "Illiterate",
-  "CURRENT_STUDENTS_PARENTS_Q3_OPT2": "Literate",
-  "CURRENT_STUDENTS_PARENTS_Q3_OPT3": "Educated",
-  "CURRENT_STUDENTS_PARENTS_Q3_OPT4": "Mix",
+  "ILLITERATE": "Illiterate",
+  "LITERATE": "Literate",
+  "EDUCATED": "Educated",
+  "MIX": "Mix",
   "CURRENT_STUDENTS_PARENTS_Q4": "Economic status",
   "CURRENT_STUDENTS_PARENTS_Q4_OPT1": "Very poor",
   "CURRENT_STUDENTS_PARENTS_Q4_OPT2": "Poor",
@@ -503,6 +514,8 @@
   "PAST_STUDENTS_PARENTS": "Student's Parents (Past)",
   "PRESENT_STUDENTS_PARENTS": "Student's Parents (Current)",
   "PAST_STUDENT": "Past Student",
+  "PAST_STUDENTS": "Past Student",
+
   "PRESENT_STUDENT": "Present Student",
   "PRABUDHHA_JAN": "Prabuddha Jan",
   "SURVEY": "Survey",
@@ -526,7 +539,7 @@
   // R
   "REQUEST_OTP": "Request OTP",
   "RESEND_OTP": "Resend OTP",
-  "REVIEW_SURVEYS":"Review Surveys",
+  "REVIEW_SURVEYS": "Review Surveys",
 
   // S
   "SAVE_REVIEW_QUESTIONS": "Save & Review",

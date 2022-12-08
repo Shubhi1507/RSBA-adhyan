@@ -41,11 +41,7 @@ export const Input = ({
   secure,
   message,
   number,
-  text,
-  valid,
-  dialog,
   disabled,
-  routeName,
 }) => {
   const [isShow, setisShow] = useState(secure);
   let containerCustomStyle = containerStyle ?? {};
