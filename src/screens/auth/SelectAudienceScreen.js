@@ -333,7 +333,7 @@ export default function SelectAudienceScreen() {
                           {t(item.label)}
                         </TextHandler>
                       </View>
-                      <View style={{flex: 0.1, paddingTop: 8}}>
+                      <View style={{flex: 0.2, paddingTop: 8}}>
                         <TextHandler
                           style={{
                             fontSize: 16,
@@ -346,9 +346,11 @@ export default function SelectAudienceScreen() {
                                 : COLORS.green
                               : COLORS.black,
                           }}>
-                          {item?.answered
-                            ? item?.answered + '/' + item?.totalQue
-                            : item.totalQue}
+                          {item.attempted
+                            ? item?.answered
+                              ? item?.answered + '/' + item?.totalQue
+                              : item.totalQue
+                            : ''}
                         </TextHandler>
                       </View>
                     </View>

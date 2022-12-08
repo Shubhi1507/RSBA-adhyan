@@ -43,7 +43,7 @@ export default function IncompleteSurveysScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={{flex: 0.2}}>
+      <View style={{maxHeight: 150, minHeight: 150}}>
         <Header
           title={t('INCOMPLETE_SUVEYS') + ' ' + t('SURVEY')}
           onPressBack={goBack}
@@ -56,7 +56,7 @@ export default function IncompleteSurveysScreen() {
           setError({...error, message: '', visible: false})
         }
       />
-      <View style={{margin: 20}}>
+      <View style={{margin: 20, flex: 0.9}}>
         <FlatList
           data={incompleteSurveyDataTmpArr}
           renderItem={({item, index}) => {

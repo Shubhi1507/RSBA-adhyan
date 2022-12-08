@@ -29,7 +29,7 @@ import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 import LocalizationContext from '../../context/LanguageContext';
 import {
   ChangeLanguageAndReboot,
-  checkSurveyReleaseDateandReturnCompletedSurveys,
+  checkInReviewSurveyAndReturnRemaingingTime,
   filterOutIncompleteSurveys,
   filterOutSavedSurveys,
   findMinimumTimeLeft,
@@ -54,7 +54,7 @@ export default function DashboardScreen({route, navigation}) {
   const totalSurveys = store.surveyReducer.totalSurveys;
   const [visible, setVisible] = React.useState(false);
   const completedSurveysTmpArr =
-    checkSurveyReleaseDateandReturnCompletedSurveys(totalSurveys);
+    checkInReviewSurveyAndReturnRemaingingTime(totalSurveys);
   const [ReviewTimeLeft, setReviewTimeLeft] = useState('');
   const [CENTER_DATA] = useState([
     {key: '301', value: '301'},
@@ -86,7 +86,7 @@ export default function DashboardScreen({route, navigation}) {
       console.log('x', x);
       if (x) {
         setReviewTimeLeft(x.toString());
-      }
+      } else setReviewTimeLeft('');
     });
     return focus;
   }, [store.surveyReducer, navigation]);
@@ -222,7 +222,8 @@ export default function DashboardScreen({route, navigation}) {
               paddingHorizontal: 5,
               paddingVertical: 10,
               alignItems: 'center',
-            }}>
+            }}
+            onPress={() => navigate(ROUTES.AUTH.COMPLETEDSURVEYSSCREEN)}>
             <View style={{flex: 1}}>
               <TextHandler style={styles.subheading}>
                 {t('COMPLETED_SURVEYS')}

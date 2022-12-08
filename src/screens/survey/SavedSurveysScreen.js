@@ -5,6 +5,7 @@ import {
   StyleSheet,
   FlatList,
   Image,
+  Alert,
 } from 'react-native';
 import React, {useContext, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -21,7 +22,7 @@ import {
   TextHandler,
 } from '../../components';
 import LocalizationContext from '../../context/LanguageContext';
-import {filterOutSavedSurveys} from '../../utils/utils';
+import {filterOutSavedSurveys, FindAndUpdate} from '../../utils/utils';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {images} from '../../assets';
@@ -35,6 +36,7 @@ export default function SavedSurveysScreen() {
   let totalSurveys = store.totalSurveys;
   const savedSurveyDataTmpArr = filterOutSavedSurveys(totalSurveys);
 
+  useEffect(() => {}, []);
   const pageNavigator = () => {
     if (Object.keys(selectedCenter).length > 0) {
       console.log('old payload', selectedCenter);
@@ -50,19 +52,60 @@ export default function SavedSurveysScreen() {
       });
   };
 
+  const submitSurvey = () => {
+    if (Object.keys(selectedCenter).length > 0) {
+      Alert.alert(`${t('CONFIRM_SUBMISSION')}?`, '', [
+        {
+          text: t('YES'),
+          onPress: () => {
+            submit();
+          },
+        },
+        {
+          text: t('NO'),
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ]);
+    } else
+      return setError({
+        visible: true,
+        message: 'Please select a centre',
+      });
+  };
+
+  const submit = () => {
+    console.log(selectedCenter);
+    let newpayload = {
+      ...selectedCenter,
+      isCompleted: true,
+      updatedAt: new Date().toString(),
+    };
+    let tmp1 = FindAndUpdate(totalSurveys, newpayload);
+    console.log(tmp1);
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
+    goBack();
+  };
+
   const timeRemainingCalcution = item => {
-    if (item && item?.release_date) {
-      console.log('item', item.release_date);
-      const total = Date.parse(item.release_date) - Date.parse(new Date());
-      const minutes = Math.floor((total / 1000 / 60) % 60);
-      const hours = Math.floor(total / (1000 * 60 * 60));
-      console.log(hours, minutes, 'left');
-      return hours + ':' + minutes + '   ';
+    if (
+      savedSurveyDataTmpArr &&
+      Array.isArray(savedSurveyDataTmpArr) &&
+      savedSurveyDataTmpArr.length > 0
+    ) {
+      if (item && item?.release_date) {
+        console.log('item', item.release_date);
+        const total = Date.parse(item.release_date) - Date.parse(new Date());
+        const minutes = Math.floor((total / 1000 / 60) % 60);
+        const hours = Math.floor(total / (1000 * 60 * 60));
+        console.log(hours, minutes, 'left');
+        return hours + ':' + minutes + '   ';
+      } else return '';
     } else return '';
   };
   return (
     <View style={styles.container}>
-      <View style={{flex: 0.2}}>
+      <View style={{maxHeight: 150, minHeight: 150}}>
         <Header title={t('REVIEW_SURVEYS')} onPressBack={goBack} />
       </View>
       <CustomSnackBar
@@ -72,32 +115,12 @@ export default function SavedSurveysScreen() {
           setError({...error, message: '', visible: false})
         }
       />
-      <View style={{margin: 20}}>
+      <View style={{margin: 20, flex: 0.9}}>
         <FlatList
           data={savedSurveyDataTmpArr}
+          style={{flex: 1}}
           renderItem={({item, index}) => {
             return (
-              // <CustomCheckbox
-              //   label={'Centre ID : ' + item.centre_id}
-              //   completed={false}
-              //   status={
-              //     selectedCenter && selectedCenter?.centre_id
-              //       ? selectedCenter?.centre_id === item.centre_id
-              //       : false
-              //   }
-              //   attempted={false}
-              //   onPress={() => {
-              //     setCenter(item);
-              //   }}
-              //   customTextStyle={
-              //     selectedCenter
-              //       ? selectedCenter?.centre_id === item.centre_id
-              //         ? {color: COLORS.buttonColor}
-              //         : {color: COLORS.black}
-              //       : {color: COLORS.black}
-              //   }
-              // />
-
               <TouchableOpacity
                 style={{
                   flex: 1,
@@ -177,7 +200,7 @@ export default function SavedSurveysScreen() {
       </View>
       <View>
         <Button
-          title={'Review Survey'}
+          title={t('REVIEW_SURVEYS')}
           onPress={() => {
             pageNavigator();
           }}
@@ -185,6 +208,18 @@ export default function SavedSurveysScreen() {
             alignItems: 'center',
             textAlign: 'center',
             marginHorizontal: 20,
+          }}
+        />
+        <Button
+          title={t('SUBMIT_SURVEY')}
+          onPress={() => {
+            submitSurvey();
+          }}
+          ButtonContainerStyle={{
+            alignItems: 'center',
+            textAlign: 'center',
+            marginHorizontal: 20,
+            marginVertical: 20,
           }}
         />
       </View>

@@ -16,8 +16,6 @@ export const ChangeLanguageAndReboot = (lang, t) => {
     {
       text: t('ALLOW'),
       onPress: () => {
-        console.log('lang', lang);
-
         AsyncStorage.setItem('lang', lang).then(() => {
           ReactNativeRestart.Restart();
         });
@@ -42,7 +40,6 @@ export const StringModifier = (str: String) => {
     .replace(/[^a-zA-Z0-9 ]/g, '')
     .replace(/ /g, '_')
     .toUpperCase();
-  console.log('k->', k);
   return k;
 };
 
@@ -75,20 +72,30 @@ export const filterOutIncompleteSurveys = totalSurveys => {
 
 export const filterOutSavedSurveys = totalSurveys => {
   let tmp = totalSurveys.filter(function (el) {
-    return el.isSaved == true;
+    return el.isSaved == true && el.isCompleted == false;
   });
   return tmp;
 };
 
-export const checkSurveyReleaseDateandReturnCompletedSurveys = totalSurveys => {
+export const filterOutCompletedSurveys = totalSurveys => {
   let tmp = totalSurveys.filter(function (el) {
-    if (el.isSaved === true && el?.release_date) {
-      if (new Date(el.release_date).getTime() - new Date().getTime() <= 0) {
-        return el;
-      }
-    }
+    return el.isCompleted == true;
   });
   return tmp;
+};
+
+export const checkInReviewSurveyAndReturnRemaingingTime = totalSurveys => {
+  let tmp = [];
+  if (totalSurveys && Array.isArray(totalSurveys) && totalSurveys.length > 0) {
+    tmp = totalSurveys.filter(function (el) {
+      if (el.isSaved === true && el?.release_date) {
+        if (new Date(el.release_date).getTime() - new Date().getTime() > 0) {
+          return el;
+        }
+      }
+    });
+    return tmp;
+  }
 };
 
 export const findMinimumTimeLeft = totalSurveys => {
@@ -96,7 +103,7 @@ export const findMinimumTimeLeft = totalSurveys => {
   let time = '';
   if (totalSurveys && Array.isArray(totalSurveys) && totalSurveys.length > 0) {
     let tmpArr = totalSurveys.filter(function (el) {
-      if (el.isSaved === true && el?.release_date) {
+      if (el.isSaved && !el.isCompleted && el?.release_date) {
         return el;
       }
     });
@@ -115,7 +122,6 @@ export const findMinimumTimeLeft = totalSurveys => {
       const total = Date.parse(tmp.release_date) - Date.parse(new Date());
       const minutes = Math.floor((total / 1000 / 60) % 60);
       const hours = Math.floor(total / (1000 * 60 * 60));
-      console.log(hours, minutes, 'left');
       time = hours + ':' + minutes + '';
     }
   }

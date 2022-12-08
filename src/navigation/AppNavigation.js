@@ -18,6 +18,7 @@ import PastStudentQuestions from '../screens/survey/PastStudentQuestions';
 import PresentStudentQuestions from '../screens/survey/PresentStudentQuestions';
 import SavedSurveysScreen from '../screens/survey/SavedSurveysScreen';
 import IncompleteSurveysScreen from '../screens/survey/IncompleteSurveysScreen';
+import CompletedSurveysScreen from '../screens/survey/CompletedSurveysScreen';
 
 const AppStack = createStackNavigator();
 
@@ -113,6 +114,11 @@ export function App() {
       <AppStack.Screen
         name={ROUTES.AUTH.INCOMPLETESURVEYSSCREEN}
         component={IncompleteSurveysScreen}
+        options={{headerShown: false}}
+      />
+      <AppStack.Screen
+        name={ROUTES.AUTH.COMPLETEDSURVEYSSCREEN}
+        component={CompletedSurveysScreen}
         options={{headerShown: false}}
       />
     </AppStack.Navigator>
