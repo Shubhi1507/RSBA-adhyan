@@ -179,7 +179,7 @@ export default function KendraSanchalakQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'How many students attend the class regularly? (Boys + Girls)'}
+                {t('KENDRA_SANCHALAK_Q1')}
               </TextHandler>
             </View>
           </View>
@@ -232,9 +232,7 @@ export default function KendraSanchalakQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'Was the Kendra able to perform its work during the Covid period ?'
-                }
+                {t('KENDRA_SANCHALAK_Q2')}
               </TextHandler>
             </View>
           </View>
@@ -250,17 +248,24 @@ export default function KendraSanchalakQuestions() {
                 {
                   key: 1,
                   value: 'No, absolutely closed',
+                  label: 'KENDRA_SANCHALAK_Q2_OPT1',
                 },
                 {
                   key: 2,
                   value: 'Partially active (50 % of total 1.5 yrs)',
+                  label: 'KENDRA_SANCHALAK_Q2_OPT2',
                 },
                 {
                   key: 3,
                   value:
                     'Partially active (Less than 10 % of total 1.5 yrs)"} ',
+                  label: 'KENDRA_SANCHALAK_Q2_OPT3',
                 },
-                {key: 4, value: 'Fully active with 100 % capacity'},
+                {
+                  key: 4,
+                  value: 'Fully active with 100 % capacity',
+                  label: 'KENDRA_SANCHALAK_Q2_OPT4',
+                },
               ]}
               valueProp={answers.answer2}
               onValueChange={item => {
@@ -301,9 +306,7 @@ export default function KendraSanchalakQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  '"What difference we can observe in students family due to Kendra performance? (At least 50% cases should be there)'
-                }
+                {t('KENDRA_SANCHALAK_Q3')}
               </TextHandler>
             </View>
           </View>
@@ -319,19 +322,24 @@ export default function KendraSanchalakQuestions() {
                 {
                   key: 1,
                   value: 'Family members willing to attends kendra activities',
+                  label: 'KENDRA_SANCHALAK_Q3_OPT1',
                 },
                 {
                   key: 2,
                   value: 'Siblings have joined our Kendra',
+                  label: 'KENDRA_SANCHALAK_Q3_OPT2',
                 },
                 {
                   key: 3,
-                  value: 'Parents feels proud about Kendra students',
+                  value:
+                    'Parents feels proud about Kendra students',
+                  label: 'KENDRA_SANCHALAK_Q3_OPT3',
                 },
-
-                {key: 4, value: 'All the above'},
-
-                {key: 5, value: ' None of the above'},
+                {
+                  key: 4,
+                  value: 'None of the above',
+                  label: 'KENDRA_SANCHALAK_Q3_OPT4',
+                },
               ]}
               valueProp={answers.answer3}
               onValueChange={item => {
@@ -372,26 +380,47 @@ export default function KendraSanchalakQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'Any other observations which are not covered in above questions. '
-                }
+                {t('KENDRA_SANCHALAK_Q4')}
               </TextHandler>
             </View>
           </View>
 
-          <Input
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({...answers, answer4: text});
-            }}
-            value={answers.answer4}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: '10 to 15% ',
+                  label: 'KENDRA_SANCHALAK_Q4_OPT1',
+                },
+                {
+                  key: 2,
+                  value: '16 to 30% ',
+                  label: 'KENDRA_SANCHALAK_Q4_OPT2',
+                },
+                {
+                  key: 3,
+                  value:
+                    '31 to 45%',
+                  label: 'KENDRA_SANCHALAK_Q4_OPT3',
+                },
+                {
+                  key: 4,
+                  value: 'above 50%',
+                  label: 'KENDRA_SANCHALAK_Q4_OPT4',
+                },
+              ]}
+              valueProp={answers.answer4}
+              onValueChange={item => {
+                setAnswers({...answers, answer4: item});
+              }}
+            />
+          </View>
         </View>
 
         {/* QA5  */}
@@ -426,7 +455,7 @@ export default function KendraSanchalakQuestions() {
                   // textAlign: 'left',
                 }}>
                 {
-                  'How many families from the locality we have influenced due to our Kendra activities?'
+                  t('KENDRA_SANCHALAK_Q5')
                 }
               </TextHandler>
             </View>
@@ -440,11 +469,11 @@ export default function KendraSanchalakQuestions() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: '10 to 15%'},
-                {key: 2, value: '16 to 30%'},
-                {key: 3, value: '31 to 45%'},
-                {key: 4, value: '31 to 45%'},
-                {key: 5, value: '50% +'},
+                {key: 1, value: '10 to 15%' , label : "KENDRA_SANCHALAK_Q5_OPT1"},
+                {key: 2, value: '16 to 30%' , label : "KENDRA_SANCHALAK_Q5_OPT2"},
+                {key: 3, value: '31 to 45%' , label : "KENDRA_SANCHALAK_Q5_OPT3"},
+                {key: 4, value: '31 to 45%' , label: "KENDRA_SANCHALAK_Q5_OPT4"},
+                
               ]}
               valueProp={answers.answer5}
               onValueChange={item => {
@@ -486,7 +515,7 @@ export default function KendraSanchalakQuestions() {
                   // textAlign: 'left',
                 }}>
                 {
-                  'Do we conduct “Medical test” (Physical test) for our students?'
+                  t('KENDRA_SANCHALAK_Q6')
                 }
               </TextHandler>
             </View>
@@ -500,8 +529,8 @@ export default function KendraSanchalakQuestions() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: 'Yes'},
-                {key: 2, value: 'No'},
+                {key: 1, value: 'Yes' , label : "YES"},
+                {key: 2, value: 'No' , label: 'NO'},
               ]}
               valueProp={answers.answer6}
               onValueChange={item => {
@@ -510,6 +539,239 @@ export default function KendraSanchalakQuestions() {
             />
           </View>
         </View>
+
+        
+        {/* QA7 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {7}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {
+                  t('KENDRA_SANCHALAK_Q7')
+                }
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {key: 1, value: 'Yes' , label : "YES"},
+                {key: 2, value: 'No' , label: 'NO'},
+              ]}
+              valueProp={answers.answer7}
+              onValueChange={item => {
+                setAnswers({...answers, answer7: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA8 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {8}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {
+                  t('KENDRA_SANCHALAK_Q8')
+                }
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {key: 1, value: 'Yes' , label : "YES"},
+                {key: 2, value: 'No' , label: 'NO'},
+              ]}
+              valueProp={answers.answer8}
+              onValueChange={item => {
+                setAnswers({...answers, answer8: item});
+              }}
+            />
+          </View>
+        </View>
+
+
+        {/* QA9 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {9}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {
+                  t('KENDRA_SANCHALAK_Q9')
+                }
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {key: 1, value: 'Yes' , label : "YES"},
+                {key: 2, value: 'No' , label: 'NO'},
+              ]}
+              valueProp={answers.answer7}
+              onValueChange={item => {
+                setAnswers({...answers, answer7: item});
+              }}
+            />
+          </View>
+        </View>
+
+
+
+{/* QA10 */}
+<View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {10}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {
+                  t('KENDRA_SANCHALAK_Q10')
+                }
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {key: 1, value: 'Yes' , label : "YES"},
+                {key: 2, value: 'No' , label: 'NO'},
+              ]}
+              valueProp={answers.answer7}
+              onValueChange={item => {
+                setAnswers({...answers, answer7: item});
+              }}
+            />
+          </View>
+        </View>
+
         <Button
           title={'Submit'}
           onPress={pageValidator}
