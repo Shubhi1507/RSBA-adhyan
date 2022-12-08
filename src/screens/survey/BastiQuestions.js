@@ -20,6 +20,8 @@ import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
+import {useContext} from 'react';
+import LocalizationContext from '../../context/LanguageContext';
 
 export default function BastiQuestions() {
   const store = useSelector(state => state?.surveyReducer);
@@ -124,7 +126,6 @@ export default function BastiQuestions() {
     showModal();
   };
 
-
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
@@ -161,7 +162,7 @@ export default function BastiQuestions() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {1}
+                {8}
               </TextHandler>
             </View>
 
@@ -170,31 +171,35 @@ export default function BastiQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {'Total population of Sewa Bharti beneficiaries'}
-              </TextHandler>
+              <TextHandler style={styles.question}>{t('BASTI_Q1')}</TextHandler>
             </View>
           </View>
 
-          <Input
-            type={'numeric'}
-            number={4}
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({...answers, answer1: text});
-            }}
-            value={answers.answer1}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+              ]}
+              valueProp={answers.answer1}
+              onValueChange={item => {
+                setAnswers({...answers, answer1: item});
+              }}
+            />
+          </View>
         </View>
 
         {/* QA2 */}
@@ -228,9 +233,7 @@ export default function BastiQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'Kendra effect on anti-social problems such as (drug, child marriage) on the Basti'
-                }
+                {t('BASTI_Q2')}
               </TextHandler>
             </View>
           </View>
@@ -245,15 +248,33 @@ export default function BastiQuestions() {
               data={[
                 {
                   key: 1,
-                  value: 'Became  Less',
+                  value: 'Education',
+                  label: 'BASTI_Q2_OPT1',
                 },
                 {
                   key: 2,
-                  value: 'Not much ',
+                  value: 'Health',
+                  label: 'BASTI_Q2_OPT2',
                 },
                 {
                   key: 3,
-                  value: 'Increased',
+                  value: 'Social',
+                  label: 'BASTI_Q2_OPT3',
+                },
+                {
+                  key: 4,
+                  value: 'Environmental',
+                  label: 'BASTI_Q2_OPT4',
+                },
+                {
+                  key: 5,
+                  value: 'Self-support',
+                  label: 'BASTI_Q2_OPT5',
+                },
+                {
+                  key: 6,
+                  value: 'Others',
+                  label: 'BASTI_Q2_OPT6',
                 },
               ]}
               valueProp={answers.answer2}
@@ -295,40 +316,23 @@ export default function BastiQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  ' How many families of the Basti are included in the programs organized at  the center ? '
-                }
+                {t('BASTI_Q3')}
               </TextHandler>
             </View>
           </View>
-
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: 'Participation is low (less than 20 percent) ',
-                },
-                {
-                  key: 2,
-                  value: ' More than 50% ',
-                },
-                {
-                  key: 3,
-                  value: ' More than 70 % ',
-                },
-              ]}
-              valueProp={answers.answer3}
-              onValueChange={item => {
-                setAnswers({...answers, answer3: item});
-              }}
-            />
-          </View>
+          <Input
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="any"
+            onChangeText={text => {
+              setAnswers({...answers, answer3: text});
+            }}
+            value={answers.answer3}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.25,
+            }}
+          />
         </View>
 
         {/* QA4 */}
@@ -362,22 +366,36 @@ export default function BastiQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'Role of our Kendra in our Basti during Corona '}
+                {t('BASTI_Q4')}
               </TextHandler>
             </View>
           </View>
-
-          <Input
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({...answers, answer4: text});
+          <RadioButtons
+            radioStyle={{
+              borderWidth: 1,
+              marginVertical: 2,
+              borderColor: COLORS.orange,
             }}
-            value={answers.answer4}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
+            data={[
+              {
+                key: 1,
+                value: 'Inactive',
+                label: 'BASTI_Q4_OPT1',
+              },
+              {
+                key: 2,
+                value: 'Active',
+                label: 'BASTI_Q4_OPT2',
+              },
+              {
+                key: 3,
+                value: ' As before only',
+                label: 'BASTI_Q4_OPT3',
+              },
+            ]}
+            valueProp={answers.answer4}
+            onValueChange={item => {
+              setAnswers({...answers, answer4: item});
             }}
           />
         </View>
@@ -413,7 +431,7 @@ export default function BastiQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'Total population of the Basti '}
+                {t('BASTI_Q5')}
               </TextHandler>
             </View>
           </View>
@@ -426,88 +444,25 @@ export default function BastiQuestions() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: 'Hindu'},
-                {key: 2, value: 'Others'},
+                {
+                  key: 1,
+                  value: 'Yes',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
               ]}
               valueProp={answers.answer5}
               onValueChange={item => {
                 setAnswers({...answers, answer5: item});
               }}
             />
-            {answers.answer5?.value === 'Others' && (
-              <Input
-                placeholder="Enter reason here"
-                name="any"
-                onChangeText={text => {
-                  setAnswers({...answers, answer5: {...answers.answer5, text}});
-                }}
-                value={answers.answer5?.text}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            )}
           </View>
         </View>
 
-        {/* QA6 */}
-        <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {6}
-              </TextHandler>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {
-                  'Does our beneficiaries also take benefits from other organizations ?'
-                }
-              </TextHandler>
-            </View>
-          </View>
-
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {key: 1, value: 'Yes'},
-                {key: 2, value: 'No'},
-              ]}
-              valueProp={answers.answer6}
-              onValueChange={item => {
-                setAnswers({...answers, answer6: item});
-              }}
-            />
-          </View>
-        </View>
         <Button
           title={'Submit'}
           onPress={pageValidator}
