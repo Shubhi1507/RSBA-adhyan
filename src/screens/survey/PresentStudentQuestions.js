@@ -20,9 +20,13 @@ import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
+import LocalizationContext from '../../context/LanguageContext';
+import {useContext} from 'react';
 
 export default function PresentStudentQuestions() {
   const store = useSelector(state => state?.surveyReducer);
+  const {t} = useContext(LocalizationContext);
+
   const dispatch = useDispatch();
   let totalSurveys = store.totalSurveys;
 
@@ -161,7 +165,7 @@ export default function PresentStudentQuestions() {
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
-        <Header children={HeaderContent()} />
+        <Header title={t('PRESENT_STUDENT')} onPressBack={goBack} />
       </View>
       <SurveyCompletedModal
         visible={visible}

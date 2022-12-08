@@ -90,3 +90,35 @@ export const checkSurveyReleaseDateandReturnCompletedSurveys = totalSurveys => {
   });
   return tmp;
 };
+
+export const findMinimumTimeLeft = totalSurveys => {
+  let tmp = null;
+  let time = '';
+  if (totalSurveys && Array.isArray(totalSurveys) && totalSurveys.length > 0) {
+    let tmpArr = totalSurveys.filter(function (el) {
+      if (el.isSaved === true && el?.release_date) {
+        return el;
+      }
+    });
+    if (tmpArr.length == 1) {
+      tmp = tmpArr[0];
+    }
+    if (tmpArr.length > 2) {
+      tmp = tmpArr.reduce(function (prev, curr) {
+        if (prev.isSaved && curr.isSaved) {
+          prev.release_date < curr.release_date ? prev : curr;
+        }
+      });
+    }
+
+    if (tmp) {
+      const total = Date.parse(tmp.release_date) - Date.parse(new Date());
+      const minutes = Math.floor((total / 1000 / 60) % 60);
+      const hours = Math.floor(total / (1000 * 60 * 60));
+      console.log(hours, minutes, 'left');
+      time = hours + ':' + minutes + '';
+    }
+  }
+  console.log('time', time);
+  return time;
+};

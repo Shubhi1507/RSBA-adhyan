@@ -28,37 +28,6 @@ export default function LoginScreen() {
   const [dataLoading, setDataLoading] = useState(false);
   const {t} = useContext(LocalizationContext);
 
-  const HeaderContent = () => {
-    return (
-      <View
-        style={{
-          flex: 0.3,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          width: screenWidth,
-        }}>
-        <View
-          style={{
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            flexDirection: 'row',
-            flex: 0.33,
-          }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <ADIcons name="left" color={COLORS.white} size={21} />
-          </TouchableOpacity>
-          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
-        </View>
-        <View style={{flex: 0.65}}>
-          <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 18}}>
-            {`${t('VOLUNTEER')}`} {`${t('LOGIN')}`}
-          </Text>
-        </View>
-      </View>
-    );
-  };
-
   const GetOTP = async () => {
     if (!phone || phone.length < 10) {
       return setError({visible: true, message: 'Invalid phone number'});
@@ -85,7 +54,10 @@ export default function LoginScreen() {
       <LoaderIndicator loading={dataLoading} />
 
       <View style={{flex: 0.2}}>
-        <Header children={HeaderContent()} />
+        <Header
+          onPressBack={goBack}
+          title={`${t('VOLUNTEER')} ${t('LOGIN')}`}
+        />
       </View>
       <View
         style={{
@@ -103,7 +75,7 @@ export default function LoginScreen() {
           }
         />
         <View style={{flex: 1}}>
-          <TextHandler style={{fontSize: 18, textAlign: 'center'}}>
+          <TextHandler style={styles.title}>
             {t('ENTER_PHONE_NUMBER_TO_CONTIUE')}
           </TextHandler>
           <View
@@ -150,14 +122,14 @@ export default function LoginScreen() {
             />
           </View>
 
-          <TextHandler style={{fontSize: 12, textAlign: 'center'}}>
+          <TextHandler style={{fontSize: 14, textAlign: 'center'}}>
             {t('SIX_DIGIT_CODE')}
           </TextHandler>
         </View>
         <Button
           title={t('REQUEST_OTP')}
-          onPress={() => GetOTP()}
-          // onPress={() => navigate(ROUTES.AUTH.OTPSCREEN)}
+          // onPress={() => GetOTP()}
+          onPress={() => navigate(ROUTES.AUTH.OTPSCREEN, {mobile: phone})}
         />
       </View>
     </View>
@@ -171,5 +143,12 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     // alignItems: 'center',
     // backgroundColor:"teal"
+  },
+  title: {
+    fontSize: 18,
+    textAlign: 'center',
+    fontWeight: '500',
+    lineHeight: 22,
+    textTransform: 'capitalize',
   },
 });

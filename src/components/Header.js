@@ -1,26 +1,51 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {COLORS} from '../utils/colors';
 import {TextHandler} from './TextHandler';
 import {useSelector} from 'react-redux';
 import LocalizationContext from '../context/LanguageContext';
 import {useContext} from 'react';
+import {ADIcons, FAIcons} from '../libs/VectorIcons';
+import {canGoBack, goBack} from '../navigation/NavigationService';
+import {screenWidth} from '../libs';
 
-export function Header({children}) {
+export function Header({onPressBack, title}) {
   let store = useSelector(state => state?.surveyReducer?.currentSurveyData);
   const {t} = useContext(LocalizationContext);
   return (
     <View style={styles.container}>
-      {children}
-      <TextHandler style={{color: COLORS.white}}>
-        {store?.centre_id ? `(${t('CENTRE')} - ` + store.centre_id +')': ''}
-      </TextHandler>
-      {/* <View style={styles.topView}>
-        <View style={styles.topInnerView}>{children1}</View>
+      <View style={{flex: 0.2, alignItems: 'center'}}>
+        {onPressBack && (
+          <TouchableOpacity onPress={onPressBack}>
+            <ADIcons name="left" color={COLORS.white} size={21} />
+          </TouchableOpacity>
+        )}
       </View>
-      <View style={styles.bottomView}>
-        <View style={styles.bottomInnerView}>{children2 && children2}</View>
-      </View> */}
+      <View style={{flex: 0.1, alignItems: 'flex-end'}}>
+        <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
+      </View>
+      <View style={{flex: 1, alignItems: 'center'}}>
+        <Text
+          style={{
+            color: COLORS.white,
+            fontWeight: '600',
+            fontSize: 20,
+            textAlign: 'center',
+          }}>
+          {title}
+        </Text>
+        {!title === 'Volunteer Dashboard' ||
+          (!title === 'स्वयंसेवक डैशबोर्ड' && (
+            <TextHandler style={{color: COLORS.white, textAlign: 'center'}}>
+              {store?.centre_id
+                ? `(${t('CENTRE')} - ` + store.centre_id + ')'
+                : ''}
+            </TextHandler>
+          ))}
+      </View>
+
+      <View style={{flex: 0.2}}></View>
+      <View style={{flex: 0.1}}></View>
     </View>
   );
 }
@@ -29,35 +54,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.blue,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    // justifyContent: 'center',
     alignItems: 'center',
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
-  },
-  topView: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
-  topUpperView: {
-    flex: 1,
-    backgroundColor: COLORS.blue,
-  },
-  topInnerView: {
-    flex: 1,
-    backgroundColor: COLORS.blue,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderBottomRightRadius: 100,
-  },
-  bottomView: {
-    flex: 1,
-    backgroundColor: COLORS.blue,
-  },
-  bottomInnerView: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderTopLeftRadius: 100,
   },
 });

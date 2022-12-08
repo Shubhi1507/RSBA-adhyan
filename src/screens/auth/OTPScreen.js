@@ -12,20 +12,25 @@ import {screenWidth} from '../../libs';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {STRINGS} from '../../constants/strings';
 import {ROUTES} from '../../navigation/RouteConstants';
-import {VerifyOTP} from '../../networking/API.controller';
+import {Login, VerifyOTP} from '../../networking/API.controller';
 import {useDispatch, useSelector} from 'react-redux';
 import LoaderIndicator from '../../components/Loader';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
-import { ADIcons, FAIcons } from '../../libs/VectorIcons';
+import {ADIcons, FAIcons} from '../../libs/VectorIcons';
+import LocalizationContext from '../../context/LanguageContext';
+import {useContext} from 'react';
 
 export default function OTPScreen({route, navigation}) {
   const store = useSelector(state => state.authReducer);
+  const {t} = useContext(LocalizationContext);
+
   const dispatch = useDispatch();
   const [counter, setCounter] = React.useState(60);
   const [code, setCode] = useState('');
   const [error, setError] = useState({visible: false, message: ''});
   const [dataLoading, setDataLoading] = useState(false);
   const {mobile} = route.params;
+  const phone = mobile;
 
   React.useEffect(() => {
     const timer =
@@ -57,35 +62,26 @@ export default function OTPScreen({route, navigation}) {
     });
     navigate(ROUTES.AUTH.DASHBOARDSCREEN);
   };
-  const HeaderContent = () => {
-    return (
-      <View
-        style={{
-          flex: 0.3,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          width: screenWidth,
-        }}>
-        <View
-          style={{
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            flexDirection: 'row',
-            flex: 0.33,
-          }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <ADIcons name="left" color={COLORS.white} size={20} />
-          </TouchableOpacity>
-          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
-        </View>
-        <View style={{flex: 0.65}}>
-          <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 16}}>
-            Volunteer Login
-          </Text>
-        </View>
-      </View>
-    );
+
+  const GetOTP = async () => {
+    if (!phone || phone.length < 10) {
+      return setError({visible: true, message: 'Invalid phone number'});
+    }
+    setCounter(60);
+    setDataLoading(true);
+    let data = {mobile: phone};
+    let response = await Login(data);
+    console.log('Login', response);
+    let payload = {
+      access_token: response.access_token,
+      expires_in: response.expires_in,
+      startedAt: new Date().getTime(),
+    };
+    dispatch({
+      type: ACTION_CONSTANTS.LOGIN_DATA_UPDATE,
+      payload: payload,
+    });
+    setDataLoading(false);
   };
 
   return (
@@ -99,7 +95,10 @@ export default function OTPScreen({route, navigation}) {
         }
       />
       <View style={{flex: 0.18}}>
-        <Header children={HeaderContent()} />
+        <Header
+          title={`${t('VOLUNTEER')} ${t('LOGIN')}`}
+          onPressBack={goBack}
+        />
       </View>
       <View
         style={{flex: 1, alignItems: 'center', justifyContent: 'space-around'}}>
@@ -115,11 +114,11 @@ export default function OTPScreen({route, navigation}) {
               textAlign: 'left',
               paddingVertical: 10,
             }}>
-            {STRINGS.LOGIN.ENTER_VERIFICATION_CODE}
+            {t('ENTER_VERIFICATION_CODE')}
           </TextHandler>
           <View style={{flexDirection: 'row'}}>
             <TextHandler style={{fontWeight: '300', paddingVertical: 10}}>
-              {STRINGS.LOGIN.OTP_SENT} :
+              {t('OTP_SENT')} :
             </TextHandler>
             <TextHandler
               style={{
@@ -150,9 +149,19 @@ export default function OTPScreen({route, navigation}) {
               justifyContent: 'space-between',
               alignItems: 'flex-start',
             }}>
-            <TouchableOpacity>
-              <TextHandler style={{color: COLORS.orange}}>
-                {STRINGS.LOGIN.RESEND_OTP}
+            <TouchableOpacity
+              onPress={
+                counter == 0
+                  ? () => GetOTP()
+                  : () => {
+                      alert('disabled');
+                    }
+              }>
+              <TextHandler
+                style={{
+                  color: counter !== 0 ? COLORS.lightGrey : COLORS.orange,
+                }}>
+                {t('RESEND_OTP')}
               </TextHandler>
             </TouchableOpacity>
             <TextHandler style={{color: COLORS.orange}}>
@@ -162,7 +171,7 @@ export default function OTPScreen({route, navigation}) {
         </View>
 
         <Button
-          title={'Submit'}
+          title={t('SUBMIT')}
           onPress={() => {
             verifyOTP();
           }}

@@ -78,37 +78,6 @@ export default function CentreQuestionsScreen() {
     }
   };
 
-  const HeaderContent = () => {
-    return (
-      <View
-        style={{
-          flex: 0.3,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          width: screenWidth,
-        }}>
-        <View
-          style={{
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            flexDirection: 'row',
-            flex: 0.33,
-          }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <ADIcons name="left" color={COLORS.white} size={21} />
-          </TouchableOpacity>
-          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
-        </View>
-        <View style={{flex: 0.65}}>
-          <Text style={{color: COLORS.white, fontWeight: '600', fontSize: 20}}>
-            {t('CENTER_INFO')}
-          </Text>
-        </View>
-      </View>
-    );
-  };
-
   const pageValidator = () => {
     const {
       establishment,
@@ -161,7 +130,7 @@ export default function CentreQuestionsScreen() {
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
-        <Header children={HeaderContent()} />
+        <Header title={t('CENTER_INFO')} onPressBack={goBack} />
       </View>
       <CustomSnackBar
         visible={error.visible}
@@ -197,11 +166,7 @@ export default function CentreQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CENTER_Q1')}
               </TextHandler>
             </View>
@@ -250,11 +215,7 @@ export default function CentreQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CENTER_Q2')}
               </TextHandler>
             </View>
@@ -301,11 +262,7 @@ export default function CentreQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CENTER_Q3')}
               </TextHandler>
             </View>
@@ -355,11 +312,7 @@ export default function CentreQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CENTER_Q4')}
               </TextHandler>
             </View>
@@ -411,11 +364,7 @@ export default function CentreQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CENTER_Q5')}
               </TextHandler>
             </View>
@@ -483,11 +432,7 @@ export default function CentreQuestionsScreen() {
                   flex: 1,
                   alignItems: 'flex-start',
                 }}>
-                <TextHandler
-                  style={{
-                    color: 'black',
-                    // textAlign: 'left',
-                  }}>
+                <TextHandler style={styles.question}>
                   {t('CENTER_Q6_DISCONTINUED_CENTER')}
                 </TextHandler>
               </View>
@@ -555,11 +500,7 @@ export default function CentreQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CENTER_Q7')}
               </TextHandler>
             </View>
@@ -611,11 +552,7 @@ export default function CentreQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CENTER_Q14')}
               </TextHandler>
             </View>
@@ -671,10 +608,7 @@ export default function CentreQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CENTER_Q9')}
               </TextHandler>
             </View>
@@ -800,10 +734,7 @@ export default function CentreQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CENTER_Q10')}
               </TextHandler>
             </View>
@@ -865,10 +796,7 @@ export default function CentreQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CENTER_Q11')}
               </TextHandler>
             </View>
@@ -926,10 +854,7 @@ export default function CentreQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CENTER_Q12')}
               </TextHandler>
             </View>
@@ -962,8 +887,8 @@ export default function CentreQuestionsScreen() {
           </View>
         </View>
 
-         {/* QA12 - OK - availability_of_infrastructure */}
-         <View>
+        {/* QA12 - OK - availability_of_infrastructure */}
+        <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -988,10 +913,7 @@ export default function CentreQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CENTER_Q13')}
               </TextHandler>
             </View>
@@ -1050,10 +972,7 @@ export default function CentreQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CENTER_Q14')}
               </TextHandler>
             </View>
@@ -1090,7 +1009,10 @@ export default function CentreQuestionsScreen() {
               ]}
               valueProp={answers.participation_of_the_basti_people}
               onValueChange={item => {
-                setAnswers({...answers, participation_of_the_basti_people: item});
+                setAnswers({
+                  ...answers,
+                  participation_of_the_basti_people: item,
+                });
               }}
             />
           </View>
@@ -1113,9 +1035,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-
-    // alignItems: 'center',
   },
+  question: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: COLORS.black,
+  },
+
   textBox: {
     flex: 0.45,
     alignItems: 'flex-start',

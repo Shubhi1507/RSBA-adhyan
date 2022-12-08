@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {goBack, navigate} from '../../navigation/NavigationService';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -20,10 +20,13 @@ import {screenWidth} from '../../libs';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
+import LocalizationContext from '../../context/LanguageContext';
 
 export default function TeacherQuestionsScreen() {
   const store = useSelector(state => state?.surveyReducer);
   let totalSurveys = store.totalSurveys;
+  const {t} = useContext(LocalizationContext);
+
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
     answer1: '',
@@ -158,7 +161,7 @@ export default function TeacherQuestionsScreen() {
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
-        <Header children={HeaderContent()} />
+        <Header title={t('TEACHERS_SURVERS')} onPressBack={goBack} />
       </View>
       <SurveyCompletedModal
         visible={visible}

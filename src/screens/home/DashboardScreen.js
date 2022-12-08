@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Alert,
   FlatList,
+  Image,
 } from 'react-native';
 import React, {useCallback, useContext} from 'react';
 import LoaderIndicator from '../../components/Loader';
@@ -31,11 +32,13 @@ import {
   checkSurveyReleaseDateandReturnCompletedSurveys,
   filterOutIncompleteSurveys,
   filterOutSavedSurveys,
+  findMinimumTimeLeft,
 } from '../../utils/utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as i18n from '../../../i18n.js';
+import {images} from '../../assets';
 
-export default function DashboardScreen() {
+export default function DashboardScreen({route, navigation}) {
   const {t, locale, setLocale} = useContext(LocalizationContext);
   const [error, setError] = useState({visible: false, message: ''});
   const [language, chooseLanguage] = useState({
@@ -50,7 +53,7 @@ export default function DashboardScreen() {
   const totalSurveys = store.surveyReducer.totalSurveys;
   const completedSurveysTmpArr =
     checkSurveyReleaseDateandReturnCompletedSurveys(totalSurveys);
-
+  const [ReviewTimeLeft, setReviewTimeLeft] = useState('');
   const [CENTER_DATA] = useState([
     {key: '301', value: '301'},
     {key: '302', value: '302'},
@@ -76,7 +79,15 @@ export default function DashboardScreen() {
   }, []);
 
   useEffect(() => {
-  }, [store.surveyReducer]);
+    const focus = navigation.addListener('focus', () => {
+      let x = findMinimumTimeLeft(totalSurveys);
+      console.log('x', x);
+      if (x) {
+        setReviewTimeLeft(x.toString());
+      }
+    });
+    return focus;
+  }, [store.surveyReducer, navigation]);
 
   useEffect(() => {
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
@@ -113,41 +124,10 @@ export default function DashboardScreen() {
     }
   };
 
-  const HeaderContent = () => {
-    return (
-      <View
-        style={{
-          flex: 0.3,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          width: screenWidth,
-        }}>
-        <View
-          style={{
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            flexDirection: 'row',
-            flex: 0.33,
-          }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <ADIcons name="left" color={COLORS.white} size={21} />
-          </TouchableOpacity>
-          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
-        </View>
-        <View style={{flex: 0.65}}>
-          <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 18}}>
-            {t('VOLUNTEER_DASHBOARD')}
-          </Text>
-        </View>
-      </View>
-    );
-  };
-
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
-        <Header children={HeaderContent()} />
+        <Header title={t('VOLUNTEER_DASHBOARD')} />
       </View>
       <CustomSnackBar
         visible={error.visible}
@@ -158,97 +138,193 @@ export default function DashboardScreen() {
       />
       <View
         style={{
-          flex: 1,
+          flex: 0.9,
           justifyContent: 'space-around',
           paddingHorizontal: 20,
           marginTop: 10,
         }}>
-        <TextHandler
-          style={{fontWeight: '700', fontSize: 23, paddingBottom: 30}}>
-          {`${t('WELCOME')}`} {name && `, ${name}`}
+        <View
+          style={{
+            flex: 0.2,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginBottom: 10,
+          }}>
+          <TextHandler style={styles.title}>
+            {`${t('WELCOME')}`} {name && `, ${name}`}
+          </TextHandler>
+          {/* <Button
+            title={t('LANGUAGE_CHANGE')}
+            onPress={() => {
+              if (language.default === 'hi') {
+                LangugeConverter({label: 'English', value: 'en'});
+              } else {
+                LangugeConverter({label: 'Hindi', value: 'hi'});
+              }
+            }}
+            ButtonContainerStyle={{
+              alignItems: 'center',
+              textAlign: 'center',
+            }}
+          /> */}
+        </View>
+        <TextHandler style={styles.subtitle}>
+          {`${t('ALL_SURVEYS')}`}
         </TextHandler>
-        <TouchableOpacity
-          style={{
-            flex: 0.12,
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-          }}>
-          <TextHandler style={{fontWeight: '400', fontSize: 18}}>
-            {t('COMPLETED_SURVEYS')}
-          </TextHandler>
-          <TextHandler
-            style={{
-              fontWeight: '400',
-              fontSize: 16,
-              backgroundColor: 'green',
-              color: 'white',
-              padding: 8,
-            }}>
-            {completedSurveysTmpArr.length}
-          </TextHandler>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigate(ROUTES.AUTH.INCOMPLETESURVEYSSCREEN);
-            dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
-          }}
-          style={{
-            flex: 0.12,
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-          }}>
-          <TextHandler style={{fontWeight: '400', fontSize: 18}}>
-            {t('INCOMPLETE_SUVEYS')}
-          </TextHandler>
 
-          <View
-            style={{
-              marginTop: 0,
-            }}>
-            <TextHandler
-              style={{
-                fontWeight: '400',
-                fontSize: 16,
-                color: 'white',
-                backgroundColor: 'red',
-                padding: 8,
-              }}>
-              {filterOutIncompleteSurveys(totalSurveys).length || 0}
-            </TextHandler>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => navigate(ROUTES.AUTH.SAVED_SURVEYS_SCREEN)}
+        <View
           style={{
-            flex: 0.12,
-            justifyContent: 'space-between',
+            flex: 0.4,
             flexDirection: 'row',
+            justifyContent: 'space-between',
           }}>
-          <View style={{flex: 0.8}}>
-            <TextHandler style={{fontWeight: '400', fontSize: 18}}>
-              {t('SAVE_REVIEW_QUESTIONS')}
-            </TextHandler>
-            <Text style={{color: 'grey', fontSize: 12, fontWeight: '400'}}>
-              {t('48_HRS_REVIEW')}
-            </Text>
-          </View>
-          <View
+          <TouchableOpacity
             style={{
-              marginTop: 0,
+              justifyContent: 'space-between',
+              backgroundColor: COLORS.tile,
+              borderRadius: 10,
+              flex: 0.3,
+              paddingHorizontal: 5,
+              paddingVertical: 10,
+              alignItems: 'center',
             }}>
-            <TextHandler
+            <View style={{flex: 1}}>
+              <TextHandler style={styles.subheading}>
+                {t('COMPLETED_SURVEYS')}
+              </TextHandler>
+            </View>
+
+            <View
               style={{
-                fontWeight: '400',
-                fontSize: 16,
-                backgroundColor: 'red',
-                padding: 8,
-                color: 'white',
+                flex: 0.5,
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                alignItems: 'center',
               }}>
-              {filterOutSavedSurveys(totalSurveys).length || 0}
-            </TextHandler>
-          </View>
-        </TouchableOpacity>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'space-around',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                }}>
+                <Image
+                  source={images.check}
+                  style={{height: 20, width: 20}}
+                  resizeMode="contain"
+                />
+                <TextHandler style={styles.count}>
+                  {completedSurveysTmpArr.length}
+                </TextHandler>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{
+              justifyContent: 'space-between',
+              backgroundColor: COLORS.tile,
+              borderRadius: 10,
+              flex: 0.3,
+              paddingHorizontal: 5,
+              paddingVertical: 10,
+              alignItems: 'center',
+            }}
+            onPress={() => {
+              navigate(ROUTES.AUTH.INCOMPLETESURVEYSSCREEN);
+              dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
+            }}>
+            <View style={{flex: 1}}>
+              <TextHandler style={styles.subheading}>
+                {t('INCOMPLETE_SUVEYS')}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 0.5,
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'space-around',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                }}>
+                <Image
+                  source={images.error}
+                  style={{height: 20, width: 20}}
+                  resizeMode="contain"
+                />
+                <TextHandler style={styles.count}>
+                  {filterOutIncompleteSurveys(totalSurveys).length || 0}
+                </TextHandler>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{
+              justifyContent: 'space-between',
+              backgroundColor: '#FCE4CD',
+              borderRadius: 10,
+              flex: 0.3,
+              paddingHorizontal: 5,
+              paddingVertical: 10,
+              alignItems: 'center',
+            }}
+            onPress={() => {
+              navigate(ROUTES.AUTH.SAVED_SURVEYS_SCREEN);
+              dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
+            }}>
+            <View style={{flex: 1}}>
+              <TextHandler style={styles.subheading}>
+                {t('SAVE_REVIEW_QUESTIONS')}
+              </TextHandler>
+              <View>
+                <TextHandler
+                  style={[
+                    styles.subheading,
+                    {
+                      fontSize: 12,
+                      paddingVertical: 5,
+                      textTransform: 'lowercase',
+                    },
+                  ]}>
+                  {ReviewTimeLeft + ' ' + 'hr ' + t('LEFT')}
+                </TextHandler>
+              </View>
+            </View>
+
+            <View
+              style={{
+                flex: 0.5,
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'space-around',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                }}>
+                <Image
+                  source={images.time}
+                  style={{height: 20, width: 20}}
+                  resizeMode="contain"
+                />
+                <TextHandler style={styles.count}>
+                  {filterOutSavedSurveys(totalSurveys).length || 0}
+                </TextHandler>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </View>
 
         <View style={styles.headingInput}>
           <TextHandler
@@ -256,7 +332,7 @@ export default function DashboardScreen() {
             {t('ASSIGNED_CENTRES')}
           </TextHandler>
         </View>
-        <View style={{flex: 0.4}}>
+        <View style={{flex: 0.7, marginBottom: 20}}>
           <FlatList
             data={CENTER_DATA}
             renderItem={({item, index}) => {
@@ -286,7 +362,6 @@ export default function DashboardScreen() {
             }}
           />
         </View>
-
         <Button
           title={t('START_SURVEY')}
           onPress={() => {
@@ -297,37 +372,10 @@ export default function DashboardScreen() {
             textAlign: 'center',
           }}
         />
-        {/* <Button
-          title={'RESET'}
-          onPress={() => {
-            dispatch({type: ACTION_CONSTANTS.RESET_APP});
-          }}
-          ButtonContainerStyle={{
-            alignItems: 'center',
-            textAlign: 'center',
-            backgroundColor: COLORS.error,
-          }}
-        /> */}
-
-        <Button
-          title={t('LANGUAGE_CHANGE')}
-          onPress={() => {
-            if (language.default === 'hi') {
-              LangugeConverter({label: 'English', value: 'en'});
-            } else {
-              LangugeConverter({label: 'Hindi', value: 'hi'});
-            }
-          }}
-          ButtonContainerStyle={{
-            alignItems: 'center',
-            textAlign: 'center',
-          }}
-        />
-
         <Button
           title={t('LOGOUT')}
           onPress={() => {
-            Alert.alert('Logout?', '', [
+            Alert.alert(t('LOGOUT') + '?', '', [
               {
                 text: 'Yes',
                 onPress: () =>
@@ -341,12 +389,29 @@ export default function DashboardScreen() {
             ]);
           }}
           ButtonContainerStyle={{
-            margin: 20,
+            marginVertical: 20,
             alignItems: 'center',
             textAlign: 'center',
-            backgroundColor: COLORS.buttonColor,
+            backgroundColor: COLORS.white,
+            borderWidth: 1,
+            borderColor: COLORS.orange,
+          }}
+          textstyle={{
+            color: COLORS.orange,
           }}
         />
+
+        {/* <Button
+          title={'RESET'}
+          onPress={() => {
+            dispatch({type: ACTION_CONSTANTS.RESET_APP});
+          }}
+          ButtonContainerStyle={{
+            alignItems: 'center',
+            textAlign: 'center',
+            backgroundColor: COLORS.error,
+          }}
+        /> */}
       </View>
     </View>
   );
@@ -382,5 +447,35 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'left',
     color: 'grey',
+  },
+
+  title: {
+    fontStyle: 'normal',
+    fontWeight: '600',
+    fontSize: 22,
+    lineHight: 27,
+    color: '#0B2E6A',
+  },
+  subtitle: {
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: 18,
+    lineHight: 22,
+    color: '#0B2E6A',
+    marginBottom: 20,
+  },
+  subheading: {
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: 16,
+    lineHight: 18,
+    color: '#414141',
+  },
+  count: {
+    fontStyle: 'normal',
+    fontWeight: '600',
+    fontSize: 25,
+    lineHight: 34,
+    color: COLORS.blue,
   },
 });

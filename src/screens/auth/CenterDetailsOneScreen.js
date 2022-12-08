@@ -304,36 +304,6 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     }
   };
 
-  const HeaderContent = () => {
-    return (
-      <View
-        style={{
-          flex: 0.3,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          width: screenWidth,
-        }}>
-        <View
-          style={{
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            flexDirection: 'row',
-            flex: 0.33,
-          }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <ADIcons name="left" color={COLORS.white} size={21} />
-          </TouchableOpacity>
-          <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
-        </View>
-        <View style={{flex: 0.65}}>
-          <Text style={{color: COLORS.white, fontWeight: '500', fontSize: 18}}>
-            {t('CENTER_DETAILS')}
-          </Text>
-        </View>
-      </View>
-    );
-  };
   return (
     <View style={styles.container}>
       <LoaderIndicator loading={dataLoading} />
@@ -345,7 +315,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
         }
       />
       <View style={{flex: 0.2}}>
-        <Header children={HeaderContent()} />
+        <Header title={t('CENTER_DETAILS')} onPressBack={goBack} />
       </View>
 
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
@@ -457,7 +427,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '500',
     marginTop: 15,
-    fontSize: 16,
+    fontSize: 18,
     margin: 6,
   },
 

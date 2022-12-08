@@ -37,23 +37,24 @@ export const RadioButtons = ({data, onValueChange, radioStyle, valueProp}) => {
                 },
                 radioStyle || {},
               ]}>
-              <RadioButton
-                disabled={item?.disabled}
-                value={item.value}
-                color={COLORS.blue}
-                uncheckedColor={COLORS.black}
-              />
+              <View style={{flex: 0.15}}>
+                <RadioButton
+                  disabled={item?.disabled}
+                  value={item.value}
+                  color={COLORS.blue}
+                  uncheckedColor={COLORS.black}
+                />
+              </View>
 
-              <Text
-                style={{
-                  marginHorizontal: 10,
-                  color: 'black',
-                  flexWrap: 'wrap',
-                }}>
-
-                {/* {StringModifier(`${t(item?.label || item.value)}`)} */}
-                {item?.label ? t(item?.label) : item.value}
-              </Text>
+              <View style={{flex: 0.8}}>
+                <Text
+                  style={{
+                    color: 'black',
+                    fontSize: 16,
+                  }}>
+                  {item?.label ? t(item?.label) : item.value}
+                </Text>
+              </View>
             </TouchableOpacity>
           </RadioButton.Group>
         );
