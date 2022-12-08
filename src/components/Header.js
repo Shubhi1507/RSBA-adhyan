@@ -8,10 +8,12 @@ import {useContext} from 'react';
 import {ADIcons, FAIcons} from '../libs/VectorIcons';
 import {canGoBack, goBack} from '../navigation/NavigationService';
 import {screenWidth} from '../libs';
+import {useEffect} from 'react';
 
 export function Header({onPressBack, title}) {
   let store = useSelector(state => state?.surveyReducer?.currentSurveyData);
   const {t} = useContext(LocalizationContext);
+  useEffect(() => {}, [title, store]);
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2, alignItems: 'center'}}>
@@ -24,7 +26,12 @@ export function Header({onPressBack, title}) {
       <View style={{flex: 0.1, alignItems: 'flex-end'}}>
         <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
       </View>
-      <View style={{flex: 1, alignItems: 'center'}}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          alignSelf: 'center',
+        }}>
         <Text
           style={{
             color: COLORS.white,
@@ -50,6 +57,8 @@ export function Header({onPressBack, title}) {
   );
 }
 
+// ||
+// !title === 'स्वयंसेवक डैशबोर्ड')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
