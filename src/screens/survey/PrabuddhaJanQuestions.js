@@ -175,7 +175,7 @@ export default function PrabuddhaJanQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'How does donors and well wishers help Economic'}
+                {t('INFLUENTIAL_PEOPELE_Q1')}
               </TextHandler>
             </View>
           </View>
@@ -188,11 +188,18 @@ export default function PrabuddhaJanQuestions() {
             data={[
               {
                 key: 1,
-                value: 'Social',
+                value: 'Economic',
+                label: 'INFLUENTIAL_PEOPELE_Q1_OPT1',
               },
               {
                 key: 2,
+                value: 'Social',
+                label: 'INFLUENTIAL_PEOPELE_Q1_OPT2',
+              },
+              {
+                key: 3,
                 value: 'Others',
+                label: 'INFLUENTIAL_PEOPELE_Q1_OPT3',
               },
             ]}
             valueProp={answers.answer1}
@@ -200,21 +207,6 @@ export default function PrabuddhaJanQuestions() {
               setAnswers({...answers, answer1: item});
             }}
           />
-          {answers.answer1?.value === 'Others' && (
-            <Input
-              placeholder="Enter reason here"
-              name="any"
-              onChangeText={text => {
-                setAnswers({...answers, answer1: {...answers.answer1, text}});
-              }}
-              value={answers.answer1?.text}
-              message={''}
-              containerStyle={{
-                alignItems: 'center',
-                minWidth: screenWidth * 0.5,
-              }}
-            />
-          )}
         </View>
 
         {/* QA2 */}
@@ -248,7 +240,7 @@ export default function PrabuddhaJanQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'How does donors and well wishers are connected to us .'}
+                {t('INFLUENTIAL_PEOPELE_Q2')}
               </TextHandler>
             </View>
           </View>
@@ -264,18 +256,22 @@ export default function PrabuddhaJanQuestions() {
                 {
                   key: 1,
                   value: 'Through a known person  ',
+                  label: 'INFLUENTIAL_PEOPELE_Q2_OPT1',
                 },
                 {
                   key: 2,
                   value: 'Sangh ',
+                  label: 'INFLUENTIAL_PEOPELE_Q2_OPT2',
                 },
                 {
                   key: 3,
                   value: 'Alumni',
+                  label: 'INFLUENTIAL_PEOPELE_Q2_OPT3',
                 },
                 {
                   key: 4,
                   value: 'Due to our social works',
+                  label: 'INFLUENTIAL_PEOPELE_Q2_OPT4',
                 },
               ]}
               valueProp={answers.answer2}
@@ -317,9 +313,7 @@ export default function PrabuddhaJanQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'Are these well wishers and donors involved in day to day functioning of the Kendra '
-                }
+                {t('INFLUENTIAL_PEOPELE_Q3')}
               </TextHandler>
             </View>
           </View>
@@ -334,15 +328,13 @@ export default function PrabuddhaJanQuestions() {
               data={[
                 {
                   key: 1,
-                  value: 'Active ',
+                  value: 'Yes',
+                  label: 'YES',
                 },
                 {
                   key: 2,
-                  value: ' Inactive',
-                },
-                {
-                  key: 3,
-                  value: ' Not much interested ',
+                  value: 'No',
+                  label: 'NO',
                 },
               ]}
               valueProp={answers.answer3}
@@ -384,58 +376,7 @@ export default function PrabuddhaJanQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'Influence of well wishers in different sections of society '}
-              </TextHandler>
-            </View>
-          </View>
-
-          <Input
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({...answers, answer4: text});
-            }}
-            value={answers.answer4}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
-        </View>
-
-        {/* QA5  */}
-        <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {4}
-              </TextHandler>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {'Influence of well wishers in different sections of  society '}
+                {t('INFLUENTIAL_PEOPELE_Q4')}
               </TextHandler>
             </View>
           </View>
@@ -448,74 +389,31 @@ export default function PrabuddhaJanQuestions() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: 'Highly Influential'},
-                {key: 2, value: 'Not much '},
-                {key: 3, value: 'Only in certain questions'},
-              ]}
-              valueProp={answers.answer4}
-              onValueChange={item => {
-                setAnswers({...answers, answer4: item});
-              }}
-            />
-          </View>
-        </View>
-
-        {/* QA6 */}
-        <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {5}
-              </TextHandler>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
                 {
-                  'Have these well wishers and donors helped us during Corona crisis ?'
-                }
-              </TextHandler>
-            </View>
-          </View>
-
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {key: 1, value: 'Yes'},
-                {key: 2, value: 'No'},
+                  key: 1,
+                  value: 'Highly Influential',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'Not much',
+                  label: 'NO',
+                },
+                {
+                  key: 3,
+                  value: 'Only in certain sections',
+                  label: 'INFLUENTIAL_PEOPELE_Q4_OPT3',
+                },
+                
               ]}
-              valueProp={answers.answer5}
+              valueProp={answers.answer2}
               onValueChange={item => {
-                setAnswers({...answers, answer5: item});
+                setAnswers({...answers, answer2: item});
               }}
             />
           </View>
         </View>
+
         <Button
           title={'Submit'}
           onPress={pageValidator}

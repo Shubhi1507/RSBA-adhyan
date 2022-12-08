@@ -411,7 +411,7 @@
   "KENDRA_SANCHALAK_Q3_OPT3": " केंद्र के छात्रो पर परिवार को गर्व महसूस होता है ",
   "KENDRA_SANCHALAK_Q3_OPT4": " उपर मै से कोई भी नही",
 
-  "KENDRA_SANCHALAK_Q4": "How many families from the locality we have influenced due to our Kendra activities?",
+  "KENDRA_SANCHALAK_Q4": "बस्ती के कितने परिवारोपर केंद्र के कार्य का प्रभाव प्रस्थापित हुआ है? ",
   "KENDRA_SANCHALAK_Q4_OPT1": " १० से १५ %",
   "KENDRA_SANCHALAK_Q4_OPT2": " १६ से ३० %",
   "KENDRA_SANCHALAK_Q4_OPT3": " ३१ से ४५ %",
@@ -469,7 +469,7 @@
   "INFLUENTIAL_PEOPELE_Q3_OPT2": "ना",
   "INFLUENTIAL_PEOPELE_Q4": "प्रबुद्ध जन का बस्ती और समाज के विभिन्न वर्गों में प्रभाव ?",
   "INFLUENTIAL_PEOPELE_Q4_OPT1": "हां",
-  "INFLUENTIAL_PEOPELE_Q4_OPT2": "ना",
+  "INFLUENTIAL_PEOPELE_Q4_OPT2": "नही.",
   "INFLUENTIAL_PEOPELE_Q4_OPT3": "वर्ग विशेष में",
   // C
   "COMPLETED_SURVEYS": "पूर्ण",

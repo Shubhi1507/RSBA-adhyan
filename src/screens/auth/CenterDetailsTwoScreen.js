@@ -370,7 +370,7 @@ export default function CenterDetailsTwoScreen() {
             <View style={{paddingVertical: 5}}>
               <Text style={styles.headingInput}>{t('CENTER_HEAD_NAME')}</Text>
               <Input
-                placeholder="Enter here"
+                placeholder={`${t('ENTER_ANSWER')}`}
                 name="center_head"
                 onChangeText={text =>
                   setvolunteerInfo({...volunteerInfo, center_head: text})
@@ -385,7 +385,7 @@ export default function CenterDetailsTwoScreen() {
                 {t('CENTER_CONTACT_DETAILS')}
               </Text>
               <Input
-                placeholder="Enter here"
+                placeholder={`${t('ENTER_ANSWER')}`}
                 name="center_contact"
                 type={'numeric'}
                 number={10}
@@ -457,7 +457,7 @@ export default function CenterDetailsTwoScreen() {
                 {t('PARENT_ORGANIZATION')}
               </Text>
               <Input
-                placeholder="Enter herewqdqwd"
+                placeholder={`${t('ENTER_ANSWER')}`}
                 name="first_name"
                 onChangeText={text =>
                   setvolunteerInfo({...volunteerInfo, parent_org: text})
@@ -575,7 +575,7 @@ export default function CenterDetailsTwoScreen() {
                     {t('TEACHER_Q12_OPT3')}
                   </TextHandler>
                   <Input
-                    placeholder="Enter here"
+                    placeholder={`${t('ENTER_ANSWER')}`}
                     name="center_head"
                     onChangeText={text =>
                       setvolunteerInfo({
