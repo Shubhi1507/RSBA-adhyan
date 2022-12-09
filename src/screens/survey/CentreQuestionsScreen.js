@@ -1652,7 +1652,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {21}
+                {22}
               </TextHandler>
             </View>
 
@@ -1741,7 +1741,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {21}
+                {23}
               </TextHandler>
             </View>
 

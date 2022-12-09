@@ -207,7 +207,7 @@
 
   "CURRENT_STUDENTS_Q1": "कुल कितने विद्यार्थी अध्ययन के लिए आते हैं",
 
-  "CURRENT_STUDENTS_Q2_": "कौन-कौन रोज आते हैं?",
+  "CURRENT_STUDENTS_Q2": "कौन-कौन रोज आते हैं?",
   "CURRENT_STUDENTS_Q2_OPT1": "20-25 %   ",
   "CURRENT_STUDENTS_Q2_OPT2": "40-50 %   ",
   "CURRENT_STUDENTS_Q2_OPT3": "65-75% ",
@@ -228,7 +228,7 @@
   "CURRENT_STUDENTS_Q5_OPT2": "स्वयं ही आते है ",
   "CURRENT_STUDENTS_Q5_OPT3": "टोली बनाकर साथ आते है ",
   "CURRENT_STUDENTS_Q5_OPT4": " प्रकल्प से कोई लेने आता है",
-  "CURRENT_STUDENTS_Q5_OPT5 ": "अन्य",
+  "CURRENT_STUDENTS_Q5_OPT5" : "अन्य" ,
 
   "CURRENT_STUDENTS_Q6": "क्या हम अपने से छोटी कक्षाओं के छात्रों को भी पढ़ने में मदद करते हैं?",
   "CURRENT_STUDENTS_Q6_OPT1": "हाँ",
@@ -397,7 +397,7 @@
   "TEACHER_Q12_OPT1": "काम करने की आज़ादी",
   "TEACHER_Q12_OPT2": "सहयोग",
   "TEACHER_Q12_OPT3": "अन्य (जानकारी प्रविष्ट करे)",
-  "TEACHER_Q12_OP4": "कोई अपेक्षा नही",
+  "TEACHER_Q12_OPT4": "कोई अपेक्षा नही",
 
   "KENDRA_SANCHALAK_Q1": "कितने छात्र नियमित रूप से केंद्र मै आते है? (बालक + बालिकाए)",
   "KENDRA_SANCHALAK_Q2": "कोविड काल मै केंद्र की सक्रीयता कैसी थी?",

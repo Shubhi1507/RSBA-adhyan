@@ -754,21 +754,19 @@ export default function KendraSanchalakQuestions() {
           </View>
 
           <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {key: 1, value: 'Yes' , label : "YES"},
-                {key: 2, value: 'No' , label: 'NO'},
-              ]}
-              valueProp={answers.answer7}
-              onValueChange={item => {
-                setAnswers({...answers, answer7: item});
-              }}
-            />
+          <Input
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="any"
+            onChangeText={text => {
+              setAnswers({...answers, answer10: text});
+            }}
+            value={answers.answer10}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.25,
+            }}
+          />
           </View>
         </View>
 

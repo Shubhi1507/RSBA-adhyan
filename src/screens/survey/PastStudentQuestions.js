@@ -35,6 +35,16 @@ export default function PastStudentQuestions() {
     answer4: '',
     answer5: '',
     answer6: '',
+    answer7: '',
+    answer8: '',
+    answer9: '',
+    answer10: '',
+    answer11: '',
+    answer12: '',
+    answer13: '',
+    answer14: '',
+    answer15: '',
+    answer16: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -175,7 +185,7 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'During which year were you associated with the center ?'}
+                {t('PAST_STUDENTS_Q1')}
               </TextHandler>
             </View>
           </View>
@@ -228,9 +238,7 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'What difference you experience between you & other students elder to you, due to the center ? '
-                }
+                {t('PAST_STUDENTS_Q2')}
               </TextHandler>
             </View>
           </View>
@@ -245,20 +253,13 @@ export default function PastStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: 'Good Education',
+                  value: 'Yes',
+                  label: 'YES',
                 },
                 {
                   key: 2,
-                  value: 'Improved Social status',
-                },
-                {
-                  key: 3,
-                  value: 'Improved financial status',
-                },
-
-                {
-                  key: 4,
-                  value: 'Others',
+                  value: 'No',
+                  label: 'NO',
                 },
               ]}
               valueProp={answers.answer2}
@@ -266,21 +267,6 @@ export default function PastStudentQuestions() {
                 setAnswers({...answers, answer2: item});
               }}
             />
-            {answers.answer2?.value === 'Others' && (
-              <Input
-                placeholder="Enter reason here"
-                name="any"
-                onChangeText={text => {
-                  setAnswers({...answers, answer2: {...answers.answer2, text}});
-                }}
-                value={answers.answer2?.text}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            )}
           </View>
         </View>
 
@@ -315,9 +301,7 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'What difference you notice in the  parents, due to the center?'
-                }
+                {t('PAST_STUDENTS_Q3')}
               </TextHandler>
             </View>
           </View>
@@ -332,38 +316,20 @@ export default function PastStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: 'Improved respect',
+                  value: 'Yes',
+                  label: 'YES',
                 },
                 {
                   key: 2,
-                  value: 'Changed habits',
+                  value: 'No',
+                  label: 'NO',
                 },
-                {
-                  key: 3,
-                  value: 'Organised',
-                },
-                {key: 4, value: 'Others'},
               ]}
               valueProp={answers.answer3}
               onValueChange={item => {
                 setAnswers({...answers, answer3: item});
               }}
             />
-            {answers.answer3?.value === 'Others' && (
-              <Input
-                placeholder="Enter reason here"
-                name="any"
-                onChangeText={text => {
-                  setAnswers({...answers, answer3: {...answers.answer3, text}});
-                }}
-                value={answers.answer3?.text}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            )}
           </View>
         </View>
 
@@ -398,7 +364,7 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'How can you contribute in betterment of the center '}
+                {t('PAST_STUDENTS_Q4')}
               </TextHandler>
             </View>
           </View>
@@ -411,38 +377,25 @@ export default function PastStudentQuestions() {
             data={[
               {
                 key: 1,
-                value: 'Donating Time',
+                value: 'less than 1 year',
+                label: 'PAST_STUDENTS_Q4_OPT1',
               },
               {
                 key: 2,
-                value: 'Financial Help',
+                value: '1 -3 years',
+                label: 'PAST_STUDENTS_Q4_OPT2',
               },
               {
                 key: 3,
-                value: 'Connecting Experts',
+                value: 'More than 3 years',
+                label: 'PAST_STUDENTS_Q4_OPT3',
               },
-              {key: 4, value: 'Others'},
             ]}
             valueProp={answers.answer4}
             onValueChange={item => {
               setAnswers({...answers, answer4: item});
             }}
           />
-          {answers.answer4?.value === 'Others' && (
-            <Input
-              placeholder="Enter reason here"
-              name="any"
-              onChangeText={text => {
-                setAnswers({...answers, answer4: {...answers.answer4, text}});
-              }}
-              value={answers.answer4?.text}
-              message={''}
-              containerStyle={{
-                alignItems: 'center',
-                minWidth: screenWidth * 0.5,
-              }}
-            />
-          )}
         </View>
 
         {/* QA5  */}
@@ -476,7 +429,7 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'For how many years were you coming to the centre'}
+                {t('PAST_STUDENTS_Q5')}
               </TextHandler>
             </View>
           </View>
@@ -489,9 +442,17 @@ export default function PastStudentQuestions() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: 'less than 1 year '},
-                {key: 2, value: '1-3 years'},
-                {key: 3, value: 'More than 3 years'},
+                {
+                  key: 1,
+                  value: 'less than 1 year ',
+                  label: 'PAST_STUDENTS_Q5_OPT1',
+                },
+                {key: 2, value: '1-3 years', label: 'PAST_STUDENTS_Q5_OPT2'},
+                {
+                  key: 3,
+                  value: 'More than 3 years',
+                  label: 'PAST_STUDENTS_Q5_OPT3',
+                },
               ]}
               valueProp={answers.answer5}
               onValueChange={item => {
@@ -532,7 +493,7 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'Reason for leaving the center?'}
+                {t('PAST_STUDENTS_Q6')}
               </TextHandler>
             </View>
           </View>
@@ -545,32 +506,723 @@ export default function PastStudentQuestions() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: 'Completion of education'},
-                {key: 2, value: 'Tranfer'},
-                {key: 3, value: 'Others'},
+                {
+                  key: 1,
+                  value: 'Yes -  explain how are you working with center',
+                  label: 'PAST_STUDENTS_Q6_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'No - explain how can you work with the center',
+                  label: 'PAST_STUDENTS_Q6_OPT2',
+                },
               ]}
               valueProp={answers.answer6}
               onValueChange={item => {
                 setAnswers({...answers, answer6: item});
               }}
             />
-            {answers.answer6?.value === 'Others' && (
-              <Input
-                placeholder="Enter reason here"
-                name="any"
-                onChangeText={text => {
-                  setAnswers({...answers, answer6: {...answers.answer6, text}});
-                }}
-                value={answers.answer6?.text}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            )}
           </View>
         </View>
+
+        {/* QA7 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {7}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('PAST_STUDENTS_Q7')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'No change/ increase/decrease',
+                  label: 'PAST_STUDENTS_Q7_OPT1',
+                },
+                {
+                  key: 2,
+                  value:
+                    'Reasons- good teachers/ teaching methodology/ atomsphere/ other',
+                  label: 'PAST_STUDENTS_Q7_OPT2',
+                },
+              ]}
+              valueProp={answers.answer7}
+              onValueChange={item => {
+                setAnswers({...answers, answer7: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA8*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {8}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('PAST_STUDENTS_Q8')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'No specific influnce',
+                  label: 'PAST_STUDENTS_Q8_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Improved behavior',
+                  label: 'PAST_STUDENTS_Q8_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Other',
+                  label: 'PAST_STUDENTS_Q8_OPT3',
+                },
+              ]}
+              valueProp={answers.answer8}
+              onValueChange={item => {
+                setAnswers({...answers, answer8: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA9 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {9}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('PAST_STUDENTS_Q9')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+              ]}
+              valueProp={answers.answer9}
+              onValueChange={item => {
+                setAnswers({...answers, answer9: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA10*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {10}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('PAST_STUDENTS_Q10')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Courage development',
+                  label: 'PAST_STUDENTS_Q10_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Better interacting with people',
+                  label: 'PAST_STUDENTS_Q10_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Good habits',
+                  label: 'PAST_STUDENTS_Q10_OPT3',
+                },
+                {
+                  key: 4,
+                  value: 'Other',
+                  label: 'PAST_STUDENTS_Q10_OPT4',
+                },
+              ]}
+              valueProp={answers.answer6}
+              onValueChange={item => {
+                setAnswers({...answers, answer6: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA11 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {11}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('PAST_STUDENTS_Q11')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Good education',
+                  label: 'PAST_STUDENTS_Q11_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Improved social status',
+                  label: 'PAST_STUDENTS_Q11_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Improved financial status',
+                  label: 'PAST_STUDENTS_Q11_OPT3',
+                },
+                {
+                  key: 4,
+                  value: 'Other',
+                  label: 'PAST_STUDENTS_Q11_OPT4',
+                },
+              ]}
+              valueProp={answers.answer11}
+              onValueChange={item => {
+                setAnswers({...answers, answer11: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA12*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {12}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('PAST_STUDENTS_Q12')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Courage development',
+                  label: 'PAST_STUDENTS_Q12_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Better interacting with people',
+                  label: 'PAST_STUDENTS_Q12_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Good habits',
+                  label: 'PAST_STUDENTS_Q12_OPT3',
+                },
+                {
+                  key: 4,
+                  value: 'Other',
+                  label: 'PAST_STUDENTS_Q12_OPT4',
+                },
+              ]}
+              valueProp={answers.answer12}
+              onValueChange={item => {
+                setAnswers({...answers, answer12: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA13*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {13}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('PAST_STUDENTS_Q13')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Improved respect',
+                  label: 'PAST_STUDENTS_Q13_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Changed Habits',
+                  label: 'PAST_STUDENTS_Q13_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Organised',
+                  label: 'PAST_STUDENTS_Q13_OPT3',
+                },
+                {
+                  key: 4,
+                  value: 'Other',
+                  label: 'PAST_STUDENTS_Q10_OPT4',
+                },
+              ]}
+              valueProp={answers.answer6}
+              onValueChange={item => {
+                setAnswers({...answers, answer6: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA14*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {14}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('PAST_STUDENTS_Q14')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Donating time  ',
+                  label: 'PAST_STUDENTS_Q14_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Financial help',
+                  label: 'PAST_STUDENTS_Q14_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Connecting Experts',
+                  label: 'PAST_STUDENTS_Q14_OPT3',
+                },
+                {
+                  key: 4,
+                  value: 'Other',
+                  label: 'PAST_STUDENTS_Q14_OPT4',
+                },
+              ]}
+              valueProp={answers.answer14}
+              onValueChange={item => {
+                setAnswers({...answers, answer14: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA15*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {15}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('PAST_STUDENTS_Q15')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Regularly go to shakha',
+                  label: 'PAST_STUDENTS_Q15_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Have sangh Dayitva ',
+                  label: 'PAST_STUDENTS_Q15_OPT2',
+                },
+                {
+                  key: 3,
+                  value:
+                    'Connected with other Sanghatan of RSS (BMS, Kalyan Ashram etc)',
+                  label: 'PAST_STUDENTS_Q15_OPT3',
+                },
+                {
+                  key: 4,
+                  value: 'Not connected',
+                  label: 'PAST_STUDENTS_Q15_OPT4',
+                },
+              ]}
+              valueProp={answers.answer15}
+              onValueChange={item => {
+                setAnswers({...answers, answer15: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA16*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {16}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('PAST_STUDENTS_Q16')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes (Enter short description)',
+                  label: 'PAST_STUDENTS_Q16_OPT1',
+                },
+
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+              ]}
+              valueProp={answers.answer16}
+              onValueChange={item => {
+                setAnswers({...answers, answer16: item});
+              }}
+            />
+          </View>
+        </View>
+
         <Button
           title={'Submit'}
           onPress={pageValidator}
