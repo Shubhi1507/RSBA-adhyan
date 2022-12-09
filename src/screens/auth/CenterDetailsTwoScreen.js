@@ -30,7 +30,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
 import {Snackbar} from 'react-native-paper';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
-import {ADIcons, FAIcons} from '../../libs/VectorIcons';
+import {ADIcons, EnIcons, FAIcons} from '../../libs/VectorIcons';
 import Geolocation from '@react-native-community/geolocation';
 import {getDistance, getPreciseDistance} from 'geolib';
 import {FindAndUpdate} from '../../utils/utils';
@@ -425,9 +425,14 @@ export default function CenterDetailsTwoScreen() {
                     <Text style={styles.headingInput}>
                       {t('LOCATION_SHARED')}
                     </Text>
-                    <Text style={{color: COLORS.lightGrey, fontSize: 15}}>
+                    {/* <Text style={{color: COLORS.lightGrey, fontSize: 15}}>
                       ({t('TAP_TO_UPDATE')})
-                    </Text>
+                    </Text> */}
+                    <EnIcons
+                      name="location-pin"
+                      size={25}
+                      color={COLORS.blue}
+                    />
                   </View>
                 </View>
               </TouchableOpacity>
