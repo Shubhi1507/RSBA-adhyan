@@ -220,7 +220,8 @@
   "CURRENT_STUDENTS_Q5_OPT2": "Parents come to pick and drop",
   "CURRENT_STUDENTS_Q5_OPT3": "students come in group",
   "CURRENT_STUDENTS_Q5_OPT4": " Our centre coordinator assist them",
-  "CURRENT_STUDENTS_Q5_OPT5": "Other",
+"CURRENT_STUDENTS_Q5_OPT5" : "Others" ,
+
   "CURRENT_STUDENTS_Q6": "Do our students help other students of small age group in their studies?",
   "CURRENT_STUDENTS_Q6_OPT1": "Yes",
   "CURRENT_STUDENTS_Q6_OPT2": "No",

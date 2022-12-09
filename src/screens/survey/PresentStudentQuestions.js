@@ -37,6 +37,19 @@ export default function PresentStudentQuestions() {
     answer4: '',
     answer5: '',
     answer6: '',
+    answer7: '',
+    answer8: '',
+    answer9: '',
+    answer10: '',
+    answer11: '',
+    answer12: '',
+    answer13: '',
+    answer14: '',
+    answer15: '',
+    answer16: '',
+    answer17: '',
+    answer18: '',
+    answer19: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -180,7 +193,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'Current Student strength ?'}
+                {t('CURRENT_STUDENTS_Q1')}
               </TextHandler>
             </View>
           </View>
@@ -233,7 +246,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'Class group of the students ? '}
+                {t('CURRENT_STUDENTS_Q2')}
               </TextHandler>
             </View>
           </View>
@@ -248,20 +261,24 @@ export default function PresentStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: 'Play Group',
+                  value: '20-25 % ',
+                  label: 'CURRENT_STUDENTS_Q2_OPT1',
                 },
                 {
                   key: 2,
-                  value: 'Primary',
+                  value: '40-50 %',
+                  label: 'CURRENT_STUDENTS_Q2_OPT2',
                 },
                 {
                   key: 3,
-                  value: 'Middle',
+                  value: '65-75% ',
+                  label: 'CURRENT_STUDENTS_Q2_OPT3',
                 },
 
                 {
                   key: 4,
-                  value: 'High School',
+                  value: 'More than 75%',
+                  label: 'CURRENT_STUDENTS_Q2_OPT4',
                 },
               ]}
               valueProp={answers.answer2}
@@ -304,9 +321,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'Out of current strength how many students come regularly to attend the class?'
-                }
+                {t('CURRENT_STUDENTS_Q3')}
               </TextHandler>
             </View>
           </View>
@@ -321,17 +336,19 @@ export default function PresentStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: '20-25%',
+                  value: 'Need to remind ',
+                  label: 'CURRENT_STUDENTS_Q3_OPT1',
                 },
                 {
                   key: 2,
-                  value: '40-50%',
+                  value: 'Parents force them',
+                  label: 'CURRENT_STUDENTS_Q3_OPT2',
                 },
                 {
                   key: 3,
-                  value: '65-75%',
+                  value: 'Wait for Center to start',
+                  label: 'CURRENT_STUDENTS_Q3_OPT3',
                 },
-                {key: 4, value: 'More than 75 %'},
               ]}
               valueProp={answers.answer3}
               onValueChange={item => {
@@ -372,9 +389,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'Do they come alone or come together  with their siblings and neighbours '
-                }
+                {t('CURRENT_STUDENTS_Q4')}
               </TextHandler>
             </View>
           </View>
@@ -387,15 +402,18 @@ export default function PresentStudentQuestions() {
             data={[
               {
                 key: 1,
-                value: 'Alone',
+                value: '6 months',
+                label: 'CURRENT_STUDENTS_Q4_OPT1',
               },
               {
                 key: 2,
-                value: 'Sometimes',
+                value: '6-24 months',
+                label: 'CURRENT_STUDENTS_Q4_OPT2',
               },
               {
                 key: 3,
-                value: 'Come in group',
+                value: '2 Years and above',
+                label: 'CURRENT_STUDENTS_Q4_OPT3',
               },
             ]}
             valueProp={answers.answer4}
@@ -436,7 +454,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'Interest of the students towards kendra?'}
+                {t('CURRENT_STUDENTS_Q5')}
               </TextHandler>
             </View>
           </View>
@@ -449,9 +467,31 @@ export default function PresentStudentQuestions() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: 'Need to remind'},
-                {key: 2, value: 'Parents force them'},
-                {key: 3, value: 'Wait for center to start'},
+                {
+                  key: 1,
+                  value: 'come by own',
+                  label: 'CURRENT_STUDENTS_Q5_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Parents come to pick and drop',
+                  label: 'CURRENT_STUDENTS_Q5_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Students come in group',
+                  label: 'CURRENT_STUDENTS_Q5_OPT3',
+                },
+                {
+                  key: 4,
+                  value: 'Our centre coordinator assist them',
+                  label: 'CURRENT_STUDENTS_Q5_OPT4',
+                },
+                {
+                  key: 5,
+                  value: 'Our centre coordinator assist them',
+                  label: 'CURRENT_STUDENTS_Q5_OPT5',
+                },
               ]}
               valueProp={answers.answer5}
               onValueChange={item => {
@@ -492,9 +532,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  ' Since how long these childrean are coming  to the Prakalp  ? '
-                }
+                {t('CURRENT_STUDENTS_Q6')}
               </TextHandler>
             </View>
           </View>
@@ -507,9 +545,8 @@ export default function PresentStudentQuestions() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: '6 Months'},
-                {key: 2, value: ' 6-24 months'},
-                {key: 3, value: '2 Years & above'},
+                {key: 1, value: 'Yes', label: 'YES'},
+                {key: 2, value: 'No', label: 'NO'},
               ]}
               valueProp={answers.answer6}
               onValueChange={item => {
@@ -518,6 +555,1064 @@ export default function PresentStudentQuestions() {
             />
           </View>
         </View>
+
+        {/* QA7*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {7}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q7')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <Input
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="any"
+            onChangeText={text => {
+              setAnswers({...answers, answer7: text});
+            }}
+            value={answers.answer7}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.25,
+            }}
+          />
+        </View>
+
+        {/* QA8 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {8}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q8')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'More than 50 % Students',
+                  label: 'CURRENT_STUDENTS_Q8_OPT1',
+                },
+                {
+                  key: 2,
+                  value: '25 to 49 % Students',
+                  label: 'CURRENT_STUDENTS_Q8_OPT2',
+                },
+                {
+                  key: 3,
+                  value: '10 to 24 % Students',
+                  label: 'CURRENT_STUDENTS_Q8_OPT3',
+                },
+
+                {
+                  key: 4,
+                  value: 'No change in %',
+                  label: 'CURRENT_STUDENTS_Q8_OPT4',
+                },
+              ]}
+              valueProp={answers.answer8}
+              onValueChange={item => {
+                console.log('item', item);
+                setAnswers({...answers, answer: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA9*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {9}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q9')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+              
+              ]}
+              valueProp={answers.answer9}
+              onValueChange={item => {
+                console.log('item', item);
+                setAnswers({...answers, answer9: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA10 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {10}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q10')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Less focus on studies',
+                  label: 'CURRENT_STUDENTS_Q10_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Capacity of Teachers',
+                  label: 'CURRENT_STUDENTS_Q10_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Surroundings',
+                  label: 'CURRENT_STUDENTS_Q10_OPT3',
+                },
+
+                {
+                  key: 4,
+                  value: 'Others',
+                  label: 'CURRENT_STUDENTS_Q10_OPT4',
+                },
+              ]}
+              valueProp={answers.answer10}
+              onValueChange={item => {
+                console.log('item', item);
+                setAnswers({...answers, answer10: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA11*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {11}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q11')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'From Home ',
+                  label: 'CURRENT_STUDENTS_Q11_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'From Basti',
+                  label: 'CURRENT_STUDENTS_Q11_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'From Teachers ',
+                  label: 'CURRENT_STUDENTS_Q11_OPT3',
+                },
+
+                {
+                  key: 4,
+                  value:'Others',
+                  label: 'CURRENT_STUDENTS_Q11_OPT4',
+                },
+              ]}
+              valueProp={answers.answer11}
+              onValueChange={item => {
+                console.log('item', item);
+                setAnswers({...answers, answer11: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA12 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {12}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q12')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes (Enter activity list)  ',
+                  label: 'CURRENT_STUDENTS_Q12_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'NO (Suggest activities)',
+                  label: 'CURRENT_STUDENTS_Q12_OPT2',
+                },
+             
+              ]}
+              valueProp={answers.answer2}
+              onValueChange={item => {
+                console.log('item', item);
+                setAnswers({...answers, answer2: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA13 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {13}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q13')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes (Enter %)  ',
+                  label: 'CURRENT_STUDENTS_Q13_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+                {
+                  key: 3,
+                  value: 'Some ',
+                  label: 'CURRENT_STUDENTS_Q13_OPT3',
+                },
+
+                
+              ]}
+              valueProp={answers.answer13}
+              onValueChange={item => {
+                console.log('item', item);
+                setAnswers({...answers, answer13: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA14 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {14}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q14')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes ',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+               
+              ]}
+              valueProp={answers.answer2}
+              onValueChange={item => {
+                console.log('item', item);
+                setAnswers({...answers, answer2: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA15 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {15}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q15')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes ',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: '40-50 %',
+                  label: 'CURRENT_STUDENTS_Q2_OPT2',
+                },
+              
+              ]}
+              valueProp={answers.answer2}
+              onValueChange={item => {
+                console.log('item', item);
+                setAnswers({...answers, answer2: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA2 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {2}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q2')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: '20-25 % ',
+                  label: 'CURRENT_STUDENTS_Q2_OPT1',
+                },
+                {
+                  key: 2,
+                  value: '40-50 %',
+                  label: 'CURRENT_STUDENTS_Q2_OPT2',
+                },
+                {
+                  key: 3,
+                  value: '65-75% ',
+                  label: 'CURRENT_STUDENTS_Q2_OPT3',
+                },
+
+                {
+                  key: 4,
+                  value: 'More than 75%',
+                  label: 'CURRENT_STUDENTS_Q2_OPT4',
+                },
+              ]}
+              valueProp={answers.answer2}
+              onValueChange={item => {
+                console.log('item', item);
+                setAnswers({...answers, answer2: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA2 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {2}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q2')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: '20-25 % ',
+                  label: 'CURRENT_STUDENTS_Q2_OPT1',
+                },
+                {
+                  key: 2,
+                  value: '40-50 %',
+                  label: 'CURRENT_STUDENTS_Q2_OPT2',
+                },
+                {
+                  key: 3,
+                  value: '65-75% ',
+                  label: 'CURRENT_STUDENTS_Q2_OPT3',
+                },
+
+                {
+                  key: 4,
+                  value: 'More than 75%',
+                  label: 'CURRENT_STUDENTS_Q2_OPT4',
+                },
+              ]}
+              valueProp={answers.answer2}
+              onValueChange={item => {
+                console.log('item', item);
+                setAnswers({...answers, answer2: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA2 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {2}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q2')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: '20-25 % ',
+                  label: 'CURRENT_STUDENTS_Q2_OPT1',
+                },
+                {
+                  key: 2,
+                  value: '40-50 %',
+                  label: 'CURRENT_STUDENTS_Q2_OPT2',
+                },
+                {
+                  key: 3,
+                  value: '65-75% ',
+                  label: 'CURRENT_STUDENTS_Q2_OPT3',
+                },
+
+                {
+                  key: 4,
+                  value: 'More than 75%',
+                  label: 'CURRENT_STUDENTS_Q2_OPT4',
+                },
+              ]}
+              valueProp={answers.answer2}
+              onValueChange={item => {
+                console.log('item', item);
+                setAnswers({...answers, answer2: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA2 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {2}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q2')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: '20-25 % ',
+                  label: 'CURRENT_STUDENTS_Q2_OPT1',
+                },
+                {
+                  key: 2,
+                  value: '40-50 %',
+                  label: 'CURRENT_STUDENTS_Q2_OPT2',
+                },
+                {
+                  key: 3,
+                  value: '65-75% ',
+                  label: 'CURRENT_STUDENTS_Q2_OPT3',
+                },
+
+                {
+                  key: 4,
+                  value: 'More than 75%',
+                  label: 'CURRENT_STUDENTS_Q2_OPT4',
+                },
+              ]}
+              valueProp={answers.answer2}
+              onValueChange={item => {
+                console.log('item', item);
+                setAnswers({...answers, answer2: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA2 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {2}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q2')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: '20-25 % ',
+                  label: 'CURRENT_STUDENTS_Q2_OPT1',
+                },
+                {
+                  key: 2,
+                  value: '40-50 %',
+                  label: 'CURRENT_STUDENTS_Q2_OPT2',
+                },
+                {
+                  key: 3,
+                  value: '65-75% ',
+                  label: 'CURRENT_STUDENTS_Q2_OPT3',
+                },
+
+                {
+                  key: 4,
+                  value: 'More than 75%',
+                  label: 'CURRENT_STUDENTS_Q2_OPT4',
+                },
+              ]}
+              valueProp={answers.answer2}
+              onValueChange={item => {
+                console.log('item', item);
+                setAnswers({...answers, answer2: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA2 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {2}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('CURRENT_STUDENTS_Q2')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: '20-25 % ',
+                  label: 'CURRENT_STUDENTS_Q2_OPT1',
+                },
+                {
+                  key: 2,
+                  value: '40-50 %',
+                  label: 'CURRENT_STUDENTS_Q2_OPT2',
+                },
+                {
+                  key: 3,
+                  value: '65-75% ',
+                  label: 'CURRENT_STUDENTS_Q2_OPT3',
+                },
+
+                {
+                  key: 4,
+                  value: 'More than 75%',
+                  label: 'CURRENT_STUDENTS_Q2_OPT4',
+                },
+              ]}
+              valueProp={answers.answer2}
+              onValueChange={item => {
+                console.log('item', item);
+                setAnswers({...answers, answer2: item});
+              }}
+            />
+          </View>
+        </View>
+
         <Button
           title={'Next'}
           onPress={pageValidator}
