@@ -37,6 +37,12 @@ export default function TeacherQuestionsScreen() {
     answer6: '',
     answer7: '',
     answer8: '',
+    answer9: '',
+    answer10: '',
+    answer11: '',
+    answer12: '',
+
+
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -176,9 +182,7 @@ export default function TeacherQuestionsScreen() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'Keeping current trend in mind, do we  teach concepts in English ?'
-                }
+                {t('TEACHER_Q1')}
               </TextHandler>
             </View>
           </View>
@@ -195,14 +199,17 @@ export default function TeacherQuestionsScreen() {
                   key: 1,
                   value:
                     'Almost all the students are attending the Kendra from 2+ years',
+                  label: 'TEACHER_Q1_OPT1',
                 },
                 {
                   key: 2,
                   value: 'Half of the students attends the class from 2+ years',
+                  label: 'TEACHER_Q1_OPT2',
                 },
                 {
                   key: 3,
                   value: 'Only 10 % students attends the vlass from 2+ years',
+                  label: 'TEACHER_Q1_OPT3',
                 },
               ]}
               valueProp={answers.answer1}
@@ -244,28 +251,41 @@ export default function TeacherQuestionsScreen() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'How many students have passed out from this Kendra? (Since inception)'
-                }
+                {t('TEACHER_Q2')}
               </TextHandler>
             </View>
           </View>
 
-          <Input
-            type={'numeric'}
-            number={4}
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({...answers, answer2: text});
-            }}
-            value={answers.answer2}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Through story telling (Theory)',
+                  label: 'TEACHER_Q2_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Through games',
+                  label: 'TEACHER_Q2_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Through activity (Practical)',
+                  label: 'TEACHER_Q2_OPT3',
+                },
+              ]}
+              valueProp={answers.answer2}
+              onValueChange={item => {
+                setAnswers({...answers, answer2: item});
+              }}
+            />
+          </View>
         </View>
 
         {/* QA3 */}
@@ -299,28 +319,46 @@ export default function TeacherQuestionsScreen() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'How many students have passed out from this Kendra? (Since inception)'
-                }
+                {t('TEACHER_Q3')}
               </TextHandler>
             </View>
           </View>
 
-          <Input
-            type={'numeric'}
-            number={4}
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({...answers, answer3: text});
-            }}
-            value={answers.answer3}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Through story telling (Theory)',
+                  label: 'TEACHER_Q3_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Through games',
+                  label: 'TEACHER_Q3_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Through activity (Practical)',
+                  label: 'TEACHER_Q3_OPT3',
+                },
+                {
+                  key: 4,
+                  value: 'We don’t focus on this area',
+                  label: 'TEACHER_Q3_OPT4',
+                },
+              ]}
+              valueProp={answers.answer3}
+              onValueChange={item => {
+                setAnswers({...answers, answer3: item});
+              }}
+            />
+          </View>
         </View>
 
         {/* QA4 */}
@@ -354,9 +392,7 @@ export default function TeacherQuestionsScreen() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'Keeping current trend in mind, do we  teach concepts in English ?'
-                }
+                {t('TEACHER_Q4')}
               </TextHandler>
             </View>
           </View>
@@ -369,9 +405,26 @@ export default function TeacherQuestionsScreen() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 2, value: 'Yes , we use English everyday'},
-                {key: 2, value: 'Sometimes we teach in English'},
-                {key: 2, value: 'We rarely use English'},
+                {
+                  key: 1,
+                  value:
+                    'Drastic Academic improvement - Rating between 1 to 10',
+                  label: 'TEACHER_Q4_OPT1',
+                },
+                {
+                  key: 2,
+                  value:
+                    'Considerable change in behavioral pattern - Rating between 1 to 10',
+                  label: 'TEACHER_Q4_OPT2',
+                },
+                {
+                  key: 3,
+                  value:
+                    ' Progress in other subjects other than academic (Sports, culture, art etc) - Rating between 1 to 10',
+                  label: 'TEACHER_Q4_OPT3',
+                },
+                {key: 4, value: 'Other', label: 'TEACHER_Q4_OPT4'},
+                {key: 5, value: 'Other', label: 'TEACHER_Q4_OPT5'},
               ]}
               valueProp={answers.answer4}
               onValueChange={item => {
@@ -412,9 +465,7 @@ export default function TeacherQuestionsScreen() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'In which area we can see transformation  in our students? (Number should be  more than 50% of total students) - Comparison between before and after '
-                }
+                {t('TEACHER_Q5')}
               </TextHandler>
             </View>
           </View>
@@ -429,20 +480,24 @@ export default function TeacherQuestionsScreen() {
               data={[
                 {
                   key: 1,
-                  value:
-                    'Drastic Academic improvement - Rating between 1 to 10',
+                  value: 'Sincerity - Rating between 1 to 10',
+                  label: 'TEACHER_Q5_OPT1',
                 },
                 {
                   key: 2,
-                  value:
-                    'Considerable change in behavioral pattern - Rating between 1 to 10',
+                  value: 'Punctuality - Rating between 1 to 10',
+                  label: 'TEACHER_Q5_OPT2',
                 },
                 {
                   key: 3,
-                  value:
-                    ' Progress in other subjects other  than academic (Sports, culture, art etc) -Rating between 1 to 10',
+                  value: 'Trustworthy - Rating between 1 to 10',
+                  label: 'TEACHER_Q5_OPT3',
                 },
-                {key: 4, value: ' None of the above'},
+                {
+                  key: 4,
+                  value: '  Leadership qualities - Rating between 1 to 10',
+                  label: 'TEACHER_Q5_OPT4',
+                },
               ]}
               valueProp={answers.answer5}
               onValueChange={item => {
@@ -483,26 +538,40 @@ export default function TeacherQuestionsScreen() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'Any other observations which are not covered in above questions. '
-                }
+                {t('TEACHER_Q6')}
               </TextHandler>
             </View>
           </View>
-
-          <Input
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({...answers, answer6: text});
-            }}
-            value={answers.answer6}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes',
+                  label: 'YES',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+                {
+                  key: 3,
+                  value: 'Sometimes',
+                  label: 'TEACHER_Q6_OPT3',
+                },
+              ]}
+              valueProp={answers.answer6}
+              onValueChange={item => {
+                setAnswers({...answers, answer6: item});
+              }}
+            />
+          </View>
         </View>
 
         {/* QA7  */}
@@ -536,7 +605,7 @@ export default function TeacherQuestionsScreen() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {'How we teach social work to our students? '}
+                {t('TEACHER_Q7')}
               </TextHandler>
             </View>
           </View>
@@ -549,9 +618,12 @@ export default function TeacherQuestionsScreen() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: 'Through story telling (Theory)'},
-                {key: 2, value: 'Through activity (Practical)'},
-                {key: 3, value: 'We donot focus on this area'},
+                {
+                  key: 1,
+                  value: 'Yes (What points you discuss)',
+                  label: 'TEACHER_Q7_OPT1',
+                },
+                {key: 2, value: 'No', label: 'NO'},
               ]}
               valueProp={answers.answer7}
               onValueChange={item => {
@@ -592,9 +664,7 @@ export default function TeacherQuestionsScreen() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {
-                  'Do we compromise on our teaching agenda if student belonging to other religion attends the Kendra?'
-                }
+                {t('TEACHER_Q8')}
               </TextHandler>
             </View>
           </View>
@@ -607,9 +677,11 @@ export default function TeacherQuestionsScreen() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {key: 1, value: 'Yes'},
-                {key: 2, value: 'No'},
-                {key: 3, value: 'Sometimes'},
+                {key: 1, value: 'Post graduate', label: 'TEACHER_Q8_OPT1'},
+                {key: 2, value: 'Graduate', label: 'TEACHER_Q8_OPT2'},
+                {key: 3, value: '12th', label: 'TEACHER_Q8_OPT3'},
+                {key: 4, value: '10th', label: 'TEACHER_Q8_OPT4'},
+                {key: 5, value: 'Less than 10th', label: 'TEACHER_Q8_OPT5'},
               ]}
               valueProp={answers.answer8}
               onValueChange={item => {
@@ -618,6 +690,225 @@ export default function TeacherQuestionsScreen() {
             />
           </View>
         </View>
+
+        {/* QA9 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {9}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('TEACHER_Q9')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {key: 1, value: '3+ years', label: 'TEACHER_Q9_OPT1'},
+                {key: 2, value: '2 to 3 years', label: 'TEACHER_Q9_OPT2'},
+                {key: 3, value: '1 to 2 years', label: 'TEACHER_Q9_OPT3'},
+                {key: 4, value: 'Less than 1 year', label: 'TEACHER_Q9_OPT4'},
+              ]}
+              valueProp={answers.answer9}
+              onValueChange={item => {
+                setAnswers({...answers, answer9: item});
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA10 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {10}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('TEACHER_Q10')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <Input
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="any"
+            onChangeText={text => {
+              setAnswers({...answers, answer10: text});
+            }}
+            value={answers.answer10}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.25,
+            }}
+          />
+        </View>
+
+        {/* QA11*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {11}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('TEACHER_Q11')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <Input
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="any"
+            onChangeText={text => {
+              setAnswers({...answers, answer11: text});
+            }}
+            value={answers.answer11}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.25,
+            }}
+          />
+        </View>
+
+
+
+          {/* QA12 */}
+          <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {12}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  // textAlign: 'left',
+                }}>
+                {t('TEACHER_Q12')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {key: 1, value: 'Freedom for work', label: 'TEACHER_Q12_OPT1'},
+                {key: 2, value: 'Cooperation', label: 'TEACHER_Q12_OPT2'},
+                {key: 3, value: 'Other (Please enter)', label: 'TEACHER_Q12_OPT3'},
+                {key: 4, value: ' None of the above  ', label: 'TEACHER_Q12_OPT4'},
+              ]}
+              valueProp={answers.answer9}
+              onValueChange={item => {
+                setAnswers({...answers, answer9: item});
+              }}
+            />
+          </View>
+        </View>
+
         <Button
           title={'Submit'}
           onPress={pageValidator}
