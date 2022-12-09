@@ -44,43 +44,70 @@ export const StringModifier = (str: String) => {
 };
 
 export const isSurveyExists = (totalSurveys, obj) => {
+  console.log(totalSurveys, obj);
+
   let val = false;
   let payload = {};
-  totalSurveys.some(function (el, index) {
-    if (el.centre_id === obj.centre_id) {
-      val = true;
-      payload = {...el};
-    }
-  });
+  if (totalSurveys && Array.isArray(totalSurveys) && totalSurveys.length > 0) {
+    totalSurveys.forEach(function (el, index) {
+      if (el.centre_id === obj.centre_id) {
+        val = true;
+        payload = {...el};
+      }
+    });
+  }
   return {val, payload};
 };
+
+export const isSurveyExists2 = (totalSurveys, obj) => {
+  let j = [];
+  if (totalSurveys && Array.isArray(totalSurveys) && totalSurveys.length > 0) {
+    j = totalSurveys.filter(el => el.centre_id === obj.survey_form_id);
+  }
+  return j.length > 0 ? true : false;
+};
+
 export const FindAndUpdate = (totalSurveys, obj) => {
-  totalSurveys.some(function (el, index) {
-    if (el.centre_id === obj.centre_id) {
-      return totalSurveys.splice(index, 1, obj);
-    }
-  });
-  return totalSurveys;
+  let tmp = [];
+  if (totalSurveys && Array.isArray(totalSurveys) && totalSurveys.length > 0) {
+    tmp = totalSurveys.some(function (el, index) {
+      if (el.centre_id === obj.centre_id) {
+        return totalSurveys.splice(index, 1, obj);
+      }
+    });
+    return totalSurveys;
+  }
+  return tmp;
 };
 
 export const filterOutIncompleteSurveys = totalSurveys => {
-  let tmp = totalSurveys.filter(function (el) {
-    return el.isCompleted == false && el.isSaved == false;
-  });
+  let tmp = [];
+  if (totalSurveys && Array.isArray(totalSurveys) && totalSurveys.length > 0) {
+    tmp = totalSurveys.filter(function (el) {
+      return el.isCompleted == false && el.isSaved == false;
+    });
+  }
   return tmp;
 };
 
 export const filterOutSavedSurveys = totalSurveys => {
-  let tmp = totalSurveys.filter(function (el) {
-    return el.isSaved == true && el.isCompleted == false;
-  });
+  let tmp = [];
+  if (totalSurveys && Array.isArray(totalSurveys) && totalSurveys.length > 0) {
+    tmp = totalSurveys.filter(function (el) {
+      return el.isSaved == true && el.isCompleted == false;
+    });
+  }
   return tmp;
 };
 
 export const filterOutCompletedSurveys = totalSurveys => {
-  let tmp = totalSurveys.filter(function (el) {
-    return el.isCompleted == true;
-  });
+  let tmp = [];
+  if (totalSurveys && Array.isArray(totalSurveys) && totalSurveys.length > 0) {
+    tmp = totalSurveys.filter(function (el) {
+      return el.isCompleted == true;
+    });
+  }
+
   return tmp;
 };
 
@@ -96,6 +123,7 @@ export const checkInReviewSurveyAndReturnRemaingingTime = totalSurveys => {
     });
     return tmp;
   }
+  return tmp;
 };
 
 export const findMinimumTimeLeft = totalSurveys => {
@@ -117,7 +145,6 @@ export const findMinimumTimeLeft = totalSurveys => {
         }
       });
     }
-
     if (tmp) {
       const total = Date.parse(tmp.release_date) - Date.parse(new Date());
       const minutes = Math.floor((total / 1000 / 60) % 60);
