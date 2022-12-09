@@ -84,7 +84,7 @@ export default function PastStudentQuestions() {
     console.log(p, '/', q);
     if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
       new_obj = {
-        ...tmp[2],
+        ...tmp[3],
         attempted: true,
         completed: false,
         disabled: false,
@@ -93,7 +93,7 @@ export default function PastStudentQuestions() {
       };
     } else {
       new_obj = {
-        ...tmp[2],
+        ...tmp[3],
         attempted: true,
         completed: true,
         disabled: true,
@@ -101,7 +101,7 @@ export default function PastStudentQuestions() {
         answered: p,
       };
     }
-    tmp.splice(2, 1, new_obj);
+    tmp.splice(3, 1, new_obj);
 
     let surveyAnswers = [...answersArrTmp];
     let payload = {};

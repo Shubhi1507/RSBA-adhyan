@@ -34,6 +34,8 @@ export const ACTION_CONSTANTS = {
   // incomplete survey data
   UPDATE_INCOMPLETE_SURVEYS: 'UPDATE_INCOMPLETE_SURVEYS',
 
+  // clear survey data
+  CLEAR_SURVEY_DATA: 'CLEAR_SURVEY_DATA',
   // reset
   RESET_APP: 'RESET_APP',
 

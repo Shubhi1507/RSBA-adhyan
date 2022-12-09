@@ -90,7 +90,7 @@ export default function PresentStudentQuestions() {
     console.log(p, '/', q);
     if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
       new_obj = {
-        ...tmp[3],
+        ...tmp[2],
         attempted: true,
         completed: false,
         disabled: false,
@@ -99,7 +99,7 @@ export default function PresentStudentQuestions() {
       };
     } else {
       new_obj = {
-        ...tmp[3],
+        ...tmp[2],
         attempted: true,
         completed: true,
         disabled: true,
@@ -107,7 +107,7 @@ export default function PresentStudentQuestions() {
         answered: p,
       };
     }
-    tmp.splice(3, 1, new_obj);
+    tmp.splice(2, 1, new_obj);
 
     let surveyAnswers = [...answersArrTmp];
     let payload = {};
@@ -138,7 +138,9 @@ export default function PresentStudentQuestions() {
     };
     let tmp1 = FindAndUpdate(totalSurveys, payload);
 
-    console.log('payload past student ', payload);
+    console.log('payload ', payload);
+    console.log('tmp ', payload);
+
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
     dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
     showModal();
@@ -736,7 +738,6 @@ export default function PresentStudentQuestions() {
                   value: 'No',
                   label: 'NO',
                 },
-              
               ]}
               valueProp={answers.answer9}
               onValueChange={item => {
@@ -884,7 +885,7 @@ export default function PresentStudentQuestions() {
 
                 {
                   key: 4,
-                  value:'Others',
+                  value: 'Others',
                   label: 'CURRENT_STUDENTS_Q11_OPT4',
                 },
               ]}
@@ -951,7 +952,6 @@ export default function PresentStudentQuestions() {
                   value: 'NO (Suggest activities)',
                   label: 'CURRENT_STUDENTS_Q12_OPT2',
                 },
-             
               ]}
               valueProp={answers.answer2}
               onValueChange={item => {
@@ -1021,8 +1021,6 @@ export default function PresentStudentQuestions() {
                   value: 'Some ',
                   label: 'CURRENT_STUDENTS_Q13_OPT3',
                 },
-
-                
               ]}
               valueProp={answers.answer13}
               onValueChange={item => {
@@ -1087,7 +1085,6 @@ export default function PresentStudentQuestions() {
                   value: 'No',
                   label: 'NO',
                 },
-               
               ]}
               valueProp={answers.answer2}
               onValueChange={item => {
@@ -1152,7 +1149,6 @@ export default function PresentStudentQuestions() {
                   value: '40-50 %',
                   label: 'CURRENT_STUDENTS_Q2_OPT2',
                 },
-              
               ]}
               valueProp={answers.answer2}
               onValueChange={item => {

@@ -38,7 +38,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
   let totalSurveys = store.surveyReducer.totalSurveys;
   let CENTRES_STATUS_FOR_ANEW_SURVEY = [
     {
-      key: `Student's Parents (Current Students)`,
+      key: 1,
       value: `Student's Parents (Current Students)`,
       label: 'STUDENTS_PARENTS_CURRENT_STUDENTS',
       disabled: false,
@@ -47,7 +47,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       totalQue: 13,
     },
     {
-      key: `Student's Parents (Past Students)`,
+      key: 2,
       value: `Student's Parents (Past Students)`,
       label: 'STUDENTS_PARENTS_PAST_STUDENTS',
       disabled: false,
@@ -56,7 +56,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       totalQue: 11,
     },
     {
-      key: 'Current Student',
+      key: 3,
       value: 'Current Student',
       label: 'CURRENT_STUDENT',
       disabled: false,
@@ -65,7 +65,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       totalQue: 19,
     },
     {
-      key: 'Past Student',
+      key: 4,
       value: 'Past Student',
       label: 'PAST_STUDENT',
       disabled: false,
@@ -73,9 +73,8 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       completed: false,
       totalQue: 16,
     },
-
     {
-      key: 'Teacher',
+      key: 5,
       value: 'Teacher',
       label: 'TEACHER',
       disabled: false,
@@ -84,7 +83,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       totalQue: 12,
     },
     {
-      key: 'Kendra Sanchalak',
+      key: 6,
       value: 'Kendra Sanchalak',
       label: 'KENDRA_SANCHALAK',
       disabled: false,
@@ -93,7 +92,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       totalQue: 10,
     },
     {
-      key: 'Basti',
+      key: 7,
       value: 'Basti',
       label: 'BASTI',
       disabled: false,
@@ -102,7 +101,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       totalQue: 5,
     },
     {
-      key: 'Influential Persons from the Basti',
+      key: 8,
       value: 'Influential Persons from the Basti',
       label: 'PRABUDDHA_JAN',
       disabled: false,
