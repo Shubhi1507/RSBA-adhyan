@@ -3,6 +3,7 @@
   "ADHYAYAN": "Adhyayan Survey",
   "ALL_SURVEYS": "All Surveys",
   "ASSIGNED_CENTRES": "Assigned Centres",
+  "ADDRESS": "ADDRESS",
 
   // C
   "CENTRE": "Centre",
@@ -220,7 +221,7 @@
   "CURRENT_STUDENTS_Q5_OPT2": "Parents come to pick and drop",
   "CURRENT_STUDENTS_Q5_OPT3": "students come in group",
   "CURRENT_STUDENTS_Q5_OPT4": " Our centre coordinator assist them",
-"CURRENT_STUDENTS_Q5_OPT5" : "Others" ,
+  "CURRENT_STUDENTS_Q5_OPT5": "Others",
 
   "CURRENT_STUDENTS_Q6": "Do our students help other students of small age group in their studies?",
   "CURRENT_STUDENTS_Q6_OPT1": "Yes",
@@ -546,7 +547,7 @@
   "SAVE_REVIEW_QUESTIONS": "Save & Review",
   "SIX_DIGIT_CODE": "A 6-digit code will be sent via SMS to verify your mobile number.",
   "START_SURVEY": "Start Survey",
-
+  "SURVEY_EXISTS": "Survey already in progress",
   // T
   "TAP_TO_UPDATE": "Tap to update",
   "TEACHERS_SURVERS": "Teacher's Survey",
