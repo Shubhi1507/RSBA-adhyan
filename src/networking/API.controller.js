@@ -9,13 +9,12 @@ const Login = async data => {
     const URL = BASE_URL + 'volunteer';
     const formdata = new FormData();
     formdata.append('mobile', data.mobile);
-    formdata.append('state_id', data.state_id || '1');
-    formdata.append('name', data.name || '');
     const response = await fetch(URL, {
       method: 'POST',
       headers: headers,
       body: formdata,
     });
+    console.log('res- >', await response.json());
     if (response.status === 200) {
       let respJson = await response.json();
       return respJson;
@@ -39,6 +38,8 @@ const VerifyOTP = async data => {
       body: formdata,
     });
     let respJson = await response.json();
+    console.log('v. res- >', respJson);
+
     return respJson;
   } catch (error) {
     console.log(error);
