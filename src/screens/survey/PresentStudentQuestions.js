@@ -1163,7 +1163,7 @@ export default function PresentStudentQuestions() {
           </View>
         </View>
 
-        {/* QA2 */}
+        {/* QA6 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -1180,7 +1180,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {2}
+                {16}
               </TextHandler>
             </View>
 
@@ -1194,7 +1194,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {t('CURRENT_STUDENTS_Q2')}
+                {t('CURRENT_STUDENTS_Q16')}
               </TextHandler>
             </View>
           </View>
@@ -1209,36 +1209,26 @@ export default function PresentStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: '20-25 % ',
-                  label: 'CURRENT_STUDENTS_Q2_OPT1',
+                  value: 'Yes (% of interested parents for this)',
+                  label: 'CURRENT_STUDENTS_Q16_OPT1',
                 },
                 {
                   key: 2,
-                  value: '40-50 %',
-                  label: 'CURRENT_STUDENTS_Q2_OPT2',
+                  value: 'No',
+                  label: 'NO',
                 },
-                {
-                  key: 3,
-                  value: '65-75% ',
-                  label: 'CURRENT_STUDENTS_Q2_OPT3',
-                },
-
-                {
-                  key: 4,
-                  value: 'More than 75%',
-                  label: 'CURRENT_STUDENTS_Q2_OPT4',
-                },
+              
               ]}
-              valueProp={answers.answer2}
+              valueProp={answers.answer16}
               onValueChange={item => {
                 console.log('item', item);
-                setAnswers({...answers, answer2: item});
+                setAnswers({...answers, answer16: item});
               }}
             />
           </View>
         </View>
 
-        {/* QA2 */}
+        {/* QA17 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -1255,7 +1245,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {2}
+                {17}
               </TextHandler>
             </View>
 
@@ -1269,7 +1259,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {t('CURRENT_STUDENTS_Q2')}
+                {t('CURRENT_STUDENTS_Q17')}
               </TextHandler>
             </View>
           </View>

@@ -620,7 +620,7 @@ export default function TeacherQuestionsScreen() {
               data={[
                 {
                   key: 1,
-                  value: 'Yes (What points you discuss)',
+                  value: 'Yes',
                   label: 'TEACHER_Q7_OPT1',
                 },
                 {key: 2, value: 'No', label: 'NO'},
@@ -630,6 +630,10 @@ export default function TeacherQuestionsScreen() {
                 setAnswers({...answers, answer7: item});
               }}
             />
+
+{}
+
+
           </View>
         </View>
 
