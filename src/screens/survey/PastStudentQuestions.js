@@ -444,13 +444,13 @@ export default function PastStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: 'less than 1 year ',
+                  value: 'Completion of education',
                   label: 'PAST_STUDENTS_Q5_OPT1',
                 },
-                {key: 2, value: '1-3 years', label: 'PAST_STUDENTS_Q5_OPT2'},
+                {key: 2, value: 'Transfer', label: 'PAST_STUDENTS_Q5_OPT2'},
                 {
                   key: 3,
-                  value: 'More than 3 years',
+                  value: 'Others',
                   label: 'PAST_STUDENTS_Q5_OPT3',
                 },
               ]}
@@ -459,6 +459,27 @@ export default function PastStudentQuestions() {
                 setAnswers({...answers, answer5: item});
               }}
             />
+            {answers.answer5?.key === 3 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    answer5: {
+                      ...answers.answer5,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.answer5?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -508,18 +529,37 @@ export default function PastStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: 'Yes -  explain how are you working with center',
+                  value: 'Yes',
                   label: 'PAST_STUDENTS_Q6_OPT1',
                 },
                 {
                   key: 2,
-                  value: 'No - explain how can you work with the center',
+                  value: 'No',
                   label: 'PAST_STUDENTS_Q6_OPT2',
                 },
               ]}
               valueProp={answers.answer6}
               onValueChange={item => {
                 setAnswers({...answers, answer6: item});
+              }}
+            />
+            <Input
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({
+                  ...answers,
+                  answer6: {
+                    ...answers.answer6,
+                    other: text,
+                  },
+                });
+              }}
+              value={answers.answer6?.other}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
               }}
             />
           </View>
@@ -577,7 +617,7 @@ export default function PastStudentQuestions() {
                 {
                   key: 2,
                   value:
-                    'Reasons- good teachers/ teaching methodology/ atomsphere/ other',
+                    'Reasons (good teachers/ teaching methodology/ atomsphere/ other',
                   label: 'PAST_STUDENTS_Q7_OPT2',
                 },
               ]}
@@ -586,6 +626,27 @@ export default function PastStudentQuestions() {
                 setAnswers({...answers, answer7: item});
               }}
             />
+            {answers.answer7?.key === 2 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    answer7: {
+                      ...answers.answer7,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.answer7?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -654,6 +715,27 @@ export default function PastStudentQuestions() {
                 setAnswers({...answers, answer8: item});
               }}
             />
+            {answers.answer8?.key === 3 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    answer8: {
+                      ...answers.answer8,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.answer8?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -785,11 +867,32 @@ export default function PastStudentQuestions() {
                   label: 'PAST_STUDENTS_Q10_OPT4',
                 },
               ]}
-              valueProp={answers.answer6}
+              valueProp={answers.answer10}
               onValueChange={item => {
-                setAnswers({...answers, answer6: item});
+                setAnswers({...answers, answer10: item});
               }}
             />
+            {answers.answer10?.key === 4 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    answer10: {
+                      ...answers.answer10,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.answer10?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -863,6 +966,27 @@ export default function PastStudentQuestions() {
                 setAnswers({...answers, answer11: item});
               }}
             />
+              {answers.answer11?.key === 4 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    answer11: {
+                      ...answers.answer11,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.answer11?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -936,6 +1060,27 @@ export default function PastStudentQuestions() {
                 setAnswers({...answers, answer12: item});
               }}
             />
+               {answers.answer12?.key === 4 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    answer12: {
+                      ...answers.answer12,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.answer12?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -1004,11 +1149,32 @@ export default function PastStudentQuestions() {
                   label: 'PAST_STUDENTS_Q10_OPT4',
                 },
               ]}
-              valueProp={answers.answer6}
+              valueProp={answers.answer13}
               onValueChange={item => {
-                setAnswers({...answers, answer6: item});
+                setAnswers({...answers, answer13: item});
               }}
             />
+             {answers.answer13?.key === 4 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    answer13: {
+                      ...answers.answer13,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.answer13?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -1082,6 +1248,27 @@ export default function PastStudentQuestions() {
                 setAnswers({...answers, answer14: item});
               }}
             />
+             {answers.answer14?.key === 4 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    answer14: {
+                      ...answers.answer14,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.answer14?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -1220,7 +1407,29 @@ export default function PastStudentQuestions() {
                 setAnswers({...answers, answer16: item});
               }}
             />
+            {answers.answer16?.key === 1 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    answer16: {
+                      ...answers.answer16,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.answer16?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
+          
         </View>
 
         <Button
