@@ -53,14 +53,20 @@ export default function OTPScreen({route, navigation}) {
       setDataLoading(false);
       return setError({visible: true, message: 'Invalid OTP'});
     }
-    let newUserData = {...store.userData, data: response.data};
+    let newUserData = {data: response.data};
     let newState = {...store, userData: newUserData};
     console.log('newState', newState);
+    let assignedCenteres = [...response?.data?.assigned_center];
+    console.log('assignedCenteres', assignedCenteres);
+
+    dispatch({
+      type: ACTION_CONSTANTS.UPDATE_ASSIGNED_CENTRES,
+      payload: assignedCenteres,
+    });
     dispatch({
       type: ACTION_CONSTANTS.LOGIN_SUCCESSFUL,
       payload: newState,
     });
-    navigate(ROUTES.AUTH.DASHBOARDSCREEN);
   };
 
   const GetOTP = async () => {

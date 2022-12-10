@@ -6,11 +6,11 @@ import {useSelector} from 'react-redux';
 import LocalizationContext from '../context/LanguageContext';
 import {useContext} from 'react';
 import {ADIcons, FAIcons} from '../libs/VectorIcons';
-import {canGoBack, goBack} from '../navigation/NavigationService';
 import {screenWidth} from '../libs';
 import {useEffect} from 'react';
 
 export function Header({onPressBack, title}) {
+  useEffect(() => {}, []);
   let store = useSelector(state => state?.surveyReducer?.currentSurveyData);
   const {t} = useContext(LocalizationContext);
   useEffect(() => {}, [title, store]);
@@ -41,14 +41,9 @@ export function Header({onPressBack, title}) {
           }}>
           {title}
         </Text>
-        {!title === 'Volunteer Dashboard' ||
-          (!title === 'स्वयंसेवक डैशबोर्ड' && (
-            <TextHandler style={{color: COLORS.white, textAlign: 'center'}}>
-              {store?.centre_id
-                ? `(${t('CENTRE')} - ` + store.centre_id + ')'
-                : ''}
-            </TextHandler>
-          ))}
+        <TextHandler style={{color: COLORS.white, textAlign: 'center'}}>
+          {store?.centre_id ? `(${t('CENTRE')} - ` + store.centre_id + ')' : ''}
+        </TextHandler>
       </View>
 
       <View style={{flex: 0.2}}></View>

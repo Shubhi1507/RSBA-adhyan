@@ -24,7 +24,7 @@ import {goBack, navigate} from '../../navigation/NavigationService';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {useEffect} from 'react';
-import {ADIcons, FAIcons} from '../../libs/VectorIcons';
+import {ADIcons, EnIcons, FAIcons} from '../../libs/VectorIcons';
 import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 import LocalizationContext from '../../context/LanguageContext';
 import {
@@ -33,6 +33,8 @@ import {
   filterOutIncompleteSurveys,
   filterOutSavedSurveys,
   findMinimumTimeLeft,
+  isSurveyExists,
+  isSurveyExists2,
 } from '../../utils/utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as i18n from '../../../i18n.js';
@@ -53,6 +55,8 @@ export default function DashboardScreen({route, navigation}) {
   const name = store?.authReducer?.userData?.userData?.data[0]?.name;
   const totalSurveys = store.surveyReducer.totalSurveys;
   const [visible, setVisible] = React.useState(false);
+  const [assignedCenters, setAssignedCentres] = useState([]);
+
   const completedSurveysTmpArr =
     checkInReviewSurveyAndReturnRemaingingTime(totalSurveys);
   const [ReviewTimeLeft, setReviewTimeLeft] = useState('');
@@ -65,6 +69,13 @@ export default function DashboardScreen({route, navigation}) {
   ]);
 
   useEffect(() => {
+    if (
+      store.centerReducer?.assignedCenters &&
+      Array.isArray(store.centerReducer?.assignedCenters)
+    ) {
+      console.log('assignedCenters', store.centerReducer?.assignedCenters);
+      setAssignedCentres(store.centerReducer.assignedCenters);
+    }
     AsyncStorage.getItem('lang').then(res => {
       if (res) {
         if (res === 'en') {
@@ -83,7 +94,6 @@ export default function DashboardScreen({route, navigation}) {
   useEffect(() => {
     const focus = navigation.addListener('focus', () => {
       let x = findMinimumTimeLeft(totalSurveys);
-      console.log('x', x);
       if (x) {
         setReviewTimeLeft(x.toString());
       } else setReviewTimeLeft('');
@@ -108,9 +118,17 @@ export default function DashboardScreen({route, navigation}) {
 
   const pageNavigator = () => {
     if (selectedCenter) {
-      console.log('selectedCenter', selectedCenter);
-      dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
-      navigate(ROUTES.AUTH.CENTREDETAILSONESCREEN, {centre: selectedCenter});
+      let k = isSurveyExists2(totalSurveys, selectedCenter);
+
+      if (k) {
+        return setError({
+          visible: true,
+          message: t('SURVEY_EXISTS'),
+        });
+      } else {
+        dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
+        navigate(ROUTES.AUTH.CENTREDETAILSONESCREEN, {centre: selectedCenter});
+      }
     } else
       return setError({
         visible: true,
@@ -372,30 +390,57 @@ export default function DashboardScreen({route, navigation}) {
         </View>
         <View style={{flex: 0.7, marginBottom: 20}}>
           <FlatList
-            data={CENTER_DATA}
+            data={assignedCenters}
             renderItem={({item, index}) => {
               return (
-                <CustomCheckbox
-                  color={COLORS.success}
-                  label={`${t('CENTRE')} - ` + item.value}
-                  completed={false}
-                  status={
-                    selectedCenter && selectedCenter?.value
-                      ? selectedCenter?.value === item.value
-                      : false
-                  }
-                  attempted={false}
+                <TouchableOpacity
                   onPress={() => {
                     setCenter(item);
                   }}
-                  customTextStyle={
-                    selectedCenter
-                      ? selectedCenter?.value === item.value
-                        ? {color: COLORS.buttonColor}
-                        : {color: COLORS.black}
-                      : {color: COLORS.black}
-                  }
-                />
+                  style={{
+                    flex: 1,
+                    marginVertical: 9,
+                    backgroundColor: COLORS.tile,
+                    flexDirection: 'row',
+                    padding: 10,
+                    justifyContent: 'center',
+                  }}>
+                  <View style={{flex: 0.15, paddingTop: 8}}>
+                    {selectedCenter?.survey_form_id == item?.survey_form_id ? (
+                      <ADIcons
+                        name="checkcircleo"
+                        color={COLORS.blue}
+                        size={20}
+                      />
+                    ) : (
+                      <EnIcons name="circle" color={COLORS.blue} size={20} />
+                    )}
+                  </View>
+                  {/* other labels */}
+                  <View style={{flex: 1}}>
+                    <View style={{flex: 0.8, flexDirection: 'row'}}>
+                      <View
+                        style={{
+                          flex: 1,
+                          paddingVertical: 5,
+                        }}>
+                        <TextHandler
+                          style={{
+                            fontSize: 16,
+                            fontWeight: '400',
+                            lineHeight: 22,
+                            color:
+                              selectedCenter?.survey_form_id ==
+                              item.survey_form_id
+                                ? COLORS.blue
+                                : COLORS.black,
+                          }}>
+                          {`${t('CENTRE')} - ` + item.survey_form_id}
+                        </TextHandler>
+                      </View>
+                    </View>
+                  </View>
+                </TouchableOpacity>
               );
             }}
           />
@@ -416,12 +461,11 @@ export default function DashboardScreen({route, navigation}) {
             Alert.alert(t('LOGOUT') + '?', '', [
               {
                 text: 'Yes',
-                onPress: () =>
-                  dispatch({type: ACTION_CONSTANTS.LOGOUT_REQUEST}),
+                onPress: () => dispatch({type: ACTION_CONSTANTS.RESET_APP}),
               },
               {
                 text: 'No',
-                onPress: () => console.log('Cancel Pressed'),
+                onPress: () => {},
                 style: 'cancel',
               },
             ]);
@@ -491,14 +535,12 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: '600',
     fontSize: 22,
-    lineHight: 27,
     color: '#0B2E6A',
   },
   subtitle: {
     fontStyle: 'normal',
     fontWeight: '500',
     fontSize: 18,
-    lineHight: 22,
     color: '#0B2E6A',
     marginBottom: 20,
   },
@@ -506,14 +548,12 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: '500',
     fontSize: 16,
-    lineHight: 18,
     color: '#414141',
   },
   count: {
     fontStyle: 'normal',
     fontWeight: '600',
     fontSize: 25,
-    lineHight: 34,
     color: COLORS.blue,
   },
   languageToggler: {

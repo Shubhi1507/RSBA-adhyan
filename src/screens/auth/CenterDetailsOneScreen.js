@@ -38,76 +38,76 @@ export default function CenterDetailsOneScreen({navigation, route}) {
   let totalSurveys = store.surveyReducer.totalSurveys;
   let CENTRES_STATUS_FOR_ANEW_SURVEY = [
     {
-      key: `Student's Parents (Past Students)`,
-      value: `Student's Parents (Past Students)`,
-      label: 'STUDENTS_PARENTS_PAST_STUDENTS',
-      disabled: false,
-      attempted: false,
-      completed: false,
-      totalQue: 6,
-    },
-    {
-      key: `Student's Parents (Current Students)`,
+      key: 1,
       value: `Student's Parents (Current Students)`,
       label: 'STUDENTS_PARENTS_CURRENT_STUDENTS',
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 6,
+      totalQue: 13,
     },
     {
-      key: 'Past Student',
-      value: 'Past Student',
-      label: 'PAST_STUDENT',
+      key: 2,
+      value: `Student's Parents (Past Students)`,
+      label: 'STUDENTS_PARENTS_PAST_STUDENTS',
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 6,
+      totalQue: 11,
     },
     {
-      key: 'Current Student',
+      key: 3,
       value: 'Current Student',
       label: 'CURRENT_STUDENT',
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 6,
+      totalQue: 19,
     },
     {
-      key: 'Teacher',
+      key: 4,
+      value: 'Past Student',
+      label: 'PAST_STUDENT',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 16,
+    },
+    {
+      key: 5,
       value: 'Teacher',
       label: 'TEACHER',
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 6,
+      totalQue: 12,
     },
     {
-      key: 'Kendra Sanchalak',
+      key: 6,
       value: 'Kendra Sanchalak',
       label: 'KENDRA_SANCHALAK',
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 6,
+      totalQue: 10,
     },
     {
-      key: 'Basti',
+      key: 7,
       value: 'Basti',
       label: 'BASTI',
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 6,
+      totalQue: 5,
     },
     {
-      key: 'Influential Persons from the Basti',
+      key: 8,
       value: 'Influential Persons from the Basti',
       label: 'PRABUDDHA_JAN',
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 6,
+      totalQue: 4,
     },
   ];
   const [volunteerInfo, setvolunteerInfo] = useState({
@@ -120,7 +120,13 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     regularity: '',
     type_of_center: '',
     volunteer_location: {},
-    centre_id: '',
+    centre_id: '', //  survey_form_id
+    survey_form_id: '',
+    address: '',
+    sanstha_name: '',
+    district_id: '',
+    sewakarya_type: '',
+    state_id: '',
     // centre qa acc. to documentation https://docs.google.com/spreadsheets/d/19Aq1V-Lz5b42i3BR37FhYKxSIC3p1MYR/edit#gid=2138728367
     establishment: '',
     centre_commence_motive: '',
@@ -161,9 +167,16 @@ export default function CenterDetailsOneScreen({navigation, route}) {
 
   useEffect(() => {
     if (route && route?.params && route.params?.centre) {
+      console.log(route.params?.centre.survey_form_id);
       setvolunteerInfo({
         ...volunteerInfo,
-        centre_id: route.params.centre.value,
+        address: route.params.centre?.address,
+        centre_id: route.params.centre?.survey_form_id,
+        survey_form_id: route.params.centre?.survey_form_id,
+        district_id: route.params.centre?.district_id,
+        sanstha_name: route.params.centre?.sanstha_name,
+        sewakarya_type: route.params.centre?.sewakarya_type,
+        state_id: route.params.centre?.state_id,
       });
     }
     CheckSurveyviaParams();
@@ -217,7 +230,6 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     }
 
     console.log('new payload', payload);
-
     dispatch({
       type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
       payload: payload,
@@ -303,7 +315,13 @@ export default function CenterDetailsOneScreen({navigation, route}) {
         }
       />
       <View style={{flex: 0.2}}>
-        <Header title={t('CENTER_DETAILS')} onPressBack={goBack} />
+        <Header
+          title={t('CENTER_DETAILS')}
+          onPressBack={() => {
+            goBack();
+            dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
+          }}
+        />
       </View>
 
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
@@ -334,7 +352,11 @@ export default function CenterDetailsOneScreen({navigation, route}) {
             }}
             optionsArr={store?.RegionReducer?.stateList || []}
             error={'Pranth'}
-            value={volunteerInfo.state_pranth.toString()}
+            value={
+              volunteerInfo.state_pranth
+                ? volunteerInfo.state_pranth.toString()
+                : volunteerInfo.state_id.toString()
+            }
           />
         </View>
         <View>
@@ -359,7 +381,11 @@ export default function CenterDetailsOneScreen({navigation, route}) {
             }}
             optionsArr={store?.RegionReducer?.districtList || []}
             error={'Jila'}
-            value={volunteerInfo.district_jila}
+            value={
+              volunteerInfo.district_jila
+                ? volunteerInfo.district_jila.toString()
+                : volunteerInfo.district_id.toString()
+            }
           />
         </View>
         <View>
@@ -380,6 +406,20 @@ export default function CenterDetailsOneScreen({navigation, route}) {
             optionsArr={store?.RegionReducer?.bastiList || []}
             error={'City'}
             value={volunteerInfo.centre_id}
+          />
+        </View>
+        <View>
+          <Text style={styles.headingInput}>{t('ADDRESS')} </Text>
+          <Input
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="address"
+            onChangeText={text =>
+              setvolunteerInfo({...volunteerInfo, address: text})
+            }
+            disabled
+            value={volunteerInfo.address}
+            message={'error'}
+            containerStyle={{alignItems: 'center'}}
           />
         </View>
 

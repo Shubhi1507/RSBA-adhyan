@@ -41,6 +41,11 @@ const surveyReducer = (state = initialState, action) => {
         incompletedSurvey: 0,
         totalSurveys: [],
       };
+    case ACTION_CONSTANTS.CLEAR_SURVEY_DATA:
+      return {
+        currentSurveyData: {},
+        totalSurveys: [],
+      };
 
     case ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY:
       return {

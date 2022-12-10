@@ -30,12 +30,18 @@ export default function PastStudentParentsScreen() {
 
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
-    answer1: '',
-    answer2: '',
-    answer3: '',
-    answer4: '',
-    answer5: '',
-    answer6: '',
+    // doc
+    no_of_parents_present: 0,
+    educational_background: '',
+    economic_status: '',
+    reason_for_sending_children_to_the_centre: '',
+    how_these_children_go_to_the_centre: '',
+    days_children_are_going_to_the_centre: '',
+    children_occupation_nowadays: '',
+    how_centre_was_helpful_in_the_development: '',
+    involvement_in_the_programs_of_the_centre: '',
+    contribution_in_running_centre_more_effectively: '',
+    expectations_from_the_centre: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -48,6 +54,7 @@ export default function PastStudentParentsScreen() {
       : [];
 
   useEffect(() => {
+    console.log('answersArrTmp', answersArrTmp);
     answersArrTmp.some(function (entry, i) {
       if (entry?.pastStudentParent) {
         setAnswers(entry.pastStudentParent);
@@ -60,17 +67,41 @@ export default function PastStudentParentsScreen() {
 
   const pageValidator = () => {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
+    console.log('original capture', tmp);
     let new_obj;
-    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    let q = Object.keys(answers).length;
-    let tmp2 = Object.values(answers).filter(el => {
-      if (el) return el;
-    });
-    let p = tmp2.length;
+    const {
+      children_occupation_nowadays,
+      contribution_in_running_centre_more_effectively,
+      days_children_are_going_to_the_centre,
+      economic_status,
+      educational_background,
+      expectations_from_the_centre,
+      how_centre_was_helpful_in_the_development,
+      how_these_children_go_to_the_centre,
+      involvement_in_the_programs_of_the_centre,
+      no_of_parents_present,
+      reason_for_sending_children_to_the_centre,
+    } = answers;
+    let q = 11;
+    let p = Object.values(answers).filter(el => {
+      if (el != '' || el != null || el != undefined) return el;
+    }).length;
     console.log(p, '/', q);
-    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+    if (
+      children_occupation_nowadays ||
+      contribution_in_running_centre_more_effectively ||
+      days_children_are_going_to_the_centre ||
+      economic_status ||
+      educational_background ||
+      expectations_from_the_centre ||
+      how_centre_was_helpful_in_the_development ||
+      how_these_children_go_to_the_centre ||
+      involvement_in_the_programs_of_the_centre ||
+      no_of_parents_present ||
+      reason_for_sending_children_to_the_centre
+    ) {
       new_obj = {
-        ...tmp[0],
+        ...tmp[1],
         attempted: true,
         completed: false,
         disabled: false,
@@ -79,7 +110,7 @@ export default function PastStudentParentsScreen() {
       };
     } else {
       new_obj = {
-        ...tmp[0],
+        ...tmp[1],
         attempted: true,
         completed: true,
         disabled: true,
@@ -87,7 +118,9 @@ export default function PastStudentParentsScreen() {
         answered: p,
       };
     }
-    tmp.splice(0, 1, new_obj);
+    tmp.splice(1, 1, new_obj);
+    console.log('original capture', tmp);
+
 
     let surveyAnswers = [...answersArrTmp];
     let payload = {};
@@ -145,7 +178,7 @@ export default function PastStudentParentsScreen() {
         }
       />
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        {/* QA1 */}
+        {/* QA1  - no_of_parents_present*/}
         <View style={{marginBottom: 10}}>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -171,35 +204,33 @@ export default function PastStudentParentsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {'How many current students are there ?'}
+              <TextHandler style={styles.question}>
+                {t('PAST_STUDENTS_PARENTS_Q1')}
               </TextHandler>
             </View>
           </View>
 
-          <Input
-            type={'numeric'}
-            number={4}
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({...answers, answer1: text});
-            }}
-            value={answers.answer1}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+          <View>
+            <Input
+              type={'numeric'}
+              number={4}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, no_of_parents_present: text});
+              }}
+              value={answers.no_of_parents_present}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
+          </View>
         </View>
 
-        {/* QA2 */}
-        <View style={{marginBottom: 10}}>
+        {/* QA2 - ok - educational_background */}
+        <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -224,34 +255,34 @@ export default function PastStudentParentsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {'No. of parents present'}
+              <TextHandler style={styles.question}>
+                {t('PAST_STUDENTS_PARENTS_Q1')}
               </TextHandler>
             </View>
           </View>
 
-          <Input
-            type={'numeric'}
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({...answers, answer2: text});
-            }}
-            value={answers.answer2}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {key: 1, value: 'Illiterate', label: 'ILLITERATE'},
+                {key: 2, value: 'Literate', label: 'LITERATE'},
+                {key: 3, value: 'Educated', label: 'EDUCATED'},
+              ]}
+              valueProp={answers.educational_background}
+              onValueChange={item => {
+                setAnswers({...answers, educational_background: item});
+              }}
+            />
+          </View>
         </View>
 
-        {/* QA3 */}
-        <View style={{marginBottom: 10}}>
+        {/* QA3 - economic_status */}
+        <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -276,12 +307,8 @@ export default function PastStudentParentsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {'Educational Background'}
+              <TextHandler style={styles.question}>
+                {t('PAST_STUDENTS_PARENTS_Q3')}
               </TextHandler>
             </View>
           </View>
@@ -293,20 +320,21 @@ export default function PastStudentParentsScreen() {
                 marginVertical: 2,
                 borderColor: COLORS.orange,
               }}
-              valueProp={answers.answer3}
+              valueProp={answers.economic_status}
               data={[
-                {key: 1, value: 'Illiterate'},
-                {key: 2, value: 'Literate'},
+                {key: 1, value: 'Very Poor', label: 'VERY_POOR'},
+                {key: 2, value: 'Poor', label: 'POOR'},
+                {key: 3, value: 'Good', label: 'GOOD'},
               ]}
               onValueChange={item => {
-                setAnswers({...answers, answer3: item});
+                setAnswers({...answers, economic_status: item});
               }}
             />
           </View>
         </View>
 
-        {/* QA4 */}
-        <View style={{marginBottom: 10}}>
+        {/* QA4 - reason_for_sending_children_to_the_centre */}
+        <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -331,12 +359,8 @@ export default function PastStudentParentsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {'Economic Status'}
+              <TextHandler style={styles.question}>
+                {t('PAST_STUDENTS_PARENTS_Q4')}
               </TextHandler>
             </View>
           </View>
@@ -348,21 +372,59 @@ export default function PastStudentParentsScreen() {
                 marginVertical: 2,
                 borderColor: COLORS.orange,
               }}
-              valueProp={answers.answer4}
+              valueProp={answers.reason_for_sending_children_to_the_centre}
               data={[
-                {key: 1, value: 'Very Poor'},
-                {key: 2, value: 'Poor'},
-                {key: 3, value: 'Good'},
+                {
+                  key: 1,
+                  value: 'Spending free time',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Good quality education',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Sanskar',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT3',
+                },
+                {key: 4, value: 'Others', label: 'OTHERS'},
               ]}
               onValueChange={item => {
-                setAnswers({...answers, answer4: item});
+                setAnswers({
+                  ...answers,
+                  reason_for_sending_children_to_the_centre: item,
+                });
               }}
             />
           </View>
+          {answers.reason_for_sending_children_to_the_centre?.key == 4 && (
+            <Input
+              type={'default'}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({
+                  ...answers,
+                  reason_for_sending_children_to_the_centre: {
+                    ...answers.reason_for_sending_children_to_the_centre,
+                    reason: text,
+                  },
+                });
+              }}
+              value={answers.reason_for_sending_children_to_the_centre?.reason}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
+          )}
         </View>
 
-        {/* QA5  */}
-        <View style={{marginBottom: 10}}>
+        {/* QA5 - how_these_children_go_to_the_centre */}
+        <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -387,12 +449,8 @@ export default function PastStudentParentsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {'Reason for sending children to the centre ?'}
+              <TextHandler style={styles.question}>
+                {t('PAST_STUDENTS_PARENTS_Q5')}
               </TextHandler>
             </View>
           </View>
@@ -404,37 +462,59 @@ export default function PastStudentParentsScreen() {
                 marginVertical: 2,
                 borderColor: COLORS.orange,
               }}
-              valueProp={answers.answer5}
+              valueProp={answers.how_these_children_go_to_the_centre}
               data={[
-                {key: 1, value: ' Spending free time'},
-                {key: 2, value: 'Good Quality Education'},
-                {key: 3, value: 'Sanskar'},
-                {key: 3, value: 'Others'},
+                {
+                  key: 1,
+                  value: 'By their own',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q6_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'arranged by Centre karyakartas',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q6_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'directed by parents',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q6_OPT3',
+                },
+                {key: 4, value: 'Others', label: 'OTHERS'},
               ]}
               onValueChange={item => {
-                setAnswers({...answers, answer5: item});
+                setAnswers({
+                  ...answers,
+                  how_these_children_go_to_the_centre: item,
+                });
               }}
             />
-            {answers.answer5?.value === 'Others' && (
-              <Input
-                placeholder="Enter reason here"
-                name="any"
-                onChangeText={text => {
-                  setAnswers({...answers, answer5: {...answers.answer5, text}});
-                }}
-                value={answers.answer5?.text}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            )}
           </View>
+          {answers.how_these_children_go_to_the_centre?.key == 4 && (
+            <Input
+              type={'default'}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({
+                  ...answers,
+                  how_these_children_go_to_the_centre: {
+                    ...answers.how_these_children_go_to_the_centre,
+                    reason: text,
+                  },
+                });
+              }}
+              value={answers.how_these_children_go_to_the_centre?.reason}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
+          )}
         </View>
 
-        {/* QA6 */}
-        <View style={{marginBottom: 10}}>
+        {/* QA6 - days_children_are_going_to_the_centre */}
+        <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -459,12 +539,8 @@ export default function PastStudentParentsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {'How these children will go to  the centre  ?'}
+              <TextHandler style={styles.question}>
+                {t('PAST_STUDENTS_PARENTS_Q5')}
               </TextHandler>
             </View>
           </View>
@@ -476,34 +552,378 @@ export default function PastStudentParentsScreen() {
                 marginVertical: 2,
                 borderColor: COLORS.orange,
               }}
-              valueProp={answers.answer6}
+              valueProp={answers.days_children_are_going_to_the_centre}
               data={[
-                {key: 1, value: 'By their own'},
-                {key: 2, value: 'Arranged by the centre Karyakartas'},
-                {key: 3, value: 'Directed by Parents'},
-                {key: 3, value: 'Others'},
+                {
+                  key: 1,
+                  value: '1-6 months',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q7_OPT1',
+                },
+                {
+                  key: 2,
+                  value: '6 months - 1year',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q7_OPT2',
+                },
+                {
+                  key: 3,
+                  value: '1-2 years',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q7_OPT3',
+                },
+                {
+                  key: 3,
+                  value: 'More than 2 years',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q7_OPT4',
+                },
               ]}
               onValueChange={item => {
-                setAnswers({...answers, answer6: item});
+                setAnswers({
+                  ...answers,
+                  days_children_are_going_to_the_centre: item,
+                });
               }}
             />
-            {answers.answer6?.value === 'Others' && (
-              <Input
-                placeholder="Enter reason here"
-                name="any"
-                onChangeText={text => {
-                  setAnswers({...answers, answer6: {...answers.answer6, text}});
-                }}
-                value={answers.answer6?.text}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            )}
           </View>
         </View>
+
+        {/* QA7 - how_these_children_go_to_the_centre */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {7}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('PAST_STUDENTS_PARENTS_Q7')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              valueProp={answers.children_occupation_nowadays}
+              data={[
+                {
+                  key: 1,
+                  value: 'Service',
+                  label: 'PAST_STUDENTS_PARENTS_Q7_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Labour',
+                  label: 'PAST_STUDENTS_PARENTS_Q7_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Self employed',
+                  label: 'PAST_STUDENTS_PARENTS_Q7_OPT3',
+                },
+                {key: 4, value: 'Others', label: 'OTHERS'},
+              ]}
+              onValueChange={item => {
+                setAnswers({
+                  ...answers,
+                  children_occupation_nowadays: item,
+                });
+              }}
+            />
+          </View>
+          {answers.children_occupation_nowadays?.key == 4 && (
+            <Input
+              type={'default'}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({
+                  ...answers,
+                  children_occupation_nowadays: {
+                    ...answers.children_occupation_nowadays,
+                    reason: text,
+                  },
+                });
+              }}
+              key={7}
+              value={answers.children_occupation_nowadays?.reason}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
+          )}
+        </View>
+
+        {/* QA8  - no_of_parents_present*/}
+        <View style={{marginBottom: 10}}>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {8}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('PAST_STUDENTS_PARENTS_Q8')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <Input
+              type={'numeric'}
+              number={4}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({
+                  ...answers,
+                  how_centre_was_helpful_in_the_development: text,
+                });
+              }}
+              value={answers.how_centre_was_helpful_in_the_development}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA9 -  involvement_in_the_programs_of_the_centre*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {9}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('PAST_STUDENTS_PARENTS_Q8')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              valueProp={answers.involvement_in_the_programs_of_the_centre}
+              data={[
+                {
+                  key: 1,
+                  value: 'Connecting other children to the centre',
+                  label: 'PAST_STUDENTS_PARENTS_Q9_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Financial support',
+                  label: 'PAST_STUDENTS_PARENTS_Q9_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Time',
+                  label: 'PAST_STUDENTS_PARENTS_Q9_OPT3',
+                },
+                {key: 4, value: 'Others', label: 'OTHERS'},
+              ]}
+              onValueChange={item => {
+                setAnswers({
+                  ...answers,
+                  involvement_in_the_programs_of_the_centre: item,
+                });
+              }}
+            />
+          </View>
+          {answers.involvement_in_the_programs_of_the_centre?.key == 4 && (
+            <Input
+              type={'default'}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({
+                  ...answers,
+                  involvement_in_the_programs_of_the_centre: {
+                    ...answers.involvement_in_the_programs_of_the_centre,
+                    reason: text,
+                  },
+                });
+              }}
+              value={answers.involvement_in_the_programs_of_the_centre?.reason}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
+          )}
+        </View>
+
+        {/* QA10 - contribution_in_running_centre_more_effectively */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {10}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CURRENT_STUDENTS_PARENTS_Q11')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <Input
+            type={'numeric'}
+            number={4}
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="any"
+            onChangeText={text => {
+              setAnswers({
+                ...answers,
+                contribution_in_running_centre_more_effectively: text,
+              });
+            }}
+            value={answers.contribution_in_running_centre_more_effectively}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.5,
+            }}
+          />
+        </View>
+
+        {/* QA11 - expectations_from_the_centre*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {11}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CURRENT_STUDENTS_PARENTS_Q13')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <Input
+            type={'numeric'}
+            number={4}
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="any"
+            onChangeText={text => {
+              setAnswers({
+                ...answers,
+                expectations_from_the_centre: text,
+              });
+            }}
+            value={answers.expectations_from_the_centre}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.5,
+            }}
+          />
+        </View>
+
         <Button
           title={'Submit'}
           onPress={pageValidator}

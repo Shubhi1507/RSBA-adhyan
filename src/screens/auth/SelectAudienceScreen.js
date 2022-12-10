@@ -36,6 +36,80 @@ export default function SelectAudienceScreen() {
   const store = useSelector(state => state?.surveyReducer);
   let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
+  let CENTRES_STATUS_FOR_ANEW_SURVEY = [
+    {
+      key: 1,
+      value: `Student's Parents (Current Students)`,
+      label: 'STUDENTS_PARENTS_CURRENT_STUDENTS',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 13,
+    },
+    {
+      key: 2,
+      value: `Student's Parents (Past Students)`,
+      label: 'STUDENTS_PARENTS_PAST_STUDENTS',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 11,
+    },
+    {
+      key: 3,
+      value: 'Current Student',
+      label: 'CURRENT_STUDENT',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 19,
+    },
+    {
+      key: 4,
+      value: 'Past Student',
+      label: 'PAST_STUDENT',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 16,
+    },
+    {
+      key: 5,
+      value: 'Teacher',
+      label: 'TEACHER',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 12,
+    },
+    {
+      key: 6,
+      value: 'Kendra Sanchalak',
+      label: 'KENDRA_SANCHALAK',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 10,
+    },
+    {
+      key: 7,
+      value: 'Basti',
+      label: 'BASTI',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 5,
+    },
+    {
+      key: 8,
+      value: 'Influential Persons from the Basti',
+      label: 'PRABUDDHA_JAN',
+      disabled: false,
+      attempted: false,
+      completed: false,
+      totalQue: 4,
+    },
+  ];
   const [miscControllers, setmisControllers] = useState({
     CLASS_FREQUENCY: [
       {
@@ -53,28 +127,22 @@ export default function SelectAudienceScreen() {
     ],
     CENTRES: [
       {
-        key: `Student's Parents (Past Students)`,
-        value: `Student's Parents (Past Students)`,
-        label: 'STUDENTS_PARENTS_PAST_STUDENTS',
-        disabled: false,
-        attempted: false,
-        completed: false,
-      },
-      {
         key: `Student's Parents (Current Students)`,
         value: `Student's Parents (Current Students)`,
         label: 'STUDENTS_PARENTS_CURRENT_STUDENTS',
         disabled: false,
         attempted: false,
         completed: false,
+        totalQue: 13,
       },
       {
-        key: 'Past Student',
-        value: 'Past Student',
-        label: 'PAST_STUDENT',
+        key: `Student's Parents (Past Students)`,
+        value: `Student's Parents (Past Students)`,
+        label: 'STUDENTS_PARENTS_PAST_STUDENTS',
         disabled: false,
         attempted: false,
         completed: false,
+        totalQue: 11,
       },
       {
         key: 'Current Student',
@@ -83,6 +151,16 @@ export default function SelectAudienceScreen() {
         disabled: false,
         attempted: false,
         completed: false,
+        totalQue: 19,
+      },
+      {
+        key: 'Past Student',
+        value: 'Past Student',
+        label: 'PAST_STUDENT',
+        disabled: false,
+        attempted: false,
+        completed: false,
+        totalQue: 16,
       },
       {
         key: 'Teacher',
@@ -91,6 +169,7 @@ export default function SelectAudienceScreen() {
         disabled: false,
         attempted: false,
         completed: false,
+        totalQue: 12,
       },
       {
         key: 'Kendra Sanchalak',
@@ -99,6 +178,7 @@ export default function SelectAudienceScreen() {
         disabled: false,
         attempted: false,
         completed: false,
+        totalQue: 10,
       },
       {
         key: 'Basti',
@@ -107,6 +187,7 @@ export default function SelectAudienceScreen() {
         disabled: false,
         attempted: false,
         completed: false,
+        totalQue: 5,
       },
       {
         key: 'Influential Persons from the Basti',
@@ -115,6 +196,7 @@ export default function SelectAudienceScreen() {
         disabled: false,
         attempted: false,
         completed: false,
+        totalQue: 4,
       },
     ],
   });
@@ -144,17 +226,16 @@ export default function SelectAudienceScreen() {
     setisSurveyCompleted(flag);
   };
   const pageNavigator = audience => {
-    const {CENTRES} = miscControllers;
-
+    let CENTRES = CENTRES_STATUS_FOR_ANEW_SURVEY;
     switch (audience) {
       case CENTRES[0].value:
-        return navigate(ROUTES.AUTH.PURV_ABHIBHAVAK_SCREEN);
-      case CENTRES[1].value:
         return navigate(ROUTES.AUTH.VARTAAMAAN_ABHIBHAVAK_SCREEN);
+      case CENTRES[1].value:
+        return navigate(ROUTES.AUTH.PURV_ABHIBHAVAK_SCREEN);
       case CENTRES[2].value:
-        return navigate(ROUTES.AUTH.PASTSTUDENTQUESTIONS);
-      case CENTRES[3].value:
         return navigate(ROUTES.AUTH.PRESENTSTUDENTQUESTIONS);
+      case CENTRES[3].value:
+        return navigate(ROUTES.AUTH.PASTSTUDENTQUESTIONS);
       case CENTRES[4].value:
         return navigate(ROUTES.AUTH.TEACHERQUESTONSSCREEN);
       case CENTRES[5].value:
@@ -297,7 +378,6 @@ export default function SelectAudienceScreen() {
                     let new_obj = {...item, attempted: !item.attempted};
                     tmp.splice(index, 1, new_obj);
                     setAudience(item.value);
-                    setmisControllers({...miscControllers, CENTRES: tmp});
                     pageNavigator(item.value);
                   }}>
                   {/* marker */}

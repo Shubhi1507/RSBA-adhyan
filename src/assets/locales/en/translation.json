@@ -3,6 +3,7 @@
   "ADHYAYAN": "Adhyayan Survey",
   "ALL_SURVEYS": "All Surveys",
   "ASSIGNED_CENTRES": "Assigned Centres",
+  "ADDRESS": "ADDRESS",
 
   // C
   "CENTRE": "Centre",
@@ -94,6 +95,7 @@
   "SINGLE_OR_NO_PARENT": "Single / No parent",
 
   // E
+  "EDUCATION": "Education",
 
   "ENTER_VERIFICATION_CODE": "Enter Verification Code",
   "TITLE": "Title",
@@ -107,6 +109,7 @@
   "RSB": "Rashtriya Sewa Bharati",
   "ADHAYAN": "Adhyayan Survey",
 
+  // CURRENT STUDENT PARENT - CSP
   "CURRENT_STUDENTS_PARENTS_Q1": "Current Students",
   "CURRENT_STUDENTS_PARENTS_Q2": "No. of parents present",
   "CURRENT_STUDENTS_PARENTS_Q3": "Educational background ",
@@ -115,13 +118,13 @@
   "EDUCATED": "Educated",
   "MIX": "Mix",
   "CURRENT_STUDENTS_PARENTS_Q4": "Economic status",
-  "CURRENT_STUDENTS_PARENTS_Q4_OPT1": "Very poor",
-  "CURRENT_STUDENTS_PARENTS_Q4_OPT2": "Poor",
-  "CURRENT_STUDENTS_PARENTS_Q4_OPT3": "Good",
+  "VERY_POOR": "Very poor",
+  "POOR": "Poor",
+  "GOOD": "Good",
   "CURRENT_STUDENTS_PARENTS_Q5": "Reason for sending children to the centre?  ",
-  "CURRENT_STUDENTS_PARENTS_Q5_OPT1": "Spending free time  ",
-  "CURRENT_STUDENTS_PARENTS_Q5_OPT2": "Good quality education  ",
-  "CURRENT_STUDENTS_PARENTS_Q5_OPT3": " Sanskar ",
+  "CURRENT_STUDENTS_PARENTS_Q5_OPT1": "Spending free time",
+  "CURRENT_STUDENTS_PARENTS_Q5_OPT2": "Good quality education",
+  "CURRENT_STUDENTS_PARENTS_Q5_OPT3": " Sanskar",
   "CURRENT_STUDENTS_PARENTS_Q5_OPT4": "Other",
   "CURRENT_STUDENTS_PARENTS_Q6": "How these children go to the centre? ",
   "CURRENT_STUDENTS_PARENTS_Q6_OPT1": "By their own",
@@ -130,19 +133,21 @@
   "CURRENT_STUDENTS_PARENTS_Q6_OPT4": "Other",
   "CURRENT_STUDENTS_PARENTS_Q7": "For how many days children are going to the centre ?",
   "CURRENT_STUDENTS_PARENTS_Q7_OPT1": " 1-6 months",
-  "CURRENT_STUDENTS_PARENTS_Q7_OPT2": "6 months - 1year ",
+  "CURRENT_STUDENTS_PARENTS_Q7_OPT2": "6 months - 1 year ",
   "CURRENT_STUDENTS_PARENTS_Q7_OPT3": "1-2 years ",
   "CURRENT_STUDENTS_PARENTS_Q7_OPT4": "More than 2 years ",
   "CURRENT_STUDENTS_PARENTS_Q8": "What change you experience due to the centre",
-  "CURRENT_STUDENTS_PARENTS_Q8_OPT1 ": "Before",
+  "CURRENT_STUDENTS_PARENTS_Q8_OPT1": "Before",
+  "BEFORE": "Before",
   "CURRENT_STUDENTS_PARENTS_Q8_OPT2": "After",
+  "AFTER": "After",
   "CURRENT_STUDENTS_PARENTS_Q8_OPT3": "Education",
   "CURRENT_STUDENTS_PARENTS_Q8_OPT4": "Living",
   "CURRENT_STUDENTS_PARENTS_Q8_OPT5": "Behaviour",
   "CURRENT_STUDENTS_PARENTS_Q8_OPT6": "Sanskar",
   "CURRENT_STUDENTS_PARENTS_Q8_OPT7": "Habits",
   "CURRENT_STUDENTS_PARENTS_Q9": " Benefits of the centre (Family/Basti/Society) speciality/success of the centre",
-  "CURRENT_STUDENTS_PARENTS_Q10 ": " Your Involvement in the programs of the Centre   ",
+  "CURRENT_STUDENTS_PARENTS_Q10": " Your Involvement in the programs of the Centre   ",
   "CURRENT_STUDENTS_PARENTS_Q10_OPT1": "Participation in the programs of the center",
   "CURRENT_STUDENTS_PARENTS_Q10_OPT2": "Financial support  ",
   "CURRENT_STUDENTS_PARENTS_Q10_OPT3": "Time ",
@@ -150,10 +155,11 @@
   "CURRENT_STUDENTS_PARENTS_Q10_OPT5": "Others",
   "CURRENT_STUDENTS_PARENTS_Q11": "How can you contribute in running Centre more effectively    ",
   "CURRENT_STUDENTS_PARENTS_Q12": "Your observations about kendra teacher. Please elaborate ",
-  "CURRENT_STUDENTS_PARENTS_Q13 ": "  Expectations from the centre ",
+  "CURRENT_STUDENTS_PARENTS_Q13": "  Expectations from the centre ",
 
   "VOLUNTEER_DASHBOARD": "Volunteer Dashboard",
 
+  // PSP PAST STUDENT PARENT
   "PAST_STUDENTS_PARENTS_Q1": "No of parents present",
 
   "PAST_STUDENTS_PARENTS_Q2": "Educational background ",
@@ -200,6 +206,7 @@
   "PAST_STUDENTS_PARENTS_Q10": "How can you contribute in running Centre more effectively ?",
   "PAST_STUDENTS_PARENTS_Q11": "Expectations from the centre",
 
+  // CURRENT STUDENT
   "CURRENT_STUDENTS_Q1": "No of current students enrolled",
   "CURRENT_STUDENTS_Q2": "Out of current strength how many students comes regularly to attend the class?",
   "CURRENT_STUDENTS_Q2_OPT1": "20-25 %   ",
@@ -210,7 +217,6 @@
   "CURRENT_STUDENTS_Q3_OPT1": "Need to remind  ",
   "CURRENT_STUDENTS_Q3_OPT2": " Parents force them",
   "CURRENT_STUDENTS_Q3_OPT3": "Wait for Center to start",
-
   "CURRENT_STUDENTS_Q4": "Since how long they are coming to the Prakalp?",
   "CURRENT_STUDENTS_Q4_OPT1": "6 months",
   "CURRENT_STUDENTS_Q4_OPT2": " 6-24 months",
@@ -220,7 +226,7 @@
   "CURRENT_STUDENTS_Q5_OPT2": "Parents come to pick and drop",
   "CURRENT_STUDENTS_Q5_OPT3": "students come in group",
   "CURRENT_STUDENTS_Q5_OPT4": " Our centre coordinator assist them",
-"CURRENT_STUDENTS_Q5_OPT5" : "Others" ,
+  "CURRENT_STUDENTS_Q5_OPT5": "Others",
 
   "CURRENT_STUDENTS_Q6": "Do our students help other students of small age group in their studies?",
   "CURRENT_STUDENTS_Q6_OPT1": "Yes",
@@ -546,7 +552,7 @@
   "SAVE_REVIEW_QUESTIONS": "Save & Review",
   "SIX_DIGIT_CODE": "A 6-digit code will be sent via SMS to verify your mobile number.",
   "START_SURVEY": "Start Survey",
-
+  "SURVEY_EXISTS": "Survey already in progress",
   // T
   "TAP_TO_UPDATE": "Tap to update",
   "TEACHERS_SURVERS": "Teacher's Survey",

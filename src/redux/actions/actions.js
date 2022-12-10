@@ -34,9 +34,15 @@ export const ACTION_CONSTANTS = {
   // incomplete survey data
   UPDATE_INCOMPLETE_SURVEYS: 'UPDATE_INCOMPLETE_SURVEYS',
 
+  // clear survey data
+  CLEAR_SURVEY_DATA: 'CLEAR_SURVEY_DATA',
   // reset
   RESET_APP: 'RESET_APP',
 
   // maintain survey array
   UPDATE_SURVEY_ARRAY: 'UPDATE_SURVEY_ARRAY',
+
+  // assigned centers
+  CLEAR_ASSIGNED_CENTRES: 'CLEAR_ASSIGNED_CENTRES',
+  UPDATE_ASSIGNED_CENTRES: 'UPDATE_ASSIGNED_CENTRES',
 };
