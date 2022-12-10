@@ -417,6 +417,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
               setvolunteerInfo({...volunteerInfo, address: text})
             }
             disabled
+            multi={true}
             value={volunteerInfo.address}
             message={'error'}
             containerStyle={{alignItems: 'center'}}
