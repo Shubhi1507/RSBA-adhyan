@@ -69,11 +69,12 @@ export default function DashboardScreen({route, navigation}) {
   ]);
 
   useEffect(() => {
+    console.log('complete store', store);
+
     if (
       store.centerReducer?.assignedCenters &&
       Array.isArray(store.centerReducer?.assignedCenters)
     ) {
-      console.log('assignedCenters', store.centerReducer?.assignedCenters);
       setAssignedCentres(store.centerReducer.assignedCenters);
     }
     AsyncStorage.getItem('lang').then(res => {
@@ -483,17 +484,17 @@ export default function DashboardScreen({route, navigation}) {
           }}
         />
 
-        {/* <Button
+        <Button
           title={'RESET'}
           onPress={() => {
-            dispatch({type: ACTION_CONSTANTS.RESET_APP});
+            dispatch({type: ACTION_CONSTANTS.CLEAR_SURVEY_DATA});
           }}
           ButtonContainerStyle={{
             alignItems: 'center',
             textAlign: 'center',
             backgroundColor: COLORS.error,
           }}
-        /> */}
+        />
       </View>
     </View>
   );
