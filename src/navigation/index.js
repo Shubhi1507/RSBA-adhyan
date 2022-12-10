@@ -11,8 +11,8 @@ import LocalizationContext from '../context/LanguageContext';
 const RootStack = createStackNavigator();
 
 function AppNavigation() {
-  // let isloggedIn = useSelector(state => state?.authReducer?.loggedIn);
-  let isloggedIn = true;
+  let isloggedIn = useSelector(state => state?.authReducer?.loggedIn);
+  // let isloggedIn = true;
   const {t, locale, setLocale} = useContext(LocalizationContext);
   let x = useSelector(state => state?.authReducer?.loggedIn);
 
