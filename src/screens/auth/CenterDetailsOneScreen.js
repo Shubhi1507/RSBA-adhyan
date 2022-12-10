@@ -315,7 +315,13 @@ export default function CenterDetailsOneScreen({navigation, route}) {
         }
       />
       <View style={{flex: 0.2}}>
-        <Header title={t('CENTER_DETAILS')} onPressBack={goBack} />
+        <Header
+          title={t('CENTER_DETAILS')}
+          onPressBack={() => {
+            goBack();
+            dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
+          }}
+        />
       </View>
 
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
