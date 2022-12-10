@@ -31,25 +31,26 @@ export default function PresentStudentQuestions() {
   let totalSurveys = store.totalSurveys;
 
   let [answers, setAnswers] = useState({
-    answer1: '',
-    answer2: '',
-    answer3: '',
-    answer4: '',
-    answer5: '',
-    answer6: '',
-    answer7: '',
-    answer8: '',
-    answer9: '',
-    answer10: '',
-    answer11: '',
-    answer12: '',
-    answer13: '',
-    answer14: '',
-    answer15: '',
-    answer16: '',
-    answer17: '',
-    answer18: '',
-    answer19: '',
+    // doc
+    students_enrolled: '',
+    students_coming_regularly: '',
+    interest_of_the_students_towards_kendra: '',
+    since_how_long_they_are_coming_to_the_prakalp: '',
+    _how_they_come_to_prakalp: '',
+    do_students_help_other_students: '',
+    do_students_get_any_benefit_by_teaching: '',
+    students_improvemnet: '',
+    decrease_in_results_after_joining_the_kendra: '',
+    reason_of_the_decreasing_result: '',
+    how_students_get_to_know_about_the_kendra: '',
+    other_activities_organised_in_the_center: '',
+    go_to_other_coaching: '',
+    kendra_organize_regular_parents_teacher_meeting: '',
+    conduct_monthly_or_quarterly_tests: '',
+    share_results_of_these_tests_with_the_parents: '',
+    suggestions_to_improve_the_kendra_activities: '',
+    role_model_for_the_student: '',
+    regularaly_go_to_rss_shakha: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -81,14 +82,53 @@ export default function PresentStudentQuestions() {
     console.log('store', store);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
-    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    let q = Object.keys(answers).length;
-    let tmp2 = Object.values(answers).filter(el => {
+    const {
+      _how_they_come_to_prakalp,
+      conduct_monthly_or_quarterly_tests,
+      decrease_in_results_after_joining_the_kendra,
+      do_students_get_any_benefit_by_teaching,
+      do_students_help_other_students,
+      go_to_other_coaching,
+      how_students_get_to_know_about_the_kendra,
+      interest_of_the_students_towards_kendra,
+      kendra_organize_regular_parents_teacher_meeting,
+      other_activities_organised_in_the_center,
+      reason_of_the_decreasing_result,
+      regularaly_go_to_rss_shakha,
+      role_model_for_the_student,
+      share_results_of_these_tests_with_the_parents,
+      since_how_long_they_are_coming_to_the_prakalp,
+      students_coming_regularly,
+      students_enrolled,
+      students_improvemnet,
+      suggestions_to_improve_the_kendra_activities,
+    } = answers;
+    let q = 19;
+    let p = Object.values(answers).filter(el => {
       if (el) return el;
-    });
-    let p = tmp2.length;
+    }).length;
     console.log(p, '/', q);
-    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+    if (
+      _how_they_come_to_prakalp ||
+      conduct_monthly_or_quarterly_tests ||
+      decrease_in_results_after_joining_the_kendra ||
+      do_students_get_any_benefit_by_teaching ||
+      do_students_help_other_students ||
+      go_to_other_coaching ||
+      how_students_get_to_know_about_the_kendra ||
+      interest_of_the_students_towards_kendra ||
+      kendra_organize_regular_parents_teacher_meeting ||
+      other_activities_organised_in_the_center ||
+      reason_of_the_decreasing_result ||
+      regularaly_go_to_rss_shakha ||
+      role_model_for_the_student ||
+      share_results_of_these_tests_with_the_parents ||
+      since_how_long_they_are_coming_to_the_prakalp ||
+      students_coming_regularly ||
+      students_enrolled ||
+      students_improvemnet ||
+      suggestions_to_improve_the_kendra_activities
+    ) {
       new_obj = {
         ...tmp[2],
         attempted: true,
@@ -206,9 +246,9 @@ export default function PresentStudentQuestions() {
             placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
-              setAnswers({...answers, answer1: text});
+              setAnswers({...answers, students_enrolled: text});
             }}
-            value={answers.answer1}
+            value={answers.students_enrolled}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -263,12 +303,12 @@ export default function PresentStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: '20-25 % ',
+                  value: '20-25%',
                   label: 'CURRENT_STUDENTS_Q2_OPT1',
                 },
                 {
                   key: 2,
-                  value: '40-50 %',
+                  value: '40-50%',
                   label: 'CURRENT_STUDENTS_Q2_OPT2',
                 },
                 {
@@ -283,7 +323,7 @@ export default function PresentStudentQuestions() {
                   label: 'CURRENT_STUDENTS_Q2_OPT4',
                 },
               ]}
-              valueProp={answers.answer2}
+              valueProp={answers.students_coming_regularly}
               onValueChange={item => {
                 console.log('item', item);
                 setAnswers({...answers, answer2: item});
@@ -338,7 +378,7 @@ export default function PresentStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: 'Need to remind ',
+                  value: 'Need to remind',
                   label: 'CURRENT_STUDENTS_Q3_OPT1',
                 },
                 {
@@ -352,9 +392,12 @@ export default function PresentStudentQuestions() {
                   label: 'CURRENT_STUDENTS_Q3_OPT3',
                 },
               ]}
-              valueProp={answers.answer3}
+              valueProp={answers.interest_of_the_students_towards_kendra}
               onValueChange={item => {
-                setAnswers({...answers, answer3: item});
+                setAnswers({
+                  ...answers,
+                  interest_of_the_students_towards_kendra: item,
+                });
               }}
             />
           </View>
@@ -418,9 +461,12 @@ export default function PresentStudentQuestions() {
                 label: 'CURRENT_STUDENTS_Q4_OPT3',
               },
             ]}
-            valueProp={answers.answer4}
+            valueProp={answers.since_how_long_they_are_coming_to_the_prakalp}
             onValueChange={item => {
-              setAnswers({...answers, answer4: item});
+              setAnswers({
+                ...answers,
+                since_how_long_they_are_coming_to_the_prakalp: item,
+              });
             }}
           />
         </View>
@@ -491,15 +537,36 @@ export default function PresentStudentQuestions() {
                 },
                 {
                   key: 5,
-                  value: 'Our centre coordinator assist them',
+                  value: 'Others',
                   label: 'CURRENT_STUDENTS_Q5_OPT5',
                 },
               ]}
-              valueProp={answers.answer5}
+              valueProp={answers._how_they_come_to_prakalp}
               onValueChange={item => {
-                setAnswers({...answers, answer5: item});
+                setAnswers({...answers, _how_they_come_to_prakalp: item});
               }}
             />
+            {answers._how_they_come_to_prakalp?.key === 5 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    _how_they_come_to_prakalp: {
+                      ...answers._how_they_come_to_prakalp,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers._how_they_come_to_prakalp?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -550,9 +617,9 @@ export default function PresentStudentQuestions() {
                 {key: 1, value: 'Yes', label: 'YES'},
                 {key: 2, value: 'No', label: 'NO'},
               ]}
-              valueProp={answers.answer6}
+              valueProp={answers.do_students_help_other_students}
               onValueChange={item => {
-                setAnswers({...answers, answer6: item});
+                setAnswers({...answers, do_students_help_other_students: item});
               }}
             />
           </View>
@@ -598,9 +665,12 @@ export default function PresentStudentQuestions() {
             placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
-              setAnswers({...answers, answer7: text});
+              setAnswers({
+                ...answers,
+                do_students_get_any_benefit_by_teaching: text,
+              });
             }}
-            value={answers.answer7}
+            value={answers.do_students_get_any_benefit_by_teaching}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -675,10 +745,10 @@ export default function PresentStudentQuestions() {
                   label: 'CURRENT_STUDENTS_Q8_OPT4',
                 },
               ]}
-              valueProp={answers.answer8}
+              valueProp={answers.students_improvemnet}
               onValueChange={item => {
                 console.log('item', item);
-                setAnswers({...answers, answer: item});
+                setAnswers({...answers, students_improvemnet: item});
               }}
             />
           </View>
@@ -739,10 +809,13 @@ export default function PresentStudentQuestions() {
                   label: 'NO',
                 },
               ]}
-              valueProp={answers.answer9}
+              valueProp={answers.decrease_in_results_after_joining_the_kendra}
               onValueChange={item => {
                 console.log('item', item);
-                setAnswers({...answers, answer9: item});
+                setAnswers({
+                  ...answers,
+                  decrease_in_results_after_joining_the_kendra: item,
+                });
               }}
             />
           </View>
@@ -814,12 +887,33 @@ export default function PresentStudentQuestions() {
                   label: 'CURRENT_STUDENTS_Q10_OPT4',
                 },
               ]}
-              valueProp={answers.answer10}
+              valueProp={answers.reason_of_the_decreasing_result}
               onValueChange={item => {
                 console.log('item', item);
-                setAnswers({...answers, answer10: item});
+                setAnswers({...answers, reason_of_the_decreasing_result: item});
               }}
             />
+            {answers.reason_of_the_decreasing_result?.key === 4 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    reason_of_the_decreasing_result: {
+                      ...answers.reason_of_the_decreasing_result,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.reason_of_the_decreasing_result?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -889,12 +983,35 @@ export default function PresentStudentQuestions() {
                   label: 'CURRENT_STUDENTS_Q11_OPT4',
                 },
               ]}
-              valueProp={answers.answer11}
+              valueProp={answers.how_students_get_to_know_about_the_kendra}
               onValueChange={item => {
-                console.log('item', item);
-                setAnswers({...answers, answer11: item});
+                setAnswers({
+                  ...answers,
+                  how_students_get_to_know_about_the_kendra: item,
+                });
               }}
             />
+            {answers.how_students_get_to_know_about_the_kendra?.key === 4 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    how_students_get_to_know_about_the_kendra: {
+                      ...answers.how_students_get_to_know_about_the_kendra,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.how_students_get_to_know_about_the_kendra?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -944,21 +1061,44 @@ export default function PresentStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: 'Yes (Enter activity list)  ',
+                  value: 'Yes',
                   label: 'CURRENT_STUDENTS_Q12_OPT1',
                 },
                 {
                   key: 2,
-                  value: 'NO (Suggest activities)',
+                  value: 'NO',
                   label: 'CURRENT_STUDENTS_Q12_OPT2',
                 },
               ]}
-              valueProp={answers.answer2}
+              valueProp={answers.other_activities_organised_in_the_center}
               onValueChange={item => {
-                console.log('item', item);
-                setAnswers({...answers, answer2: item});
+                setAnswers({
+                  ...answers,
+                  other_activities_organised_in_the_center: item,
+                });
               }}
             />
+            {answers.other_activities_organised_in_the_center?.key === 1 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    other_activities_organised_in_the_center: {
+                      ...answers.other_activities_organised_in_the_center,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.other_activities_organised_in_the_center?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -1022,12 +1162,32 @@ export default function PresentStudentQuestions() {
                   label: 'CURRENT_STUDENTS_Q13_OPT3',
                 },
               ]}
-              valueProp={answers.answer13}
+              valueProp={answers.go_to_other_coaching}
               onValueChange={item => {
-                console.log('item', item);
-                setAnswers({...answers, answer13: item});
+                setAnswers({...answers, go_to_other_coaching: item});
               }}
             />
+            {answers.go_to_other_coaching?.key === 1 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    go_to_other_coaching: {
+                      ...answers.go_to_other_coaching,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.go_to_other_coaching?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -1086,10 +1246,15 @@ export default function PresentStudentQuestions() {
                   label: 'NO',
                 },
               ]}
-              valueProp={answers.answer2}
+              valueProp={
+                answers.kendra_organize_regular_parents_teacher_meeting
+              }
               onValueChange={item => {
                 console.log('item', item);
-                setAnswers({...answers, answer2: item});
+                setAnswers({
+                  ...answers,
+                  kendra_organize_regular_parents_teacher_meeting: item,
+                });
               }}
             />
           </View>
@@ -1146,20 +1311,22 @@ export default function PresentStudentQuestions() {
                 },
                 {
                   key: 2,
-                  value: '40-50 %',
-                  label: 'CURRENT_STUDENTS_Q2_OPT2',
+                  value: 'No',
+                  label: 'NO',
                 },
               ]}
-              valueProp={answers.answer2}
+              valueProp={answers.conduct_monthly_or_quarterly_tests}
               onValueChange={item => {
-                console.log('item', item);
-                setAnswers({...answers, answer2: item});
+                setAnswers({
+                  ...answers,
+                  conduct_monthly_or_quarterly_tests: item,
+                });
               }}
             />
           </View>
         </View>
 
-        {/* QA2 */}
+        {/* QA16 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -1176,7 +1343,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {2}
+                {16}
               </TextHandler>
             </View>
 
@@ -1190,7 +1357,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {t('CURRENT_STUDENTS_Q2')}
+                {t('CURRENT_STUDENTS_Q16')}
               </TextHandler>
             </View>
           </View>
@@ -1205,36 +1372,53 @@ export default function PresentStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: '20-25 % ',
-                  label: 'CURRENT_STUDENTS_Q2_OPT1',
+                  value: 'Yes ',
+                  label: 'CURRENT_STUDENTS_Q16_OPT1',
                 },
                 {
                   key: 2,
-                  value: '40-50 %',
-                  label: 'CURRENT_STUDENTS_Q2_OPT2',
-                },
-                {
-                  key: 3,
-                  value: '65-75% ',
-                  label: 'CURRENT_STUDENTS_Q2_OPT3',
-                },
-
-                {
-                  key: 4,
-                  value: 'More than 75%',
-                  label: 'CURRENT_STUDENTS_Q2_OPT4',
+                  value: 'No',
+                  label: 'NO',
                 },
               ]}
-              valueProp={answers.answer2}
+              valueProp={answers.share_results_of_these_tests_with_the_parents}
               onValueChange={item => {
-                console.log('item', item);
-                setAnswers({...answers, answer2: item});
+                setAnswers({
+                  ...answers,
+                  share_results_of_these_tests_with_the_parents: item,
+                });
               }}
             />
+            {answers.share_results_of_these_tests_with_the_parents?.key ===
+              1 && (
+              <>
+                <Input
+                  placeholder={`${t('ENTER_ANSWER')}`}
+                  name="any"
+                  onChangeText={text => {
+                    setAnswers({
+                      ...answers,
+                      share_results_of_these_tests_with_the_parents: {
+                        ...answers.share_results_of_these_tests_with_the_parents,
+                        other: text,
+                      },
+                    });
+                  }}
+                  value={
+                    answers.share_results_of_these_tests_with_the_parents?.other
+                  }
+                  message={''}
+                  containerStyle={{
+                    alignItems: 'center',
+                    minWidth: screenWidth * 0.5,
+                  }}
+                />
+              </>
+            )}
           </View>
         </View>
 
-        {/* QA2 */}
+        {/* QA17*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -1251,7 +1435,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {2}
+                {17}
               </TextHandler>
             </View>
 
@@ -1265,51 +1449,30 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {t('CURRENT_STUDENTS_Q2')}
+                {t('CURRENT_STUDENTS_Q17')}
               </TextHandler>
             </View>
           </View>
 
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: '20-25 % ',
-                  label: 'CURRENT_STUDENTS_Q2_OPT1',
-                },
-                {
-                  key: 2,
-                  value: '40-50 %',
-                  label: 'CURRENT_STUDENTS_Q2_OPT2',
-                },
-                {
-                  key: 3,
-                  value: '65-75% ',
-                  label: 'CURRENT_STUDENTS_Q2_OPT3',
-                },
-
-                {
-                  key: 4,
-                  value: 'More than 75%',
-                  label: 'CURRENT_STUDENTS_Q2_OPT4',
-                },
-              ]}
-              valueProp={answers.answer2}
-              onValueChange={item => {
-                console.log('item', item);
-                setAnswers({...answers, answer2: item});
-              }}
-            />
-          </View>
+          <Input
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="any"
+            onChangeText={text => {
+              setAnswers({
+                ...answers,
+                suggestions_to_improve_the_kendra_activities: text,
+              });
+            }}
+            value={answers.suggestions_to_improve_the_kendra_activities}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.25,
+            }}
+          />
         </View>
 
-        {/* QA2 */}
+        {/* QA18*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -1326,7 +1489,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {2}
+                {18}
               </TextHandler>
             </View>
 
@@ -1340,51 +1503,30 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {t('CURRENT_STUDENTS_Q2')}
+                {t('CURRENT_STUDENTS_Q18')}
               </TextHandler>
             </View>
           </View>
 
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: '20-25 % ',
-                  label: 'CURRENT_STUDENTS_Q2_OPT1',
-                },
-                {
-                  key: 2,
-                  value: '40-50 %',
-                  label: 'CURRENT_STUDENTS_Q2_OPT2',
-                },
-                {
-                  key: 3,
-                  value: '65-75% ',
-                  label: 'CURRENT_STUDENTS_Q2_OPT3',
-                },
-
-                {
-                  key: 4,
-                  value: 'More than 75%',
-                  label: 'CURRENT_STUDENTS_Q2_OPT4',
-                },
-              ]}
-              valueProp={answers.answer2}
-              onValueChange={item => {
-                console.log('item', item);
-                setAnswers({...answers, answer2: item});
-              }}
-            />
-          </View>
+          <Input
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="any"
+            onChangeText={text => {
+              setAnswers({
+                ...answers,
+                role_model_for_the_student: text,
+              });
+            }}
+            value={answers.role_model_for_the_student}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.25,
+            }}
+          />
         </View>
 
-        {/* QA2 */}
+        {/* QA19 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -1401,7 +1543,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {2}
+                {19}
               </TextHandler>
             </View>
 
@@ -1415,7 +1557,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   // textAlign: 'left',
                 }}>
-                {t('CURRENT_STUDENTS_Q2')}
+                {t('CURRENT_STUDENTS_Q19')}
               </TextHandler>
             </View>
           </View>
@@ -1428,182 +1570,12 @@ export default function PresentStudentQuestions() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {
-                  key: 1,
-                  value: '20-25 % ',
-                  label: 'CURRENT_STUDENTS_Q2_OPT1',
-                },
-                {
-                  key: 2,
-                  value: '40-50 %',
-                  label: 'CURRENT_STUDENTS_Q2_OPT2',
-                },
-                {
-                  key: 3,
-                  value: '65-75% ',
-                  label: 'CURRENT_STUDENTS_Q2_OPT3',
-                },
-
-                {
-                  key: 4,
-                  value: 'More than 75%',
-                  label: 'CURRENT_STUDENTS_Q2_OPT4',
-                },
+                {key: 1, value: 'Yes', label: 'YES'},
+                {key: 2, value: 'No', label: 'NO'},
               ]}
-              valueProp={answers.answer2}
+              valueProp={answers.regularaly_go_to_rss_shakha}
               onValueChange={item => {
-                console.log('item', item);
-                setAnswers({...answers, answer2: item});
-              }}
-            />
-          </View>
-        </View>
-
-        {/* QA2 */}
-        <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {2}
-              </TextHandler>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {t('CURRENT_STUDENTS_Q2')}
-              </TextHandler>
-            </View>
-          </View>
-
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: '20-25 % ',
-                  label: 'CURRENT_STUDENTS_Q2_OPT1',
-                },
-                {
-                  key: 2,
-                  value: '40-50 %',
-                  label: 'CURRENT_STUDENTS_Q2_OPT2',
-                },
-                {
-                  key: 3,
-                  value: '65-75% ',
-                  label: 'CURRENT_STUDENTS_Q2_OPT3',
-                },
-
-                {
-                  key: 4,
-                  value: 'More than 75%',
-                  label: 'CURRENT_STUDENTS_Q2_OPT4',
-                },
-              ]}
-              valueProp={answers.answer2}
-              onValueChange={item => {
-                console.log('item', item);
-                setAnswers({...answers, answer2: item});
-              }}
-            />
-          </View>
-        </View>
-
-        {/* QA2 */}
-        <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {2}
-              </TextHandler>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
-                {t('CURRENT_STUDENTS_Q2')}
-              </TextHandler>
-            </View>
-          </View>
-
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: '20-25 % ',
-                  label: 'CURRENT_STUDENTS_Q2_OPT1',
-                },
-                {
-                  key: 2,
-                  value: '40-50 %',
-                  label: 'CURRENT_STUDENTS_Q2_OPT2',
-                },
-                {
-                  key: 3,
-                  value: '65-75% ',
-                  label: 'CURRENT_STUDENTS_Q2_OPT3',
-                },
-
-                {
-                  key: 4,
-                  value: 'More than 75%',
-                  label: 'CURRENT_STUDENTS_Q2_OPT4',
-                },
-              ]}
-              valueProp={answers.answer2}
-              onValueChange={item => {
-                console.log('item', item);
-                setAnswers({...answers, answer2: item});
+                setAnswers({...answers, regularaly_go_to_rss_shakha: item});
               }}
             />
           </View>
