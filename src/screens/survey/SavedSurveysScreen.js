@@ -26,6 +26,7 @@ import {filterOutSavedSurveys, FindAndUpdate} from '../../utils/utils';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {ROUTES} from '../../navigation/RouteConstants';
 import {images} from '../../assets';
+import {submitSurveyAPI} from '../../networking/API.controller';
 
 export default function SavedSurveysScreen() {
   let [selectedCenter, setCenter] = useState({});
@@ -75,12 +76,23 @@ export default function SavedSurveysScreen() {
   };
 
   const submit = () => {
-    console.log(selectedCenter);
     let newpayload = {
       ...selectedCenter,
       isCompleted: true,
       updatedAt: new Date().toString(),
     };
+    console.log(selectedCenter)
+
+    // let surveyData = [...selectedCenter.surveyAnswers];
+    // console.log(surveyData[0]);
+    // let audience_id = 5;
+    // let APIpayload = {
+    //   centre_id: selectedCenter.centre_id,
+    //   audience_id,
+    //   survey_data: surveyData[0].kendraSanchalak,
+    // };
+    // submitSurveyAPI(APIpayload);
+
     let tmp1 = FindAndUpdate(totalSurveys, newpayload);
     console.log(tmp1);
     dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});

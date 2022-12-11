@@ -91,10 +91,35 @@ const getListofColonies = async district_id => {
   }
 };
 
+const submitSurveyAPI = async data => {
+  const URL = BASE_URL + 'center/survey';
+  console.log('data', data);
+  const formdata = new FormData();
+  formdata.append('centre_id', data.centre_id);
+  formdata.append('audience_id', data.audience_id);
+  formdata.append('survey_data', data.survey_data);
+  try {
+    const response = await fetch(URL, {
+      method: 'POST',
+      headers: headers,
+      body: formdata,
+    });
+    console.log('res- >', await response.json());
+    if (response.status === 200) {
+      let respJson = await response.json();
+      return respJson;
+    }
+  } catch (e) {
+    console.log(error);
+    return error;
+  }
+};
+
 export {
   Login,
   getListofDistricts,
   getListofColonies,
   getListofStates,
   VerifyOTP,
+  submitSurveyAPI,
 };
