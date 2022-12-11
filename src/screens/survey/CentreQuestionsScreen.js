@@ -600,8 +600,10 @@ export default function CentreQuestionsScreen() {
           </View>
         </View>
 
-        {/* QA8 - OK - project_init_before*/}
-        <View>
+
+
+ {/* QA9 - OK - project_init_before*/}
+ <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -618,6 +620,74 @@ export default function CentreQuestionsScreen() {
                   textAlign: 'center',
                 }}>
                 {8}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CENTER_Q8')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Community Hall',
+                  label: 'CENTER_Q8_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Classroom (rented or owned)",',
+                  label: 'CENTER_Q8_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'Open Air',
+                  label: 'CENTER_Q8_OPT3',
+                },
+
+
+              ]}
+              valueProp={answers.project_init_before}
+              onValueChange={item => {
+                setAnswers({...answers, project_init_before: item});
+              }}
+            />
+          </View>
+        </View>
+
+
+
+        {/* QA9 - OK - project_init_before*/}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor: COLORS.orange,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color: 'black',
+                  textAlign: 'center',
+                }}>
+                {9}
               </TextHandler>
             </View>
 

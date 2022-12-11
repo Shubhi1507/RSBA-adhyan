@@ -1135,7 +1135,13 @@ export default function PresentStudentParentsScreen() {
                   value: 'Shramdan',
                   label: 'CURRENT_STUDENTS_PARENTS_Q10_OPT3',
                 },
-                {key: 4, value: 'Others', label: 'OTHERS'},
+                   {
+                  key: 4,
+                  value: 'Shramdan',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q10_OPT4',} ,
+
+
+                {key: 5, value: 'Others', label: 'OTHERS'},
               ]}
               onValueChange={item => {
                 setAnswers({

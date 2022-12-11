@@ -256,7 +256,7 @@ export default function PastStudentParentsScreen() {
                 alignItems: 'flex-start',
               }}>
               <TextHandler style={styles.question}>
-                {t('PAST_STUDENTS_PARENTS_Q1')}
+                {t('PAST_STUDENTS_PARENTS_Q2')}
               </TextHandler>
             </View>
           </View>
@@ -540,7 +540,7 @@ export default function PastStudentParentsScreen() {
                 alignItems: 'flex-start',
               }}>
               <TextHandler style={styles.question}>
-                {t('PAST_STUDENTS_PARENTS_Q5')}
+                {t('PAST_STUDENTS_PARENTS_Q6')}
               </TextHandler>
             </View>
           </View>
