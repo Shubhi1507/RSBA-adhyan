@@ -65,7 +65,6 @@ export default function PresentStudentQuestions() {
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
       if (entry?.presentStudent) {
-        console.log('entry?.presentStudent', entry?.presentStudent);
         setAnswers(entry.presentStudent);
       }
     });
@@ -79,79 +78,39 @@ export default function PresentStudentQuestions() {
   };
 
   const pageValidator = () => {
-    console.log('store', store);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
-    const {
-      _how_they_come_to_prakalp,
-      conduct_monthly_or_quarterly_tests,
-      decrease_in_results_after_joining_the_kendra,
-      do_students_get_any_benefit_by_teaching,
-      do_students_help_other_students,
-      go_to_other_coaching,
-      how_students_get_to_know_about_the_kendra,
-      interest_of_the_students_towards_kendra,
-      kendra_organize_regular_parents_teacher_meeting,
-      other_activities_organised_in_the_center,
-      reason_of_the_decreasing_result,
-      regularaly_go_to_rss_shakha,
-      role_model_for_the_student,
-      share_results_of_these_tests_with_the_parents,
-      since_how_long_they_are_coming_to_the_prakalp,
-      students_coming_regularly,
-      students_enrolled,
-      students_improvemnet,
-      suggestions_to_improve_the_kendra_activities,
-    } = answers;
     let q = 19;
-    let p = Object.values(answers).filter(el => {
-      if (el) return el;
-    }).length;
-    console.log(p, '/', q);
-    if (
-      _how_they_come_to_prakalp ||
-      conduct_monthly_or_quarterly_tests ||
-      decrease_in_results_after_joining_the_kendra ||
-      do_students_get_any_benefit_by_teaching ||
-      do_students_help_other_students ||
-      go_to_other_coaching ||
-      how_students_get_to_know_about_the_kendra ||
-      interest_of_the_students_towards_kendra ||
-      kendra_organize_regular_parents_teacher_meeting ||
-      other_activities_organised_in_the_center ||
-      reason_of_the_decreasing_result ||
-      regularaly_go_to_rss_shakha ||
-      role_model_for_the_student ||
-      share_results_of_these_tests_with_the_parents ||
-      since_how_long_they_are_coming_to_the_prakalp ||
-      students_coming_regularly ||
-      students_enrolled ||
-      students_improvemnet ||
-      suggestions_to_improve_the_kendra_activities
-    ) {
-      new_obj = {
-        ...tmp[2],
-        attempted: true,
-        completed: false,
-        disabled: false,
-        totalQue: q,
-        answered: p,
-      };
-    } else {
-      new_obj = {
-        ...tmp[2],
-        attempted: true,
-        completed: true,
-        disabled: true,
-        totalQue: q,
-        answered: p,
-      };
-    }
+    let tmpans = [];
+    let p = 0;
+    Object.values(answers).forEach(el => {
+      if (el && Array.isArray(el) && el.length > 0) {
+        return tmpans.push(el);
+      } else {
+        if (typeof el === 'string' && el.length > 0) {
+          return tmpans.push(el);
+        }
+        if (typeof el === 'object' && Object.values(el).length > 0) {
+          return tmpans.push(el);
+        }
+      }
+    });
+    p = tmpans.length;
+
+    console.log(p, '/', q, tmpans);
+    new_obj = {
+      ...tmp[2],
+      attempted: true,
+      completed: p !== q ? false : true,
+      disabled: false,
+      totalQue: q,
+      answered: p,
+    };
+
     tmp.splice(2, 1, new_obj);
 
     let surveyAnswers = [...answersArrTmp];
     let payload = {};
-    console.log('answersArrTmp;', answersArrTmp);
 
     if (answersArrTmp.length > 0) {
       let new_obj1 = {presentStudent: answers};
@@ -163,7 +122,6 @@ export default function PresentStudentQuestions() {
       });
       if (index != undefined) {
         surveyAnswers.splice(index, 1, new_obj1);
-        console.log('exist presentStudent', index, surveyAnswers);
       } else {
         surveyAnswers.push({presentStudent: answers});
       }
@@ -179,8 +137,6 @@ export default function PresentStudentQuestions() {
     let tmp1 = FindAndUpdate(totalSurveys, payload);
 
     console.log('payload ', payload);
-    console.log('tmp ', payload);
-
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
     dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
     showModal();
@@ -230,11 +186,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q1')}
               </TextHandler>
             </View>
@@ -283,11 +235,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q2')}
               </TextHandler>
             </View>
@@ -325,8 +273,7 @@ export default function PresentStudentQuestions() {
               ]}
               valueProp={answers.students_coming_regularly}
               onValueChange={item => {
-                console.log('item', item);
-                setAnswers({...answers, answer2: item});
+                setAnswers({...answers, students_coming_regularly: item});
               }}
             />
           </View>
@@ -358,11 +305,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q3')}
               </TextHandler>
             </View>
@@ -429,11 +372,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q4')}
               </TextHandler>
             </View>
@@ -497,11 +436,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q5')}
               </TextHandler>
             </View>
@@ -596,11 +531,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q6')}
               </TextHandler>
             </View>
@@ -651,11 +582,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q7')}
               </TextHandler>
             </View>
@@ -705,11 +632,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q8')}
               </TextHandler>
             </View>
@@ -747,7 +670,6 @@ export default function PresentStudentQuestions() {
               ]}
               valueProp={answers.students_improvemnet}
               onValueChange={item => {
-                console.log('item', item);
                 setAnswers({...answers, students_improvemnet: item});
               }}
             />
@@ -780,11 +702,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q9')}
               </TextHandler>
             </View>
@@ -811,7 +729,6 @@ export default function PresentStudentQuestions() {
               ]}
               valueProp={answers.decrease_in_results_after_joining_the_kendra}
               onValueChange={item => {
-                console.log('item', item);
                 setAnswers({
                   ...answers,
                   decrease_in_results_after_joining_the_kendra: item,
@@ -847,11 +764,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q10')}
               </TextHandler>
             </View>
@@ -889,7 +802,6 @@ export default function PresentStudentQuestions() {
               ]}
               valueProp={answers.reason_of_the_decreasing_result}
               onValueChange={item => {
-                console.log('item', item);
                 setAnswers({...answers, reason_of_the_decreasing_result: item});
               }}
             />
@@ -943,11 +855,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q11')}
               </TextHandler>
             </View>
@@ -1041,11 +949,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q12')}
               </TextHandler>
             </View>
@@ -1078,27 +982,25 @@ export default function PresentStudentQuestions() {
                 });
               }}
             />
-            {answers.other_activities_organised_in_the_center?.key === 1 && (
-              <Input
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    other_activities_organised_in_the_center: {
-                      ...answers.other_activities_organised_in_the_center,
-                      other: text,
-                    },
-                  });
-                }}
-                value={answers.other_activities_organised_in_the_center?.other}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            )}
+            <Input
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({
+                  ...answers,
+                  other_activities_organised_in_the_center: {
+                    ...answers.other_activities_organised_in_the_center,
+                    other: text,
+                  },
+                });
+              }}
+              value={answers.other_activities_organised_in_the_center?.other}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
           </View>
         </View>
 
@@ -1128,11 +1030,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q13')}
               </TextHandler>
             </View>
@@ -1217,11 +1115,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q14')}
               </TextHandler>
             </View>
@@ -1250,7 +1144,6 @@ export default function PresentStudentQuestions() {
                 answers.kendra_organize_regular_parents_teacher_meeting
               }
               onValueChange={item => {
-                console.log('item', item);
                 setAnswers({
                   ...answers,
                   kendra_organize_regular_parents_teacher_meeting: item,
@@ -1286,11 +1179,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q15')}
               </TextHandler>
             </View>
@@ -1352,11 +1241,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q16')}
               </TextHandler>
             </View>
@@ -1445,11 +1330,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q17')}
               </TextHandler>
             </View>
@@ -1499,11 +1380,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q18')}
               </TextHandler>
             </View>
@@ -1553,11 +1430,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q19')}
               </TextHandler>
             </View>
@@ -1625,5 +1498,10 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'left',
     color: 'grey',
+  },
+  question: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: COLORS.black,
   },
 });

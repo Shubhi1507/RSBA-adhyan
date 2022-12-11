@@ -61,10 +61,12 @@ export const isSurveyExists = (totalSurveys, obj) => {
 
 export const isSurveyExists2 = (totalSurveys, obj) => {
   let j = [];
+  let k = false;
   if (totalSurveys && Array.isArray(totalSurveys) && totalSurveys.length > 0) {
     j = totalSurveys.filter(el => el.centre_id === obj.survey_form_id);
   }
-  return j.length > 0 ? true : false;
+  k = j.length > 0 ? true : false;
+  return {j, k};
 };
 
 export const FindAndUpdate = (totalSurveys, obj) => {

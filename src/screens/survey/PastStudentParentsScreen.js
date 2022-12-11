@@ -54,7 +54,6 @@ export default function PastStudentParentsScreen() {
       : [];
 
   useEffect(() => {
-    console.log('answersArrTmp', answersArrTmp);
     answersArrTmp.some(function (entry, i) {
       if (entry?.pastStudentParent) {
         setAnswers(entry.pastStudentParent);
@@ -67,60 +66,35 @@ export default function PastStudentParentsScreen() {
 
   const pageValidator = () => {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
-    console.log('original capture', tmp);
     let new_obj;
-    const {
-      children_occupation_nowadays,
-      contribution_in_running_centre_more_effectively,
-      days_children_are_going_to_the_centre,
-      economic_status,
-      educational_background,
-      expectations_from_the_centre,
-      how_centre_was_helpful_in_the_development,
-      how_these_children_go_to_the_centre,
-      involvement_in_the_programs_of_the_centre,
-      no_of_parents_present,
-      reason_for_sending_children_to_the_centre,
-    } = answers;
+    let tmpans = [];
     let q = 11;
-    let p = Object.values(answers).filter(el => {
-      if (el != '' || el != null || el != undefined) return el;
-    }).length;
-    console.log(p, '/', q);
-    if (
-      children_occupation_nowadays ||
-      contribution_in_running_centre_more_effectively ||
-      days_children_are_going_to_the_centre ||
-      economic_status ||
-      educational_background ||
-      expectations_from_the_centre ||
-      how_centre_was_helpful_in_the_development ||
-      how_these_children_go_to_the_centre ||
-      involvement_in_the_programs_of_the_centre ||
-      no_of_parents_present ||
-      reason_for_sending_children_to_the_centre
-    ) {
-      new_obj = {
-        ...tmp[1],
-        attempted: true,
-        completed: false,
-        disabled: false,
-        totalQue: q,
-        answered: p,
-      };
-    } else {
-      new_obj = {
-        ...tmp[1],
-        attempted: true,
-        completed: true,
-        disabled: true,
-        totalQue: q,
-        answered: p,
-      };
-    }
-    tmp.splice(1, 1, new_obj);
-    console.log('original capture', tmp);
+    let p = 0;
+    Object.values(answers).forEach(el => {
+      if (el && Array.isArray(el) && el.length > 0) {
+        return tmpans.push(el);
+      } else {
+        if (typeof el === 'string' && el.length > 0) {
+          return tmpans.push(el);
+        }
+        if (typeof el === 'object' && Object.values(el).length > 0) {
+          return tmpans.push(el);
+        }
+      }
+    });
+    p = tmpans.length;
 
+    console.log(p, '/', q, tmpans);
+    new_obj = {
+      ...tmp[1],
+      attempted: true,
+      completed: p !== q ? false : true,
+      disabled: false,
+      totalQue: q,
+      answered: p,
+    };
+
+    tmp.splice(1, 1, new_obj);
 
     let surveyAnswers = [...answersArrTmp];
     let payload = {};
@@ -148,7 +122,6 @@ export default function PastStudentParentsScreen() {
       updatedAt: new Date().toString(),
     };
     let tmp1 = FindAndUpdate(totalSurveys, payload);
-    console.log('tmp1', tmp1);
     console.log('payload', payload);
 
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
@@ -163,7 +136,7 @@ export default function PastStudentParentsScreen() {
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
-        <Header title={t('PAST_STUDENTS_PARENTS')} onPressBack={goBack} />
+        <Header title={t('STUDENTS_PARENTS_PAST_STUDENTS')} onPressBack={goBack} />
         <SurveyCompletedModal
           visible={visible}
           hideModal={hideModal}
@@ -968,4 +941,10 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     color: 'grey',
   },
+  question: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: COLORS.black,
+  },
+
 });

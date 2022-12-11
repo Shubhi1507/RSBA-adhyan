@@ -22,6 +22,7 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
 import {useContext} from 'react';
+import {Checkbox} from 'react-native-paper';
 
 export default function PrabuddhaJanQuestions() {
   const dispatch = useDispatch();
@@ -30,11 +31,10 @@ export default function PrabuddhaJanQuestions() {
 
   let totalSurveys = store.totalSurveys;
   let [answers, setAnswers] = useState({
-    answer1: '',
-    answer2: '',
-    answer3: '',
-    answer4: '',
-    answer5: '',
+    donors_and_well_wishers_help: [],
+    donors_and_well_wishers_are_connected_to_us: '',
+    well_wishers_and_donors_helped_us_during_corona_crisis: '',
+    influence_of_well_wishers_in_society: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -65,14 +65,36 @@ export default function PrabuddhaJanQuestions() {
     console.log('store', store);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
-    const {answer1, answer2, answer3, answer4, answer5} = answers;
-    let q = Object.keys(answers).length;
-    let tmp2 = Object.values(answers).filter(el => {
-      if (el) return el;
+    const {
+      donors_and_well_wishers_help,
+      donors_and_well_wishers_are_connected_to_us,
+      well_wishers_and_donors_helped_us_during_corona_crisis,
+      influence_of_well_wishers_in_society,
+    } = answers;
+    let q = 4;
+    let tmpans = [];
+    let p = 0;
+    Object.values(answers).forEach(el => {
+      if (el && Array.isArray(el) && el.length > 0) {
+        return tmpans.push(el);
+      } else {
+        if (typeof el === 'string' && el.length > 0) {
+          return tmpans.push(el);
+        }
+        if (typeof el === 'object' && Object.values(el).length > 0) {
+          return tmpans.push(el);
+        }
+      }
     });
-    let p = tmp2.length;
+    p = tmpans.length;
+
     console.log(p, '/', q);
-    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5) {
+    if (
+      !donors_and_well_wishers_help ||
+      !donors_and_well_wishers_are_connected_to_us ||
+      !well_wishers_and_donors_helped_us_during_corona_crisis ||
+      !influence_of_well_wishers_in_society
+    ) {
       new_obj = {
         ...tmp[7],
         attempted: true,
@@ -170,16 +192,12 @@ export default function PrabuddhaJanQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('INFLUENTIAL_PEOPELE_Q1')}
               </TextHandler>
             </View>
           </View>
-          <RadioButtons
+          {/* <RadioButtons
             radioStyle={{
               borderWidth: 1,
               marginVertical: 2,
@@ -202,11 +220,134 @@ export default function PrabuddhaJanQuestions() {
                 label: 'INFLUENTIAL_PEOPELE_Q1_OPT3',
               },
             ]}
-            valueProp={answers.answer1}
+            valueProp={answers.donors_and_well_wishers_help}
             onValueChange={item => {
-              setAnswers({...answers, answer1: item});
+              setAnswers({...answers, donors_and_well_wishers_help: item});
             }}
-          />
+          /> */}
+
+          {[
+            {
+              key: 1,
+              value: 'Economic',
+              label: 'INFLUENTIAL_PEOPELE_Q1_OPT1',
+            },
+            {
+              key: 2,
+              value: 'Social',
+              label: 'INFLUENTIAL_PEOPELE_Q1_OPT2',
+            },
+            {
+              key: 3,
+              value: 'Others',
+              label: 'INFLUENTIAL_PEOPELE_Q1_OPT3',
+            },
+          ].map((el, index) => {
+            return (
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  borderWidth: 1,
+                  marginVertical: 2,
+                  borderColor: COLORS.orange,
+                  paddingVertical: 5,
+                  marginVertical: 5,
+                }}
+                onPress={() => {
+                  let tmp = [...answers.donors_and_well_wishers_help];
+
+                  if (tmp.length > 0) {
+                    let j = tmp.filter(element => element.key === 999);
+                    if (j.length > 0) {
+                      tmp = [];
+                      tmp.push(el);
+                      setAnswers({
+                        ...answers,
+                        donors_and_well_wishers_help: tmp,
+                      });
+                    } else {
+                      tmp.forEach(function (item, index1) {
+                        if (item.value === el.value) {
+                          let tmp = [...answers.donors_and_well_wishers_help];
+                          tmp.splice(index1, 1);
+                          setAnswers({
+                            ...answers,
+                            donors_and_well_wishers_help: tmp,
+                          });
+                        } else {
+                          let tmp = [...answers.donors_and_well_wishers_help];
+                          tmp.push(el);
+                          setAnswers({
+                            ...answers,
+                            donors_and_well_wishers_help: tmp,
+                          });
+                        }
+                      });
+                    }
+                  } else {
+                    tmp.push(el);
+                    setAnswers({
+                      ...answers,
+                      donors_and_well_wishers_help: tmp,
+                    });
+                  }
+                }}>
+                <Checkbox
+                  status={
+                    answers.donors_and_well_wishers_help.filter(
+                      item => item.value === el.value,
+                    ).length > 0
+                      ? 'checked'
+                      : 'unchecked'
+                  }
+                  color={COLORS.blue}
+                />
+                <TextHandler
+                  style={{
+                    color: 'black',
+                    // textAlign: 'left',
+                  }}>
+                  {t(el.label)}
+                </TextHandler>
+              </TouchableOpacity>
+            );
+          })}
+          {answers.donors_and_well_wishers_help.filter(
+            item => item.value === 'Others',
+          ).length > 0 && (
+            <Input
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                let tmp = [...answers.donors_and_well_wishers_help];
+                tmp.forEach((el, index) => {
+                  if (el.value === 'Others') {
+                    let newans = {...el, other: text};
+                    tmp.splice(index, 1, newans);
+                  }
+                });
+                setAnswers({
+                  ...answers,
+                  donors_and_well_wishers_help: tmp,
+                });
+              }}
+              value={
+                answers.donors_and_well_wishers_help.filter(
+                  el => el.value === 'Others',
+                ).length > 0
+                  ? answers.donors_and_well_wishers_help.filter(
+                      el => el.value === 'Others',
+                    )[0]?.['other']
+                  : ''
+              }
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          )}
         </View>
 
         {/* QA2 */}
@@ -235,11 +376,7 @@ export default function PrabuddhaJanQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('INFLUENTIAL_PEOPELE_Q2')}
               </TextHandler>
             </View>
@@ -274,9 +411,12 @@ export default function PrabuddhaJanQuestions() {
                   label: 'INFLUENTIAL_PEOPELE_Q2_OPT4',
                 },
               ]}
-              valueProp={answers.answer2}
+              valueProp={answers.donors_and_well_wishers_are_connected_to_us}
               onValueChange={item => {
-                setAnswers({...answers, answer2: item});
+                setAnswers({
+                  ...answers,
+                  donors_and_well_wishers_are_connected_to_us: item,
+                });
               }}
             />
           </View>
@@ -308,11 +448,7 @@ export default function PrabuddhaJanQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('INFLUENTIAL_PEOPELE_Q3')}
               </TextHandler>
             </View>
@@ -337,9 +473,14 @@ export default function PrabuddhaJanQuestions() {
                   label: 'NO',
                 },
               ]}
-              valueProp={answers.answer3}
+              valueProp={
+                answers.well_wishers_and_donors_helped_us_during_corona_crisis
+              }
               onValueChange={item => {
-                setAnswers({...answers, answer3: item});
+                setAnswers({
+                  ...answers,
+                  well_wishers_and_donors_helped_us_during_corona_crisis: item,
+                });
               }}
             />
           </View>
@@ -371,11 +512,7 @@ export default function PrabuddhaJanQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('INFLUENTIAL_PEOPELE_Q4')}
               </TextHandler>
             </View>
@@ -404,11 +541,13 @@ export default function PrabuddhaJanQuestions() {
                   value: 'Only in certain sections',
                   label: 'INFLUENTIAL_PEOPELE_Q4_OPT3',
                 },
-                
               ]}
-              valueProp={answers.answer2}
+              valueProp={answers.influence_of_well_wishers_in_society}
               onValueChange={item => {
-                setAnswers({...answers, answer2: item});
+                setAnswers({
+                  ...answers,
+                  influence_of_well_wishers_in_society: item,
+                });
               }}
             />
           </View>
@@ -457,5 +596,10 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'left',
     color: 'grey',
+  },
+  question: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: COLORS.black,
   },
 });

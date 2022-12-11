@@ -42,6 +42,7 @@ export const Input = ({
   message,
   number,
   disabled,
+  multi,
 }) => {
   const [isShow, setisShow] = useState(secure);
   let containerCustomStyle = containerStyle ?? {};
@@ -56,7 +57,7 @@ export const Input = ({
         keyboardType={type ? type : 'default'}
         maxLength={number}
         disabled={disabled}
-        // multiline={true}
+        multiline={multi ? true : false}
         autoCorrect={false}
         autoCapitalize={'none'}
         style={[styles.textInputStyle, containerCustomStyle]}
@@ -104,7 +105,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     minWidth: screenWidth * 0.8,
     borderRadius: 5,
-    color:"black"
+    color: 'black',
+    lineHeight: 18,
   },
   errorMessage: {
     color: COLORS.red,

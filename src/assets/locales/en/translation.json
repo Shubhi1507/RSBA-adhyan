@@ -37,7 +37,7 @@
   "CENTER_Q8": "Infrastructure of Kendra (Place) ",
   "CENTER_Q8_OPT1": " Community Hall",
   "CENTER_Q8_OPT2": " Classroom (rented or owned)",
-  "CENTER_Q8_OPT3": " Open Air",
+  "CENTER_Q8_OPT3": " s",
 
   "CENTER_Q9": "Has any other Prakalp Started by us in the same Basti after the inception of this kendra",
   "CENTER_Q9_OPT1": " Yes (Please select from below) ",
@@ -408,7 +408,7 @@
   "KENDRA_SANCHALAK_Q4_OPT2": "16 to 30% ",
   "KENDRA_SANCHALAK_Q4_OPT3": "31 to 45% ",
   "KENDRA_SANCHALAK_Q4_OPT4": " above 50%",
-  "KENDRA_SANCHALAK_Q5": "What is percentage of decline in school dropout ratio due to our Kendra performance? (Before and After Comparison) – Apply this till Std 10th ",
+  "KENDRA_SANCHALAK_Q5": "What is percentage of decline in school dropout ratio due to our Kendra performance? (Before and After Comparison). Apply this till Std 10th.",
   "KENDRA_SANCHALAK_Q5_OPT1": " 10 to 15% ",
   "KENDRA_SANCHALAK_Q5_OPT2": "16 to 30% ",
   "KENDRA_SANCHALAK_Q5_OPT3": "31 to 45% ",
@@ -550,6 +550,7 @@
 
   // S
   "SAVE_REVIEW_QUESTIONS": "Save & Review",
+  
   "SIX_DIGIT_CODE": "A 6-digit code will be sent via SMS to verify your mobile number.",
   "START_SURVEY": "Start Survey",
   "SURVEY_EXISTS": "Survey already in progress",

@@ -41,9 +41,13 @@ export function Header({onPressBack, title}) {
           }}>
           {title}
         </Text>
-        <TextHandler style={{color: COLORS.white, textAlign: 'center'}}>
-          {store?.centre_id ? `(${t('CENTRE')} - ` + store.centre_id + ')' : ''}
-        </TextHandler>
+        {store?.centre_id && (
+          <TextHandler style={{color: COLORS.white, textAlign: 'center'}}>
+            {store?.centre_id
+              ? `(${t('CENTRE')} - ` + store.centre_id + ')'
+              : ''}
+          </TextHandler>
+        )}
       </View>
 
       <View style={{flex: 0.2}}></View>

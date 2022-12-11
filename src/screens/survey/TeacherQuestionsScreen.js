@@ -29,20 +29,21 @@ export default function TeacherQuestionsScreen() {
 
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
-    answer1: '',
-    answer2: '',
-    answer3: '',
-    answer4: '',
-    answer5: '',
-    answer6: '',
-    answer7: '',
-    answer8: '',
-    answer9: '',
-    answer10: '',
-    answer11: '',
-    answer12: '',
-
-
+    consistency_in_attending_the_kendra: '',
+    methods_used_to_teach_basic_concepts: '',
+    methods_used_to_teach_social_work: '',
+    which_area_we_can_see_transformation_in_our_students: '',
+    rating_sincerity: '',
+    rating_punctuality: '',
+    rating_trustworthy: '',
+    leadership_qualities: '',
+    compromise_on_our_teaching_agenda: '',
+    personally_meet_all_the_parents_every_month: '',
+    qualification_of_the_teacher: '',
+    since_when_teacher_is_associated_with_this_kendra: '',
+    reason_to_join_this_kendra: '',
+    role_model: '',
+    expectations_from_sanstha_for_the_betterment: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -72,14 +73,56 @@ export default function TeacherQuestionsScreen() {
   const pageValidator = () => {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
-    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    let q = Object.keys(answers).length;
-    let tmp2 = Object.values(answers).filter(el => {
+    const {
+      consistency_in_attending_the_kendra,
+      methods_used_to_teach_basic_concepts,
+      methods_used_to_teach_social_work,
+      which_area_we_can_see_transformation_in_our_students,
+      expectations_from_sanstha_for_the_betterment,
+      personally_meet_all_the_parents_every_month,
+      qualification_of_the_teacher,
+      leadership_qualities,
+      rating_punctuality,
+      rating_sincerity,
+      rating_trustworthy,
+      reason_to_join_this_kendra,
+      role_model,
+      since_when_teacher_is_associated_with_this_kendra,
+      compromise_on_our_teaching_agenda,
+    } = answers;
+    let q = 12;
+    let p = Object.values(answers).filter(el => {
       if (el) return el;
-    });
-    let p = tmp2.length;
-    console.log(p, '/', q);
-    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+    }).length;
+    let answer5 =
+      rating_punctuality &&
+      rating_sincerity &&
+      rating_trustworthy &&
+      leadership_qualities
+        ? true
+        : false;
+
+    if (answer5 === true) {
+      p = p - 3;
+    } else {
+      if (
+        rating_punctuality.length > 0 ||
+        rating_sincerity.length > 0 ||
+        rating_trustworthy.length > 0 ||
+        leadership_qualities.length > 0
+      ) {
+        p = p - 1;
+      }
+    }
+
+    if (
+      !consistency_in_attending_the_kendra ||
+      !methods_used_to_teach_basic_concepts ||
+      !methods_used_to_teach_social_work ||
+      !which_area_we_can_see_transformation_in_our_students ||
+      !compromise_on_our_teaching_agenda ||
+      !answer5
+    ) {
       new_obj = {
         ...tmp[4],
         attempted: true,
@@ -127,7 +170,7 @@ export default function TeacherQuestionsScreen() {
     };
     let tmp1 = FindAndUpdate(totalSurveys, payload);
 
-    console.log('payload teacher', payload);
+    console.log('payload teacher', payload, tmp1);
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
     dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
     showModal();
@@ -177,11 +220,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q1')}
               </TextHandler>
             </View>
@@ -212,9 +251,12 @@ export default function TeacherQuestionsScreen() {
                   label: 'TEACHER_Q1_OPT3',
                 },
               ]}
-              valueProp={answers.answer1}
+              valueProp={answers.consistency_in_attending_the_kendra}
               onValueChange={item => {
-                setAnswers({...answers, answer1: item});
+                setAnswers({
+                  ...answers,
+                  consistency_in_attending_the_kendra: item,
+                });
               }}
             />
           </View>
@@ -246,11 +288,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q2')}
               </TextHandler>
             </View>
@@ -280,9 +318,12 @@ export default function TeacherQuestionsScreen() {
                   label: 'TEACHER_Q2_OPT3',
                 },
               ]}
-              valueProp={answers.answer2}
+              valueProp={answers.methods_used_to_teach_basic_concepts}
               onValueChange={item => {
-                setAnswers({...answers, answer2: item});
+                setAnswers({
+                  ...answers,
+                  methods_used_to_teach_basic_concepts: item,
+                });
               }}
             />
           </View>
@@ -314,11 +355,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q3')}
               </TextHandler>
             </View>
@@ -353,9 +390,12 @@ export default function TeacherQuestionsScreen() {
                   label: 'TEACHER_Q3_OPT4',
                 },
               ]}
-              valueProp={answers.answer3}
+              valueProp={answers.methods_used_to_teach_social_work}
               onValueChange={item => {
-                setAnswers({...answers, answer3: item});
+                setAnswers({
+                  ...answers,
+                  methods_used_to_teach_social_work: item,
+                });
               }}
             />
           </View>
@@ -387,11 +427,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q4')}
               </TextHandler>
             </View>
@@ -424,13 +460,43 @@ export default function TeacherQuestionsScreen() {
                   label: 'TEACHER_Q4_OPT3',
                 },
                 {key: 4, value: 'Other', label: 'TEACHER_Q4_OPT4'},
-                {key: 5, value: 'Other', label: 'TEACHER_Q4_OPT5'},
+                {key: 5, value: 'None', label: 'TEACHER_Q4_OPT5'},
               ]}
-              valueProp={answers.answer4}
+              valueProp={
+                answers.which_area_we_can_see_transformation_in_our_students
+              }
               onValueChange={item => {
-                setAnswers({...answers, answer4: item});
+                setAnswers({
+                  ...answers,
+                  which_area_we_can_see_transformation_in_our_students: item,
+                });
               }}
             />
+            {answers.which_area_we_can_see_transformation_in_our_students
+              ?.key == 4 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    which_area_we_can_see_transformation_in_our_students: {
+                      ...answers.which_area_we_can_see_transformation_in_our_students,
+                      other: text,
+                    },
+                  });
+                }}
+                value={
+                  answers.which_area_we_can_see_transformation_in_our_students
+                    ?.text
+                }
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.25,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -460,48 +526,81 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q5')}
               </TextHandler>
             </View>
           </View>
 
           <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
+            <TextHandler>{t('TEACHER_Q5_OPT1')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, rating_sincerity: text});
               }}
-              data={[
-                {
-                  key: 1,
-                  value: 'Sincerity - Rating between 1 to 10',
-                  label: 'TEACHER_Q5_OPT1',
-                },
-                {
-                  key: 2,
-                  value: 'Punctuality - Rating between 1 to 10',
-                  label: 'TEACHER_Q5_OPT2',
-                },
-                {
-                  key: 3,
-                  value: 'Trustworthy - Rating between 1 to 10',
-                  label: 'TEACHER_Q5_OPT3',
-                },
-                {
-                  key: 4,
-                  value: '  Leadership qualities - Rating between 1 to 10',
-                  label: 'TEACHER_Q5_OPT4',
-                },
-              ]}
-              valueProp={answers.answer5}
-              onValueChange={item => {
-                setAnswers({...answers, answer5: item});
+              value={answers.rating_sincerity}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('TEACHER_Q5_OPT2')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, rating_punctuality: text});
+              }}
+              value={answers.rating_punctuality}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('TEACHER_Q5_OPT3')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, rating_trustworthy: text});
+              }}
+              value={answers.rating_trustworthy}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('TEACHER_Q5_OPT4')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, leadership_qualities: text});
+              }}
+              value={answers.leadership_qualities}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
               }}
             />
           </View>
@@ -533,11 +632,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q6')}
               </TextHandler>
             </View>
@@ -566,9 +661,12 @@ export default function TeacherQuestionsScreen() {
                   label: 'TEACHER_Q6_OPT3',
                 },
               ]}
-              valueProp={answers.answer6}
+              valueProp={answers.compromise_on_our_teaching_agenda}
               onValueChange={item => {
-                setAnswers({...answers, answer6: item});
+                setAnswers({
+                  ...answers,
+                  compromise_on_our_teaching_agenda: item,
+                });
               }}
             />
           </View>
@@ -600,11 +698,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q7')}
               </TextHandler>
             </View>
@@ -625,15 +719,38 @@ export default function TeacherQuestionsScreen() {
                 },
                 {key: 2, value: 'No', label: 'NO'},
               ]}
-              valueProp={answers.answer7}
+              valueProp={answers.personally_meet_all_the_parents_every_month}
               onValueChange={item => {
-                setAnswers({...answers, answer7: item});
+                setAnswers({
+                  ...answers,
+                  personally_meet_all_the_parents_every_month: item,
+                });
               }}
             />
-
-{}
-
-
+            {answers.personally_meet_all_the_parents_every_month?.key === 1 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    personally_meet_all_the_parents_every_month: {
+                      ...answers.personally_meet_all_the_parents_every_month,
+                      reason: text,
+                    },
+                  });
+                }}
+                // multi
+                value={
+                  answers.personally_meet_all_the_parents_every_month?.reason
+                }
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.25,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -663,11 +780,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q8')}
               </TextHandler>
             </View>
@@ -687,9 +800,9 @@ export default function TeacherQuestionsScreen() {
                 {key: 4, value: '10th', label: 'TEACHER_Q8_OPT4'},
                 {key: 5, value: 'Less than 10th', label: 'TEACHER_Q8_OPT5'},
               ]}
-              valueProp={answers.answer8}
+              valueProp={answers.qualification_of_the_teacher}
               onValueChange={item => {
-                setAnswers({...answers, answer8: item});
+                setAnswers({...answers, qualification_of_the_teacher: item});
               }}
             />
           </View>
@@ -721,11 +834,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q9')}
               </TextHandler>
             </View>
@@ -744,9 +853,14 @@ export default function TeacherQuestionsScreen() {
                 {key: 3, value: '1 to 2 years', label: 'TEACHER_Q9_OPT3'},
                 {key: 4, value: 'Less than 1 year', label: 'TEACHER_Q9_OPT4'},
               ]}
-              valueProp={answers.answer9}
+              valueProp={
+                answers.since_when_teacher_is_associated_with_this_kendra
+              }
               onValueChange={item => {
-                setAnswers({...answers, answer9: item});
+                setAnswers({
+                  ...answers,
+                  since_when_teacher_is_associated_with_this_kendra: item,
+                });
               }}
             />
           </View>
@@ -778,11 +892,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q10')}
               </TextHandler>
             </View>
@@ -792,9 +902,10 @@ export default function TeacherQuestionsScreen() {
             placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
-              setAnswers({...answers, answer10: text});
+              setAnswers({...answers, reason_to_join_this_kendra: text});
             }}
-            value={answers.answer10}
+            multi
+            value={answers.reason_to_join_this_kendra}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -829,11 +940,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q11')}
               </TextHandler>
             </View>
@@ -843,9 +950,9 @@ export default function TeacherQuestionsScreen() {
             placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
-              setAnswers({...answers, answer11: text});
+              setAnswers({...answers, role_model: text});
             }}
-            value={answers.answer11}
+            value={answers.role_model}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -854,10 +961,8 @@ export default function TeacherQuestionsScreen() {
           />
         </View>
 
-
-
-          {/* QA12 */}
-          <View>
+        {/* QA12 */}
+        <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -882,11 +987,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q12')}
               </TextHandler>
             </View>
@@ -902,14 +1003,48 @@ export default function TeacherQuestionsScreen() {
               data={[
                 {key: 1, value: 'Freedom for work', label: 'TEACHER_Q12_OPT1'},
                 {key: 2, value: 'Cooperation', label: 'TEACHER_Q12_OPT2'},
-                {key: 3, value: 'Other (Please enter)', label: 'TEACHER_Q12_OPT3'},
-                {key: 4, value: ' None of the above  ', label: 'TEACHER_Q12_OPT4'},
+                {
+                  key: 3,
+                  value: 'Other (Please enter)',
+                  label: 'TEACHER_Q12_OPT3',
+                },
+                {
+                  key: 4,
+                  value: ' None of the above  ',
+                  label: 'TEACHER_Q12_OPT4',
+                },
               ]}
-              valueProp={answers.answer9}
+              valueProp={answers.expectations_from_sanstha_for_the_betterment}
               onValueChange={item => {
-                setAnswers({...answers, answer9: item});
+                setAnswers({
+                  ...answers,
+                  expectations_from_sanstha_for_the_betterment: item,
+                });
               }}
             />
+            {answers.expectations_from_sanstha_for_the_betterment?.key == 3 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    expectations_from_sanstha_for_the_betterment: {
+                      ...answers.expectations_from_sanstha_for_the_betterment,
+                      other: text,
+                    },
+                  });
+                }}
+                value={
+                  answers.expectations_from_sanstha_for_the_betterment?.text
+                }
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.25,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -947,5 +1082,10 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontSize: 16,
     margin: 6,
+  },
+  question: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: COLORS.black,
   },
 });

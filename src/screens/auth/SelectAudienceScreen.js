@@ -220,7 +220,9 @@ export default function SelectAudienceScreen() {
     let tmp = [...store.currentSurveyData?.currentSurveyStatus];
     tmp.forEach(el => {
       if (el.completed == false) {
-        return (flag = false);
+        console.log('el', el);
+        flag = false;
+        return;
       }
     });
     setisSurveyCompleted(flag);

@@ -43,7 +43,11 @@ import {Menu} from 'react-native-paper';
 
 export default function DashboardScreen({route, navigation}) {
   const {t, locale, setLocale} = useContext(LocalizationContext);
-  const [error, setError] = useState({visible: false, message: ''});
+  const [error, setError] = useState({
+    visible: false,
+    message: '',
+    type: 'error',
+  });
   const [language, chooseLanguage] = useState({
     default: 'en',
     changed: false,
@@ -52,7 +56,7 @@ export default function DashboardScreen({route, navigation}) {
   let [selectedCenter, setCenter] = useState(null);
   const dispatch = useDispatch();
   const store = useSelector(state => state);
-  const name = store?.authReducer?.userData?.userData?.data[0]?.name;
+  const name = store?.authReducer?.userData?.userData?.data?.user?.fullname;
   const totalSurveys = store.surveyReducer.totalSurveys;
   const [visible, setVisible] = React.useState(false);
   const [assignedCenters, setAssignedCentres] = useState([]);
@@ -69,11 +73,12 @@ export default function DashboardScreen({route, navigation}) {
   ]);
 
   useEffect(() => {
+    console.log('complete store', store);
+
     if (
       store.centerReducer?.assignedCenters &&
       Array.isArray(store.centerReducer?.assignedCenters)
     ) {
-      console.log('assignedCenters', store.centerReducer?.assignedCenters);
       setAssignedCentres(store.centerReducer.assignedCenters);
     }
     AsyncStorage.getItem('lang').then(res => {
@@ -118,13 +123,21 @@ export default function DashboardScreen({route, navigation}) {
 
   const pageNavigator = () => {
     if (selectedCenter) {
-      let k = isSurveyExists2(totalSurveys, selectedCenter);
-
-      if (k) {
-        return setError({
-          visible: true,
-          message: t('SURVEY_EXISTS'),
-        });
+      let {k, j} = isSurveyExists2(totalSurveys, selectedCenter);
+      console.log('k', k, j[0]);
+      if (k == true) {
+        if (j[0].isCompleted == false) {
+          return setError({
+            visible: true,
+            message: t('SURVEY_EXISTS'),
+          });
+        } else {
+          return setError({
+            visible: true,
+            type: 'ok',
+            message: t('COMPLETED_SURVEYS'),
+          });
+        }
       } else {
         dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
         navigate(ROUTES.AUTH.CENTREDETAILSONESCREEN, {centre: selectedCenter});
@@ -156,6 +169,7 @@ export default function DashboardScreen({route, navigation}) {
       <CustomSnackBar
         visible={error.visible}
         message={error.message}
+        type={error.type}
         onDismissSnackBar={() =>
           setError({...error, message: '', visible: false})
         }
@@ -169,43 +183,49 @@ export default function DashboardScreen({route, navigation}) {
         }}>
         <View
           style={{
-            flex: 0.2,
+            flex: 0.25,
             flexDirection: 'row',
             justifyContent: 'space-between',
+            // alignItems: 'center',
             marginBottom: 10,
           }}>
-          <TextHandler style={styles.title}>
-            {`${t('WELCOME')}`} {name && `, ${name}`}
-          </TextHandler>
+          <View style={{flex: 0.9, alignItems: 'flex-start', paddingTop: 5}}>
+            <TextHandler
+              style={[styles.title, {textTransform: 'capitalize', flex: 1}]}>
+              {`${t('WELCOME')}`}, {name && `${name}`}
+            </TextHandler>
+          </View>
+          <View>
+            <Menu
+              visible={visible}
+              onDismiss={closeMenu}
+              anchor={
+                <TouchableOpacity
+                  onPress={openMenu}
+                  style={styles.languageToggler}>
+                  <TextHandler style={{textTransform: 'uppercase'}}>
+                    {language.default}
+                  </TextHandler>
+                  <ADIcons name="down" size={18}></ADIcons>
+                </TouchableOpacity>
+              }>
+              <Menu.Item
+                onPress={() => {
+                  LangugeConverter({label: 'English', value: 'en'});
+                  closeMenu();
+                }}
+                title="English"
+              />
+              <Menu.Item
+                onPress={() => {
+                  closeMenu();
+                  LangugeConverter({label: 'Hindi', value: 'hi'});
+                }}
+                title="Hindi"
+              />
+            </Menu>
+          </View>
 
-          <Menu
-            visible={visible}
-            onDismiss={closeMenu}
-            anchor={
-              <TouchableOpacity
-                onPress={openMenu}
-                style={styles.languageToggler}>
-                <TextHandler style={{textTransform: 'uppercase'}}>
-                  {language.default}
-                </TextHandler>
-                <ADIcons name="down" size={18}></ADIcons>
-              </TouchableOpacity>
-            }>
-            <Menu.Item
-              onPress={() => {
-                LangugeConverter({label: 'English', value: 'en'});
-                closeMenu();
-              }}
-              title="English"
-            />
-            <Menu.Item
-              onPress={() => {
-                closeMenu();
-                LangugeConverter({label: 'Hindi', value: 'hi'});
-              }}
-              title="Hindi"
-            />
-          </Menu>
           {/* <Button
             title={t('LANGUAGE_CHANGE')}
             onPress={() => {
@@ -486,7 +506,7 @@ export default function DashboardScreen({route, navigation}) {
         {/* <Button
           title={'RESET'}
           onPress={() => {
-            dispatch({type: ACTION_CONSTANTS.RESET_APP});
+            dispatch({type: ACTION_CONSTANTS.CLEAR_SURVEY_DATA});
           }}
           ButtonContainerStyle={{
             alignItems: 'center',

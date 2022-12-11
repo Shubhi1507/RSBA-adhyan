@@ -1,12 +1,17 @@
 import * as React from 'react';
+import {useContext} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {Modal, Portal, Text, Provider} from 'react-native-paper';
+import LocalizationContext from '../context/LanguageContext';
 import {screenHeight, screenWidth} from '../libs';
 import {navigate} from '../navigation/NavigationService';
 import {ROUTES} from '../navigation/RouteConstants';
 import {Button} from './Button';
+import {TextHandler} from './TextHandler';
 
 export const SurveyCompletedModal = ({visible, hideModal, onClick}) => {
+  const {t} = useContext(LocalizationContext);
+
   const containerStyle = {
     backgroundColor: 'white',
     padding: 20,
@@ -37,9 +42,9 @@ export const SurveyCompletedModal = ({visible, hideModal, onClick}) => {
               justifyContent: 'space-around',
               alignItems: 'center',
             }}>
-            <Text>Submitted</Text>
+            <TextHandler>{t('SUBMIT')}</TextHandler>
             <Button
-              title={'OK'}
+              title={t('OK')}
               onPress={() => {
                 hideModal();
                 onClick();

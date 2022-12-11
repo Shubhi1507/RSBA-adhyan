@@ -22,6 +22,7 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
 import {useContext} from 'react';
 import LocalizationContext from '../../context/LanguageContext';
+import {Checkbox} from 'react-native-paper';
 
 export default function BastiQuestions() {
   const store = useSelector(state => state?.surveyReducer);
@@ -29,12 +30,11 @@ export default function BastiQuestions() {
   let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
-    answer1: '',
-    answer2: '',
-    answer3: '',
-    answer4: '',
-    answer5: '',
-    answer6: '',
+    other_organizations_active: '',
+    activities_conducted_by_these_organisations: [],
+    involved_in_anti_social_activities: '',
+    status_of_anti_social_institutions_after_our_center_establishment: '',
+    our_beneficiaries_also_take_benefits_from_other_organisations: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -65,14 +65,38 @@ export default function BastiQuestions() {
     console.log('store', store);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
-    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    let q = Object.keys(answers).length;
-    let tmp2 = Object.values(answers).filter(el => {
-      if (el) return el;
+    const {
+      other_organizations_active,
+      activities_conducted_by_these_organisations,
+      involved_in_anti_social_activities,
+      status_of_anti_social_institutions_after_our_center_establishment,
+      our_beneficiaries_also_take_benefits_from_other_organisations,
+    } = answers;
+    let q = 5;
+    let tmpans = [];
+    let p = 0;
+    Object.values(answers).forEach(el => {
+      if (el && Array.isArray(el) && el.length > 0) {
+        return tmpans.push(el);
+      } else {
+        if (typeof el === 'string' && el.length > 0) {
+          return tmpans.push(el);
+        }
+        if (typeof el === 'object' && Object.values(el).length > 0) {
+          return tmpans.push(el);
+        }
+      }
     });
-    let p = tmp2.length;
+    p = tmpans.length;
+
     console.log(p, '/', q);
-    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+    if (
+      !other_organizations_active ||
+      activities_conducted_by_these_organisations.length == 0 ||
+      !involved_in_anti_social_activities ||
+      !status_of_anti_social_institutions_after_our_center_establishment ||
+      !our_beneficiaries_also_take_benefits_from_other_organisations
+    ) {
       new_obj = {
         ...tmp[6],
         attempted: true,
@@ -162,7 +186,7 @@ export default function BastiQuestions() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {8}
+                {1}
               </TextHandler>
             </View>
 
@@ -194,11 +218,32 @@ export default function BastiQuestions() {
                   label: 'NO',
                 },
               ]}
-              valueProp={answers.answer1}
+              valueProp={answers.other_organizations_active}
               onValueChange={item => {
-                setAnswers({...answers, answer1: item});
+                setAnswers({...answers, other_organizations_active: item});
               }}
             />
+            {answers.other_organizations_active?.key == 1 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    other_organizations_active: {
+                      ...answers.other_organizations_active,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.other_organizations_active?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.25,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -228,60 +273,158 @@ export default function BastiQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+             <TextHandler style={styles.question}>
                 {t('BASTI_Q2')}
               </TextHandler>
             </View>
           </View>
 
           <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: 'Education',
-                  label: 'BASTI_Q2_OPT1',
-                },
-                {
-                  key: 2,
-                  value: 'Health',
-                  label: 'BASTI_Q2_OPT2',
-                },
-                {
-                  key: 3,
-                  value: 'Social',
-                  label: 'BASTI_Q2_OPT3',
-                },
-                {
-                  key: 4,
-                  value: 'Environmental',
-                  label: 'BASTI_Q2_OPT4',
-                },
-                {
-                  key: 5,
-                  value: 'Self-support',
-                  label: 'BASTI_Q2_OPT5',
-                },
-                {
-                  key: 6,
-                  value: 'Others',
-                  label: 'BASTI_Q2_OPT6',
-                },
-              ]}
-              valueProp={answers.answer2}
-              onValueChange={item => {
-                setAnswers({...answers, answer2: item});
-              }}
-            />
+            {[
+              {
+                key: 1,
+                value: 'Education',
+                label: 'BASTI_Q2_OPT1',
+              },
+              {
+                key: 2,
+                value: 'Health',
+                label: 'BASTI_Q2_OPT2',
+              },
+              {
+                key: 3,
+                value: 'Social',
+                label: 'BASTI_Q2_OPT3',
+              },
+              {
+                key: 4,
+                value: 'Environmental',
+                label: 'BASTI_Q2_OPT4',
+              },
+              {
+                key: 5,
+                value: 'Self-support',
+                label: 'BASTI_Q2_OPT5',
+              },
+              {
+                key: 6,
+                value: 'Others',
+                label: 'BASTI_Q2_OPT6',
+              },
+            ].map((el, index) => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    marginVertical: 2,
+                    borderColor: COLORS.orange,
+                    paddingVertical: 5,
+                    marginVertical: 5,
+                  }}
+                  onPress={() => {
+                    let tmp = [
+                      ...answers.activities_conducted_by_these_organisations,
+                    ];
+
+                    if (tmp.length > 0) {
+                      let j = tmp.filter(element => element.key === 999);
+                      if (j.length > 0) {
+                        tmp = [];
+                        tmp.push(el);
+                        setAnswers({
+                          ...answers,
+                          activities_conducted_by_these_organisations: tmp,
+                        });
+                      } else {
+                        tmp.forEach(function (item, index1) {
+                          if (item.value === el.value) {
+                            let tmp = [
+                              ...answers.activities_conducted_by_these_organisations,
+                            ];
+                            tmp.splice(index1, 1);
+                            setAnswers({
+                              ...answers,
+                              activities_conducted_by_these_organisations: tmp,
+                            });
+                          } else {
+                            let tmp = [
+                              ...answers.activities_conducted_by_these_organisations,
+                            ];
+                            tmp.push(el);
+                            setAnswers({
+                              ...answers,
+                              activities_conducted_by_these_organisations: tmp,
+                            });
+                          }
+                        });
+                      }
+                    } else {
+                      tmp.push(el);
+                      setAnswers({
+                        ...answers,
+                        activities_conducted_by_these_organisations: tmp,
+                      });
+                    }
+                  }}>
+                  <Checkbox
+                    status={
+                      answers.activities_conducted_by_these_organisations.filter(
+                        item => item.value === el.value,
+                      ).length > 0
+                        ? 'checked'
+                        : 'unchecked'
+                    }
+                    color={COLORS.blue}
+                  />
+                  <TextHandler
+                    style={{
+                      color: 'black',
+                      // textAlign: 'left',
+                    }}>
+                    {t(el.label)}
+                  </TextHandler>
+                </TouchableOpacity>
+              );
+            })}
+            {answers.activities_conducted_by_these_organisations.filter(
+              item => item.value === 'Others',
+            ).length > 0 && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  let tmp = [
+                    ...answers.activities_conducted_by_these_organisations,
+                  ];
+                  tmp.forEach((el, index) => {
+                    if (el.value === 'Others') {
+                      let newans = {...el, other: text};
+                      tmp.splice(index, 1, newans);
+                    }
+                  });
+                  setAnswers({
+                    ...answers,
+                    activities_conducted_by_these_organisations: tmp,
+                  });
+                }}
+                value={
+                  answers.activities_conducted_by_these_organisations.filter(
+                    el => el.value === 'Others',
+                  ).length > 0
+                    ? answers.activities_conducted_by_these_organisations.filter(
+                        el => el.value === 'Others',
+                      )[0]?.['other']
+                    : ''
+                }
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.25,
+                }}
+              />
+            )}
           </View>
         </View>
 
@@ -311,11 +454,7 @@ export default function BastiQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+             <TextHandler style={styles.question}>
                 {t('BASTI_Q3')}
               </TextHandler>
             </View>
@@ -324,9 +463,12 @@ export default function BastiQuestions() {
             placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
-              setAnswers({...answers, answer3: text});
+              setAnswers({
+                ...answers,
+                involved_in_anti_social_activities: text,
+              });
             }}
-            value={answers.answer3}
+            value={answers.involved_in_anti_social_activities}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -361,11 +503,7 @@ export default function BastiQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+             <TextHandler style={styles.question}>
                 {t('BASTI_Q4')}
               </TextHandler>
             </View>
@@ -393,9 +531,15 @@ export default function BastiQuestions() {
                 label: 'BASTI_Q4_OPT3',
               },
             ]}
-            valueProp={answers.answer4}
+            valueProp={
+              answers.status_of_anti_social_institutions_after_our_center_establishment
+            }
             onValueChange={item => {
-              setAnswers({...answers, answer4: item});
+              setAnswers({
+                ...answers,
+                status_of_anti_social_institutions_after_our_center_establishment:
+                  item,
+              });
             }}
           />
         </View>
@@ -426,11 +570,7 @@ export default function BastiQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+             <TextHandler style={styles.question}>
                 {t('BASTI_Q5')}
               </TextHandler>
             </View>
@@ -455,9 +595,15 @@ export default function BastiQuestions() {
                   label: 'NO',
                 },
               ]}
-              valueProp={answers.answer5}
+              valueProp={
+                answers.our_beneficiaries_also_take_benefits_from_other_organisations
+              }
               onValueChange={item => {
-                setAnswers({...answers, answer5: item});
+                setAnswers({
+                  ...answers,
+                  our_beneficiaries_also_take_benefits_from_other_organisations:
+                    item,
+                });
               }}
             />
           </View>
@@ -507,4 +653,10 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     color: 'grey',
   },
+  question: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: COLORS.black,
+  },
+
 });
