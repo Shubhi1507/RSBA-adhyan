@@ -29,22 +29,23 @@ export default function PastStudentQuestions() {
 
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
-    answer1: '',
-    answer2: '',
-    answer3: '',
-    answer4: '',
-    answer5: '',
-    answer6: '',
-    answer7: '',
-    answer8: '',
-    answer9: '',
-    answer10: '',
-    answer11: '',
-    answer12: '',
-    answer13: '',
-    answer14: '',
-    answer15: '',
-    answer16: '',
+    year_were_you_associated_with_the_center: '',
+    friends_coming_to_center_the_days: '',
+    is_the_center_same_as_before: '',
+    how_many_years_were_you_coming_to_the_center: '',
+    reason_for_leaving_the_center: '',
+    still_associated_with_the_center: '',
+    how_the_center_has_influnced_your_results_n_behavior: '',
+    how_the_center_has_influnced_your_behavior: '',
+    encourage_other_students_join_the_center: '',
+    how_the_center_has_influnced_your_personality: '',
+    experience_between_you_n_other_students_who_do_not_come_to_kendra: '',
+    difference_experienced_between_you_n_other_elder_students_due_to_the_center:
+      '',
+    difference_noticed_in_the_family_due_to_the_center: '',
+    contribute_in_betterment_of_the_center: '',
+    connected_with_sangh_organizations: '',
+    involved_in_any_othe_social_activities: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -72,17 +73,63 @@ export default function PastStudentQuestions() {
   };
 
   const pageValidator = () => {
-    console.log('store', store);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
-    const {answer1, answer2, answer3, answer4, answer5, answer6} = answers;
-    let q = Object.keys(answers).length;
-    let tmp2 = Object.values(answers).filter(el => {
-      if (el) return el;
+    const {
+      year_were_you_associated_with_the_center,
+      friends_coming_to_center_the_days,
+      is_the_center_same_as_before,
+      how_many_years_were_you_coming_to_the_center,
+      reason_for_leaving_the_center,
+      still_associated_with_the_center,
+      connected_with_sangh_organizations,
+      contribute_in_betterment_of_the_center,
+      difference_experienced_between_you_n_other_elder_students_due_to_the_center,
+      difference_noticed_in_the_family_due_to_the_center,
+      encourage_other_students_join_the_center,
+      experience_between_you_n_other_students_who_do_not_come_to_kendra,
+      how_the_center_has_influnced_your_behavior,
+      how_the_center_has_influnced_your_personality,
+      how_the_center_has_influnced_your_results_n_behavior,
+      involved_in_any_othe_social_activities,
+    } = answers;
+    let q = 16;
+    let tmpans = [];
+    let p = 0;
+    Object.values(answers).forEach(el => {
+      if (el && Array.isArray(el) && el.length > 0) {
+        return tmpans.push(el);
+      } else {
+        if (typeof el === 'string' && el.length > 0) {
+          return tmpans.push(el);
+        }
+        if (typeof el === 'object' && Object.values(el).length > 0) {
+          return tmpans.push(el);
+        }
+      }
     });
-    let p = tmp2.length;
+    p = tmpans.length;
+
     console.log(p, '/', q);
-    if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !answer6) {
+    if (
+      !year_were_you_associated_with_the_center ||
+      !friends_coming_to_center_the_days ||
+      !is_the_center_same_as_before ||
+      !how_many_years_were_you_coming_to_the_center ||
+      !reason_for_leaving_the_center ||
+      !still_associated_with_the_center ||
+      connected_with_sangh_organizations ||
+      !contribute_in_betterment_of_the_center ||
+      !difference_experienced_between_you_n_other_elder_students_due_to_the_center ||
+      !difference_noticed_in_the_family_due_to_the_center ||
+      !encourage_other_students_join_the_center ||
+      !experience_between_you_n_other_students_who_do_not_come_to_kendra ||
+      !how_the_center_has_influnced_your_behavior ||
+      !how_the_center_has_influnced_your_personality ||
+      !how_the_center_has_influnced_your_results_n_behavior ||
+      !involved_in_any_othe_social_activities
+    ) {
+      console.log('false', answers);
       new_obj = {
         ...tmp[3],
         attempted: true,
@@ -196,9 +243,12 @@ export default function PastStudentQuestions() {
             placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
-              setAnswers({...answers, answer1: text});
+              setAnswers({
+                ...answers,
+                year_were_you_associated_with_the_center: text,
+              });
             }}
-            value={answers.answer1}
+            value={answers.year_were_you_associated_with_the_center}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -262,9 +312,12 @@ export default function PastStudentQuestions() {
                   label: 'NO',
                 },
               ]}
-              valueProp={answers.answer2}
+              valueProp={answers.friends_coming_to_center_the_days}
               onValueChange={item => {
-                setAnswers({...answers, answer2: item});
+                setAnswers({
+                  ...answers,
+                  friends_coming_to_center_the_days: item,
+                });
               }}
             />
           </View>
@@ -325,9 +378,9 @@ export default function PastStudentQuestions() {
                   label: 'NO',
                 },
               ]}
-              valueProp={answers.answer3}
+              valueProp={answers.is_the_center_same_as_before}
               onValueChange={item => {
-                setAnswers({...answers, answer3: item});
+                setAnswers({...answers, is_the_center_same_as_before: item});
               }}
             />
           </View>
@@ -391,9 +444,12 @@ export default function PastStudentQuestions() {
                 label: 'PAST_STUDENTS_Q4_OPT3',
               },
             ]}
-            valueProp={answers.answer4}
+            valueProp={answers.how_many_years_were_you_coming_to_the_center}
             onValueChange={item => {
-              setAnswers({...answers, answer4: item});
+              setAnswers({
+                ...answers,
+                how_many_years_were_you_coming_to_the_center: item,
+              });
             }}
           />
         </View>
@@ -454,25 +510,25 @@ export default function PastStudentQuestions() {
                   label: 'PAST_STUDENTS_Q5_OPT3',
                 },
               ]}
-              valueProp={answers.answer5}
+              valueProp={answers.reason_for_leaving_the_center}
               onValueChange={item => {
-                setAnswers({...answers, answer5: item});
+                setAnswers({...answers, reason_for_leaving_the_center: item});
               }}
             />
-            {answers.answer5?.key === 3 && (
+            {answers.reason_for_leaving_the_center?.key === 3 && (
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
                 name="any"
                 onChangeText={text => {
                   setAnswers({
                     ...answers,
-                    answer5: {
-                      ...answers.answer5,
+                    reason_for_leaving_the_center: {
+                      ...answers.reason_for_leaving_the_center,
                       other: text,
                     },
                   });
                 }}
-                value={answers.answer5?.other}
+                value={answers.reason_for_leaving_the_center?.other}
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -538,9 +594,12 @@ export default function PastStudentQuestions() {
                   label: 'PAST_STUDENTS_Q6_OPT2',
                 },
               ]}
-              valueProp={answers.answer6}
+              valueProp={answers.still_associated_with_the_center}
               onValueChange={item => {
-                setAnswers({...answers, answer6: item});
+                setAnswers({
+                  ...answers,
+                  still_associated_with_the_center: item,
+                });
               }}
             />
             <Input
@@ -549,13 +608,13 @@ export default function PastStudentQuestions() {
               onChangeText={text => {
                 setAnswers({
                   ...answers,
-                  answer6: {
-                    ...answers.answer6,
+                  still_associated_with_the_center: {
+                    ...answers.still_associated_with_the_center,
                     other: text,
                   },
                 });
               }}
-              value={answers.answer6?.other}
+              value={answers.still_associated_with_the_center?.other}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -621,25 +680,34 @@ export default function PastStudentQuestions() {
                   label: 'PAST_STUDENTS_Q7_OPT2',
                 },
               ]}
-              valueProp={answers.answer7}
+              valueProp={
+                answers.how_the_center_has_influnced_your_results_n_behavior
+              }
               onValueChange={item => {
-                setAnswers({...answers, answer7: item});
+                setAnswers({
+                  ...answers,
+                  how_the_center_has_influnced_your_results_n_behavior: item,
+                });
               }}
             />
-            {answers.answer7?.key === 2 && (
+            {answers.how_the_center_has_influnced_your_results_n_behavior
+              ?.key === 2 && (
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
                 name="any"
                 onChangeText={text => {
                   setAnswers({
                     ...answers,
-                    answer7: {
-                      ...answers.answer7,
+                    how_the_center_has_influnced_your_results_n_behavior: {
+                      ...answers.how_the_center_has_influnced_your_results_n_behavior,
                       other: text,
                     },
                   });
                 }}
-                value={answers.answer7?.other}
+                value={
+                  answers.how_the_center_has_influnced_your_results_n_behavior
+                    ?.other
+                }
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -710,25 +778,30 @@ export default function PastStudentQuestions() {
                   label: 'PAST_STUDENTS_Q8_OPT3',
                 },
               ]}
-              valueProp={answers.answer8}
+              valueProp={answers.how_the_center_has_influnced_your_behavior}
               onValueChange={item => {
-                setAnswers({...answers, answer8: item});
+                setAnswers({
+                  ...answers,
+                  how_the_center_has_influnced_your_behavior: item,
+                });
               }}
             />
-            {answers.answer8?.key === 3 && (
+            {answers.how_the_center_has_influnced_your_behavior?.key === 3 && (
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
                 name="any"
                 onChangeText={text => {
                   setAnswers({
                     ...answers,
-                    answer8: {
-                      ...answers.answer8,
+                    how_the_center_has_influnced_your_behavior: {
+                      ...answers.how_the_center_has_influnced_your_behavior,
                       other: text,
                     },
                   });
                 }}
-                value={answers.answer8?.other}
+                value={
+                  answers.how_the_center_has_influnced_your_behavior?.other
+                }
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -794,9 +867,12 @@ export default function PastStudentQuestions() {
                   label: 'NO',
                 },
               ]}
-              valueProp={answers.answer9}
+              valueProp={answers.encourage_other_students_join_the_center}
               onValueChange={item => {
-                setAnswers({...answers, answer9: item});
+                setAnswers({
+                  ...answers,
+                  encourage_other_students_join_the_center: item,
+                });
               }}
             />
           </View>
@@ -867,25 +943,31 @@ export default function PastStudentQuestions() {
                   label: 'PAST_STUDENTS_Q10_OPT4',
                 },
               ]}
-              valueProp={answers.answer10}
+              valueProp={answers.how_the_center_has_influnced_your_personality}
               onValueChange={item => {
-                setAnswers({...answers, answer10: item});
+                setAnswers({
+                  ...answers,
+                  how_the_center_has_influnced_your_personality: item,
+                });
               }}
             />
-            {answers.answer10?.key === 4 && (
+            {answers.how_the_center_has_influnced_your_personality?.key ===
+              4 && (
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
                 name="any"
                 onChangeText={text => {
                   setAnswers({
                     ...answers,
-                    answer10: {
-                      ...answers.answer10,
+                    how_the_center_has_influnced_your_personality: {
+                      ...answers.how_the_center_has_influnced_your_personality,
                       other: text,
                     },
                   });
                 }}
-                value={answers.answer10?.other}
+                value={
+                  answers.how_the_center_has_influnced_your_personality?.other
+                }
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -961,25 +1043,38 @@ export default function PastStudentQuestions() {
                   label: 'PAST_STUDENTS_Q11_OPT4',
                 },
               ]}
-              valueProp={answers.answer11}
+              valueProp={
+                answers.experience_between_you_n_other_students_who_do_not_come_to_kendra
+              }
               onValueChange={item => {
-                setAnswers({...answers, answer11: item});
+                setAnswers({
+                  ...answers,
+                  experience_between_you_n_other_students_who_do_not_come_to_kendra:
+                    item,
+                });
               }}
             />
-              {answers.answer11?.key === 4 && (
+            {answers
+              .experience_between_you_n_other_students_who_do_not_come_to_kendra
+              ?.key === 4 && (
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
                 name="any"
                 onChangeText={text => {
                   setAnswers({
                     ...answers,
-                    answer11: {
-                      ...answers.answer11,
-                      other: text,
-                    },
+                    experience_between_you_n_other_students_who_do_not_come_to_kendra:
+                      {
+                        ...answers.experience_between_you_n_other_students_who_do_not_come_to_kendra,
+                        other: text,
+                      },
                   });
                 }}
-                value={answers.answer11?.other}
+                value={
+                  answers
+                    .experience_between_you_n_other_students_who_do_not_come_to_kendra
+                    ?.other
+                }
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -1055,25 +1150,38 @@ export default function PastStudentQuestions() {
                   label: 'PAST_STUDENTS_Q12_OPT4',
                 },
               ]}
-              valueProp={answers.answer12}
+              valueProp={
+                answers.difference_experienced_between_you_n_other_elder_students_due_to_the_center
+              }
               onValueChange={item => {
-                setAnswers({...answers, answer12: item});
+                setAnswers({
+                  ...answers,
+                  difference_experienced_between_you_n_other_elder_students_due_to_the_center:
+                    item,
+                });
               }}
             />
-               {answers.answer12?.key === 4 && (
+            {answers
+              .difference_experienced_between_you_n_other_elder_students_due_to_the_center
+              ?.key === 4 && (
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
                 name="any"
                 onChangeText={text => {
                   setAnswers({
                     ...answers,
-                    answer12: {
-                      ...answers.answer12,
-                      other: text,
-                    },
+                    difference_experienced_between_you_n_other_elder_students_due_to_the_center:
+                      {
+                        ...answers.difference_experienced_between_you_n_other_elder_students_due_to_the_center,
+                        other: text,
+                      },
                   });
                 }}
-                value={answers.answer12?.other}
+                value={
+                  answers
+                    .difference_experienced_between_you_n_other_elder_students_due_to_the_center
+                    ?.other
+                }
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -1149,25 +1257,34 @@ export default function PastStudentQuestions() {
                   label: 'PAST_STUDENTS_Q10_OPT4',
                 },
               ]}
-              valueProp={answers.answer13}
+              valueProp={
+                answers.difference_noticed_in_the_family_due_to_the_center
+              }
               onValueChange={item => {
-                setAnswers({...answers, answer13: item});
+                setAnswers({
+                  ...answers,
+                  difference_noticed_in_the_family_due_to_the_center: item,
+                });
               }}
             />
-             {answers.answer13?.key === 4 && (
+            {answers.difference_noticed_in_the_family_due_to_the_center?.key ===
+              4 && (
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
                 name="any"
                 onChangeText={text => {
                   setAnswers({
                     ...answers,
-                    answer13: {
-                      ...answers.answer13,
+                    difference_noticed_in_the_family_due_to_the_center: {
+                      ...answers.difference_noticed_in_the_family_due_to_the_center,
                       other: text,
                     },
                   });
                 }}
-                value={answers.answer13?.other}
+                value={
+                  answers.difference_noticed_in_the_family_due_to_the_center
+                    ?.other
+                }
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -1243,25 +1360,28 @@ export default function PastStudentQuestions() {
                   label: 'PAST_STUDENTS_Q14_OPT4',
                 },
               ]}
-              valueProp={answers.answer14}
+              valueProp={answers.contribute_in_betterment_of_the_center}
               onValueChange={item => {
-                setAnswers({...answers, answer14: item});
+                setAnswers({
+                  ...answers,
+                  contribute_in_betterment_of_the_center: item,
+                });
               }}
             />
-             {answers.answer14?.key === 4 && (
+            {answers.contribute_in_betterment_of_the_center?.key === 4 && (
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
                 name="any"
                 onChangeText={text => {
                   setAnswers({
                     ...answers,
-                    answer14: {
-                      ...answers.answer14,
+                    contribute_in_betterment_of_the_center: {
+                      ...answers.contribute_in_betterment_of_the_center,
                       other: text,
                     },
                   });
                 }}
-                value={answers.answer14?.other}
+                value={answers.contribute_in_betterment_of_the_center?.other}
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -1338,9 +1458,12 @@ export default function PastStudentQuestions() {
                   label: 'PAST_STUDENTS_Q15_OPT4',
                 },
               ]}
-              valueProp={answers.answer15}
+              valueProp={answers.connected_with_sangh_organizations}
               onValueChange={item => {
-                setAnswers({...answers, answer15: item});
+                setAnswers({
+                  ...answers,
+                  connected_with_sangh_organizations: item,
+                });
               }}
             />
           </View>
@@ -1402,25 +1525,28 @@ export default function PastStudentQuestions() {
                   label: 'NO',
                 },
               ]}
-              valueProp={answers.answer16}
+              valueProp={answers.involved_in_any_othe_social_activities}
               onValueChange={item => {
-                setAnswers({...answers, answer16: item});
+                setAnswers({
+                  ...answers,
+                  involved_in_any_othe_social_activities: item,
+                });
               }}
             />
-            {answers.answer16?.key === 1 && (
+            {answers.involved_in_any_othe_social_activities?.key === 1 && (
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
                 name="any"
                 onChangeText={text => {
                   setAnswers({
                     ...answers,
-                    answer16: {
-                      ...answers.answer16,
+                    involved_in_any_othe_social_activities: {
+                      ...answers.involved_in_any_othe_social_activities,
                       other: text,
                     },
                   });
                 }}
-                value={answers.answer16?.other}
+                value={answers.involved_in_any_othe_social_activities?.other}
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -1429,7 +1555,6 @@ export default function PastStudentQuestions() {
               />
             )}
           </View>
-          
         </View>
 
         <Button
