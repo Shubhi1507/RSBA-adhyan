@@ -43,7 +43,11 @@ import {Menu} from 'react-native-paper';
 
 export default function DashboardScreen({route, navigation}) {
   const {t, locale, setLocale} = useContext(LocalizationContext);
-  const [error, setError] = useState({visible: false, message: ''});
+  const [error, setError] = useState({
+    visible: false,
+    message: '',
+    type: 'error',
+  });
   const [language, chooseLanguage] = useState({
     default: 'en',
     changed: false,
@@ -119,13 +123,21 @@ export default function DashboardScreen({route, navigation}) {
 
   const pageNavigator = () => {
     if (selectedCenter) {
-      let k = isSurveyExists2(totalSurveys, selectedCenter);
-
-      if (k) {
-        return setError({
-          visible: true,
-          message: t('SURVEY_EXISTS'),
-        });
+      let {k, j} = isSurveyExists2(totalSurveys, selectedCenter);
+      console.log('k', k, j[0]);
+      if (k == true) {
+        if (j[0].isCompleted == false) {
+          return setError({
+            visible: true,
+            message: t('SURVEY_EXISTS'),
+          });
+        } else {
+          return setError({
+            visible: true,
+            type: 'ok',
+            message: t('COMPLETED_SURVEYS'),
+          });
+        }
       } else {
         dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
         navigate(ROUTES.AUTH.CENTREDETAILSONESCREEN, {centre: selectedCenter});
@@ -157,6 +169,7 @@ export default function DashboardScreen({route, navigation}) {
       <CustomSnackBar
         visible={error.visible}
         message={error.message}
+        type={error.type}
         onDismissSnackBar={() =>
           setError({...error, message: '', visible: false})
         }

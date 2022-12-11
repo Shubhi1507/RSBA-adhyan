@@ -109,45 +109,14 @@ export default function PastStudentQuestions() {
       }
     });
     p = tmpans.length;
-
-    console.log(p, '/', q);
-    if (
-      !year_were_you_associated_with_the_center ||
-      !friends_coming_to_center_the_days ||
-      !is_the_center_same_as_before ||
-      !how_many_years_were_you_coming_to_the_center ||
-      !reason_for_leaving_the_center ||
-      !still_associated_with_the_center ||
-      connected_with_sangh_organizations ||
-      !contribute_in_betterment_of_the_center ||
-      !difference_experienced_between_you_n_other_elder_students_due_to_the_center ||
-      !difference_noticed_in_the_family_due_to_the_center ||
-      !encourage_other_students_join_the_center ||
-      !experience_between_you_n_other_students_who_do_not_come_to_kendra ||
-      !how_the_center_has_influnced_your_behavior ||
-      !how_the_center_has_influnced_your_personality ||
-      !how_the_center_has_influnced_your_results_n_behavior ||
-      !involved_in_any_othe_social_activities
-    ) {
-      console.log('false', answers);
-      new_obj = {
-        ...tmp[3],
-        attempted: true,
-        completed: false,
-        disabled: false,
-        totalQue: q,
-        answered: p,
-      };
-    } else {
-      new_obj = {
-        ...tmp[3],
-        attempted: true,
-        completed: true,
-        disabled: true,
-        totalQue: q,
-        answered: p,
-      };
-    }
+    new_obj = {
+      ...tmp[3],
+      attempted: true,
+      completed: p !== q ? false : true,
+      disabled: false,
+      totalQue: q,
+      answered: p,
+    };
     tmp.splice(3, 1, new_obj);
 
     let surveyAnswers = [...answersArrTmp];

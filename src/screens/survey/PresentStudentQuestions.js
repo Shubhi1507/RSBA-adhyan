@@ -1030,27 +1030,25 @@ export default function PresentStudentQuestions() {
                 });
               }}
             />
-            {answers.other_activities_organised_in_the_center?.key === 1 && (
-              <Input
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    other_activities_organised_in_the_center: {
-                      ...answers.other_activities_organised_in_the_center,
-                      other: text,
-                    },
-                  });
-                }}
-                value={answers.other_activities_organised_in_the_center?.other}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            )}
+            <Input
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({
+                  ...answers,
+                  other_activities_organised_in_the_center: {
+                    ...answers.other_activities_organised_in_the_center,
+                    other: text,
+                  },
+                });
+              }}
+              value={answers.other_activities_organised_in_the_center?.other}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
           </View>
         </View>
 
