@@ -101,7 +101,7 @@ export default function CenterDetailsTwoScreen() {
     }
   };
 
-  const requestLocationPermission1 = async () => {
+  const getLocationPermission = async () => {
     try {
       if (Platform.OS === 'android') {
         const granted = await PermissionsAndroid.request(
@@ -126,11 +126,15 @@ export default function CenterDetailsTwoScreen() {
         requestLocationPermission();
       }
     } catch (err) {
+      setError({
+        ...error,
+        message: t('SOMETHING_WENT_WRONG'),
+        visible: true,
+      });
       return false;
     }
   };
   const requestLocationPermission = () => {
-    // const result = requestLocationPermission();
     Geolocation.getCurrentPosition(
       position => {
         console.log(position);
@@ -405,7 +409,7 @@ export default function CenterDetailsTwoScreen() {
                     {
                       text: t('YES'),
                       onPress: () => {
-                        requestLocationPermission();
+                        getLocationPermission();
                       },
                     },
                     {

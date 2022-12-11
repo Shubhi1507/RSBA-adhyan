@@ -198,7 +198,7 @@ export default function PresentStudentParentsScreen() {
 
     if (answersArrTmp.length > 0) {
       let new_obj1 = {presentStudentParent: answers};
-      let index; 
+      let index;
       surveyAnswers.some(function (entry, i) {
         if (entry?.presentStudentParent) {
           index = i;
@@ -234,7 +234,10 @@ export default function PresentStudentParentsScreen() {
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
-        <Header title={t('STUDENTS_PARENTS_CURRENT_STUDENTS')} onPressBack={goBack} />
+        <Header
+          title={t('STUDENTS_PARENTS_CURRENT_STUDENTS')}
+          onPressBack={goBack}
+        />
       </View>
       <SurveyCompletedModal
         visible={visible}
@@ -1135,11 +1138,11 @@ export default function PresentStudentParentsScreen() {
                   value: 'Shramdan',
                   label: 'CURRENT_STUDENTS_PARENTS_Q10_OPT3',
                 },
-                   {
+                {
                   key: 4,
                   value: 'Shramdan',
-                  label: 'CURRENT_STUDENTS_PARENTS_Q10_OPT4',} ,
-
+                  label: 'CURRENT_STUDENTS_PARENTS_Q10_OPT4',
+                },
 
                 {key: 5, value: 'Others', label: 'OTHERS'},
               ]}
@@ -1332,7 +1335,7 @@ export default function PresentStudentParentsScreen() {
         </View>
 
         <Button
-          title={'Submit'}
+          title={t('SUBMIT')}
           onPress={pageValidator}
           ButtonContainerStyle={{
             marginVertical: 17,

@@ -132,11 +132,12 @@ export default function SplashScreen() {
                     alignItems: 'center',
                     textAlign: 'center',
                     backgroundColor: COLORS.backgroundColor,
-                    borderWidth: 1,
+                    borderWidth: language.default === item.value ? 2.7 : 0.6,
                     borderColor: COLORS.orange,
                   }}
                   textstyle={{
                     color: COLORS.orange,
+                    fontWeight: language.default === item.value ? '600' : '400',
                   }}
                   title={t(item.label.toUpperCase())}
                   onPress={() => LangugeConverter(item)}

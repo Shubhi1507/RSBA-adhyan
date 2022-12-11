@@ -20,6 +20,7 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import LoaderIndicator from '../../components/Loader';
 import {FAIcons, ADIcons} from '../../libs/VectorIcons';
 import LocalizationContext from '../../context/LanguageContext';
+import {useEffect} from 'react';
 
 export default function LoginScreen() {
   const [phone, setPhone] = useState('');
@@ -28,25 +29,49 @@ export default function LoginScreen() {
   const [dataLoading, setDataLoading] = useState(false);
   const {t} = useContext(LocalizationContext);
 
+  useEffect(() => {
+    setDataLoading(false);
+  }, []);
+
   const GetOTP = async () => {
     if (!phone || phone.length < 10) {
-      return setError({visible: true, message: 'Invalid phone number'});
+      return setError({visible: true, message: t('INVALID_PHONE_NUMBER')});
     }
     setDataLoading(true);
     let data = {mobile: phone};
     let response = await Login(data);
-    console.log('Login', response);
-    let payload = {
-      access_token: response.access_token,
-      expires_in: response.expires_in,
-      startedAt: new Date().getTime(),
-    };
-    dispatch({
-      type: ACTION_CONSTANTS.LOGIN_DATA_UPDATE,
-      payload: payload,
-    });
-    navigate(ROUTES.AUTH.OTPSCREEN, data);
-    setDataLoading(false);
+
+    if (response) {
+      if (response.status === 'Error') {
+        console.log('Login', response);
+
+        setDataLoading(false);
+        setError({
+          ...error,
+          message: t('PHONE_NUMBER_NOT_REGISTERED'),
+          visible: true,
+        });
+        return;
+      } else {
+        let payload = {
+          access_token: response.access_token,
+          expires_in: response.expires_in,
+          startedAt: new Date().getTime(),
+        };
+        dispatch({
+          type: ACTION_CONSTANTS.LOGIN_DATA_UPDATE,
+          payload: payload,
+        });
+        navigate(ROUTES.AUTH.OTPSCREEN, data);
+        setDataLoading(false);
+      }
+    } else {
+      setError({
+        ...error,
+        message: t('SOMETHING_WENT_WRONG'),
+        visible: true,
+      });
+    }
   };
 
   return (
@@ -118,6 +143,8 @@ export default function LoginScreen() {
               containerStyle={{
                 alignItems: 'center',
                 minWidth: screenWidth * 0.5,
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0,
               }}
             />
           </View>
