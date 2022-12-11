@@ -456,9 +456,7 @@ export default function SelectAudienceScreen() {
                                 t('LEFT') || 0
                           : item.totalQue +
                             ' ' +
-                            t('QUESTIONS') +
-                            ' ' +
-                            t('LEFT')}
+                            t('QUESTIONS') }
                       </TextHandler>
                     </View>
                   </View>

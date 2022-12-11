@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     // backgroundColor:"teal"
   },
   title: {
-    fontSize: 18,
+    fontSize: 17,
     textAlign: 'center',
     fontWeight: '500',
     lineHeight: 22,
