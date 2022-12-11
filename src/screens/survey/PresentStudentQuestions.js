@@ -186,11 +186,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q1')}
               </TextHandler>
             </View>
@@ -239,11 +235,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q2')}
               </TextHandler>
             </View>
@@ -313,11 +305,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q3')}
               </TextHandler>
             </View>
@@ -384,11 +372,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q4')}
               </TextHandler>
             </View>
@@ -452,11 +436,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q5')}
               </TextHandler>
             </View>
@@ -551,11 +531,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q6')}
               </TextHandler>
             </View>
@@ -606,11 +582,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q7')}
               </TextHandler>
             </View>
@@ -660,11 +632,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q8')}
               </TextHandler>
             </View>
@@ -734,11 +702,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q9')}
               </TextHandler>
             </View>
@@ -800,11 +764,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q10')}
               </TextHandler>
             </View>
@@ -895,11 +855,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q11')}
               </TextHandler>
             </View>
@@ -993,11 +949,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q12')}
               </TextHandler>
             </View>
@@ -1078,11 +1030,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q13')}
               </TextHandler>
             </View>
@@ -1167,11 +1115,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q14')}
               </TextHandler>
             </View>
@@ -1235,11 +1179,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q15')}
               </TextHandler>
             </View>
@@ -1301,11 +1241,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q16')}
               </TextHandler>
             </View>
@@ -1393,11 +1329,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q17')}
               </TextHandler>
             </View>
@@ -1447,11 +1379,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q18')}
               </TextHandler>
             </View>
@@ -1501,11 +1429,7 @@ export default function PresentStudentQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_Q19')}
               </TextHandler>
             </View>
@@ -1573,5 +1497,10 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'left',
     color: 'grey',
+  },
+  question: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: COLORS.black,
   },
 });

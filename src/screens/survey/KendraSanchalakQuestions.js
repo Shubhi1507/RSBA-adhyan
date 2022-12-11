@@ -163,9 +163,9 @@ export default function KendraSanchalakQuestions() {
     let tmp1 = FindAndUpdate(totalSurveys, payload);
 
     console.log('payload kendraSanchalak ', payload);
-      dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
-      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-      showModal();
+    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
+    showModal();
   };
 
   return (
@@ -214,11 +214,7 @@ export default function KendraSanchalakQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('KENDRA_SANCHALAK_Q1')}
               </TextHandler>
             </View>
@@ -270,11 +266,7 @@ export default function KendraSanchalakQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('KENDRA_SANCHALAK_Q2')}
               </TextHandler>
             </View>
@@ -354,11 +346,7 @@ export default function KendraSanchalakQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('KENDRA_SANCHALAK_Q3')}
               </TextHandler>
             </View>
@@ -504,11 +492,7 @@ export default function KendraSanchalakQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('KENDRA_SANCHALAK_Q4')}
               </TextHandler>
             </View>
@@ -583,11 +567,7 @@ export default function KendraSanchalakQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('KENDRA_SANCHALAK_Q5')}
               </TextHandler>
             </View>
@@ -645,11 +625,7 @@ export default function KendraSanchalakQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('KENDRA_SANCHALAK_Q6')}
               </TextHandler>
             </View>
@@ -703,11 +679,7 @@ export default function KendraSanchalakQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('KENDRA_SANCHALAK_Q7')}
               </TextHandler>
             </View>
@@ -758,11 +730,7 @@ export default function KendraSanchalakQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('KENDRA_SANCHALAK_Q8')}
               </TextHandler>
             </View>
@@ -819,11 +787,7 @@ export default function KendraSanchalakQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('KENDRA_SANCHALAK_Q9')}
               </TextHandler>
             </View>
@@ -877,11 +841,7 @@ export default function KendraSanchalakQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('KENDRA_SANCHALAK_Q10')}
               </TextHandler>
             </View>
@@ -947,5 +907,10 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'left',
     color: 'grey',
+  },
+  question: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: COLORS.black,
   },
 });

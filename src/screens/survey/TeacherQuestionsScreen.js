@@ -220,11 +220,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q1')}
               </TextHandler>
             </View>
@@ -292,11 +288,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q2')}
               </TextHandler>
             </View>
@@ -363,11 +355,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q3')}
               </TextHandler>
             </View>
@@ -439,11 +427,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q4')}
               </TextHandler>
             </View>
@@ -542,11 +526,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q5')}
               </TextHandler>
             </View>
@@ -652,11 +632,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q6')}
               </TextHandler>
             </View>
@@ -722,11 +698,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q7')}
               </TextHandler>
             </View>
@@ -769,7 +741,9 @@ export default function TeacherQuestionsScreen() {
                   });
                 }}
                 // multi
-                value={answers.personally_meet_all_the_parents_every_month?.reason}
+                value={
+                  answers.personally_meet_all_the_parents_every_month?.reason
+                }
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -806,11 +780,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q8')}
               </TextHandler>
             </View>
@@ -864,11 +834,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q9')}
               </TextHandler>
             </View>
@@ -926,11 +892,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q10')}
               </TextHandler>
             </View>
@@ -978,11 +940,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q11')}
               </TextHandler>
             </View>
@@ -1029,11 +987,7 @@ export default function TeacherQuestionsScreen() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('TEACHER_Q12')}
               </TextHandler>
             </View>
@@ -1128,5 +1082,10 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontSize: 16,
     margin: 6,
+  },
+  question: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: COLORS.black,
   },
 });

@@ -192,11 +192,7 @@ export default function PrabuddhaJanQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('INFLUENTIAL_PEOPELE_Q1')}
               </TextHandler>
             </View>
@@ -380,11 +376,7 @@ export default function PrabuddhaJanQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('INFLUENTIAL_PEOPELE_Q2')}
               </TextHandler>
             </View>
@@ -456,11 +448,7 @@ export default function PrabuddhaJanQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('INFLUENTIAL_PEOPELE_Q3')}
               </TextHandler>
             </View>
@@ -524,11 +512,7 @@ export default function PrabuddhaJanQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  // textAlign: 'left',
-                }}>
+              <TextHandler style={styles.question}>
                 {t('INFLUENTIAL_PEOPELE_Q4')}
               </TextHandler>
             </View>
@@ -612,5 +596,10 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'left',
     color: 'grey',
+  },
+  question: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: COLORS.black,
   },
 });

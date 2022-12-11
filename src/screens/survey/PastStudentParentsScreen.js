@@ -941,4 +941,10 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     color: 'grey',
   },
+  question: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: COLORS.black,
+  },
+
 });
