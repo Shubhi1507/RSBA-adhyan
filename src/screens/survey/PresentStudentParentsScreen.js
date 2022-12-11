@@ -198,7 +198,7 @@ export default function PresentStudentParentsScreen() {
 
     if (answersArrTmp.length > 0) {
       let new_obj1 = {presentStudentParent: answers};
-      let index;
+      let index; 
       surveyAnswers.some(function (entry, i) {
         if (entry?.presentStudentParent) {
           index = i;
@@ -234,7 +234,7 @@ export default function PresentStudentParentsScreen() {
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
-        <Header title={t('PRESENT_STUDENTS_PARENTS')} onPressBack={goBack} />
+        <Header title={t('STUDENTS_PARENTS_CURRENT_STUDENTS')} onPressBack={goBack} />
       </View>
       <SurveyCompletedModal
         visible={visible}

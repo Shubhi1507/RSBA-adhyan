@@ -136,7 +136,7 @@ export default function PastStudentParentsScreen() {
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
-        <Header title={t('PAST_STUDENTS_PARENTS')} onPressBack={goBack} />
+        <Header title={t('STUDENTS_PARENTS_PAST_STUDENTS')} onPressBack={goBack} />
         <SurveyCompletedModal
           visible={visible}
           hideModal={hideModal}

@@ -114,6 +114,7 @@
   "VERY_POOR": "आर्थिक स्तर",
   "POOR": "अतिसामान्य",
   "GOOD": "सामान्य ",
+  "CURRENT_STUDENTS_PARENTS_Q4":"आर्थिक स्थिति",
   "CURRENT_STUDENTS_PARENTS_Q4_OPT3": "अच्छी स्थिती ",
   "CURRENT_STUDENTS_PARENTS_Q5": "केंद्र में अपने बच्चोंको भेजने का कारण  ",
   "CURRENT_STUDENTS_PARENTS_Q5_OPT1": "समय का उपयोग",
