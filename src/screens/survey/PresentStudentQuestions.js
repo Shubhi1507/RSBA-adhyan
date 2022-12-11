@@ -326,7 +326,7 @@ export default function PresentStudentQuestions() {
               valueProp={answers.students_coming_regularly}
               onValueChange={item => {
                 console.log('item', item);
-                setAnswers({...answers, answer2: item});
+                setAnswers({...answers, students_coming_regularly: item});
               }}
             />
           </View>

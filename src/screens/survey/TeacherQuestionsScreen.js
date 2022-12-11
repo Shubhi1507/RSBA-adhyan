@@ -768,8 +768,8 @@ export default function TeacherQuestionsScreen() {
                     },
                   });
                 }}
-                multi
-                value={answers.reason_to_join_this_kendra}
+                // multi
+                value={answers.personally_meet_all_the_parents_every_month?.reason}
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
