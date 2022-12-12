@@ -1677,22 +1677,27 @@ export default function CentreQuestionsScreen() {
                 {
                   key: 1,
                   value: 'Less than 1 month',
-                  label: 'CENTER_Q6_DISCONTINUED_CENTER_OPT1',
+                  label: 'CENTER_Q20_DISCONTINUED_OPT1',
                 },
                 {
                   key: 2,
                   value: '1 to 6 months',
-                  label: 'CENTER_Q6_DISCONTINUED_CENTER_OPT2',
+                  label: 'CENTER_Q20_DISCONTINUED_OPT2',
                 },
                 {
                   key: 3,
                   value: '6 to 12 months',
-                  label: 'CENTER_Q6_DISCONTINUED_CENTER_OPT3',
+                  label: 'CENTER_Q20_DISCONTINUED_OPT3',
                 },
                 {
                   key: 4,
                   value: 'More than 12 months',
-                  label: 'CENTER_Q6_DISCONTINUED_CENTER_OPT4',
+                  label: 'CENTER_Q20_DISCONTINUED_OPT4',
+                },
+                {
+                  key: 5,
+                  value:'Grocery kit distribution',
+                  label: 'CENTER_Q20_DISCONTINUED_OPT5',
                 },
               ]}
               valueProp={answers.discontinuation_time_period}

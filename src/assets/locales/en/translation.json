@@ -87,7 +87,7 @@
 
   "CENTER_Q20": "Has Kendra samiti performed any role during Corona pandemic? ",
   "CENTER_Q20_OPT1" : "Yes , Please select from below options" ,
-  "CENTER_Q20_DISCONTINUED" : "If the answer of above question is YES than what work Kendra samiti has carried out during Corona pandemic? - Multiple selection" ,
+  "CENTER_Q20_DISCONTINUED" : "What work Kendra samiti has carried out during Corona pandemic? - Multiple selection" ,
   "CENTER_Q20_DISCONTINUED_OPT1" : "Kadha distribution" ,
   "CENTER_Q20_DISCONTINUED_OPT2" : "Sanitization" ,
   "CENTER_Q20_DISCONTINUED_OPT3" : "Medicine distribution  " ,
