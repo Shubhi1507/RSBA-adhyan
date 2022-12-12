@@ -1355,7 +1355,7 @@ export default function PresentStudentQuestions() {
         </View>
 
         {/* QA18*/}
-        <View>
+        {/* <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -1402,7 +1402,7 @@ export default function PresentStudentQuestions() {
               minWidth: screenWidth * 0.25,
             }}
           />
-        </View>
+        </View> */}
 
         {/* QA19 */}
         <View>
