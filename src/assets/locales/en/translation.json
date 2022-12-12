@@ -141,7 +141,7 @@
   // CURRENT STUDENT PARENT - CSP
   "CURRENT_STUDENTS_PARENTS_Q1": "Current Students",
   "CURRENT_STUDENTS_PARENTS_Q2": "No. of parents present",
-  "CURRENT_STUDENTS_PARENTS_Q3": "Educational background ",
+  "CURRENT_STUDENTS_PARENTS_Q3": "Educational background ( Enter the percentage data ) ",
   "ILLITERATE": "Illiterate",
   "LITERATE": "Literate",
   "EDUCATED": "Educated",

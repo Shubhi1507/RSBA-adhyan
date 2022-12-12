@@ -44,15 +44,15 @@ export default function CentreQuestionsScreen() {
     is_participation_of_basti_satisfactory: '',
     divyang_and_single_parent_students_enrolled: '',
     basti_toli_active: '',
+    kendra_samiti_work: '',
     oppose_of_the_kendras_activities_by_basti: '',
     members_of_basti_toli_reside_in_same_area: '',
     role_of_our_kendra_in_our_basti_during__corona: '',
     kendra_effect_on_anti_social_problems: '',
-    
+
     majorprevelant_problems_in_the_basti_: '',
     total_population_of_the_basti: '',
     total_population_of_sewa_bharti_beneficiaries: '',
-    
   });
   const [error, setError] = useState({visible: false, message: ''});
 
@@ -92,6 +92,7 @@ export default function CentreQuestionsScreen() {
       majorprevelant_problems_in_the_basti_,
       members_of_basti_toli_reside_in_same_area,
       oppose_of_the_kendras_activities_by_basti,
+      kendra_samiti_work,
       participation_of_the_basti_people,
       pictures_of_bharatmata_and_indian_legends,
       role_of_our_kendra_in_our_basti_during__corona,
@@ -127,6 +128,7 @@ export default function CentreQuestionsScreen() {
       students_passed_out_from_centre,
       total_population_of_sewa_bharti_beneficiaries,
       total_population_of_the_basti,
+      kendra_samiti_work,
       visitors_details_captured,
     };
 
@@ -258,28 +260,28 @@ export default function CentreQuestionsScreen() {
                   key: 2,
                   value: 'Parents could not spare time for students',
                   label: 'CENTER_Q2_OPT2',
-                },  {
+                },
+                {
                   key: 3,
                   value: 'No other facility available nearby ',
                   label: 'CENTER_Q2_OPT3',
-                },  {
+                },
+                {
                   key: 4,
                   value: 'Expansion of our work',
                   label: 'CENTER_Q2_OPT4',
-                },  {
+                },
+                {
                   key: 5,
                   value: 'On demand from the community',
                   label: 'CENTER_Q2_OPT5',
                 },
               ]}
-              valueProp={
-                answers.centre_commence_motive
-              }
+              valueProp={answers.centre_commence_motive}
               onValueChange={item => {
                 setAnswers({
                   ...answers,
-                  centre_commence_motive:
-                    item,
+                  centre_commence_motive: item,
                 });
               }}
             />
@@ -632,10 +634,8 @@ export default function CentreQuestionsScreen() {
           </View>
         </View> */}
 
-
-
- {/* QA9 - OK - project_init_before*/}
- <View>
+        {/* QA9 - OK - project_init_before*/}
+        <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -689,8 +689,6 @@ export default function CentreQuestionsScreen() {
                   value: 'Open Air',
                   label: 'CENTER_Q8_OPT3',
                 },
-
-
               ]}
               valueProp={answers.project_init_before}
               onValueChange={item => {
@@ -699,8 +697,6 @@ export default function CentreQuestionsScreen() {
             />
           </View>
         </View>
-
-
 
         {/* QA9 - OK - project_init_before*/}
         {/* <View>
@@ -1491,7 +1487,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {19}
+                {17}
               </TextHandler>
             </View>
 
@@ -1585,7 +1581,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {20}
+                {18}
               </TextHandler>
             </View>
 
@@ -1617,7 +1613,6 @@ export default function CentreQuestionsScreen() {
                   value: 'No',
                   label: 'NO',
                 },
-              
               ]}
               valueProp={answers.kendra_effect_on_anti_social_problems}
               onValueChange={item => {
@@ -1628,14 +1623,11 @@ export default function CentreQuestionsScreen() {
               }}
             />
           </View>
-       
         </View>
 
-{/* 19 A  Yes - Kendra Samiti work */}
- 
-{answers
-          .kendra_effect_on_anti_social_problems
-          ?.key === 1 && (
+        {/* 19 A  Yes - Kendra Samiti work */}
+
+        {answers.kendra_effect_on_anti_social_problems?.key === 1 && (
           <View>
             <View style={{flexDirection: 'row', marginVertical: 20}}>
               <View
@@ -1652,7 +1644,7 @@ export default function CentreQuestionsScreen() {
                     color: 'black',
                     textAlign: 'center',
                   }}>
-                  {20 + '.a'}
+                  {18 + '.a'}
                 </TextHandler>
               </View>
 
@@ -1696,33 +1688,17 @@ export default function CentreQuestionsScreen() {
                 },
                 {
                   key: 5,
-                  value:'Grocery kit distribution',
+                  value: 'Grocery kit distribution',
                   label: 'CENTER_Q20_DISCONTINUED_OPT5',
                 },
               ]}
-              valueProp={answers.discontinuation_time_period}
+              valueProp={answers.kendra_samiti_work}
               onValueChange={item => {
-                setAnswers({...answers, discontinuation_time_period: item});
+                setAnswers({...answers,kendra_samiti_work: item});
               }}
             />
           </View>
         )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         {/* QA20 - OK - kendra_effect_on_anti_social_problems*/}
         <View>
@@ -1741,7 +1717,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {21}
+                {19}
               </TextHandler>
             </View>
 
@@ -1808,7 +1784,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {22}
+                {20}
               </TextHandler>
             </View>
 
@@ -1845,11 +1821,13 @@ export default function CentreQuestionsScreen() {
                   key: 2,
                   value: 'Unemployment',
                   label: 'CENTER_Q22_OPT3',
-                },  {
+                },
+                {
                   key: 2,
                   value: 'Social Security',
                   label: 'CENTER_Q22_OPT4',
-                },  {
+                },
+                {
                   key: 2,
                   value: 'Discriminatory environment',
                   label: 'CENTER_Q22_OPT5',
@@ -1857,7 +1835,10 @@ export default function CentreQuestionsScreen() {
               ]}
               valueProp={answers.majorprevelant_problems_in_the_basti_}
               onValueChange={item => {
-                setAnswers({...answers, majorprevelant_problems_in_the_basti_: item});
+                setAnswers({
+                  ...answers,
+                  majorprevelant_problems_in_the_basti_: item,
+                });
               }}
             />
           </View>
@@ -1880,7 +1861,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {23}
+                {21}
               </TextHandler>
             </View>
 
@@ -1969,7 +1950,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {24}
+                {22}
               </TextHandler>
             </View>
 
