@@ -48,9 +48,11 @@ export default function CentreQuestionsScreen() {
     members_of_basti_toli_reside_in_same_area: '',
     role_of_our_kendra_in_our_basti_during__corona: '',
     kendra_effect_on_anti_social_problems: '',
+    
     majorprevelant_problems_in_the_basti_: '',
     total_population_of_the_basti: '',
     total_population_of_sewa_bharti_beneficiaries: '',
+    
   });
   const [error, setError] = useState({visible: false, message: ''});
 
@@ -239,19 +241,49 @@ export default function CentreQuestionsScreen() {
             </View>
           </View>
 
-          <Input
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({...answers, centre_commence_motive: text});
-            }}
-            value={answers.centre_commence_motive}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Need for Education',
+                  label: 'CENTER_Q2_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Parents could not spare time for students',
+                  label: 'CENTER_Q2_OPT2',
+                },  {
+                  key: 3,
+                  value: 'No other facility available nearby ',
+                  label: 'CENTER_Q2_OPT3',
+                },  {
+                  key: 4,
+                  value: 'Expansion of our work',
+                  label: 'CENTER_Q2_OPT4',
+                },  {
+                  key: 5,
+                  value: 'On demand from the community',
+                  label: 'CENTER_Q2_OPT5',
+                },
+              ]}
+              valueProp={
+                answers.centre_commence_motive
+              }
+              onValueChange={item => {
+                setAnswers({
+                  ...answers,
+                  centre_commence_motive:
+                    item,
+                });
+              }}
+            />
+          </View>
         </View>
 
         {/* QA3 - OK - students_passed_out_from_centre */}
@@ -545,7 +577,7 @@ export default function CentreQuestionsScreen() {
         </View>
 
         {/* QA7 - OK - infrastructure*/}
-        <View>
+        {/* <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -598,7 +630,7 @@ export default function CentreQuestionsScreen() {
               }}
             />
           </View>
-        </View>
+        </View> */}
 
 
 
@@ -619,7 +651,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {8}
+                {7}
               </TextHandler>
             </View>
 
@@ -629,7 +661,7 @@ export default function CentreQuestionsScreen() {
                 alignItems: 'flex-start',
               }}>
               <TextHandler style={styles.question}>
-                {t('CENTER_Q9')}
+                {t('CENTER_Q8')}
               </TextHandler>
             </View>
           </View>
@@ -671,7 +703,7 @@ export default function CentreQuestionsScreen() {
 
 
         {/* QA9 - OK - project_init_before*/}
-        <View>
+        {/* <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -687,7 +719,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {9}
+                {8}
               </TextHandler>
             </View>
 
@@ -727,9 +759,9 @@ export default function CentreQuestionsScreen() {
               }}
             />
           </View>
-        </View>
+        </View> */}
         {/* QA8A - OK - project_init_before item */}
-        {answers.project_init_before?.key === 1 && (
+        {/* {answers.project_init_before?.key === 1 && (
           <View>
             <View style={{flexDirection: 'row', marginVertical: 20}}>
               <View
@@ -794,7 +826,7 @@ export default function CentreQuestionsScreen() {
               />
             </View>
           </View>
-        )}
+        )} */}
 
         {/* QA9 - OK - pictures_of_bharatmata_and_indian_legends */}
         <View>
@@ -813,7 +845,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {10}
+                {8}
               </TextHandler>
             </View>
 
@@ -875,7 +907,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {11}
+                {9}
               </TextHandler>
             </View>
 
@@ -933,7 +965,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {12}
+                {10}
               </TextHandler>
             </View>
 
@@ -992,7 +1024,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {13}
+                {11}
               </TextHandler>
             </View>
 
@@ -1051,7 +1083,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {14}
+                {12}
               </TextHandler>
             </View>
 
@@ -1123,7 +1155,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {15}
+                {13}
               </TextHandler>
             </View>
 
@@ -1185,7 +1217,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {16}
+                {14}
               </TextHandler>
             </View>
 
@@ -1211,7 +1243,7 @@ export default function CentreQuestionsScreen() {
                 {
                   key: 1,
                   value: 'Yes',
-                  label: 'YES',
+                  label: 'CENTER_Q17_OPT1',
                 },
                 {
                   key: 2,
@@ -1311,7 +1343,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {17}
+                {15}
               </TextHandler>
             </View>
 
@@ -1373,7 +1405,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {18}
+                {16}
               </TextHandler>
             </View>
 
@@ -1398,7 +1430,7 @@ export default function CentreQuestionsScreen() {
               data={[
                 {
                   key: 1,
-                  value: 'Yes',
+                  value: 'Yes (Enter details) ',
                   label: 'CENTER_Q16_OPT1',
                 },
                 {
@@ -1567,25 +1599,125 @@ export default function CentreQuestionsScreen() {
               </TextHandler>
             </View>
           </View>
-
-          <Input
-            type={'default'}
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({
-                ...answers,
-                role_of_our_kendra_in_our_basti_during__corona: text,
-              });
-            }}
-            value={answers.role_of_our_kendra_in_our_basti_during__corona}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Yes',
+                  label: 'CENTER_Q20_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'No',
+                  label: 'NO',
+                },
+              
+              ]}
+              valueProp={answers.kendra_effect_on_anti_social_problems}
+              onValueChange={item => {
+                setAnswers({
+                  ...answers,
+                  kendra_effect_on_anti_social_problems: item,
+                });
+              }}
+            />
+          </View>
+       
         </View>
+
+{/* 19 A  Yes - Kendra Samiti work */}
+ 
+{answers
+          .kendra_effect_on_anti_social_problems
+          ?.key === 1 && (
+          <View>
+            <View style={{flexDirection: 'row', marginVertical: 20}}>
+              <View
+                style={{
+                  backgroundColor: COLORS.orange,
+                  height: 20,
+                  width: 20,
+                  borderRadius: 40,
+                  justifyContent: 'flex-start',
+                  marginRight: 5,
+                }}>
+                <TextHandler
+                  style={{
+                    color: 'black',
+                    textAlign: 'center',
+                  }}>
+                  {20 + '.a'}
+                </TextHandler>
+              </View>
+
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: 'flex-start',
+                }}>
+                <TextHandler style={styles.question}>
+                  {t('CENTER_Q20_DISCONTINUED')}
+                </TextHandler>
+              </View>
+            </View>
+
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Less than 1 month',
+                  label: 'CENTER_Q6_DISCONTINUED_CENTER_OPT1',
+                },
+                {
+                  key: 2,
+                  value: '1 to 6 months',
+                  label: 'CENTER_Q6_DISCONTINUED_CENTER_OPT2',
+                },
+                {
+                  key: 3,
+                  value: '6 to 12 months',
+                  label: 'CENTER_Q6_DISCONTINUED_CENTER_OPT3',
+                },
+                {
+                  key: 4,
+                  value: 'More than 12 months',
+                  label: 'CENTER_Q6_DISCONTINUED_CENTER_OPT4',
+                },
+              ]}
+              valueProp={answers.discontinuation_time_period}
+              onValueChange={item => {
+                setAnswers({...answers, discontinuation_time_period: item});
+              }}
+            />
+          </View>
+        )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         {/* QA20 - OK - kendra_effect_on_anti_social_problems*/}
         <View>
@@ -1686,23 +1818,44 @@ export default function CentreQuestionsScreen() {
             </View>
           </View>
 
-          <Input
-            type={'default'}
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({
-                ...answers,
-                majorprevelant_problems_in_the_basti_: text,
-              });
-            }}
-            value={answers.majorprevelant_problems_in_the_basti_}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+          <View>
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Addiction (Nasha),                  ',
+                  label: 'CENTER_Q22_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'illiteracy',
+                  label: 'CENTER_Q22_OPT2',
+                },
+                {
+                  key: 2,
+                  value: 'Unemployment',
+                  label: 'CENTER_Q22_OPT3',
+                },  {
+                  key: 2,
+                  value: 'Social Security',
+                  label: 'CENTER_Q22_OPT4',
+                },  {
+                  key: 2,
+                  value: 'Discriminatory environment',
+                  label: 'CENTER_Q22_OPT5',
+                },
+              ]}
+              valueProp={answers.majorprevelant_problems_in_the_basti_}
+              onValueChange={item => {
+                setAnswers({...answers, majorprevelant_problems_in_the_basti_: item});
+              }}
+            />
+          </View>
         </View>
 
         {/* QA22 - OK - total_population_of_the_basti */}

@@ -12,11 +12,20 @@
   // CENTER QUESTIONS
   "CENTER_Q1": "Establishment Year of the Kendra ?",
 
-  "CENTER_Q2": "With which object this kendra started? Explain ? ",
+  "CENTER_Q2": " Objective to start the kendra ? ( You can choose more than one answer ) ",
+  "CENTER_Q2_OPT1" :"Need for Education" ,
+  "CENTER_Q2_OPT2" :"Parents could not spare time for students " ,
+  "CENTER_Q2_OPT3" :"No other facility available nearby " ,
+  "CENTER_Q2_OPT4" :"Expansion of our work " ,
+  "CENTER_Q2_OPT5" : "On demand from the community" ,
+
 
   "CENTER_Q3": "How many students have passed out from this Kendra? (Since inception)",
 
-  "CENTER_Q4": "What will happen if this kendra did not function?",
+  "CENTER_Q4": " What will happen if this kendra did not function ?",
+ 
+
+
 
   "CENTER_Q5": "Whether the center is operating  continuously since its inception or is it closed for some time in between?  (Excluding Covid period)",
   "CENTER_Q5_OPT1": "Regular Since Inception ",
@@ -67,7 +76,8 @@
   "CENTER_Q16_OPT1": "Yes (Enter details)",
 
   "CENTER_Q17": "Are Divyang & Single parent students enrolled in our centre?",
-  "CENTER_Q17_OPT1": "- Yes ( Divyang - ?     Single / No parent - ?",
+  "CENTER_Q17_OPTION": "- Yes ( Divyang - ?     Single / No parent - ?",
+  "CENTER_Q17_OPT1" : "Yes (Enter Details) " ,
 
   "CENTER_Q18": "Has centre's Basti Toli been formed and is active?",
 
@@ -75,14 +85,32 @@
   "CENTER_Q19_OPT": "What measures we can take",
   "CENTER_Q19_OPT1" : "No (What measures can we take)" ,
 
-  "CENTER_Q20": "Role of our Kendra in our Basti during  Corona",
+  "CENTER_Q20": "Has Kendra samiti performed any role during Corona pandemic? ",
+  "CENTER_Q20_OPT1" : "Yes , Please select from below options" ,
+  "CENTER_Q20_DISCONTINUED" : "If the answer of above question is YES than what work Kendra samiti has carried out during Corona pandemic? - Multiple selection" ,
+  "CENTER_Q20_DISCONTINUED_OPT1" : "Kadha distribution" ,
+  "CENTER_Q20_DISCONTINUED_OPT2" : "Sanitization" ,
+  "CENTER_Q20_DISCONTINUED_OPT3" : "Medicine distribution  " ,
+  "CENTER_Q20_DISCONTINUED_OPT4" : "Quarantine centre " ,
+  "CENTER_Q20_DISCONTINUED_OPT5" : "Grocery kit distribution" ,
+
+  
 
   "CENTER_Q21": "Kendra  effect on anti -social problems such as (drug, child marriage) on the Basti",
   "CENTER_Q21_OPT1": "Became less",
   "CENTER_Q21_OPT2": "Increased",
   "CENTER_Q21_OPT3": "Not much",
 
-  "CENTER_Q22": "Major prevelant  problems in the Basti",
+  "CENTER_Q22": "Major prevelant  problems in the Basti  ( You can choose more than one answer )  ",
+  "CENTER_Q22_OPT1" : "Addiction (Nasha) " ,
+  "CENTER_Q22_OPT2" : "illiteracy " ,
+  "CENTER_Q22_OPT3" : "Unemployment " ,
+  "CENTER_Q22_OPT4" : "Social Security" ,
+  "CENTER_Q22_OPT5" : "Discriminatory environment " ,
+
+
+
+
   "CONTINUE_SURVEY": "Continue Survey",
 
   "CENTER_Q23": "Total population of the Basti",
