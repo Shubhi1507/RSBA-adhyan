@@ -40,7 +40,7 @@ export default function OTPScreen({route, navigation}) {
 
   const verifyOTP = async () => {
     if (!code || code.length < 6) {
-      return setError({visible: true, message: 'Invalid OTP'});
+      return setError({visible: true, message: t('INVALID_OTP')});
     }
     setDataLoading(true);
 
@@ -51,7 +51,7 @@ export default function OTPScreen({route, navigation}) {
     console.log(response);
     if (response?.status === 'Error') {
       setDataLoading(false);
-      return setError({visible: true, message: 'Invalid OTP'});
+      return setError({visible: true, message: t('INVALID_OTP')});
     }
     let newUserData = {data: response.data};
     let newState = {...store, userData: newUserData};
@@ -71,7 +71,7 @@ export default function OTPScreen({route, navigation}) {
 
   const GetOTP = async () => {
     if (!phone || phone.length < 10) {
-      return setError({visible: true, message: 'Invalid phone number'});
+      return setError({visible: true, message: t('INVALID_PHONE_NUMBER')});
     }
     setCounter(60);
     setDataLoading(true);

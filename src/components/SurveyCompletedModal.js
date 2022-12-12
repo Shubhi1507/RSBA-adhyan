@@ -14,8 +14,9 @@ export const SurveyCompletedModal = ({visible, hideModal, onClick}) => {
 
   const containerStyle = {
     backgroundColor: 'white',
-    padding: 20,
-    flex: 0.25,
+    padding: 10,
+    marginTop: 100,
+    flex: 0.2,
     marginHorizontal: 20,
 
     // height: screenHeight * 0.2,
@@ -42,7 +43,9 @@ export const SurveyCompletedModal = ({visible, hideModal, onClick}) => {
               justifyContent: 'space-around',
               alignItems: 'center',
             }}>
-            <TextHandler>{t('SUBMIT')}</TextHandler>
+            <TextHandler style={{fontWeight: '500', fontSize: 15}}>
+              {t('YOUR_PROGRESS_IS_SAVED')}
+            </TextHandler>
             <Button
               title={t('OK')}
               onPress={() => {

@@ -484,6 +484,8 @@
   "YES": "Yes",
   "NO": "No",
   "WHY_IS_CENTER_NON_OPERATIONAL": "Why is center non operational ?",
+  "INVALID_OTP": "Invalid OTP",
+  "INVALID_PHONE_NUMBER": "Invalid phone number",
 
   //E
   "ENTER_PHONE_NUMBER_TO_CONTIUE": "Enter phone number to contiue",
@@ -541,6 +543,7 @@
 
   // P
   "PLS_SELECT_A_CENTER": "Please select a center",
+  "PHONE_NUMBER_NOT_REGISTERED": "Phone number not registered",
 
   // Q
   "QUESTIONS": "Questions",
@@ -551,7 +554,8 @@
 
   // S
   "SAVE_REVIEW_QUESTIONS": "Save & Review",
-  
+  "SOMETHING_WENT_WRONG": "Something went wron. please try again in sometime",
+
   "SIX_DIGIT_CODE": "A 6-digit code will be sent via SMS to verify your mobile number.",
   "START_SURVEY": "Start Survey",
   "SURVEY_EXISTS": "Survey already in progress",
@@ -561,6 +565,9 @@
 
   // V
   "VOLUNTEER": "Voluneer",
+
+  // y
+  "YOUR_PROGRESS_IS_SAVED": "Your progress is saved",
 
   // W
   "WELCOME": "Welcome"

@@ -14,11 +14,9 @@ const Login = async data => {
       headers: headers,
       body: formdata,
     });
-    console.log('res- >', await response.json());
-    if (response.status === 200) {
-      let respJson = await response.json();
-      return respJson;
-    }
+    let respJson = await response.json();
+    console.log('res- >', respJson);
+    return respJson;
   } catch (error) {
     console.log(error);
     return error;

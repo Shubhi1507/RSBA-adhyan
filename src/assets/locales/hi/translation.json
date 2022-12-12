@@ -115,7 +115,7 @@
   "VERY_POOR": "आर्थिक स्तर",
   "POOR": "अतिसामान्य",
   "GOOD": "सामान्य ",
-  "CURRENT_STUDENTS_PARENTS_Q4":"आर्थिक स्थिति",
+  "CURRENT_STUDENTS_PARENTS_Q4": "आर्थिक स्थिति",
   "CURRENT_STUDENTS_PARENTS_Q4_OPT3": "अच्छी स्थिती ",
 
   "CURRENT_STUDENTS_PARENTS_Q5": "केंद्र में अपने बच्चोंको भेजने का कारण  ",
@@ -491,6 +491,8 @@
   // I
   "INCOMPLETE_SUVEYS": "अधूरे",
   "IS_CENTER_OPERATIONAL": "केंद्र चालू है?",
+  "INVALID_OTP": "अमान्य ओटीपी",
+  "INVALID_PHONE_NUMBER": "अवैध फोन नंबर",
 
   "ASSIGNED_CENTERS": "असाइन किए गए केंद्र",
   "CENTER_ID": "केंद्र आईडी",
@@ -550,6 +552,7 @@
 
   // P
   "PLS_SELECT_A_CENTER": "कृपया एक केंद्र का चयन करें",
+  "PHONE_NUMBER_NOT_REGISTERED": "फोन नंबर पंजीकृत नहीं है",
 
   // Q
   "QUESTIONS": "प्रश्न",
@@ -564,10 +567,14 @@
   "SAVE_REVIEW_QUESTIONS": "सहेजें और समीक्षा प्रश्न",
   "SIX_DIGIT_CODE": "आपके मोबाइल नंबर को सत्यापित करने के लिए एक 6 अंकों का कोड एसएमएस के माध्यम से भेजा जाएगा।",
   "SURVEY_EXISTS": "सर्वेक्षण पहले से ही प्रगति पर है",
+  "SOMETHING_WENT_WRONG": "क्षमा करें, कुछ गलत हुआ है।",
 
   // T
   "TAP_TO_UPDATE": "अपडेट करने के लिए टैप करें",
   "TEACHERS_SURVERS": "शिक्षक सर्वेक्षण",
+
+  // y
+  "YOUR_PROGRESS_IS_SAVED": "आपकी प्रगति सहेज ली गई है",
 
   // V
   "VOLUNTEER": "स्वयंसेवी",
