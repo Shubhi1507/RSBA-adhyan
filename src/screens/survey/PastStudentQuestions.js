@@ -171,7 +171,7 @@ export default function PastStudentQuestions() {
       />
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
         {/* QA1 */}
-        <View>
+        {/* <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -220,7 +220,7 @@ export default function PastStudentQuestions() {
               minWidth: screenWidth * 0.5,
             }}
           />
-        </View>
+        </View> */}
 
         {/* QA2 */}
         <View>

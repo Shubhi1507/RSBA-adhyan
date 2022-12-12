@@ -279,12 +279,12 @@
   "CURRENT_STUDENTS_Q16_OPT1": "हाँ (कितने प्रतिशत अभिभावक इसमें रूची लेते हैं)",
   "CURRENT_STUDENTS_Q16_OPT2": "ना",
   "CURRENT_STUDENTS_Q17": "केन्द्र को और अच्छा करने के लिये हम क्या कर सकते है?",
-  "CURRENT_STUDENTS_Q18": "आपके दृष्टी से आदर्श कौन है?",
   "CURRENT_STUDENTS_Q19": "नियमित रूप से संघ की शाखा में जाते हो?",
   "CURRENT_STUDENTS_Q19_OPT1": "हाँ",
   "CURRENT_STUDENTS_Q19_OPT2": "ना",
 
-  "PAST_STUDENTS_Q1": "किस समय हम आया करते थे?",
+
+
   "PAST_STUDENTS_Q2": "क्या वर्तमान में कोई भाई बहनों मित्र केन्द्र पर आते हैं?  ",
   "PAST_STUDENTS_Q2_OPT1": "हाँ",
   "PAST_STUDENTS_Q2_OPT2": " ना",
