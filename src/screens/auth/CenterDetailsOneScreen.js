@@ -112,7 +112,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
   ];
   const [volunteerInfo, setvolunteerInfo] = useState({
     state_pranth: '',
-    district_jila: '',
+    state_name: '',
     center_contact: '',
     center_head: '',
     discontinued_due_to: '',
@@ -125,6 +125,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     address: '',
     sanstha_name: '',
     district_id: '',
+    district_jila: '',
     sewakarya_type: '',
     state_id: '',
     // centre qa acc. to documentation https://docs.google.com/spreadsheets/d/19Aq1V-Lz5b42i3BR37FhYKxSIC3p1MYR/edit#gid=2138728367
@@ -177,6 +178,8 @@ export default function CenterDetailsOneScreen({navigation, route}) {
         sanstha_name: route.params.centre?.sanstha_name,
         sewakarya_type: route.params.centre?.sewakarya_type,
         state_id: route.params.centre?.state_id,
+        state_pranth: route.params.centre?.state_name,
+        district_jila: route.params.centre?.district_name,
       });
     }
     CheckSurveyviaParams();

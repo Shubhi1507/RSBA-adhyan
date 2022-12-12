@@ -5,11 +5,13 @@ import {TextHandler} from './TextHandler';
 import {useSelector} from 'react-redux';
 import LocalizationContext from '../context/LanguageContext';
 import {useContext} from 'react';
-import {ADIcons, FAIcons} from '../libs/VectorIcons';
+import {ADIcons, EnIcons, FAIcons} from '../libs/VectorIcons';
 import {screenWidth} from '../libs';
 import {useEffect} from 'react';
+import {navigate} from '../navigation/NavigationService';
+import {ROUTES} from '../navigation/RouteConstants';
 
-export function Header({onPressBack, title}) {
+export function Header({onPressBack, title, home}) {
   useEffect(() => {}, []);
   let store = useSelector(state => state?.surveyReducer?.currentSurveyData);
   const {t} = useContext(LocalizationContext);
@@ -50,7 +52,14 @@ export function Header({onPressBack, title}) {
         )}
       </View>
 
-      <View style={{flex: 0.2}}></View>
+      <View style={{flex: 0.2}}>
+        {home && (
+          <TouchableOpacity
+            onPress={() => navigate(ROUTES.AUTH.DASHBOARDSCREEN)}>
+            <EnIcons name="home" size={25} color={COLORS.white} />
+          </TouchableOpacity>
+        )}
+      </View>
       <View style={{flex: 0.1}}></View>
     </View>
   );

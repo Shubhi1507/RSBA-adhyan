@@ -331,6 +331,7 @@ export default function SelectAudienceScreen() {
         <Header
           title={t('SELECT_AUDIENCE')}
           onPressBack={BackRefPageNavigator}
+          home={true}
         />
       </View>
       <CustomSnackBar
@@ -458,28 +459,25 @@ export default function SelectAudienceScreen() {
                       </TextHandler>
                     </View>
                   </View>
-
-                  
                 </TouchableOpacity>
               );
             }}
           />
 
-<Button
-          title={'Submit Survey'}
-          onPress={() => navigate.ROUTES.AUTH.DASHBOARDSCREEN}
-          ButtonContainerStyle={{
-            marginVertical: 17,
-            alignItems: 'center',
-            textAlign: 'center',
-          }}
-        />
+          <Button
+            title={t('SUBMIT') + ' ' + t('SURVEY')}
+            onPress={() => navigate(ROUTES.AUTH.DASHBOARDSCREEN)}
+            ButtonContainerStyle={{
+              marginVertical: 17,
+              alignItems: 'center',
+              textAlign: 'center',
+            }}
+          />
         </View>
 
-     
         {isSurveyCompleted && (
           <Button
-            title={'Save and Review'}
+            title={t('SAVE_REVIEW_QUESTIONS')}
             onPress={() => submitSurvey()}
             ButtonContainerStyle={{
               marginVertical: 17,
@@ -489,7 +487,6 @@ export default function SelectAudienceScreen() {
           />
         )}
       </ScrollView>
-  
     </View>
   );
 }
