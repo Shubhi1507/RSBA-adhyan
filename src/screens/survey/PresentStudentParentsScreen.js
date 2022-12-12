@@ -1063,20 +1063,18 @@ export default function PresentStudentParentsScreen() {
           </View>
 
           <Input
-            type={'numeric'}
-            number={4}
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({...answers, benefits_of_the_centre: text});
-            }}
-            value={answers.benefits_of_the_centre}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, benefits_of_the_centre: text});
+              }}
+              value={answers.benefits_of_the_centre}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
         </View>
 
         {/* QA10 -  involvement_in_the_programs_of_the_centre*/}
@@ -1208,23 +1206,18 @@ export default function PresentStudentParentsScreen() {
           </View>
 
           <Input
-            type={'numeric'}
-            number={4}
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({
-                ...answers,
-                contribution_in_running_centre_more_effectively: text,
-              });
-            }}
-            value={answers.contribution_in_running_centre_more_effectively}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, contribution_in_running_centre_more_effectively: text});
+              }}
+              value={answers.contribution_in_running_centre_more_effectively}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
         </View>
 
         {/* Q12 - observations_about_kendra_teacher*/}
@@ -1258,25 +1251,19 @@ export default function PresentStudentParentsScreen() {
               </TextHandler>
             </View>
           </View>
-
           <Input
-            type={'numeric'}
-            number={4}
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({
-                ...answers,
-                observations_about_kendra_teacher: text,
-              });
-            }}
-            value={answers.observations_about_kendra_teacher}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, observations_about_kendra_teacher: text});
+              }}
+              value={answers.observations_about_kendra_teacher}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
         </View>
 
         {/* QA13 - expectations_from_the_centre*/}
@@ -1312,23 +1299,18 @@ export default function PresentStudentParentsScreen() {
           </View>
 
           <Input
-            type={'numeric'}
-            number={4}
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({
-                ...answers,
-                expectations_from_the_centre: text,
-              });
-            }}
-            value={answers.expectations_from_the_centre}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, expectations_from_the_centre: text});
+              }}
+              value={answers.expectations_from_the_centres}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
         </View>
 
         <Button

@@ -37,7 +37,7 @@
   "CENTER_Q8": "Infrastructure of Kendra (Place) ",
   "CENTER_Q8_OPT1": " Community Hall",
   "CENTER_Q8_OPT2": " Classroom (rented or owned)",
-  "CENTER_Q8_OPT3": " s",
+  "CENTER_Q8_OPT3": " Open Air",
 
   "CENTER_Q9": "Has any other Prakalp Started by us in the same Basti after the inception of this kendra",
   "CENTER_Q9_OPT1": " Yes (Please select from below) ",
@@ -73,6 +73,7 @@
 
   "CENTER_Q19": "Do all members of Basti Toli reside in that basti only?",
   "CENTER_Q19_OPT": "What measures we can take",
+  "CENTER_Q19_OPT1" : "No (What measures can we take)" ,
 
   "CENTER_Q20": "Role of our Kendra in our Basti during  Corona",
 

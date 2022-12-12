@@ -571,7 +571,7 @@ export default function CentreQuestionsScreen() {
                 alignItems: 'flex-start',
               }}>
               <TextHandler style={styles.question}>
-                {t('CENTER_Q14')}
+                {t('CENTER_Q8')}
               </TextHandler>
             </View>
           </View>
@@ -629,7 +629,7 @@ export default function CentreQuestionsScreen() {
                 alignItems: 'flex-start',
               }}>
               <TextHandler style={styles.question}>
-                {t('CENTER_Q8')}
+                {t('CENTER_Q9')}
               </TextHandler>
             </View>
           </View>
@@ -712,8 +712,8 @@ export default function CentreQuestionsScreen() {
               data={[
                 {
                   key: 1,
-                  value: 'Yes',
-                  label: 'YES',
+                  value: 'Yes , Please select from below',
+                  label: 'CENTER_Q9_OPT1',
                 },
                 {
                   key: 2,
@@ -746,7 +746,7 @@ export default function CentreQuestionsScreen() {
                     color: 'black',
                     textAlign: 'center',
                   }}>
-                  {8 + '.a'}
+                  {9 + '.a'}
                 </TextHandler>
               </View>
 
@@ -813,7 +813,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {9}
+                {10}
               </TextHandler>
             </View>
 
@@ -875,7 +875,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {10}
+                {11}
               </TextHandler>
             </View>
 
@@ -933,7 +933,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {11}
+                {12}
               </TextHandler>
             </View>
 
@@ -992,7 +992,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {12}
+                {13}
               </TextHandler>
             </View>
 
@@ -1051,7 +1051,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {13}
+                {14}
               </TextHandler>
             </View>
 
@@ -1123,7 +1123,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {14}
+                {15}
               </TextHandler>
             </View>
 
@@ -1185,7 +1185,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {15}
+                {16}
               </TextHandler>
             </View>
 
@@ -1311,7 +1311,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {16}
+                {17}
               </TextHandler>
             </View>
 
@@ -1373,7 +1373,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {17}
+                {18}
               </TextHandler>
             </View>
 
@@ -1399,7 +1399,7 @@ export default function CentreQuestionsScreen() {
                 {
                   key: 1,
                   value: 'Yes',
-                  label: 'YES',
+                  label: 'CENTER_Q16_OPT1',
                 },
                 {
                   key: 2,
@@ -1459,7 +1459,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {18}
+                {19}
               </TextHandler>
             </View>
 
@@ -1489,8 +1489,8 @@ export default function CentreQuestionsScreen() {
                 },
                 {
                   key: 2,
-                  value: 'No',
-                  label: 'NO',
+                  value: 'No , please explain',
+                  label: 'CENTER_Q19_OPT1',
                 },
               ]}
               valueProp={answers.members_of_basti_toli_reside_in_same_area}
@@ -1553,7 +1553,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {19}
+                {20}
               </TextHandler>
             </View>
 
@@ -1604,7 +1604,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {20}
+                {21}
               </TextHandler>
             </View>
 
@@ -1671,7 +1671,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {21}
+                {22}
               </TextHandler>
             </View>
 
@@ -1722,7 +1722,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {22}
+                {23}
               </TextHandler>
             </View>
 
@@ -1811,7 +1811,7 @@ export default function CentreQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {23}
+                {24}
               </TextHandler>
             </View>
 

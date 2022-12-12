@@ -682,22 +682,17 @@ export default function PastStudentParentsScreen() {
           </View>
 
           <View>
-            <Input
-              type={'numeric'}
-              number={4}
+          <Input
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({
-                  ...answers,
-                  how_centre_was_helpful_in_the_development: text,
-                });
+                setAnswers({...answers, how_centre_was_helpful_in_the_development: text});
               }}
               value={answers.how_centre_was_helpful_in_the_development}
               message={''}
               containerStyle={{
                 alignItems: 'center',
-                minWidth: screenWidth * 0.5,
+                minWidth: screenWidth * 0.25,
               }}
             />
           </View>
@@ -730,7 +725,7 @@ export default function PastStudentParentsScreen() {
                 alignItems: 'flex-start',
               }}>
               <TextHandler style={styles.question}>
-                {t('PAST_STUDENTS_PARENTS_Q8')}
+                {t('PAST_STUDENTS_PARENTS_Q9')}
               </TextHandler>
             </View>
           </View>
@@ -824,25 +819,19 @@ export default function PastStudentParentsScreen() {
               </TextHandler>
             </View>
           </View>
-
           <Input
-            type={'numeric'}
-            number={4}
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({
-                ...answers,
-                contribution_in_running_centre_more_effectively: text,
-              });
-            }}
-            value={answers.contribution_in_running_centre_more_effectively}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, contribution_in_running_centre_more_effectively: text});
+              }}
+              value={answers.contribution_in_running_centre_more_effectively}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
         </View>
 
         {/* QA11 - expectations_from_the_centre*/}
@@ -878,23 +867,18 @@ export default function PastStudentParentsScreen() {
           </View>
 
           <Input
-            type={'numeric'}
-            number={4}
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({
-                ...answers,
-                expectations_from_the_centre: text,
-              });
-            }}
-            value={answers.expectations_from_the_centre}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.5,
-            }}
-          />
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, expectations_from_the_centre: text});
+              }}
+              value={answers.expectations_from_the_centre}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
         </View>
 
         <Button

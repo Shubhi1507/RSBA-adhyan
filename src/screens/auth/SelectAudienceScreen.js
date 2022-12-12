@@ -454,18 +454,29 @@ export default function SelectAudienceScreen() {
                                 t('QUESTIONS') +
                                 ' ' +
                                 t('LEFT') || 0
-                          : item.totalQue +
-                            ' ' +
-                            t('QUESTIONS') }
+                          : item.totalQue + ' ' + t('QUESTIONS')}
                       </TextHandler>
                     </View>
                   </View>
+
+                  
                 </TouchableOpacity>
               );
             }}
           />
+
+<Button
+          title={'Submit Survey'}
+          onPress={() => navigate.ROUTES.AUTH.DASHBOARDSCREEN}
+          ButtonContainerStyle={{
+            marginVertical: 17,
+            alignItems: 'center',
+            textAlign: 'center',
+          }}
+        />
         </View>
 
+     
         {isSurveyCompleted && (
           <Button
             title={'Save and Review'}
@@ -478,6 +489,7 @@ export default function SelectAudienceScreen() {
           />
         )}
       </ScrollView>
+  
     </View>
   );
 }
