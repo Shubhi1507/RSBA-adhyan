@@ -40,6 +40,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as i18n from '../../../i18n.js';
 import {images} from '../../assets';
 import {Menu} from 'react-native-paper';
+import {LatestVolunteerData} from '../../networking/API.controller';
 
 export default function DashboardScreen({route, navigation}) {
   const {t, locale, setLocale} = useContext(LocalizationContext);
@@ -74,6 +75,8 @@ export default function DashboardScreen({route, navigation}) {
 
   useEffect(() => {
     console.log('complete store', store);
+
+    getLatestAssignCenters();
 
     if (
       store.centerReducer?.assignedCenters &&
@@ -155,6 +158,14 @@ export default function DashboardScreen({route, navigation}) {
         ? ChangeLanguageAndReboot(data.value, t)
         : null;
     }
+  };
+  const getLatestAssignCenters = async () => {
+    const loginInfo = store?.authReducer?.userData?.userData?.loginInfo;
+    console.log(loginInfo);
+
+    let response = await LatestVolunteerData(loginInfo);
+    console.log(response.data.assigned_center);
+    setAssignedCentres(response.data.assigned_center);
   };
 
   const openMenu = () => setVisible(true);

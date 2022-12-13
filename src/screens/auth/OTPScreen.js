@@ -53,7 +53,8 @@ export default function OTPScreen({route, navigation}) {
       setDataLoading(false);
       return setError({visible: true, message: t('INVALID_OTP')});
     }
-    let newUserData = {data: response.data};
+    let newUserData = {data: response.data, loginInfo: {mobile, otp: code}};
+
     let newState = {...store, userData: newUserData};
     console.log('newState', newState);
     let assignedCenteres = [...response?.data?.assigned_center];
