@@ -20,6 +20,7 @@ import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
+import {Checkbox} from 'react-native-paper';
 
 export default function CentreQuestionsScreen() {
   const store = useSelector(state => state?.surveyReducer);
@@ -27,7 +28,7 @@ export default function CentreQuestionsScreen() {
   let totalSurveys = store.totalSurveys;
   let [answers, setAnswers] = useState({
     establishment: '',
-    centre_commence_motive: '',
+    centre_commence_motive: [],
     students_passed_out_from_centre: '',
     centre_not_operational_aftermath: '',
     center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time:
@@ -44,13 +45,13 @@ export default function CentreQuestionsScreen() {
     is_participation_of_basti_satisfactory: '',
     divyang_and_single_parent_students_enrolled: '',
     basti_toli_active: '',
-    kendra_samiti_work: '',
+    kendra_samiti_work: [],
     oppose_of_the_kendras_activities_by_basti: '',
     members_of_basti_toli_reside_in_same_area: '',
     role_of_our_kendra_in_our_basti_during__corona: '',
-    kendra_effect_on_anti_social_problems: '',
+    kendra_effect_on_anti_social_problems: [],
 
-    majorprevelant_problems_in_the_basti_: '',
+    majorprevelant_problems_in_the_basti: [],
     total_population_of_the_basti: '',
     total_population_of_sewa_bharti_beneficiaries: '',
   });
@@ -89,7 +90,7 @@ export default function CentreQuestionsScreen() {
       divyang_and_single_parent_students_enrolled,
       is_participation_of_basti_satisfactory,
       kendra_effect_on_anti_social_problems,
-      majorprevelant_problems_in_the_basti_,
+      majorprevelant_problems_in_the_basti,
       members_of_basti_toli_reside_in_same_area,
       oppose_of_the_kendras_activities_by_basti,
       kendra_samiti_work,
@@ -118,7 +119,7 @@ export default function CentreQuestionsScreen() {
       divyang_and_single_parent_students_enrolled,
       is_participation_of_basti_satisfactory,
       kendra_effect_on_anti_social_problems,
-      majorprevelant_problems_in_the_basti_,
+      majorprevelant_problems_in_the_basti,
       members_of_basti_toli_reside_in_same_area,
       oppose_of_the_kendras_activities_by_basti,
       participation_of_the_basti_people,
@@ -244,7 +245,7 @@ export default function CentreQuestionsScreen() {
           </View>
 
           <View>
-            <RadioButtons
+            {/* <RadioButtons
               radioStyle={{
                 borderWidth: 1,
                 marginVertical: 2,
@@ -284,7 +285,104 @@ export default function CentreQuestionsScreen() {
                   centre_commence_motive: item,
                 });
               }}
-            />
+            /> */}
+            {[
+              {
+                key: 1,
+                value: 'Need for Education',
+                label: 'CENTER_Q2_OPT1',
+              },
+              {
+                key: 2,
+                value: 'Parents could not spare time for students',
+                label: 'CENTER_Q2_OPT2',
+              },
+              {
+                key: 3,
+                value: 'No other facility available nearby ',
+                label: 'CENTER_Q2_OPT3',
+              },
+              {
+                key: 4,
+                value: 'Expansion of our work',
+                label: 'CENTER_Q2_OPT4',
+              },
+              {
+                key: 5,
+                value: 'On demand from the community',
+                label: 'CENTER_Q2_OPT5',
+              },
+            ].map((el, index) => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    marginVertical: 2,
+                    borderColor: COLORS.orange,
+                    paddingVertical: 5,
+                    marginVertical: 5,
+                  }}
+                  onPress={() => {
+                    let tmp = [...answers.centre_commence_motive];
+
+                    if (tmp.length > 0) {
+                      let j = tmp.filter(element => element.key === 999);
+                      if (j.length > 0) {
+                        tmp = [];
+                        tmp.push(el);
+                        setAnswers({
+                          ...answers,
+                          centre_commence_motive: tmp,
+                        });
+                      } else {
+                        tmp.forEach(function (item, index1) {
+                          if (item.value === el.value) {
+                            let tmp = [...answers.centre_commence_motive];
+                            tmp.splice(index1, 1);
+                            setAnswers({
+                              ...answers,
+                              centre_commence_motive: tmp,
+                            });
+                          } else {
+                            let tmp = [...answers.centre_commence_motive];
+                            tmp.push(el);
+                            setAnswers({
+                              ...answers,
+                              centre_commence_motive: tmp,
+                            });
+                          }
+                        });
+                      }
+                    } else {
+                      tmp.push(el);
+                      setAnswers({
+                        ...answers,
+                        centre_commence_motive: tmp,
+                      });
+                    }
+                  }}>
+                  <Checkbox
+                    status={
+                      answers.centre_commence_motive.filter(
+                        item => item.value === el.value,
+                      ).length > 0
+                        ? 'checked'
+                        : 'unchecked'
+                    }
+                    color={COLORS.blue}
+                  />
+                  <TextHandler
+                    style={{
+                      color: 'black',
+                      // textAlign: 'left',
+                    }}>
+                    {t(el.label)}
+                  </TextHandler>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         </View>
 
@@ -1659,7 +1757,7 @@ export default function CentreQuestionsScreen() {
               </View>
             </View>
 
-            <RadioButtons
+            {/* <RadioButtons
               radioStyle={{
                 borderWidth: 1,
                 marginVertical: 2,
@@ -1694,9 +1792,106 @@ export default function CentreQuestionsScreen() {
               ]}
               valueProp={answers.kendra_samiti_work}
               onValueChange={item => {
-                setAnswers({...answers,kendra_samiti_work: item});
+                setAnswers({...answers, kendra_samiti_work: item});
               }}
-            />
+            /> */}
+            {[
+              {
+                key: 1,
+                value: 'Less than 1 month',
+                label: 'CENTER_Q20_DISCONTINUED_OPT1',
+              },
+              {
+                key: 2,
+                value: '1 to 6 months',
+                label: 'CENTER_Q20_DISCONTINUED_OPT2',
+              },
+              {
+                key: 3,
+                value: '6 to 12 months',
+                label: 'CENTER_Q20_DISCONTINUED_OPT3',
+              },
+              {
+                key: 4,
+                value: 'More than 12 months',
+                label: 'CENTER_Q20_DISCONTINUED_OPT4',
+              },
+              {
+                key: 5,
+                value: 'Grocery kit distribution',
+                label: 'CENTER_Q20_DISCONTINUED_OPT5',
+              },
+            ].map((el, index) => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    marginVertical: 2,
+                    borderColor: COLORS.orange,
+                    paddingVertical: 5,
+                    marginVertical: 5,
+                  }}
+                  onPress={() => {
+                    let tmp = [...answers.kendra_samiti_work];
+
+                    if (tmp.length > 0) {
+                      let j = tmp.filter(element => element.key === 999);
+                      if (j.length > 0) {
+                        tmp = [];
+                        tmp.push(el);
+                        setAnswers({
+                          ...answers,
+                          kendra_samiti_work: tmp,
+                        });
+                      } else {
+                        tmp.forEach(function (item, index1) {
+                          if (item.value === el.value) {
+                            let tmp = [...answers.kendra_samiti_work];
+                            tmp.splice(index1, 1);
+                            setAnswers({
+                              ...answers,
+                              kendra_samiti_work: tmp,
+                            });
+                          } else {
+                            let tmp = [...answers.kendra_samiti_work];
+                            tmp.push(el);
+                            setAnswers({
+                              ...answers,
+                              kendra_samiti_work: tmp,
+                            });
+                          }
+                        });
+                      }
+                    } else {
+                      tmp.push(el);
+                      setAnswers({
+                        ...answers,
+                        kendra_samiti_work: tmp,
+                      });
+                    }
+                  }}>
+                  <Checkbox
+                    status={
+                      answers.kendra_samiti_work.filter(
+                        item => item.value === el.value,
+                      ).length > 0
+                        ? 'checked'
+                        : 'unchecked'
+                    }
+                    color={COLORS.blue}
+                  />
+                  <TextHandler
+                    style={{
+                      color: 'black',
+                      // textAlign: 'left',
+                    }}>
+                    {t(el.label)}
+                  </TextHandler>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         )}
 
@@ -1767,7 +1962,7 @@ export default function CentreQuestionsScreen() {
           </View>
         </View>
 
-        {/* QA21 - OK - majorprevelant_problems_in_the_basti_ */}
+        {/* QA21 - OK - majorprevelant_problems_in_the_basti */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -1800,7 +1995,7 @@ export default function CentreQuestionsScreen() {
           </View>
 
           <View>
-            <RadioButtons
+            {/* <RadioButtons
               radioStyle={{
                 borderWidth: 1,
                 marginVertical: 2,
@@ -1833,14 +2028,117 @@ export default function CentreQuestionsScreen() {
                   label: 'CENTER_Q22_OPT5',
                 },
               ]}
-              valueProp={answers.majorprevelant_problems_in_the_basti_}
+              valueProp={answers.majorprevelant_problems_in_the_basti}
               onValueChange={item => {
                 setAnswers({
                   ...answers,
-                  majorprevelant_problems_in_the_basti_: item,
+                  majorprevelant_problems_in_the_basti: item,
                 });
               }}
-            />
+            /> */}
+            {[
+              {
+                key: 1,
+                value: 'Addiction (Nasha),                  ',
+                label: 'CENTER_Q22_OPT1',
+              },
+              {
+                key: 2,
+                value: 'illiteracy',
+                label: 'CENTER_Q22_OPT2',
+              },
+              {
+                key: 2,
+                value: 'Unemployment',
+                label: 'CENTER_Q22_OPT3',
+              },
+              {
+                key: 2,
+                value: 'Social Security',
+                label: 'CENTER_Q22_OPT4',
+              },
+              {
+                key: 2,
+                value: 'Discriminatory environment',
+                label: 'CENTER_Q22_OPT5',
+              },
+            ].map((el, index) => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    marginVertical: 2,
+                    borderColor: COLORS.orange,
+                    paddingVertical: 5,
+                    marginVertical: 5,
+                  }}
+                  onPress={() => {
+                    let tmp = [
+                      ...answers.majorprevelant_problems_in_the_basti,
+                    ];
+
+                    if (tmp.length > 0) {
+                      let j = tmp.filter(element => element.key === 999);
+                      if (j.length > 0) {
+                        tmp = [];
+                        tmp.push(el);
+                        setAnswers({
+                          ...answers,
+                          majorprevelant_problems_in_the_basti: tmp,
+                        });
+                      } else {
+                        tmp.forEach(function (item, index1) {
+                          if (item.value === el.value) {
+                            let tmp = [
+                              ...answers.majorprevelant_problems_in_the_basti,
+                            ];
+                            tmp.splice(index1, 1);
+                            setAnswers({
+                              ...answers,
+                              majorprevelant_problems_in_the_basti: tmp,
+                            });
+                          } else {
+                            let tmp = [
+                              ...answers.majorprevelant_problems_in_the_basti,
+                            ];
+                            tmp.push(el);
+                            setAnswers({
+                              ...answers,
+                              majorprevelant_problems_in_the_basti: tmp,
+                            });
+                          }
+                        });
+                      }
+                    } else {
+                      tmp.push(el);
+                      setAnswers({
+                        ...answers,
+                        majorprevelant_problems_in_the_basti: tmp,
+                      });
+                    }
+                  }}>
+                  <Checkbox
+                    status={
+                      answers.majorprevelant_problems_in_the_basti.filter(
+                        item => item.value === el.value,
+                      ).length > 0
+                        ? 'checked'
+                        : 'unchecked'
+                    }
+                    color={COLORS.blue}
+                  />
+                  <TextHandler
+                    style={{
+                      color: 'black',
+                      // textAlign: 'left',
+                    }}>
+                    {t(el.label)}
+                  </TextHandler>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         </View>
 

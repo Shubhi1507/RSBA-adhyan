@@ -112,7 +112,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
   ];
   const [volunteerInfo, setvolunteerInfo] = useState({
     state_pranth: '',
-    district_jila: '',
+    state_name: '',
     center_contact: '',
     center_head: '',
     discontinued_due_to: '',
@@ -125,11 +125,13 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     address: '',
     sanstha_name: '',
     district_id: '',
+    district_jila: '',
     sewakarya_type: '',
     state_id: '',
     // centre qa acc. to documentation https://docs.google.com/spreadsheets/d/19Aq1V-Lz5b42i3BR37FhYKxSIC3p1MYR/edit#gid=2138728367
     establishment: '',
-    centre_commence_motive: '',
+    centre_commence_motive: [],
+    kendra_samiti_work: [],
     students_passed_out_from_centre: '',
     centre_not_operational_aftermath: '',
     center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time:
@@ -149,8 +151,8 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     oppose_of_the_kendras_activities_by_basti: '',
     members_of_basti_toli_reside_in_same_area: '',
     role_of_our_kendra_in_our_basti_during__corona: '',
-    kendra_effect_on_anti_social_problems: '',
-    majorprevelant_problems_in_the_basti_: '',
+    kendra_effect_on_anti_social_problems: [],
+    majorprevelant_problems_in_the_basti: [],
     total_population_of_the_basti: '',
     total_population_of_sewa_bharti_beneficiaries: '',
     is_centre_operational: true,
@@ -177,6 +179,8 @@ export default function CenterDetailsOneScreen({navigation, route}) {
         sanstha_name: route.params.centre?.sanstha_name,
         sewakarya_type: route.params.centre?.sewakarya_type,
         state_id: route.params.centre?.state_id,
+        state_pranth: route.params.centre?.state_name,
+        district_jila: route.params.centre?.district_name,
       });
     }
     CheckSurveyviaParams();
