@@ -113,6 +113,31 @@ const submitSurveyAPI = async data => {
   }
 };
 
+
+
+const LatestVolunteerData = async data => {
+  try {
+    const URL = BASE_URL + 'volunteer/latestassignedcenter';
+    const formdata = new FormData();
+    formdata.append('mobile', data.mobile);
+    formdata.append('otp', data.otp);
+
+    const response = await fetch(URL, {
+      method: 'POST',
+      headers: headers,
+      body: formdata,
+    });
+    let respJson = await response.json();
+    console.log('v. res- >', respJson);
+
+    return respJson;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+
 export {
   Login,
   getListofDistricts,
@@ -120,4 +145,5 @@ export {
   getListofStates,
   VerifyOTP,
   submitSurveyAPI,
+  LatestVolunteerData
 };
