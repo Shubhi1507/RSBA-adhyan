@@ -35,7 +35,10 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
-
+*.lock
+*.xcworkspacedata
+# *.plist
+package-lock.json
 # BUCK
 buck-out/
 \.buckd/
@@ -55,6 +58,5 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
-
 # CocoaPods
 /ios/Pods/

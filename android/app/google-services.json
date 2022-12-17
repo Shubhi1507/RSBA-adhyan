@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "113702451572",
+    "project_id": "rsba-9bef5",
+    "storage_bucket": "rsba-9bef5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113702451572:android:9b338df81614ac538c9421",
+        "android_client_info": {
+          "package_name": "com.rsba"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113702451572-v2leveat6clsf0gjl0fej0suqh0v6pe2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYjVibTiSUFGnnLQZFJ4UErP5UMizVneA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "113702451572-v2leveat6clsf0gjl0fej0suqh0v6pe2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

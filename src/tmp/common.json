@@ -1,0 +1,53 @@
+[
+  {
+    "key": 1,
+    "question": "What is the Establishment Year of the Kendra ?",
+    "type": "a",
+    "answer": ""
+  },
+
+  {
+    "key": 2,
+    "question": "What is the Infrastructure of Kendra (Place)?",
+    "type": "b",
+    "options": [
+      {"key": 1, "value": "Open Air"},
+      {"key": 2, "value": "Classroom (rented or owned)"},
+      {"key": 3, "value": "Community Hall"}
+    ]
+  },
+  {
+    "key": 3,
+    "question": "Whether the center is operating continuously since its inception or is it closed for some time in between ?",
+    "type": "b",
+    "options": [
+      {"key": 1, "value": "Regular Since Inception"},
+      {"key": 2, "value": "Discontinued for some duration"}
+    ]
+  },
+  {
+    "key": 4,
+    "question": "If it was discontinued, then mention duration ",
+    "type": "a",
+    "answer": ""
+  },
+  {
+    "key": 5,
+    "question": "Type of Basti ",
+    "type": "b",
+    "options": [
+      {"key": 1, "value": "Ordinary basti"},
+      {"key": 2, "value": "Sewa basti"},
+      {"key": 3, "value": "Village"}
+    ]
+  },
+  {
+    "key": 6,
+    "question": "Has any other Prakalp Started by us in the same Basti after the inception of this kendra",
+    "type": "b",
+    "options": [
+      {"key": 1, "value": "Yes"},
+      {"key": 3, "value": "No"}
+    ]
+  }
+]
