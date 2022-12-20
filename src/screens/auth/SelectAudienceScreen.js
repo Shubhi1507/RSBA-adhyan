@@ -465,7 +465,7 @@ export default function SelectAudienceScreen() {
           />
 
           <Button
-            title={t('SUBMIT') + ' ' + t('SURVEY')}
+            title={t('SAVE')}
             onPress={() => navigate(ROUTES.AUTH.DASHBOARDSCREEN)}
             ButtonContainerStyle={{
               marginVertical: 17,
