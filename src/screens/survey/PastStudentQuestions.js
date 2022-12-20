@@ -222,7 +222,7 @@ export default function PastStudentQuestions() {
           />
         </View> */}
 
-        {/* QA2 */}
+        {/* QA1 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -239,7 +239,7 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {2}
+                {1}
               </TextHandler>
             </View>
 
@@ -284,7 +284,7 @@ export default function PastStudentQuestions() {
           </View>
         </View>
 
-        {/* QA3 */}
+        {/* QA2 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -301,7 +301,7 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {3}
+                {2}
               </TextHandler>
             </View>
 
@@ -343,7 +343,7 @@ export default function PastStudentQuestions() {
           </View>
         </View>
 
-        {/* QA4 */}
+        {/* QA3 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -360,7 +360,7 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {4}
+                {3}
               </TextHandler>
             </View>
 
@@ -407,7 +407,7 @@ export default function PastStudentQuestions() {
           />
         </View>
 
-        {/* QA5  */}
+        {/* QA4 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -424,7 +424,7 @@ export default function PastStudentQuestions() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {5}
+                {4}
               </TextHandler>
             </View>
 
@@ -453,8 +453,14 @@ export default function PastStudentQuestions() {
                   label: 'PAST_STUDENTS_Q5_OPT1',
                 },
                 {key: 2, value: 'Transfer', label: 'PAST_STUDENTS_Q5_OPT2'},
+
                 {
                   key: 3,
+                  value: 'Higher Studies ',
+                  label: 'PAST_STUDENTS_Q5_OPT4',
+                },
+                {
+                  key: 4,
                   value: 'Others',
                   label: 'PAST_STUDENTS_Q5_OPT3',
                 },
@@ -464,7 +470,7 @@ export default function PastStudentQuestions() {
                 setAnswers({...answers, reason_for_leaving_the_center: item});
               }}
             />
-            {answers.reason_for_leaving_the_center?.key === 3 && (
+            {answers.reason_for_leaving_the_center?.key === 4 && (
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
                 name="any"

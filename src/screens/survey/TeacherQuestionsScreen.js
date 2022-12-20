@@ -32,7 +32,7 @@ export default function TeacherQuestionsScreen() {
   let [answers, setAnswers] = useState({
     consistency_in_attending_the_kendra: '',
     methods_used_to_teach_basic_concepts: '',
-    teach_social_work: '',
+    teach_social_work: [],
     which_area_we_can_see_transformation_in_our_students: '',
     rating_sincerity: '',
     rating_punctuality: '',
@@ -111,6 +111,28 @@ export default function TeacherQuestionsScreen() {
         rating_sincerity.length > 0 ||
         rating_trustworthy.length > 0 ||
         leadership_qualities.length > 0
+      ) {
+        p = p - 1;
+      }
+    }
+
+
+    let answer4 =
+      rating_academic &&
+      rating_behaviour_pattern &&
+      rating_sports &&
+      rating_culture
+        ? true
+        : false;
+
+    if (answer4 === true) {
+      p = p - 3;
+    } else {
+      if (
+        rating_academic.length > 0 ||
+        rating_behaviour_pattern.length > 0 ||
+        rating_sports.length > 0 ||
+        rating_culture.length > 0
       ) {
         p = p - 1;
       }
@@ -336,7 +358,7 @@ export default function TeacherQuestionsScreen() {
             <View
               style={{
                 backgroundColor:
-                  answers.centre_commence_motive.length > 0
+                  answers.teach_social_work.length > 0
                     ? COLORS.orange
                     : COLORS.red,
                 height: 20,
@@ -348,12 +370,12 @@ export default function TeacherQuestionsScreen() {
               <TextHandler
                 style={{
                   color:
-                    answers.centre_commence_motive.length > 0
+                    answers.teach_social_work.length > 0
                       ? COLORS.black
                       : COLORS.white,
                   textAlign: 'center',
                 }}>
-                {2}
+                {3}
               </TextHandler>
             </View>
 
@@ -465,8 +487,8 @@ export default function TeacherQuestionsScreen() {
           </View>
         </View>
 
-        {/* QA4 */}
-        <View style={{marginBottom: 10}}>
+        {/* QA4 validation  upto digit 10 */}
+        <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -498,73 +520,80 @@ export default function TeacherQuestionsScreen() {
           </View>
 
           <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
+            <TextHandler>{t('TEACHER_Q4_OPT1')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, rating_academic: text});
               }}
-              data={[
-                {
-                  key: 1,
-                  value:
-                    'Drastic Academic improvement - Rating between 1 to 10',
-                  label: 'TEACHER_Q4_OPT1',
-                },
-                {
-                  key: 2,
-                  value:
-                    'Considerable change in behavioral pattern - Rating between 1 to 10',
-                  label: 'TEACHER_Q4_OPT2',
-                },
-                {
-                  key: 3,
-                  value:
-                    ' Progress in other subjects other than academic (Sports, culture, art etc) - Rating between 1 to 10',
-                  label: 'TEACHER_Q4_OPT3',
-                },
-                {key: 4, value: 'Other', label: 'TEACHER_Q4_OPT4'},
-                {key: 5, value: 'None', label: 'TEACHER_Q4_OPT5'},
-              ]}
-              valueProp={
-                answers.which_area_we_can_see_transformation_in_our_students
-              }
-              onValueChange={item => {
-                setAnswers({
-                  ...answers,
-                  which_area_we_can_see_transformation_in_our_students: item,
-                });
+              value={answers.rating_academic}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
               }}
             />
-            {answers.which_area_we_can_see_transformation_in_our_students
-              ?.key == 4 && (
-              <Input
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    which_area_we_can_see_transformation_in_our_students: {
-                      ...answers.which_area_we_can_see_transformation_in_our_students,
-                      other: text,
-                    },
-                  });
-                }}
-                value={
-                  answers.which_area_we_can_see_transformation_in_our_students
-                    ?.text
-                }
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.25,
-                }}
-              />
-            )}
+          </View>
+          <View>
+            <TextHandler>{t('TEACHER_Q4_OPT2')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, rating_behaviour_pattern: text});
+              }}
+              value={answers.rating_behaviour_pattern}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('TEACHER_Q4_OPT3')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, rating_sports: text});
+              }}
+              value={answers.rating_sports}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('TEACHER_Q4_OPT4')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({...answers, rating_culture: text});
+              }}
+              value={answers.rating_culture}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
           </View>
         </View>
 
-        {/* QA5 */}
+        {/* QA5  validation  upto digit 10*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -979,7 +1008,7 @@ export default function TeacherQuestionsScreen() {
         </View>
 
         {/* QA11*/}
-        <View>
+        {/* <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -1023,9 +1052,9 @@ export default function TeacherQuestionsScreen() {
               minWidth: screenWidth * 0.25,
             }}
           />
-        </View>
+        </View> */}
 
-        {/* QA12 */}
+        {/* QA11 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -1042,7 +1071,7 @@ export default function TeacherQuestionsScreen() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {12}
+                {11}
               </TextHandler>
             </View>
 
