@@ -447,8 +447,8 @@
   "KENDRA_SANCHALAK_Q9_OPT2": "No",
   "KENDRA_SANCHALAK_Q10": "Any other observations which are not covered in above questions ? Please elaborate",
 
-  "BASTI_Q1": "Which other organizations are also active in the basti?  ",
-  "BASTI_Q1_OPT1": "Yes",
+  "BASTI_Q1": "Are any other organizations active in the basti? ",
+  "BASTI_Q1_OPT1": " If Yes - Provide Names",
   "BASTI_Q1_OPT2": "No",
   "BASTI_Q2": "What kind of activities are conducted by these organisations? (can also select more than one)  ",
   "BASTI_Q2_OPT1": "Education",
