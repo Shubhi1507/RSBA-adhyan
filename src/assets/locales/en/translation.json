@@ -3,29 +3,26 @@
   "ADHYAYAN": "Adhyayan Survey",
   "ALL_SURVEYS": "All Surveys",
   "ASSIGNED_CENTRES": "Assigned Centres",
-  "ADDRESS": "ADDRESS",
+  "ADDRESS": "Address",
 
   // C
   "CENTRE": "Centre",
   "CENTER_DETAILS": "Center Details",
+  "CURRENT_ADDRESS": "Current Address",
 
   // CENTER QUESTIONS
   "CENTER_Q1": "Establishment Year of the Kendra ?",
 
   "CENTER_Q2": " Objective to start the kendra ? ( You can choose more than one answer ) ",
-  "CENTER_Q2_OPT1" :"Need for Education" ,
-  "CENTER_Q2_OPT2" :"Parents could not spare time for students " ,
-  "CENTER_Q2_OPT3" :"No other facility available nearby " ,
-  "CENTER_Q2_OPT4" :"Expansion of our work " ,
-  "CENTER_Q2_OPT5" : "On demand from the community" ,
-
+  "CENTER_Q2_OPT1": "Need for Education",
+  "CENTER_Q2_OPT2": "Parents could not spare time for students ",
+  "CENTER_Q2_OPT3": "No other facility available nearby ",
+  "CENTER_Q2_OPT4": "Expansion of our work ",
+  "CENTER_Q2_OPT5": "On demand from the community",
 
   "CENTER_Q3": "How many students have passed out from this Kendra? (Since inception)",
 
   "CENTER_Q4": " What will happen if this kendra did not function ?",
- 
-
-
 
   "CENTER_Q5": "Whether the center is operating  continuously since its inception or is it closed for some time in between?  (Excluding Covid period)",
   "CENTER_Q5_OPT1": "Regular Since Inception ",
@@ -77,24 +74,22 @@
 
   "CENTER_Q17": "Are Divyang & Single parent students enrolled in our centre?",
   "CENTER_Q17_OPTION": "- Yes ( Divyang - ?     Single / No parent - ?",
-  "CENTER_Q17_OPT1" : "Yes (Enter Details) " ,
+  "CENTER_Q17_OPT1": "Yes (Enter Details) ",
 
   "CENTER_Q18": "Has centre's Basti Toli been formed and is active?",
 
   "CENTER_Q19": "Do all members of Basti Toli reside in that basti only?",
   "CENTER_Q19_OPT": "What measures we can take",
-  "CENTER_Q19_OPT1" : "No (What measures can we take)" ,
+  "CENTER_Q19_OPT1": "No (What measures can we take)",
 
   "CENTER_Q20": "Has Kendra samiti performed any role during Corona pandemic? ",
-  "CENTER_Q20_OPT1" : "Yes , Please select from below options" ,
-  "CENTER_Q20_DISCONTINUED" : "What work Kendra samiti has carried out during Corona pandemic? - Multiple selection" ,
-  "CENTER_Q20_DISCONTINUED_OPT1" : "Kadha distribution" ,
-  "CENTER_Q20_DISCONTINUED_OPT2" : "Sanitization" ,
-  "CENTER_Q20_DISCONTINUED_OPT3" : "Medicine distribution  " ,
-  "CENTER_Q20_DISCONTINUED_OPT4" : "Quarantine centre " ,
-  "CENTER_Q20_DISCONTINUED_OPT5" : "Grocery kit distribution" ,
-
-  
+  "CENTER_Q20_OPT1": "Yes , Please select from below options",
+  "CENTER_Q20_DISCONTINUED": "What work Kendra samiti has carried out during Corona pandemic? - Multiple selection",
+  "CENTER_Q20_DISCONTINUED_OPT1": "Kadha distribution",
+  "CENTER_Q20_DISCONTINUED_OPT2": "Sanitization",
+  "CENTER_Q20_DISCONTINUED_OPT3": "Medicine distribution  ",
+  "CENTER_Q20_DISCONTINUED_OPT4": "Quarantine centre ",
+  "CENTER_Q20_DISCONTINUED_OPT5": "Grocery kit distribution",
 
   "CENTER_Q21": "Kendra  effect on anti -social problems such as (drug, child marriage) on the Basti",
   "CENTER_Q21_OPT1": "Became less",
@@ -102,14 +97,11 @@
   "CENTER_Q21_OPT3": "Not much",
 
   "CENTER_Q22": "Major prevelant  problems in the Basti  ( You can choose more than one answer )  ",
-  "CENTER_Q22_OPT1" : "Addiction (Nasha) " ,
-  "CENTER_Q22_OPT2" : "illiteracy " ,
-  "CENTER_Q22_OPT3" : "Unemployment " ,
-  "CENTER_Q22_OPT4" : "Social Security" ,
-  "CENTER_Q22_OPT5" : "Discriminatory environment " ,
-
-
-
+  "CENTER_Q22_OPT1": "Addiction (Nasha) ",
+  "CENTER_Q22_OPT2": "illiteracy ",
+  "CENTER_Q22_OPT3": "Unemployment ",
+  "CENTER_Q22_OPT4": "Social Security",
+  "CENTER_Q22_OPT5": "Discriminatory environment ",
 
   "CONTINUE_SURVEY": "Continue Survey",
 
@@ -300,9 +292,7 @@
   "CURRENT_STUDENTS_Q19_OPT1": "Yes",
   "CURRENT_STUDENTS_Q19_OPT2": "No",
 
-
-
-"SAVE" : "SAVE" ,
+  "SAVE": "SAVE",
   "PAST_STUDENTS_Q2": "Are your freinds- siblings coming to center these days?",
   "PAST_STUDENTS_Q2_OPT1": "Yes",
   "PAST_STUDENTS_Q2_OPT2": " No",
@@ -515,6 +505,7 @@
   "WHY_IS_CENTER_NON_OPERATIONAL": "Why is center non operational ?",
   "INVALID_OTP": "Invalid OTP",
   "INVALID_PHONE_NUMBER": "Invalid phone number",
+  "IS_ADDRESS_CHANGED": "Is address changed?",
 
   //E
   "ENTER_PHONE_NUMBER_TO_CONTIUE": "Enter phone number to contiue",

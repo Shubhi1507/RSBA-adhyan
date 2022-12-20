@@ -123,6 +123,8 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     centre_id: '', //  survey_form_id
     survey_form_id: '',
     address: '',
+    is_address_changed: false,
+    current_address: '',
     sanstha_name: '',
     district_id: '',
     district_jila: '',
@@ -412,6 +414,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
             value={volunteerInfo.centre_id}
           />
         </View>
+
         <View>
           <Text style={styles.headingInput}>{t('ADDRESS')} </Text>
           <Input
@@ -420,13 +423,80 @@ export default function CenterDetailsOneScreen({navigation, route}) {
             onChangeText={text =>
               setvolunteerInfo({...volunteerInfo, address: text})
             }
-            disabled
+            disabled={true}
             multi={true}
             value={volunteerInfo.address}
             message={'error'}
             containerStyle={{alignItems: 'center'}}
           />
         </View>
+
+        {/* changed address switch */}
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            paddingVertical: 20,
+            marginVertical: 10,
+            borderRadius: 5,
+            paddingHorizontal: 10,
+          }}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'flex-start',
+            }}>
+            <TextHandler
+              style={[
+                styles.headingInput,
+                {
+                  textAlign: 'left',
+                },
+              ]}>
+              {t('IS_ADDRESS_CHANGED')}
+            </TextHandler>
+          </View>
+
+          <View
+            style={{
+              flex: 0.6,
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+            }}>
+            <TextHandler style={styles.headingInput}>{t('NO')}</TextHandler>
+            <CustomSwitch
+              isSwitchOn={volunteerInfo.is_address_changed}
+              setIsSwitchOn={() => {
+                console.log(volunteerInfo.is_address_changed);
+                setvolunteerInfo({
+                  ...volunteerInfo,
+                  is_address_changed: !volunteerInfo.is_address_changed,
+                });
+              }}
+            />
+            <TextHandler style={styles.headingInput}>{t('YES')}</TextHandler>
+          </View>
+        </View>
+
+        {volunteerInfo.is_address_changed && (
+          <View>
+            <Text style={styles.headingInput}>{t('CURRENT_ADDRESS')} </Text>
+            <Input
+              placeholder={`${t('CURRENT_ADDRESS')}`}
+              name="address"
+              onChangeText={text =>
+                setvolunteerInfo({...volunteerInfo, current_address: text})
+              }
+              multi={true}
+              value={volunteerInfo.current_address}
+              message={'error'}
+              containerStyle={{alignItems: 'center'}}
+            />
+          </View>
+        )}
 
         <Button
           title={t('NEXT')}
