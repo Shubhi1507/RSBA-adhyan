@@ -49,7 +49,7 @@ export default function CentreQuestionsScreen() {
     oppose_of_the_kendras_activities_by_basti: '',
     members_of_basti_toli_reside_in_same_area: '',
     role_of_our_kendra_in_our_basti_during__corona: '',
-    kendra_effect_on_anti_social_problems: [],
+    kendra_effect_on_anti_social_problems: '',
 
     majorprevelant_problems_in_the_basti: [],
     total_population_of_the_basti: '',
@@ -168,7 +168,9 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: answers.establishment
+                  ? COLORS.orange
+                  : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -177,7 +179,7 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.establishment ? COLORS.black : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {1}
@@ -203,6 +205,7 @@ export default function CentreQuestionsScreen() {
             onChangeText={text => {
               setAnswers({...answers, establishment: text});
             }}
+            empty={!answers.establishment}
             value={answers.establishment}
             message={''}
             containerStyle={{
@@ -217,7 +220,10 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.centre_commence_motive.length > 0
+                    ? COLORS.orange
+                    : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -226,7 +232,10 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    answers.centre_commence_motive.length > 0
+                      ? COLORS.black
+                      : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {2}
@@ -245,47 +254,6 @@ export default function CentreQuestionsScreen() {
           </View>
 
           <View>
-            {/* <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: 'Need for Education',
-                  label: 'CENTER_Q2_OPT1',
-                },
-                {
-                  key: 2,
-                  value: 'Parents could not spare time for students',
-                  label: 'CENTER_Q2_OPT2',
-                },
-                {
-                  key: 3,
-                  value: 'No other facility available nearby ',
-                  label: 'CENTER_Q2_OPT3',
-                },
-                {
-                  key: 4,
-                  value: 'Expansion of our work',
-                  label: 'CENTER_Q2_OPT4',
-                },
-                {
-                  key: 5,
-                  value: 'On demand from the community',
-                  label: 'CENTER_Q2_OPT5',
-                },
-              ]}
-              valueProp={answers.centre_commence_motive}
-              onValueChange={item => {
-                setAnswers({
-                  ...answers,
-                  centre_commence_motive: item,
-                });
-              }}
-            /> */}
             {[
               {
                 key: 1,
@@ -391,7 +359,9 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: answers.students_passed_out_from_centre
+                  ? COLORS.orange
+                  : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -400,7 +370,10 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    answers.students_passed_out_from_centre.length > 0
+                      ? COLORS.black
+                      : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {3}
@@ -427,6 +400,7 @@ export default function CentreQuestionsScreen() {
                 setAnswers({...answers, students_passed_out_from_centre: text});
               }}
               value={answers.students_passed_out_from_centre}
+              empty={!answers.students_passed_out_from_centre}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -441,7 +415,9 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: answers.centre_not_operational_aftermath
+                  ? COLORS.orange
+                  : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -450,7 +426,10 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    answers.centre_not_operational_aftermath.length > 0
+                      ? COLORS.black
+                      : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {4}
@@ -479,6 +458,7 @@ export default function CentreQuestionsScreen() {
                 });
               }}
               value={answers.centre_not_operational_aftermath}
+              empty={!answers.centre_not_operational_aftermath}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -493,7 +473,10 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time
+                    ? COLORS.orange
+                    : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -502,7 +485,10 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    answers.center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time
+                      ? COLORS.black
+                      : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {5}
@@ -553,7 +539,7 @@ export default function CentreQuestionsScreen() {
           </View>
         </View>
 
-        {/* QA5A - OK - center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time item */}
+        {/* QA5A - OK - discontinuation_time_period item */}
         {answers
           .center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time
           ?.key === 2 && (
@@ -561,7 +547,9 @@ export default function CentreQuestionsScreen() {
             <View style={{flexDirection: 'row', marginVertical: 20}}>
               <View
                 style={{
-                  backgroundColor: COLORS.orange,
+                  backgroundColor: answers.discontinuation_time_period
+                    ? COLORS.orange
+                    : COLORS.red,
                   height: 20,
                   width: 20,
                   borderRadius: 40,
@@ -570,10 +558,12 @@ export default function CentreQuestionsScreen() {
                 }}>
                 <TextHandler
                   style={{
-                    color: 'black',
+                    color: answers.discontinuation_time_period
+                      ? COLORS.black
+                      : COLORS.white,
                     textAlign: 'center',
                   }}>
-                  {5 + '.a'}
+                  {'5a'}
                 </TextHandler>
               </View>
 
@@ -629,7 +619,10 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: answers.type_of_basti
+                  ? COLORS.orange
+                  : COLORS.red,
+                height: 20,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -638,7 +631,7 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.type_of_basti ? COLORS.black : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {6}
@@ -732,12 +725,14 @@ export default function CentreQuestionsScreen() {
           </View>
         </View> */}
 
-        {/* QA9 - OK - project_init_before*/}
+        {/* QA7 - OK - project_init_before*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: answers.project_init_before
+                  ? COLORS.orange
+                  : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -746,7 +741,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.project_init_before
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {7}
@@ -796,7 +793,7 @@ export default function CentreQuestionsScreen() {
           </View>
         </View>
 
-        {/* QA9 - OK - project_init_before*/}
+        {/* QA- - OK - project_init_before*/}
         {/* <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -922,12 +919,15 @@ export default function CentreQuestionsScreen() {
           </View>
         )} */}
 
-        {/* QA9 - OK - pictures_of_bharatmata_and_indian_legends */}
+        {/* QA8 - OK - pictures_of_bharatmata_and_indian_legends */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.pictures_of_bharatmata_and_indian_legends
+                    ? COLORS.orange
+                    : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -936,7 +936,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.pictures_of_bharatmata_and_indian_legends
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {8}
@@ -989,7 +991,9 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: answers.sewa_sanstha_running_the_center
+                  ? COLORS.orange
+                  : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -998,7 +1002,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.sewa_sanstha_running_the_center
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {9}
@@ -1047,7 +1053,9 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: answers.visitors_details_captured
+                  ? COLORS.orange
+                  : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1056,7 +1064,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.visitors_details_captured
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {10}
@@ -1106,7 +1116,9 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: answers.availability_of_infrastructure
+                  ? COLORS.orange
+                  : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1115,7 +1127,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.availability_of_infrastructure
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {11}
@@ -1165,7 +1179,9 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: answers.participation_of_the_basti_people
+                  ? COLORS.orange
+                  : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1174,7 +1190,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.participation_of_the_basti_people
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {12}
@@ -1237,7 +1255,9 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: answers.is_participation_of_basti_satisfactory
+                  ? COLORS.orange
+                  : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1246,7 +1266,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.is_participation_of_basti_satisfactory
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {13}
@@ -1299,7 +1321,10 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.divyang_and_single_parent_students_enrolled
+                    ? COLORS.orange
+                    : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1308,7 +1333,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.divyang_and_single_parent_students_enrolled
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {14}
@@ -1379,6 +1406,10 @@ export default function CentreQuestionsScreen() {
                     answers.divyang_and_single_parent_students_enrolled
                       ?.divyang_count
                   }
+                  empty={
+                    !answers.divyang_and_single_parent_students_enrolled
+                      ?.divyang_count
+                  }
                   message={''}
                   containerStyle={{
                     alignItems: 'center',
@@ -1409,6 +1440,10 @@ export default function CentreQuestionsScreen() {
                     answers.divyang_and_single_parent_students_enrolled
                       ?.no_or_single_parent_count
                   }
+                  empty={
+                    !answers.divyang_and_single_parent_students_enrolled
+                      ?.no_or_single_parent_count
+                  }
                   message={''}
                   containerStyle={{
                     alignItems: 'center',
@@ -1425,7 +1460,9 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: answers.basti_toli_active
+                  ? COLORS.orange
+                  : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1434,7 +1471,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.basti_toli_active
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {15}
@@ -1487,7 +1526,10 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.oppose_of_the_kendras_activities_by_basti
+                    ? COLORS.orange
+                    : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1496,7 +1538,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.oppose_of_the_kendras_activities_by_basti
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {16}
@@ -1558,6 +1602,9 @@ export default function CentreQuestionsScreen() {
                 value={
                   answers.oppose_of_the_kendras_activities_by_basti?.reason
                 }
+                empty={
+                  !answers.oppose_of_the_kendras_activities_by_basti?.reason
+                }
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -1573,7 +1620,10 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.members_of_basti_toli_reside_in_same_area
+                    ? COLORS.orange
+                    : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1582,7 +1632,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.members_of_basti_toli_reside_in_same_area
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {17}
@@ -1651,6 +1703,9 @@ export default function CentreQuestionsScreen() {
                   value={
                     answers.members_of_basti_toli_reside_in_same_area?.reason
                   }
+                  empty={
+                    !answers.members_of_basti_toli_reside_in_same_area?.reason
+                  }
                   message={''}
                   containerStyle={{
                     alignItems: 'center',
@@ -1667,7 +1722,10 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.role_of_our_kendra_in_our_basti_during__corona
+                    ? COLORS.orange
+                    : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1676,7 +1734,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.role_of_our_kendra_in_our_basti_during__corona
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {18}
@@ -1712,25 +1772,28 @@ export default function CentreQuestionsScreen() {
                   label: 'NO',
                 },
               ]}
-              valueProp={answers.kendra_effect_on_anti_social_problems}
+              valueProp={answers.role_of_our_kendra_in_our_basti_during__corona}
               onValueChange={item => {
                 setAnswers({
                   ...answers,
-                  kendra_effect_on_anti_social_problems: item,
+                  role_of_our_kendra_in_our_basti_during__corona: item,
                 });
               }}
             />
           </View>
         </View>
 
-        {/* 19 A  Yes - Kendra Samiti work */}
+        {/* 18 A  Yes - role_of_our_kendra_in_our_basti_during__corona */}
 
-        {answers.kendra_effect_on_anti_social_problems?.key === 1 && (
+        {answers.role_of_our_kendra_in_our_basti_during__corona?.key === 1 && (
           <View>
             <View style={{flexDirection: 'row', marginVertical: 20}}>
               <View
                 style={{
-                  backgroundColor: COLORS.orange,
+                  backgroundColor:
+                    answers.kendra_samiti_work.length > 0
+                      ? COLORS.orange
+                      : COLORS.red,
                   height: 20,
                   width: 20,
                   borderRadius: 40,
@@ -1739,10 +1802,13 @@ export default function CentreQuestionsScreen() {
                 }}>
                 <TextHandler
                   style={{
-                    color: 'black',
+                    color:
+                      answers.kendra_samiti_work.length > 0
+                        ? COLORS.black
+                        : COLORS.white,
                     textAlign: 'center',
                   }}>
-                  {18 + '.a'}
+                  {'a'}
                 </TextHandler>
               </View>
 
@@ -1757,44 +1823,6 @@ export default function CentreQuestionsScreen() {
               </View>
             </View>
 
-            {/* <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: 'Less than 1 month',
-                  label: 'CENTER_Q20_DISCONTINUED_OPT1',
-                },
-                {
-                  key: 2,
-                  value: '1 to 6 months',
-                  label: 'CENTER_Q20_DISCONTINUED_OPT2',
-                },
-                {
-                  key: 3,
-                  value: '6 to 12 months',
-                  label: 'CENTER_Q20_DISCONTINUED_OPT3',
-                },
-                {
-                  key: 4,
-                  value: 'More than 12 months',
-                  label: 'CENTER_Q20_DISCONTINUED_OPT4',
-                },
-                {
-                  key: 5,
-                  value: 'Grocery kit distribution',
-                  label: 'CENTER_Q20_DISCONTINUED_OPT5',
-                },
-              ]}
-              valueProp={answers.kendra_samiti_work}
-              onValueChange={item => {
-                setAnswers({...answers, kendra_samiti_work: item});
-              }}
-            /> */}
             {[
               {
                 key: 1,
@@ -1895,12 +1923,14 @@ export default function CentreQuestionsScreen() {
           </View>
         )}
 
-        {/* QA20 - OK - kendra_effect_on_anti_social_problems*/}
+        {/* QA19 - OK - kendra_effect_on_anti_social_problems*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: answers.kendra_effect_on_anti_social_problems
+                  ? COLORS.orange
+                  : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1909,7 +1939,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.kendra_effect_on_anti_social_problems
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {19}
@@ -1923,6 +1955,7 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler style={styles.question}>
                 {t('CENTER_Q21')}
+                {/* {answers.kendra_effect_on_anti_social_problems} */}
               </TextHandler>
             </View>
           </View>
@@ -1967,7 +2000,10 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.majorprevelant_problems_in_the_basti.length > 0
+                    ? COLORS.orange
+                    : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1976,7 +2012,10 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    answers.majorprevelant_problems_in_the_basti.length > 0
+                      ? COLORS.black
+                      : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {20}
@@ -2075,9 +2114,7 @@ export default function CentreQuestionsScreen() {
                     marginVertical: 5,
                   }}
                   onPress={() => {
-                    let tmp = [
-                      ...answers.majorprevelant_problems_in_the_basti,
-                    ];
+                    let tmp = [...answers.majorprevelant_problems_in_the_basti];
 
                     if (tmp.length > 0) {
                       let j = tmp.filter(element => element.key === 999);
@@ -2147,7 +2184,11 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.total_population_of_the_basti?.hindu &&
+                  answers.total_population_of_the_basti?.others
+                    ? COLORS.orange
+                    : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -2156,7 +2197,11 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    answers.total_population_of_the_basti?.hindu &&
+                    answers.total_population_of_the_basti?.others
+                      ? COLORS.black
+                      : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {21}
@@ -2195,6 +2240,7 @@ export default function CentreQuestionsScreen() {
                 });
               }}
               value={answers.total_population_of_the_basti?.hindu}
+              empty={!answers.total_population_of_the_basti?.hindu}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -2222,6 +2268,7 @@ export default function CentreQuestionsScreen() {
                 });
               }}
               value={answers.total_population_of_the_basti?.others}
+              empty={!answers.total_population_of_the_basti?.others}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -2231,12 +2278,15 @@ export default function CentreQuestionsScreen() {
           </View>
         </View>
 
-        {/* QA2 - OK - total_population_of_sewa_bharti_beneficiaries */}
+        {/* QA23 - OK - total_population_of_sewa_bharti_beneficiaries */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.total_population_of_sewa_bharti_beneficiaries
+                    ? COLORS.orange
+                    : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -2245,7 +2295,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: answers.total_population_of_sewa_bharti_beneficiaries
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {22}
@@ -2270,15 +2322,11 @@ export default function CentreQuestionsScreen() {
               onChangeText={text => {
                 setAnswers({
                   ...answers,
-                  total_population_of_sewa_bharti_beneficiaries: {
-                    ...answers.total_population_of_sewa_bharti_beneficiaries,
-                    hindu: text,
-                  },
+                  total_population_of_sewa_bharti_beneficiaries: text,
                 });
               }}
-              value={
-                answers.total_population_of_sewa_bharti_beneficiaries?.hindu
-              }
+              value={answers.total_population_of_sewa_bharti_beneficiaries}
+              empty={!answers.total_population_of_sewa_bharti_beneficiaries}
               message={''}
               containerStyle={{
                 alignItems: 'center',

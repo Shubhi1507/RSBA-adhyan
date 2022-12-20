@@ -43,6 +43,7 @@ export const Input = ({
   number,
   disabled,
   multi,
+  empty,
 }) => {
   const [isShow, setisShow] = useState(secure);
   let containerCustomStyle = containerStyle ?? {};
@@ -60,7 +61,11 @@ export const Input = ({
         multiline={multi ? true : false}
         autoCorrect={false}
         autoCapitalize={'none'}
-        style={[styles.textInputStyle, containerCustomStyle]}
+        style={[
+          styles.textInputStyle,
+          containerCustomStyle,
+          empty ? {borderColor: COLORS.red, borderWidth: 1} : {},
+        ]}
         placeholderTextColor={COLORS.lightGrey}
         // right={
         //   secure && (

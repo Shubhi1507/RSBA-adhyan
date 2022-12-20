@@ -376,6 +376,7 @@ export default function CenterDetailsTwoScreen() {
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
                 name="center_head"
+                empty={!volunteerInfo.center_head}
                 onChangeText={text =>
                   setvolunteerInfo({...volunteerInfo, center_head: text})
                 }
@@ -393,6 +394,7 @@ export default function CenterDetailsTwoScreen() {
                 name="center_contact"
                 type={'numeric'}
                 number={10}
+                empty={!volunteerInfo.center_contact}
                 onChangeText={text =>
                   setvolunteerInfo({...volunteerInfo, center_contact: text})
                 }
@@ -455,7 +457,7 @@ export default function CenterDetailsTwoScreen() {
                     width: 25,
                   }}
                 />
-                <Text style={[styles.headingInput, {color: 'blue'}]}>
+                <Text style={[styles.headingInput, {color: COLORS.red}]}>
                   {t('LOCATION')}
                 </Text>
               </TouchableOpacity>
@@ -467,6 +469,7 @@ export default function CenterDetailsTwoScreen() {
               </Text>
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
+                empty={!volunteerInfo.parent_org}
                 name="first_name"
                 onChangeText={text =>
                   setvolunteerInfo({...volunteerInfo, parent_org: text})
