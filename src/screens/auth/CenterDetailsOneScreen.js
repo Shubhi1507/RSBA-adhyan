@@ -426,6 +426,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
             disabled={true}
             multi={true}
             value={volunteerInfo.address}
+            empty={!volunteerInfo.address}
             message={'error'}
             containerStyle={{alignItems: 'center'}}
           />
@@ -492,6 +493,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
               }
               multi={true}
               value={volunteerInfo.current_address}
+              empty={!volunteerInfo.current_address}
               message={'error'}
               containerStyle={{alignItems: 'center'}}
             />
