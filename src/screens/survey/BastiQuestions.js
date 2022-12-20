@@ -396,7 +396,7 @@ export default function BastiQuestions() {
                 name="any"
                 onChangeText={text => {
                   let tmp = [
-                    ...answers.activities_conducted_by_these_organisations,
+                    ...answers.activities_conducted_by_these_organisations ,
                   ];
                   tmp.forEach((el, index) => {
                     if (el.value === 'Others') {

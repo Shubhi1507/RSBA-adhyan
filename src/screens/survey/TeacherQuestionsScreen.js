@@ -21,6 +21,7 @@ import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
+import { Checkbox } from 'react-native-paper';
 
 export default function TeacherQuestionsScreen() {
   const store = useSelector(state => state?.surveyReducer);
@@ -31,7 +32,7 @@ export default function TeacherQuestionsScreen() {
   let [answers, setAnswers] = useState({
     consistency_in_attending_the_kendra: '',
     methods_used_to_teach_basic_concepts: '',
-    methods_used_to_teach_social_work: '',
+    teach_social_work: '',
     which_area_we_can_see_transformation_in_our_students: '',
     rating_sincerity: '',
     rating_punctuality: '',
@@ -76,7 +77,7 @@ export default function TeacherQuestionsScreen() {
     const {
       consistency_in_attending_the_kendra,
       methods_used_to_teach_basic_concepts,
-      methods_used_to_teach_social_work,
+      teach_social_work,
       which_area_we_can_see_transformation_in_our_students,
       expectations_from_sanstha_for_the_betterment,
       personally_meet_all_the_parents_every_month,
@@ -118,7 +119,7 @@ export default function TeacherQuestionsScreen() {
     if (
       !consistency_in_attending_the_kendra ||
       !methods_used_to_teach_basic_concepts ||
-      !methods_used_to_teach_social_work ||
+      !teach_social_work ||
       !which_area_we_can_see_transformation_in_our_students ||
       !compromise_on_our_teaching_agenda ||
       !answer5
@@ -334,7 +335,10 @@ export default function TeacherQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.centre_commence_motive.length > 0
+                    ? COLORS.orange
+                    : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -343,10 +347,13 @@ export default function TeacherQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    answers.centre_commence_motive.length > 0
+                      ? COLORS.black
+                      : COLORS.white,
                   textAlign: 'center',
                 }}>
-                {3}
+                {2}
               </TextHandler>
             </View>
 
@@ -362,42 +369,99 @@ export default function TeacherQuestionsScreen() {
           </View>
 
           <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: 'Through story telling (Theory)',
-                  label: 'TEACHER_Q3_OPT1',
-                },
-                {
-                  key: 2,
-                  value: 'Through games',
-                  label: 'TEACHER_Q3_OPT2',
-                },
-                {
-                  key: 3,
-                  value: 'Through activity (Practical)',
-                  label: 'TEACHER_Q3_OPT3',
-                },
-                {
-                  key: 4,
-                  value: 'We don’t focus on this area',
-                  label: 'TEACHER_Q3_OPT4',
-                },
-              ]}
-              valueProp={answers.methods_used_to_teach_social_work}
-              onValueChange={item => {
-                setAnswers({
-                  ...answers,
-                  methods_used_to_teach_social_work: item,
-                });
-              }}
-            />
+            {[
+              {
+                key: 1,
+                value: 'Through story telling (Theory)',
+                label: 'TEACHER_Q3_OPT1',
+              },
+              {
+                key: 2,
+                value: 'Through games',
+                label: 'TEACHER_Q3_OPT2',
+              },
+              {
+                key: 3,
+                value: 'Through activity (Practical) ',
+                label: 'TEACHER_Q3_OPT3',
+              },
+              {
+                key: 4,
+                value: 'We don’t focus on this area',
+                label: 'TEACHER_Q3_OPT4',
+              },
+           
+            ].map((el, index) => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    marginVertical: 2,
+                    borderColor: COLORS.orange,
+                    paddingVertical: 5,
+                    marginVertical: 5,
+                  }}
+                  onPress={() => {
+                    let tmp = [...answers.teach_social_work];
+
+                    if (tmp.length > 0) {
+                      let j = tmp.filter(element => element.key === 999);
+                      if (j.length > 0) {
+                        tmp = [];
+                        tmp.push(el);
+                        setAnswers({
+                          ...answers,
+                          teach_social_work: tmp,
+                        });
+                      } else {
+                        tmp.forEach(function (item, index1) {
+                          if (item.value === el.value) {
+                            let tmp = [...answers.teach_social_work];
+                            tmp.splice(index1, 1);
+                            setAnswers({
+                              ...answers,
+                              teach_social_work: tmp,
+                            });
+                          } else {
+                            let tmp = [...answers.teach_social_work];
+                            tmp.push(el);
+                            setAnswers({
+                              ...answers,
+                              teach_social_work: tmp,
+                            });
+                          }
+                        });
+                      }
+                    } else {
+                      tmp.push(el);
+                      setAnswers({
+                        ...answers,
+                        teach_social_work: tmp,
+                      });
+                    }
+                  }}>
+                  <Checkbox
+                    status={
+                      answers.teach_social_work.filter(
+                        item => item.value === el.value,
+                      ).length > 0
+                        ? 'checked'
+                        : 'unchecked'
+                    }
+                    color={COLORS.blue}
+                  />
+                  <TextHandler
+                    style={{
+                      color: 'black',
+                      // textAlign: 'left',
+                    }}>
+                    {t(el.label)}
+                  </TextHandler>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         </View>
 
