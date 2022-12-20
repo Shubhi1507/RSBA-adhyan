@@ -151,7 +151,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     oppose_of_the_kendras_activities_by_basti: '',
     members_of_basti_toli_reside_in_same_area: '',
     role_of_our_kendra_in_our_basti_during__corona: '',
-    kendra_effect_on_anti_social_problems: [],
+    kendra_effect_on_anti_social_problems: '',
     majorprevelant_problems_in_the_basti: [],
     total_population_of_the_basti: '',
     total_population_of_sewa_bharti_beneficiaries: '',
