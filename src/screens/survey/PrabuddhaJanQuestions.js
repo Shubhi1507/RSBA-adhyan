@@ -529,12 +529,12 @@ export default function PrabuddhaJanQuestions() {
                 {
                   key: 1,
                   value: 'Highly Influential',
-                  label: 'YES',
+                  label: 'INFLUENTIAL_PEOPELE_Q4_OPT1',
                 },
                 {
                   key: 2,
                   value: 'Not much',
-                  label: 'NO',
+                  label: 'INFLUENTIAL_PEOPELE_Q4_OPT2',
                 },
                 {
                   key: 3,
