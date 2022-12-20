@@ -45,6 +45,7 @@ export default function PrabuddhaJanQuestions() {
     store?.currentSurveyData?.surveyAnswers.length > 0
       ? [...store?.currentSurveyData?.surveyAnswers]
       : [];
+  let tmp = [...answers.donors_and_well_wishers_help];
 
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
@@ -197,34 +198,6 @@ export default function PrabuddhaJanQuestions() {
               </TextHandler>
             </View>
           </View>
-          {/* <RadioButtons
-            radioStyle={{
-              borderWidth: 1,
-              marginVertical: 2,
-              borderColor: COLORS.orange,
-            }}
-            data={[
-              {
-                key: 1,
-                value: 'Economic',
-                label: 'INFLUENTIAL_PEOPELE_Q1_OPT1',
-              },
-              {
-                key: 2,
-                value: 'Social',
-                label: 'INFLUENTIAL_PEOPELE_Q1_OPT2',
-              },
-              {
-                key: 3,
-                value: 'Others',
-                label: 'INFLUENTIAL_PEOPELE_Q1_OPT3',
-              },
-            ]}
-            valueProp={answers.donors_and_well_wishers_help}
-            onValueChange={item => {
-              setAnswers({...answers, donors_and_well_wishers_help: item});
-            }}
-          /> */}
 
           {[
             {
@@ -255,43 +228,34 @@ export default function PrabuddhaJanQuestions() {
                   marginVertical: 5,
                 }}
                 onPress={() => {
-                  let tmp = [...answers.donors_and_well_wishers_help];
-
+                  console.log(tmp);
                   if (tmp.length > 0) {
-                    let j = tmp.filter(element => element.key === 999);
-                    if (j.length > 0) {
-                      tmp = [];
-                      tmp.push(el);
-                      setAnswers({
-                        ...answers,
-                        donors_and_well_wishers_help: tmp,
-                      });
-                    } else {
-                      tmp.forEach(function (item, index1) {
-                        if (item.value === el.value) {
-                          let tmp = [...answers.donors_and_well_wishers_help];
-                          tmp.splice(index1, 1);
-                          setAnswers({
-                            ...answers,
-                            donors_and_well_wishers_help: tmp,
-                          });
-                        } else {
-                          let tmp = [...answers.donors_and_well_wishers_help];
-                          tmp.push(el);
-                          setAnswers({
-                            ...answers,
-                            donors_and_well_wishers_help: tmp,
-                          });
-                        }
-                      });
-                    }
-                  } else {
-                    tmp.push(el);
-                    setAnswers({
-                      ...answers,
-                      donors_and_well_wishers_help: tmp,
+                    console.log('tmp len > 0');
+                    tmp.some(function (item, index1) {
+                      if (index === index1) {
+                        console.log('removing1',item);
+                        tmp.splice(index1, 1);
+                        // setAnswers({
+                        //   ...answers,
+                        //   donors_and_well_wishers_help: tmp,
+                        // });
+                      } else {
+                        console.log('pushing1', item);
+                        tmp.push(el);
+                        // setAnswers({
+                        //   ...answers,
+                        //   donors_and_well_wishers_help: tmp,
+                        // });
+                      }
                     });
+                  } else {
+                    console.log('tmp len = 0,pushing');
+                    tmp.push(el);
                   }
+                  setAnswers({
+                    ...answers,
+                    donors_and_well_wishers_help: tmp,
+                  });
                 }}>
                 <Checkbox
                   status={

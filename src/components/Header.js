@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import {COLORS} from '../utils/colors';
 import {TextHandler} from './TextHandler';
@@ -26,7 +26,12 @@ export function Header({onPressBack, title, home}) {
         )}
       </View>
       <View style={{flex: 0.1, alignItems: 'flex-end'}}>
-        <FAIcons name="user-circle-o" color={COLORS.white} size={21} />
+        <Image
+          source={require('../assets/logo.png')}
+          style={{width: 21, height: 21}}
+          resizeMode={'contain'}
+        />
+        {/* <FAIcons name="user-circle-o" color={COLORS.white} size={21} /> */}
       </View>
       <View
         style={{
