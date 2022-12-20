@@ -210,7 +210,7 @@ export default function BastiQuestions() {
                 {
                   key: 1,
                   value: 'Yes',
-                  label: 'YES',
+                  label: 'BASTI_Q1_OPT1',
                 },
                 {
                   key: 2,
@@ -301,11 +301,11 @@ export default function BastiQuestions() {
                 value: 'Environmental',
                 label: 'BASTI_Q2_OPT4',
               },
-              {
-                key: 5,
-                value: 'Self-support',
-                label: 'BASTI_Q2_OPT5',
-              },
+              // {
+              //   key: 5,
+              //   value: 'Self-support',
+              //   label: 'BASTI_Q2_OPT5',
+              // },
               {
                 key: 6,
                 value: 'Others',
