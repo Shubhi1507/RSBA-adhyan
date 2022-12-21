@@ -244,6 +244,9 @@
   "CURRENT_STUDENTS_Q3_OPT1": " बुलाना पडता है",
   "CURRENT_STUDENTS_Q3_OPT2": "अभिभावक भेजते है  ",
   "CURRENT_STUDENTS_Q3_OPT3": "केंद्र शुरू होने का इंतजार करते है",
+  "CURRENT_STUDENTS_Q3_OPT4" : "" ,
+  "CURRENT_STUDENTS_Q3_OPT5" : "" ,
+
 
   "CURRENT_STUDENTS_Q4": "कितने समय से आ रहे है?",
   "CURRENT_STUDENTS_Q4_OPT1": "6 माह से कम ",

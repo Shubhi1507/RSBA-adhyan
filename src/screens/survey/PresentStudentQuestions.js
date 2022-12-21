@@ -334,6 +334,16 @@ export default function PresentStudentQuestions() {
                   value: 'Wait for Center to start',
                   label: 'CURRENT_STUDENTS_Q3_OPT3',
                 },
+                {
+                  key: 4,
+                  value: 'Come regularly',
+                  label: 'CURRENT_STUDENTS_Q3_OPT4',
+                }, {
+                  key: 5,
+                  value: 'Very excited to join activities in kendra  ',
+                  label: 'CURRENT_STUDENTS_Q3_OPT5',
+                },
+
               ]}
               valueProp={answers.interest_of_the_students_towards_kendra}
               onValueChange={item => {
@@ -1154,7 +1164,7 @@ export default function PresentStudentQuestions() {
         </View>
 
         {/* QA15 */}
-        <View>
+        {/* <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -1213,10 +1223,10 @@ export default function PresentStudentQuestions() {
               }}
             />
           </View>
-        </View>
+        </View> */}
 
         {/* QA16 */}
-        <View>
+        {/* <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -1301,7 +1311,7 @@ export default function PresentStudentQuestions() {
               </>
             )}
           </View>
-        </View>
+        </View> */}
 
         {/* QA17*/}
         <View>
@@ -1320,7 +1330,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {17}
+                {15}
               </TextHandler>
             </View>
 
@@ -1420,7 +1430,7 @@ export default function PresentStudentQuestions() {
                   color: 'black',
                   textAlign: 'center',
                 }}>
-                {19}
+                {16}
               </TextHandler>
             </View>
 
