@@ -306,6 +306,7 @@ export default function PrabuddhaJanQuestions() {
                     )[0]?.['other']
                   : ''
               }
+              empty={!answers.donors_and_well_wishers_help?.other}
               message={''}
               containerStyle={{
                 alignItems: 'center',
