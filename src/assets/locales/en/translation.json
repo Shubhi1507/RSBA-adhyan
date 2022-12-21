@@ -532,7 +532,7 @@
   "DISTRICT": "District",
 
   // F
-  "48_HRS_REVIEW": "Completed Surveys will remain in this section for 48 Hours to review",
+  "48_HRS_REVIEW": "Completed Surveys will remain in this section for 72 Hours to review",
 
   // I
   "INCOMPLETE_SUVEYS": "Incomplete",

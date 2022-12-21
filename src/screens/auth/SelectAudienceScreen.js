@@ -266,7 +266,7 @@ export default function SelectAudienceScreen() {
         isSaved: true,
         updatedAt: new Date().toString(),
         release_date: new Date(
-          new Date().setTime(new Date().getTime() + 48 * 60 * 60 * 1000),
+          new Date().setTime(new Date().getTime() + 72 * 60 * 60 * 1000),
         ).toString(),
       };
       dispatch({
