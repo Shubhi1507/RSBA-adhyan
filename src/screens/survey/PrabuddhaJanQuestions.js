@@ -50,6 +50,7 @@ export default function PrabuddhaJanQuestions() {
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
       if (entry?.prabbudhJan) {
+        console.log(entry.prabbudhJan);
         setAnswers(entry.prabbudhJan);
       }
     });
@@ -149,6 +150,27 @@ export default function PrabuddhaJanQuestions() {
     showModal();
   };
 
+  const handleSelection = answer => {
+    if (tmp.length === 0) {
+      tmp.push(answer);
+    } else {
+      const isExist = tmp.some(element => answer.key === element.key);
+      if (isExist) {
+        // remove
+        const index = tmp.findIndex(element => answer.key === element.key);
+        console.log(index);
+        tmp.splice(index, 1);
+      } else {
+        // different answ chosen
+        tmp.push(answer);
+      }
+    }
+    setAnswers({
+      ...answers,
+      donors_and_well_wishers_help: tmp,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
@@ -167,12 +189,15 @@ export default function PrabuddhaJanQuestions() {
         onClick={pageNavigator}
       />
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        {/* QA1 */}
+        {/* QA1 - donors_and_well_wishers_help*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.donors_and_well_wishers_help.length === 0
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -181,7 +206,10 @@ export default function PrabuddhaJanQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    answers.donors_and_well_wishers_help.length === 0
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {1}
@@ -228,34 +256,7 @@ export default function PrabuddhaJanQuestions() {
                   marginVertical: 5,
                 }}
                 onPress={() => {
-                  console.log(tmp);
-                  if (tmp.length > 0) {
-                    console.log('tmp len > 0');
-                    tmp.some(function (item, index1) {
-                      if (index === index1) {
-                        console.log('removing1',item);
-                        tmp.splice(index1, 1);
-                        // setAnswers({
-                        //   ...answers,
-                        //   donors_and_well_wishers_help: tmp,
-                        // });
-                      } else {
-                        console.log('pushing1', item);
-                        tmp.push(el);
-                        // setAnswers({
-                        //   ...answers,
-                        //   donors_and_well_wishers_help: tmp,
-                        // });
-                      }
-                    });
-                  } else {
-                    console.log('tmp len = 0,pushing');
-                    tmp.push(el);
-                  }
-                  setAnswers({
-                    ...answers,
-                    donors_and_well_wishers_help: tmp,
-                  });
+                  handleSelection(el);
                 }}>
                 <Checkbox
                   status={
@@ -314,12 +315,15 @@ export default function PrabuddhaJanQuestions() {
           )}
         </View>
 
-        {/* QA2 */}
+        {/* QA2-  donors_and_well_wishers_are_connected_to_us*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.donors_and_well_wishers_are_connected_to_us
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -328,7 +332,9 @@ export default function PrabuddhaJanQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.donors_and_well_wishers_are_connected_to_us
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {2}
@@ -386,12 +392,15 @@ export default function PrabuddhaJanQuestions() {
           </View>
         </View>
 
-        {/* QA3 */}
+        {/* QA - well_wishers_and_donors_helped_us_during_corona_crisis */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.well_wishers_and_donors_helped_us_during_corona_crisis
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -400,7 +409,10 @@ export default function PrabuddhaJanQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.well_wishers_and_donors_helped_us_during_corona_crisis
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {3}
@@ -455,7 +467,9 @@ export default function PrabuddhaJanQuestions() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.influence_of_well_wishers_in_society
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -464,7 +478,9 @@ export default function PrabuddhaJanQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.influence_of_well_wishers_in_society
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {4}
