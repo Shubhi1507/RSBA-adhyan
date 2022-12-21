@@ -513,8 +513,8 @@ export default function DashboardScreen({route, navigation}) {
             color: COLORS.orange,
           }}
         />
-{/* 
-        <Button
+
+        {/* <Button
           title={'RESET'}
           onPress={() => {
             dispatch({type: ACTION_CONSTANTS.CLEAR_SURVEY_DATA});

@@ -80,7 +80,7 @@ export default function SelectAudienceScreen() {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 12,
+      totalQue: 11,
     },
     {
       key: 6,
@@ -169,7 +169,7 @@ export default function SelectAudienceScreen() {
         disabled: false,
         attempted: false,
         completed: false,
-        totalQue: 12,
+        totalQue: 11,
       },
       {
         key: 'Kendra Sanchalak',
@@ -250,7 +250,6 @@ export default function SelectAudienceScreen() {
         break;
     }
 
-    // navigate(ROUTES.AUTH.SURVEYSCREEN);
   };
   const submitSurvey = () => {
     let tmp = store?.currentSurveyData;

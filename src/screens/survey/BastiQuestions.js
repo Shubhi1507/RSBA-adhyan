@@ -46,6 +46,8 @@ export default function BastiQuestions() {
       ? [...store?.currentSurveyData?.surveyAnswers]
       : [];
 
+  let tmp2 = [...answers.activities_conducted_by_these_organisations];
+
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
       if (entry?.basti) {
@@ -150,6 +152,26 @@ export default function BastiQuestions() {
     showModal();
   };
 
+  const handleSelection = answer => {
+    if (tmp2.length === 0) {
+      tmp2.push(answer);
+    } else {
+      const isExist = tmp2.some(element => answer.key === element.key);
+      if (isExist) {
+        // remove
+        const index = tmp2.findIndex(element => answer.key === element.key);
+        tmp2.splice(index, 1);
+      } else {
+        // different ans chosen
+        tmp2.push(answer);
+      }
+    }
+    setAnswers({
+      ...answers,
+      activities_conducted_by_these_organisations: tmp2,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
@@ -169,12 +191,14 @@ export default function BastiQuestions() {
       />
 
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        {/* QA1 */}
+        {/* QA1 - other_organizations_active */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.other_organizations_active
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -183,7 +207,9 @@ export default function BastiQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.other_organizations_active
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {1}
@@ -237,6 +263,7 @@ export default function BastiQuestions() {
                   });
                 }}
                 value={answers.other_organizations_active?.other}
+                empty={!answers.other_organizations_active?.other}
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -247,12 +274,16 @@ export default function BastiQuestions() {
           </View>
         </View>
 
-        {/* QA2 */}
+        {/* QA2 - activities_conducted_by_these_organisations*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.activities_conducted_by_these_organisations.length ===
+                  0
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -261,7 +292,11 @@ export default function BastiQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    answers.activities_conducted_by_these_organisations
+                      .length === 0
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {2}
@@ -273,9 +308,7 @@ export default function BastiQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-             <TextHandler style={styles.question}>
-                {t('BASTI_Q2')}
-              </TextHandler>
+              <TextHandler style={styles.question}>{t('BASTI_Q2')}</TextHandler>
             </View>
           </View>
 
@@ -324,49 +357,7 @@ export default function BastiQuestions() {
                     marginVertical: 5,
                   }}
                   onPress={() => {
-                    let tmp = [
-                      ...answers.activities_conducted_by_these_organisations,
-                    ];
-
-                    if (tmp.length > 0) {
-                      let j = tmp.filter(element => element.key === 999);
-                      if (j.length > 0) {
-                        tmp = [];
-                        tmp.push(el);
-                        setAnswers({
-                          ...answers,
-                          activities_conducted_by_these_organisations: tmp,
-                        });
-                      } else {
-                        tmp.forEach(function (item, index1) {
-                          if (item.value === el.value) {
-                            let tmp = [
-                              ...answers.activities_conducted_by_these_organisations,
-                            ];
-                            tmp.splice(index1, 1);
-                            setAnswers({
-                              ...answers,
-                              activities_conducted_by_these_organisations: tmp,
-                            });
-                          } else {
-                            let tmp = [
-                              ...answers.activities_conducted_by_these_organisations,
-                            ];
-                            tmp.push(el);
-                            setAnswers({
-                              ...answers,
-                              activities_conducted_by_these_organisations: tmp,
-                            });
-                          }
-                        });
-                      }
-                    } else {
-                      tmp.push(el);
-                      setAnswers({
-                        ...answers,
-                        activities_conducted_by_these_organisations: tmp,
-                      });
-                    }
+                    handleSelection(el);
                   }}>
                   <Checkbox
                     status={
@@ -396,7 +387,7 @@ export default function BastiQuestions() {
                 name="any"
                 onChangeText={text => {
                   let tmp = [
-                    ...answers.activities_conducted_by_these_organisations ,
+                    ...answers.activities_conducted_by_these_organisations,
                   ];
                   tmp.forEach((el, index) => {
                     if (el.value === 'Others') {
@@ -418,6 +409,9 @@ export default function BastiQuestions() {
                       )[0]?.['other']
                     : ''
                 }
+                empty={
+                  !answers.activities_conducted_by_these_organisations?.other
+                }
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -428,12 +422,14 @@ export default function BastiQuestions() {
           </View>
         </View>
 
-        {/* QA3 */}
+        {/* QA3 - involved_in_anti_social_activities*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.involved_in_anti_social_activities
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -442,7 +438,9 @@ export default function BastiQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.involved_in_anti_social_activities
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {3}
@@ -454,9 +452,7 @@ export default function BastiQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-             <TextHandler style={styles.question}>
-                {t('BASTI_Q3')}
-              </TextHandler>
+              <TextHandler style={styles.question}>{t('BASTI_Q3')}</TextHandler>
             </View>
           </View>
           <Input
@@ -469,6 +465,7 @@ export default function BastiQuestions() {
               });
             }}
             value={answers.involved_in_anti_social_activities}
+            empty={!answers.involved_in_anti_social_activities}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -477,12 +474,15 @@ export default function BastiQuestions() {
           />
         </View>
 
-        {/* QA4 */}
+        {/* QA4 -status_of_anti_social_institutions_after_our_center_establishment */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.status_of_anti_social_institutions_after_our_center_establishment
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -491,7 +491,10 @@ export default function BastiQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.status_of_anti_social_institutions_after_our_center_establishment
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {4}
@@ -503,9 +506,7 @@ export default function BastiQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-             <TextHandler style={styles.question}>
-                {t('BASTI_Q4')}
-              </TextHandler>
+              <TextHandler style={styles.question}>{t('BASTI_Q4')}</TextHandler>
             </View>
           </View>
           <RadioButtons
@@ -544,12 +545,15 @@ export default function BastiQuestions() {
           />
         </View>
 
-        {/* QA5  */}
+        {/* QA5 - our_beneficiaries_also_take_benefits_from_other_organisations */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.our_beneficiaries_also_take_benefits_from_other_organisations
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -558,7 +562,10 @@ export default function BastiQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.our_beneficiaries_also_take_benefits_from_other_organisations
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {5}
@@ -570,9 +577,7 @@ export default function BastiQuestions() {
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
-             <TextHandler style={styles.question}>
-                {t('BASTI_Q5')}
-              </TextHandler>
+              <TextHandler style={styles.question}>{t('BASTI_Q5')}</TextHandler>
             </View>
           </View>
 
@@ -658,5 +663,4 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: COLORS.black,
   },
-
 });
