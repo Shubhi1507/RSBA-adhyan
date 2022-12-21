@@ -250,7 +250,6 @@ export default function SelectAudienceScreen() {
         break;
     }
 
-    // navigate(ROUTES.AUTH.SURVEYSCREEN);
   };
   const submitSurvey = () => {
     let tmp = store?.currentSurveyData;

@@ -10,7 +10,6 @@ import CenterDetailsOneScreen from '../screens/auth/CenterDetailsOneScreen';
 import CenterDetailsTwoScreen from '../screens/auth/CenterDetailsTwoScreen';
 import SelectAudienceScreen from '../screens/auth/SelectAudienceScreen';
 import StudentEnrollmentScreen from '../screens/auth/StudentEnrollmentScreen';
-import SurveyScreen from '../screens/survey/SurveyScreen';
 
 const AuthStack = createStackNavigator();
 
@@ -53,11 +52,6 @@ export function Auth() {
       <AuthStack.Screen
         name={ROUTES.AUTH.SELECTAUDIENCESCREEN}
         component={SelectAudienceScreen}
-        options={{headerShown: false}}
-      />
-      <AuthStack.Screen
-        name={ROUTES.AUTH.SURVEYSCREEN}
-        component={SurveyScreen}
         options={{headerShown: false}}
       />
 
