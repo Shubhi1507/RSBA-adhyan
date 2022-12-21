@@ -21,6 +21,7 @@ import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
+import { Checkbox } from 'react-native-paper';
 
 export default function PastStudentQuestions() {
   const store = useSelector(state => state?.surveyReducer);
@@ -38,7 +39,7 @@ export default function PastStudentQuestions() {
     how_the_center_has_influnced_your_results_n_behavior: '',
     how_the_center_has_influnced_your_behavior: '',
     encourage_other_students_join_the_center: '',
-    how_the_center_has_influnced_your_personality: '',
+    how_the_center_has_influnced_your_personality: [],
     experience_between_you_n_other_students_who_do_not_come_to_kendra: '',
     difference_experienced_between_you_n_other_elder_students_due_to_the_center:
       '',
@@ -46,6 +47,7 @@ export default function PastStudentQuestions() {
     contribute_in_betterment_of_the_center: '',
     connected_with_sangh_organizations: '',
     involved_in_any_othe_social_activities: '',
+    reason_for_the_change: [] ,
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -90,6 +92,7 @@ export default function PastStudentQuestions() {
       experience_between_you_n_other_students_who_do_not_come_to_kendra,
       how_the_center_has_influnced_your_behavior,
       how_the_center_has_influnced_your_personality,
+      reason_for_the_change ,
       how_the_center_has_influnced_your_results_n_behavior,
       involved_in_any_othe_social_activities,
     } = answers;
@@ -580,7 +583,10 @@ export default function PastStudentQuestions() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.how_the_center_has_influnced_your_personality.length === 0
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -589,7 +595,10 @@ export default function PastStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    answers.how_the_center_has_influnced_your_personality.length === 0
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {7}
@@ -607,62 +616,103 @@ export default function PastStudentQuestions() {
             </View>
           </View>
 
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: 'No change/ increase/decrease',
-                  label: 'PAST_STUDENTS_Q7_OPT1',
-                },
-                {
-                  key: 2,
-                  value:
-                    'Reasons (good teachers/ teaching methodology/ atomsphere/ other',
-                  label: 'PAST_STUDENTS_Q7_OPT2',
-                },
-              ]}
-              valueProp={
-                answers.how_the_center_has_influnced_your_results_n_behavior
-              }
-              onValueChange={item => {
+          {[
+            {
+              key: 1,
+              value: 'Increased confidence and clarity on life goals',
+              label: 'PAST_STUDENTS_Q7_OPT1',
+            },
+            {
+              key: 2,
+              value: 'Increased academic interest and performance',
+              label: 'PAST_STUDENTS_Q7_OPT2',
+            },
+            {
+              key: 3,
+              value: 'Developed hidden qualities',
+              label: 'PAST_STUDENTS_Q7_OPT3',
+            }, {
+              key: 4,
+              value: 'Instilled nationalism ',
+              label: 'PAST_STUDENTS_Q7_OPT4',
+            }, {
+              key: 5,
+              value: 'Good understanding of socio political issues',
+              label: 'PAST_STUDENTS_Q7_OPT5',
+            },
+
+        
+          ].map((el, index) => {
+            return (
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  borderWidth: 1,
+                  marginVertical: 2,
+                  borderColor: COLORS.orange,
+                  paddingVertical: 5,
+                  marginVertical: 5,
+                }}
+                onPress={() => {
+                  handleSelection(el);
+                }}>
+                <Checkbox
+                  status={
+                    answers.how_the_center_has_influnced_your_personality.filter(
+                      item => item.value === el.value,
+                    ).length > 0
+                      ? 'checked'
+                      : 'unchecked'
+                  }
+                  color={COLORS.blue}
+                />
+                <TextHandler
+                  style={{
+                    color: 'black',
+                    // textAlign: 'left',
+                  }}>
+                  {t(el.label)}
+                </TextHandler>
+              </TouchableOpacity>
+            );
+          })}
+          {answers.how_the_center_has_influnced_your_personality.filter(
+            item => item.value === 'Others',
+          ).length > 0 && (
+            <Input
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                let tmp = [...answers.how_the_center_has_influnced_your_personality];
+                tmp.forEach((el, index) => {
+                  if (el.value === 'Others') {
+                    let newans = {...el, other: text};
+                    tmp.splice(index, 1, newans);
+                  }
+                });
                 setAnswers({
                   ...answers,
-                  how_the_center_has_influnced_your_results_n_behavior: item,
+                  how_the_center_has_influnced_your_personality: tmp,
                 });
               }}
+              value={
+                answers.how_the_center_has_influnced_your_personality.filter(
+                  el => el.value === 'Others',
+                ).length > 0
+                  ? answers.how_the_center_has_influnced_your_personality.filter(
+                      el => el.value === 'Others',
+                    )[0]?.['other']
+                  : ''
+              }
+              empty={!answers.how_the_center_has_influnced_your_personality?.other}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
             />
-            {answers.how_the_center_has_influnced_your_results_n_behavior
-              ?.key === 2 && (
-              <Input
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    how_the_center_has_influnced_your_results_n_behavior: {
-                      ...answers.how_the_center_has_influnced_your_results_n_behavior,
-                      other: text,
-                    },
-                  });
-                }}
-                value={
-                  answers.how_the_center_has_influnced_your_results_n_behavior
-                    ?.other
-                }
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            )}
-          </View>
+          )}
         </View>
 
         {/* QA8*/}
@@ -670,7 +720,10 @@ export default function PastStudentQuestions() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  answers.reason_for_the_change.length === 0
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -679,7 +732,10 @@ export default function PastStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    answers.reason_for_the_change.length === 0
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {8}
@@ -697,62 +753,103 @@ export default function PastStudentQuestions() {
             </View>
           </View>
 
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: 'No specific influnce',
-                  label: 'PAST_STUDENTS_Q8_OPT1',
-                },
-                {
-                  key: 2,
-                  value: 'Improved behavior',
-                  label: 'PAST_STUDENTS_Q8_OPT2',
-                },
-                {
-                  key: 3,
-                  value: 'Other',
-                  label: 'PAST_STUDENTS_Q8_OPT3',
-                },
-              ]}
-              valueProp={answers.how_the_center_has_influnced_your_behavior}
-              onValueChange={item => {
+          {[
+            {
+              key: 1,
+              value:'Good teachers  ',
+              label: 'PAST_STUDENTS_Q8_OPT1',
+            },
+            {
+              key: 2,
+              value: 'Participatory teaching methods ',
+              label: 'PAST_STUDENTS_Q8_OPT2',
+            },
+            {
+              key: 3,
+              value: 'Inputs from Various lectures/ baudhik/ shibir',
+              label: 'PAST_STUDENTS_Q8_OPT3',
+            }, {
+              key: 4,
+              value: 'Opportunity to participate in and conduct events  ',
+              label: 'PAST_STUDENTS_Q8_OPT4',
+            }, {
+              key: 5,
+              value: 'Others',
+              label: 'OTHERS'
+            },
+
+        
+          ].map((el, index) => {
+            return (
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  borderWidth: 1,
+                  marginVertical: 2,
+                  borderColor: COLORS.orange,
+                  paddingVertical: 5,
+                  marginVertical: 5,
+                }}
+                onPress={() => {
+                  handleSelection(el);
+                }}>
+                <Checkbox
+                  status={
+                    answers.reason_for_the_change.filter(
+                      item => item.value === el.value,
+                    ).length > 0
+                      ? 'checked'
+                      : 'unchecked'
+                  }
+                  color={COLORS.blue}
+                />
+                <TextHandler
+                  style={{
+                    color: 'black',
+                    // textAlign: 'left',
+                  }}>
+                  {t(el.label)}
+                </TextHandler>
+              </TouchableOpacity>
+            );
+          })}
+          {answers.reason_for_the_change.filter(
+            item => item.value === 'Others',
+          ).length > 0 && (
+            <Input
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                let tmp = [...answers.reason_for_the_change];
+                tmp.forEach((el, index) => {
+                  if (el.value === 'Others') {
+                    let newans = {...el, other: text};
+                    tmp.splice(index, 1, newans);
+                  }
+                });
                 setAnswers({
                   ...answers,
-                  how_the_center_has_influnced_your_behavior: item,
+                  reason_for_the_change: tmp,
                 });
               }}
+              value={
+                answers.reason_for_the_change.filter(
+                  el => el.value === 'Others',
+                ).length > 0
+                  ? answers.reason_for_the_change.filter(
+                      el => el.value === 'Others',
+                    )[0]?.['other']
+                  : ''
+              }
+              empty={!answers.reason_for_the_change?.other}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
             />
-            {answers.how_the_center_has_influnced_your_behavior?.key === 3 && (
-              <Input
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    how_the_center_has_influnced_your_behavior: {
-                      ...answers.how_the_center_has_influnced_your_behavior,
-                      other: text,
-                    },
-                  });
-                }}
-                value={
-                  answers.how_the_center_has_influnced_your_behavior?.other
-                }
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            )}
-          </View>
+          )}
         </View>
 
         {/* QA9 */}
@@ -914,7 +1011,7 @@ export default function PastStudentQuestions() {
         </View>
 
         {/* QA11 */}
-        <View>
+        {/* <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
@@ -1014,7 +1111,7 @@ export default function PastStudentQuestions() {
               />
             )}
           </View>
-        </View>
+        </View> */}
 
         {/* QA12*/}
         <View>
