@@ -112,11 +112,19 @@
   "LITERATE": "साक्षर",
   "EDUCATED": "अच्छे पढे लिखे",
   "MIX": "अन्य",
+  "CURRENT_STUDENTS_PARENTS_Q3_OPT2" : "" ,
+  "CURRENT_STUDENTS_PARENTS_Q3_OPT3" : "" ,
+  "CURRENT_STUDENTS_PARENTS_Q3_OPT4" : "" ,
   "VERY_POOR": "आर्थिक स्तर",
   "POOR": "अतिसामान्य",
   "GOOD": "सामान्य ",
-  "CURRENT_STUDENTS_PARENTS_Q4": "आर्थिक स्थिति",
-  "CURRENT_STUDENTS_PARENTS_Q4_OPT3": "अच्छी स्थिती ",
+
+  "CURRENT_STUDENTS_PARENTS_Q4": "Economic status ( Enter the percentage data )",
+"CURRENT_STUDENTS_PARENTS_Q4_OPT1" : "Less than 1 Lac (%) - " ,
+"CURRENT_STUDENTS_PARENTS_Q4_OPT2" : "1 to 3 Lacs (%) -" ,
+"CURRENT_STUDENTS_PARENTS_Q4_OPT3" : "3 to 5 Lacs (%) -" ,
+"CURRENT_STUDENTS_PARENTS_Q4_OPT4" : "5 to 10 Lacs (%) - " ,
+
 
   "CURRENT_STUDENTS_PARENTS_Q5": "केंद्र में अपने बच्चोंको भेजने का कारण  ",
   "CURRENT_STUDENTS_PARENTS_Q5_OPT1": "समय का उपयोग",
@@ -140,10 +148,14 @@
   "AFTER": "अभी का अनुभव",
   "CURRENT_STUDENTS_PARENTS_Q8_OPT3": "पढाई ",
   "CURRENT_STUDENTS_PARENTS_Q8_OPT4": "रहन सहन",
-  "CURRENT_STUDENTS_PARENTS_Q8_OPT5": "व्यवहार",
-  "CURRENT_STUDENTS_PARENTS_Q8_OPT6": "संस्कार",
-  "CURRENT_STUDENTS_PARENTS_Q8_OPT7": "आदतें",
-  "CURRENT_STUDENTS_PARENTS_Q9": "केंद्र  चलाने से क्या फायदा हो रहा है? परिवार को/ बस्ती को/ समाज को) केंद्र की विशेषता सफलता क्या रही है?",
+ 
+  "CURRENT_STUDENTS_PARENTS_Q9": "",
+  "CURRENT_STUDENTS_PARENTS_Q9_OPT1" : "" ,
+  "CURRENT_STUDENTS_PARENTS_Q9_OPT2" : "" ,
+  "CURRENT_STUDENTS_PARENTS_Q9_OPT3" : "" ,
+  "CURRENT_STUDENTS_PARENTS_Q9_OPT4" : "" ,
+
+
   "CURRENT_STUDENTS_PARENTS_Q10": "केंद्र चलाने में आपका सहयोग कैसा रहता है? ",
   "CURRENT_STUDENTS_PARENTS_Q10_OPT1": "केंद्र के कार्यक्रमो में सहभाग ",
   "CURRENT_STUDENTS_PARENTS_Q10_OPT2": "आर्थिक",
@@ -152,7 +164,14 @@
   "CURRENT_STUDENTS_PARENTS_Q10_OPT5": "अन्य",
   "CURRENT_STUDENTS_PARENTS_Q11": "केंद्र को और अच्छे से चलाने के लिये आप क्या कर सकते है? ",
   "CURRENT_STUDENTS_PARENTS_Q12": "शिक्षक के बारे मै आपका आकलन कृपया संक्षेप मै लिखे",
+
+  "CURRENT_STUDENTS_PARENTS_Q12_OPT1" : "" ,
+  "CURRENT_STUDENTS_PARENTS_Q12_OPT2" : "" ,
+  "CURRENT_STUDENTS_PARENTS_Q12_OPT3" : "" ,
+  "CURRENT_STUDENTS_PARENTS_Q12_OPT4" : "" ,
+
   "CURRENT_STUDENTS_PARENTS_Q13": "केंद्र से अपेक्षा ",
+  "CURRENT_STUDENTS_PARENTS_Q14" : "" ,
 
   // D
 
@@ -297,6 +316,7 @@
   "PAST_STUDENTS_Q5_OPT1": "पूर्णायु ",
   "PAST_STUDENTS_Q5_OPT2": "स्थानांतरण ",
   "PAST_STUDENTS_Q5_OPT3": "अन्य",
+  "PAST_STUDENTS_Q5_OPT4" : "Higher Studies" ,
   "PAST_STUDENTS_Q6": "क्या अभी भी केन्द्र से जुड़े है/ क्या केन्द्र को किसी प्रकार की सेवाएँ दे रहे हैं?",
   "PAST_STUDENTS_Q6_OPT1": "हाँ - किस प्रकार की सेवाएँ हम केन्द्र को दे रहें है ? ",
   "PAST_STUDENTS_Q6_OPT2": "ना - क्या हम केन्द्र को किसी प्रकार से सेवाएँ दे सकते है?",
