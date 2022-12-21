@@ -1275,7 +1275,6 @@ export default function PresentStudentQuestions() {
                   value: 'No',
                   label: 'NO',
                 },
-              
               ]}
               valueProp={answers.share_results_of_these_tests_with_the_parents}
               onValueChange={item => {
