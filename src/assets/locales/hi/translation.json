@@ -14,21 +14,20 @@
   "CENTER_Q1": "केंद्र का स्थापना वर्ष",
 
   "CENTER_Q2": "केंद्र आरम्भ करने का उद्देश्य ?(आप एक से अधिक उत्तर का चयन कर सकते है )",
-  "CENTER_Q2_OPT1" : "शिक्षा की आवश्यकता   " ,
-  "CENTER_Q2_OPT2" : "अभिवावक अपने बच्चे के लिए समय नहीं निकल पाते है |" ,
-  "CENTER_Q2_OPT3" : "नजदीक में ऐसी कोई दूसरी सुविधा उपलब्ध नहीं है |  " ,
-  "CENTER_Q2_OPT4" : "संगठनात्मक कार्य विस्तार " ,
-  "CENTER_Q2_OPT5" : "स्थानीय मांग पर   " ,
-
+  "CENTER_Q2_OPT1": "शिक्षा की आवश्यकता   ",
+  "CENTER_Q2_OPT2": "अभिवावक अपने बच्चे के लिए समय नहीं निकल पाते है |",
+  "CENTER_Q2_OPT3": "नजदीक में ऐसी कोई दूसरी सुविधा उपलब्ध नहीं है |  ",
+  "CENTER_Q2_OPT4": "संगठनात्मक कार्य विस्तार ",
+  "CENTER_Q2_OPT5": "स्थानीय मांग पर   ",
 
   "CENTER_Q3": "केंद्रकी स्थापना के बाद कुल मिलाकर कितने छात्र पास आउट हो चुके है ?  संख्या प्रविष्ट करे",
 
   "CENTER_Q4": "अगर केंद्र नहीं चला तो क्या होगा ? वर्णन करे ",
-  "CENTER_Q4_OPT1" : "" ,
-  "CENTER_Q4_OPT2" : "" ,
-  "CENTER_Q4_OPT3" : "" ,
-  "CENTER_Q4_OPT4" : "" ,
-  "CENTER_Q4_OPT5" : "On demand from the community" ,
+  "CENTER_Q4_OPT1": "",
+  "CENTER_Q4_OPT2": "",
+  "CENTER_Q4_OPT3": "",
+  "CENTER_Q4_OPT4": "",
+  "CENTER_Q4_OPT5": "On demand from the community",
 
   "CENTER_Q5": "क्या स्थापना के उपरांत केंद्र निरंतर संचालित हो रहा है अथवा बीच में कुछ समय बंद भी रहा (कोविड कालावधी छोडकर)  ",
   "CENTER_Q5_OPT1": "निरंतर संचालित हो रहा है",
@@ -90,17 +89,14 @@
   "CENTER_Q19_OPT1": "ना (तो क्या प्रयास कर सकते है?)",
 
   "CENTER_Q20": " कोरोना काल में हमारे केंद्र की भूमिका बस्ती में लघु उत्तर ",
-"CENTER_Q20_OPT1" : "हाँ, कृपया नीचे दिए गए विकल्पों में से चयन करे" ,
+  "CENTER_Q20_OPT1": "हाँ, कृपया नीचे दिए गए विकल्पों में से चयन करे",
 
-"CENTER_Q20_DISCONTINUED": " कोरोना काल में केंद्र समिति द्वारा क्या कार्य किया गया ?",
-"CENTER_Q20_DISCONTINUED_OPT1": "काढ़ा वितरण ",
-"CENTER_Q20_DISCONTINUED_OPT2": "सेनीटाईजेशन",
-"CENTER_Q20_DISCONTINUED_OPT3": "दवा वितरण ",
-"CENTER_Q20_DISCONTINUED_OPT4": "क्वारंटाइन सेंटर ",
-"CENTER_Q20_DISCONTINUED_OPT5": "राशन वितरण ",
-
-
-
+  "CENTER_Q20_DISCONTINUED": " कोरोना काल में केंद्र समिति द्वारा क्या कार्य किया गया ?",
+  "CENTER_Q20_DISCONTINUED_OPT1": "काढ़ा वितरण ",
+  "CENTER_Q20_DISCONTINUED_OPT2": "सेनीटाईजेशन",
+  "CENTER_Q20_DISCONTINUED_OPT3": "दवा वितरण ",
+  "CENTER_Q20_DISCONTINUED_OPT4": "क्वारंटाइन सेंटर ",
+  "CENTER_Q20_DISCONTINUED_OPT5": "राशन वितरण ",
 
   "CENTER_Q21": "केंद्र का बस्ती की असामाजिक समस्याएँ (नशा, बल विवाह) पर प्रभाव",
   "CENTER_Q21_OPT1": "कम हुआ ",
@@ -108,11 +104,11 @@
   "CENTER_Q21_OPT3": "कोई ख़ास असर नही ",
 
   "CENTER_Q22": " बस्ती की प्रमुख समस्यायें   ",
-  "CENTER_Q22_OPT1" : "नशा" ,
-  "CENTER_Q22_OPT2" : "अशिक्षा" ,
-  "CENTER_Q22_OPT3" : "बेरोजगारी " ,
-  "CENTER_Q22_OPT4" : "सामाजिक सुरक्षा" ,
-  "CENTER_Q22_OPT5" : "भेदभाव का वातावरण " ,
+  "CENTER_Q22_OPT1": "नशा",
+  "CENTER_Q22_OPT2": "अशिक्षा",
+  "CENTER_Q22_OPT3": "बेरोजगारी ",
+  "CENTER_Q22_OPT4": "सामाजिक सुरक्षा",
+  "CENTER_Q22_OPT5": "भेदभाव का वातावरण ",
 
   "CENTER_Q23": " बस्ती की कुल जनसांख्या",
   "HINDU": "हिंदू ",
@@ -140,19 +136,18 @@
   "LITERATE": "साक्षर",
   "EDUCATED": "अच्छे पढे लिखे",
   "MIX": "अन्य",
-  "CURRENT_STUDENTS_PARENTS_Q3_OPT2" : "" ,
-  "CURRENT_STUDENTS_PARENTS_Q3_OPT3" : "" ,
-  "CURRENT_STUDENTS_PARENTS_Q3_OPT4" : "" ,
+  "CURRENT_STUDENTS_PARENTS_Q3_OPT2": "",
+  "CURRENT_STUDENTS_PARENTS_Q3_OPT3": "",
+  "CURRENT_STUDENTS_PARENTS_Q3_OPT4": "",
   "VERY_POOR": "आर्थिक स्तर",
   "POOR": "अतिसामान्य",
   "GOOD": "सामान्य ",
 
   "CURRENT_STUDENTS_PARENTS_Q4": "Economic status ( Enter the percentage data )",
-"CURRENT_STUDENTS_PARENTS_Q4_OPT1" : "Less than 1 Lac (%) - " ,
-"CURRENT_STUDENTS_PARENTS_Q4_OPT2" : "1 to 3 Lacs (%) -" ,
-"CURRENT_STUDENTS_PARENTS_Q4_OPT3" : "3 to 5 Lacs (%) -" ,
-"CURRENT_STUDENTS_PARENTS_Q4_OPT4" : "5 to 10 Lacs (%) - " ,
-
+  "CURRENT_STUDENTS_PARENTS_Q4_OPT1": "Less than 1 Lac (%) - ",
+  "CURRENT_STUDENTS_PARENTS_Q4_OPT2": "1 to 3 Lacs (%) -",
+  "CURRENT_STUDENTS_PARENTS_Q4_OPT3": "3 to 5 Lacs (%) -",
+  "CURRENT_STUDENTS_PARENTS_Q4_OPT4": "5 to 10 Lacs (%) - ",
 
   "CURRENT_STUDENTS_PARENTS_Q5": "केंद्र में अपने बच्चोंको भेजने का कारण  ",
   "CURRENT_STUDENTS_PARENTS_Q5_OPT1": "समय का उपयोग",
@@ -176,13 +171,12 @@
   "AFTER": "अभी का अनुभव",
   "CURRENT_STUDENTS_PARENTS_Q8_OPT3": "पढाई ",
   "CURRENT_STUDENTS_PARENTS_Q8_OPT4": "रहन सहन",
- 
-  "CURRENT_STUDENTS_PARENTS_Q9": "",
-  "CURRENT_STUDENTS_PARENTS_Q9_OPT1" : "" ,
-  "CURRENT_STUDENTS_PARENTS_Q9_OPT2" : "" ,
-  "CURRENT_STUDENTS_PARENTS_Q9_OPT3" : "" ,
-  "CURRENT_STUDENTS_PARENTS_Q9_OPT4" : "" ,
 
+  "CURRENT_STUDENTS_PARENTS_Q9": "",
+  "CURRENT_STUDENTS_PARENTS_Q9_OPT1": "",
+  "CURRENT_STUDENTS_PARENTS_Q9_OPT2": "",
+  "CURRENT_STUDENTS_PARENTS_Q9_OPT3": "",
+  "CURRENT_STUDENTS_PARENTS_Q9_OPT4": "",
 
   "CURRENT_STUDENTS_PARENTS_Q10": "केंद्र चलाने में आपका सहयोग कैसा रहता है? ",
   "CURRENT_STUDENTS_PARENTS_Q10_OPT1": "केंद्र के कार्यक्रमो में सहभाग ",
@@ -193,13 +187,13 @@
   "CURRENT_STUDENTS_PARENTS_Q11": "केंद्र को और अच्छे से चलाने के लिये आप क्या कर सकते है? ",
   "CURRENT_STUDENTS_PARENTS_Q12": "शिक्षक के बारे मै आपका आकलन कृपया संक्षेप मै लिखे",
 
-  "CURRENT_STUDENTS_PARENTS_Q12_OPT1" : "" ,
-  "CURRENT_STUDENTS_PARENTS_Q12_OPT2" : "" ,
-  "CURRENT_STUDENTS_PARENTS_Q12_OPT3" : "" ,
-  "CURRENT_STUDENTS_PARENTS_Q12_OPT4" : "" ,
+  "CURRENT_STUDENTS_PARENTS_Q12_OPT1": "",
+  "CURRENT_STUDENTS_PARENTS_Q12_OPT2": "",
+  "CURRENT_STUDENTS_PARENTS_Q12_OPT3": "",
+  "CURRENT_STUDENTS_PARENTS_Q12_OPT4": "",
 
   "CURRENT_STUDENTS_PARENTS_Q13": "केंद्र से अपेक्षा ",
-  "CURRENT_STUDENTS_PARENTS_Q14" : "" ,
+  "CURRENT_STUDENTS_PARENTS_Q14": "",
 
   // D
 
@@ -249,12 +243,12 @@
   "PAST_STUDENTS_PARENTS_Q7_OPT4": " अन्य",
 
   "PAST_STUDENTS_PARENTS_Q8": "केंद्र का आपके बच्चोंको क्या फायदा हुआ ? ",
-  "PAST_STUDENTS_PARENTS_Q8_OPT1" : "" ,
-  "PAST_STUDENTS_PARENTS_Q8_OPT2" : "" ,
-  "PAST_STUDENTS_PARENTS_Q8_OPT3" : "" ,
-  "PAST_STUDENTS_PARENTS_Q8_OPT4" : "" ,
-  "PAST_STUDENTS_PARENTS_Q8_OPT5" : "" ,
-  "PAST_STUDENTS_PARENTS_Q8_OPT6" : "" ,
+  "PAST_STUDENTS_PARENTS_Q8_OPT1": "",
+  "PAST_STUDENTS_PARENTS_Q8_OPT2": "",
+  "PAST_STUDENTS_PARENTS_Q8_OPT3": "",
+  "PAST_STUDENTS_PARENTS_Q8_OPT4": "",
+  "PAST_STUDENTS_PARENTS_Q8_OPT5": "",
+  "PAST_STUDENTS_PARENTS_Q8_OPT6": "",
 
   "PAST_STUDENTS_PARENTS_Q9": " अब केंद्र चलाने में आपका सहयोग कैसा रहता है? ",
   "PAST_STUDENTS_PARENTS_Q9_OPT1": "अन्य बच्चोंको भेजना  ",
@@ -278,9 +272,8 @@
   "CURRENT_STUDENTS_Q3_OPT1": " बुलाना पडता है",
   "CURRENT_STUDENTS_Q3_OPT2": "अभिभावक भेजते है  ",
   "CURRENT_STUDENTS_Q3_OPT3": "केंद्र शुरू होने का इंतजार करते है",
-  "CURRENT_STUDENTS_Q3_OPT4" : "" ,
-  "CURRENT_STUDENTS_Q3_OPT5" : "" ,
-
+  "CURRENT_STUDENTS_Q3_OPT4": "",
+  "CURRENT_STUDENTS_Q3_OPT5": "",
 
   "CURRENT_STUDENTS_Q4": "कितने समय से आ रहे है?",
   "CURRENT_STUDENTS_Q4_OPT1": "6 माह से कम ",
@@ -353,7 +346,7 @@
   "PAST_STUDENTS_Q5_OPT1": "पूर्णायु ",
   "PAST_STUDENTS_Q5_OPT2": "स्थानांतरण ",
   "PAST_STUDENTS_Q5_OPT3": "अन्य",
-  "PAST_STUDENTS_Q5_OPT4" : "Higher Studies" ,
+  "PAST_STUDENTS_Q5_OPT4": "Higher Studies",
   "PAST_STUDENTS_Q6": "क्या अभी भी केन्द्र से जुड़े है/ क्या केन्द्र को किसी प्रकार की सेवाएँ दे रहे हैं?",
   "PAST_STUDENTS_Q6_OPT1": "हाँ - किस प्रकार की सेवाएँ हम केन्द्र को दे रहें है ? ",
   "PAST_STUDENTS_Q6_OPT2": "ना - क्या हम केन्द्र को किसी प्रकार से सेवाएँ दे सकते है?",
@@ -364,8 +357,6 @@
   "PAST_STUDENTS_Q8_OPT1": "कोई विशेष प्रभाव नही",
   "PAST_STUDENTS_Q8_OPT2": " आचरण सुधार गया",
   "PAST_STUDENTS_Q8_OPT3": "अन्य ",
-
-
 
   "PAST_STUDENTS_Q9": "क्या हम केंद्र के बारे अपने आस पास के बच्चों को बताते है/ क्या अन्य बंधु जो केन्द्र में आ सकते है उन्हें भेजने का कोई प्रयास करते है",
   "PAST_STUDENTS_Q9_OPT1": "हाँ",
@@ -465,11 +456,11 @@
   "TEACHER_Q12_OPT3": "अन्य (जानकारी प्रविष्ट करे)",
   "TEACHER_Q12_OPT4": "कोई अपेक्षा नही",
 
-  "KENDRA_SANCHALAK_Q1": "कितने छात्र नियमित रूप से केंद्र मै आते है? (बालक + बालिकाए)",
+  "KENDRA_SANCHALAK_Q1": "कितने छात्र नियमित रूप से केंद्र मै आते है? (बालक + बालिकाए)   कुल संख्या दर्ज करें ",
   "KENDRA_SANCHALAK_Q2": "कोविड काल मै केंद्र की सक्रीयता कैसी थी?",
   "KENDRA_SANCHALAK_Q2_OPT1": "पुरी तरह से बंद",
-  "KENDRA_SANCHALAK_Q2_OPT2": "आंशिक रूप से सक्रिय (लगभग ५०%)",
-  "KENDRA_SANCHALAK_Q2_OPT3": "आंशिक रूप से सक्रिय (लगभग १०%)",
+  "KENDRA_SANCHALAK_Q2_OPT2": " आंशिक रूप से सक्रिय (१.५ वर्ष में लगभग ५०%)",
+  "KENDRA_SANCHALAK_Q2_OPT3": "आंशिक रूप से सक्रिय (१.५ वर्ष में लगभग १०%)  ",
   "KENDRA_SANCHALAK_Q2_OPT4": "पूरी तरह से सक्रिय",
   "KENDRA_SANCHALAK_Q3": "छात्रो के परिवार मै किस तरह का परिवर्तन हम देख सकते है? (एक या अधिक पर्याय चुने) ",
   "KENDRA_SANCHALAK_Q3_OPT1": " परिवार के सदस्योंका केंद्र की गतीविधीयोमे सहभाग बढा है",
@@ -483,12 +474,12 @@
   "KENDRA_SANCHALAK_Q4_OPT3": " ३१ से ४५ %",
   "KENDRA_SANCHALAK_Q4_OPT4": " ५०% से अधिक",
 
-  "KENDRA_SANCHALAK_Q5": "शालात्यागी रेशो मे कितने प्रतिशत की कमी आयी है? (पहले ओर अब तुलना करे) - १० वी तक के छात्रो का इसमे विचार करे",
+  "KENDRA_SANCHALAK_Q5": "पाठशालात्यागी अनुपात मे कितने प्रतिशत की कमी आयी है? (पहले ओर अब तुलना करे) - १० वी तक के छात्रो का इसमे विचार करे  ",
   "KENDRA_SANCHALAK_Q5_OPT1": "१० से १५ %",
   "KENDRA_SANCHALAK_Q5_OPT2": "१६ से ३० %",
   "KENDRA_SANCHALAK_Q5_OPT3": "३१ से ४५ %",
   "KENDRA_SANCHALAK_Q5_OPT4": "५०% से अधिक",
-  "KENDRA_SANCHALAK_Q6": "केंद्र मे मेडिकल टेस्ट होती है? ",
+  "KENDRA_SANCHALAK_Q6": " क्या हम केंद्र मे मेडिकल टेस्ट करते है?",
   "KENDRA_SANCHALAK_Q6_OPT1": "हां",
   "KENDRA_SANCHALAK_Q6_OPT2": "ना",
   "KENDRA_SANCHALAK_Q7": "केंद्र के काम का विस्तार करने की कोई योजन है?",
@@ -500,12 +491,13 @@
   "KENDRA_SANCHALAK_Q9": "केंद्र के कार्य पर प्रतिभाव (feedback) देने की यंत्रणा है क्या? आयी हुई प्रतिक्रियाओंपर समय पर ढ़ंग से कार्यवाही होती है क्या?  ",
   "KENDRA_SANCHALAK_Q9_OPT1": "हां",
   "KENDRA_SANCHALAK_Q9_OPT2": "ना",
-  "KENDRA_SANCHALAK_Q10": "केंद्र संचालक के बारे मै अन्य किसी बात का आकलन ? संक्षेप मै लिखे",
+  "KENDRA_SANCHALAK_Q10": " कोई अन्य पर्यवेक्षण जो ऊपर के प्रश्नों में समाहित नहीं हो  कृपया विस्तार में लिखें",
 
-  "BASTI_Q1": "हमारे अतिरिक्त अन्य कौन से संस्थाए भी बस्ती में सक्रीय है ? ",
-  "BASTI_Q1_OPT1": "हां",
+  "BASTI_Q1": "अन्य कौन सी संस्थाए बस्ती में सक्रीय है ? ",
+  "BASTI_Q1_OPT1": "यदि हां तो नाम लिखे ",
   "BASTI_Q1_OPT2": "ना",
-  "BASTI_Q2": "इन संस्थाओं द्वारा किस प्रकार की गतिविधियाँ संचालित करती है (एक से अधिक चयन भी कर सकते है )  ",
+
+  "BASTI_Q2": "इन संस्थाओं द्वारा किस प्रकार की गतिविधियाँ संचालित करती है (एक से अधिक भी चयन कर सकते है ) ",
   "BASTI_Q2_OPT1": "शिक्षा ",
   "BASTI_Q2_OPT2": "स्वास्थ्य  ",
   "BASTI_Q2_OPT3": "स्वावलंबन ",
@@ -521,22 +513,25 @@
   "BASTI_Q5_OPT1": "हां",
   "BASTI_Q5_OPT2": "ना",
 
-  "INFLUENTIAL_PEOPELE_Q1": "प्रभावशाली लोगो के सहयोग के प्रकार (एक या अधिक पर्याय चुने)",
-  "INFLUENTIAL_PEOPELE_Q1_OPT1": "आर्थिक ( वस्तु / धन राशि ) ",
+  "INFLUENTIAL_PEOPELE_Q1": "दानदाता और शुभचिंतक लोग  सहयोग किस प्रकार करते हैं (एक या अधिक पर्याय चुने)  ",
+  "INFLUENTIAL_PEOPELE_Q1_OPT1": "आर्थिक ( वस्तु / धन राशि )   ",
   "INFLUENTIAL_PEOPELE_Q1_OPT2": "सामाजिक",
   "INFLUENTIAL_PEOPELE_Q1_OPT3": "अन्य",
-  "INFLUENTIAL_PEOPELE_Q2": "प्रबुद्ध जन से सम्पर्क के सूत्र ? ",
-  "INFLUENTIAL_PEOPELE_Q2_OPT1": "व्यक्ति विशेष ",
+
+  "INFLUENTIAL_PEOPELE_Q2": "दानदाता और शुभचिंतक लोग  हमसे किस प्रकार जुड़े हुए हैं",
+  "INFLUENTIAL_PEOPELE_Q2_OPT1": " परिचित व्यक्ति के माध्यम से  ",
   "INFLUENTIAL_PEOPELE_Q2_OPT2": "संघ",
   "INFLUENTIAL_PEOPELE_Q2_OPT3": "पूर्व सेवित",
-  "INFLUENTIAL_PEOPELE_Q2_OPT4": "कार्यों के  माध्यम से ",
+  "INFLUENTIAL_PEOPELE_Q2_OPT4": "हमारे सामाजिक कार्यों के कारण से ",
+
   "INFLUENTIAL_PEOPELE_Q3": "क्या प्रबुद्ध जन का कोरोना क़ाल में सहयोग रहा ?  ",
   "INFLUENTIAL_PEOPELE_Q3_OPT1": "हां",
-  "INFLUENTIAL_PEOPELE_Q3_OPT2": "ना",
-  "INFLUENTIAL_PEOPELE_Q4": "प्रबुद्ध जन का बस्ती और समाज के विभिन्न वर्गों में प्रभाव ?",
-  "INFLUENTIAL_PEOPELE_Q4_OPT1": "हां",
-  "INFLUENTIAL_PEOPELE_Q4_OPT2": "नही.",
-  "INFLUENTIAL_PEOPELE_Q4_OPT3": "वर्ग विशेष में",
+  "INFLUENTIAL_PEOPELE_Q3_OPT2": "नही",
+
+  "INFLUENTIAL_PEOPELE_Q4": "शुभचिंतक लोग  का अन्य समाजों पर प्रभाव? ?",
+  "INFLUENTIAL_PEOPELE_Q4_OPT1": "अत्यंत प्रभावी ",
+  "INFLUENTIAL_PEOPELE_Q4_OPT2": "कोई खास नही ",
+  "INFLUENTIAL_PEOPELE_Q4_OPT3": "कुछ वर्ग विशेष में ",
   // C
   "COMPLETED_SURVEYS": "पूर्ण",
   "CURRENT_ADDRESS": "वर्तमान पता",
