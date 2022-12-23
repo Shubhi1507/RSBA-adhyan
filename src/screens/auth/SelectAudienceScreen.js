@@ -71,7 +71,7 @@ export default function SelectAudienceScreen() {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 16,
+      totalQue: 14,
     },
     {
       key: 5,
@@ -160,7 +160,7 @@ export default function SelectAudienceScreen() {
         disabled: false,
         attempted: false,
         completed: false,
-        totalQue: 16,
+        totalQue: 14,
       },
       {
         key: 'Teacher',

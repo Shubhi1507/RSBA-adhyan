@@ -47,7 +47,7 @@ export default function PastStudentQuestions() {
     contribute_in_betterment_of_the_center: '',
     connected_with_sangh_organizations: '',
     involved_in_any_othe_social_activities: '',
-    reason_for_the_change: [] ,
+    reason_for_the_change: [],
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -96,14 +96,14 @@ export default function PastStudentQuestions() {
     p = tmpans.length;
 
     if (
-      still_associated_with_the_center?.value === 'Yes' &&
-      still_associated_with_the_center_reasons.length > 0
+      answers.still_associated_with_the_center?.value === 'Yes' &&
+      answers.still_associated_with_the_center_reasons.length > 0
     ) {
       p = p - 1;
     }
     if (
-      still_associated_with_the_center?.value === 'No' &&
-      still_associated_with_the_center_reasons.length > 0
+      answers.still_associated_with_the_center?.value === 'No' &&
+      answers.still_associated_with_the_center_reasons.length > 0
     ) {
       p = p - 1;
     }
@@ -531,7 +531,6 @@ export default function PastStudentQuestions() {
                 }}
                 value={answers.reason_for_leaving_the_center?.other}
                 empty={!answers.reason_for_leaving_the_center?.other}
-
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -1650,7 +1649,6 @@ export default function PastStudentQuestions() {
                 }}
                 value={answers.contribute_in_betterment_of_the_center?.other}
                 empty={!answers.contribute_in_betterment_of_the_center?.other}
-
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
