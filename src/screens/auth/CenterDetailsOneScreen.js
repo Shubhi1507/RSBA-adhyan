@@ -62,7 +62,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 19,
+      totalQue: 16,
     },
     {
       key: 4,
@@ -71,7 +71,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 16,
+      totalQue: 14,
     },
     {
       key: 5,
