@@ -49,7 +49,6 @@ export default function PresentStudentQuestions() {
     conduct_monthly_or_quarterly_tests: '',
     share_results_of_these_tests_with_the_parents: '',
     suggestions_to_improve_the_kendra_activities: '',
-    role_model_for_the_student: '',
     regularaly_go_to_rss_shakha: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
@@ -80,7 +79,7 @@ export default function PresentStudentQuestions() {
   const pageValidator = () => {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
-    let q = 19;
+    let q = 16;
     let tmpans = [];
     let p = 0;
     Object.values(answers).forEach(el => {
@@ -160,12 +159,14 @@ export default function PresentStudentQuestions() {
         }
       />
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
-        {/* QA1 */}
+        {/* QA1 - students_enrolled */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.students_enrolled
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -174,7 +175,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.students_enrolled
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {1}
@@ -201,6 +204,7 @@ export default function PresentStudentQuestions() {
               setAnswers({...answers, students_enrolled: text});
             }}
             value={answers.students_enrolled}
+            empty={!answers.students_enrolled}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -209,12 +213,14 @@ export default function PresentStudentQuestions() {
           />
         </View>
 
-        {/* QA2 */}
+        {/* QA2 - students_coming_regularly*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.students_coming_regularly
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -223,7 +229,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.students_coming_regularly
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {2}
@@ -279,12 +287,15 @@ export default function PresentStudentQuestions() {
           </View>
         </View>
 
-        {/* QA3 */}
+        {/* QA3 - interest_of_the_students_towards_kendra */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.interest_of_the_students_towards_kendra
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -293,7 +304,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.interest_of_the_students_towards_kendra
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {3}
@@ -338,12 +351,12 @@ export default function PresentStudentQuestions() {
                   key: 4,
                   value: 'Come regularly',
                   label: 'CURRENT_STUDENTS_Q3_OPT4',
-                }, {
+                },
+                {
                   key: 5,
                   value: 'Very excited to join activities in kendra  ',
                   label: 'CURRENT_STUDENTS_Q3_OPT5',
                 },
-
               ]}
               valueProp={answers.interest_of_the_students_towards_kendra}
               onValueChange={item => {
@@ -356,12 +369,15 @@ export default function PresentStudentQuestions() {
           </View>
         </View>
 
-        {/* QA4 */}
+        {/* QA4 - since_how_long_they_are_coming_to_the_prakalp*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.since_how_long_they_are_coming_to_the_prakalp
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -370,7 +386,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.since_how_long_they_are_coming_to_the_prakalp
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {4}
@@ -420,12 +438,14 @@ export default function PresentStudentQuestions() {
           />
         </View>
 
-        {/* QA5  */}
+        {/* QA5 - _how_they_come_to_prakalp */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers._how_they_come_to_prakalp
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -434,7 +454,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers._how_they_come_to_prakalp
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {5}
@@ -505,6 +527,7 @@ export default function PresentStudentQuestions() {
                   });
                 }}
                 value={answers._how_they_come_to_prakalp?.other}
+                empty={!answers._how_they_come_to_prakalp?.other}
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -515,12 +538,14 @@ export default function PresentStudentQuestions() {
           </View>
         </View>
 
-        {/* QA6 */}
+        {/* QA6 -do_students_help_other_students  */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.do_students_help_other_students
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -529,7 +554,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.do_students_help_other_students
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {6}
@@ -566,12 +593,15 @@ export default function PresentStudentQuestions() {
           </View>
         </View>
 
-        {/* QA7*/}
+        {/* QA7 -  do_students_get_any_benefit_by_teaching */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.do_students_get_any_benefit_by_teaching
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -580,7 +610,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.do_students_get_any_benefit_by_teaching
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {7}
@@ -608,6 +640,7 @@ export default function PresentStudentQuestions() {
               });
             }}
             value={answers.do_students_get_any_benefit_by_teaching}
+            empty={!answers.do_students_get_any_benefit_by_teaching}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -616,12 +649,14 @@ export default function PresentStudentQuestions() {
           />
         </View>
 
-        {/* QA8 */}
+        {/* QA8 - students_improvemnet */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.students_improvemnet
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -630,7 +665,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.students_improvemnet
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {8}
@@ -686,12 +723,15 @@ export default function PresentStudentQuestions() {
           </View>
         </View>
 
-        {/* QA9*/}
+        {/* QA9 - decrease_in_results_after_joining_the_kendra*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.decrease_in_results_after_joining_the_kendra
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -700,7 +740,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.decrease_in_results_after_joining_the_kendra
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {9}
@@ -748,12 +790,14 @@ export default function PresentStudentQuestions() {
           </View>
         </View>
 
-        {/* QA10 */}
+        {/* QA10 - reason_of_the_decreasing_result*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.reason_of_the_decreasing_result
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -762,7 +806,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.reason_of_the_decreasing_result
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {10}
@@ -829,6 +875,7 @@ export default function PresentStudentQuestions() {
                   });
                 }}
                 value={answers.reason_of_the_decreasing_result?.other}
+                empty={!answers.reason_of_the_decreasing_result?.other}
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -839,12 +886,15 @@ export default function PresentStudentQuestions() {
           </View>
         </View>
 
-        {/* QA11*/}
+        {/* QA11 - how_students_get_to_know_about_the_kendra*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.how_students_get_to_know_about_the_kendra
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -853,7 +903,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.how_students_get_to_know_about_the_kendra
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {11}
@@ -923,6 +975,9 @@ export default function PresentStudentQuestions() {
                   });
                 }}
                 value={answers.how_students_get_to_know_about_the_kendra?.other}
+                empty={
+                  !answers.how_students_get_to_know_about_the_kendra?.other
+                }
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -933,12 +988,15 @@ export default function PresentStudentQuestions() {
           </View>
         </View>
 
-        {/* QA12 */}
+        {/* QA12 -other_activities_organised_in_the_center */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.other_activities_organised_in_the_center
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -947,7 +1005,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.other_activities_organised_in_the_center
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {12}
@@ -992,34 +1052,40 @@ export default function PresentStudentQuestions() {
                 });
               }}
             />
-            <Input
-              placeholder={`${t('ENTER_ANSWER')}`}
-              name="any"
-              onChangeText={text => {
-                setAnswers({
-                  ...answers,
-                  other_activities_organised_in_the_center: {
-                    ...answers.other_activities_organised_in_the_center,
-                    other: text,
-                  },
-                });
-              }}
-              value={answers.other_activities_organised_in_the_center?.other}
-              message={''}
-              containerStyle={{
-                alignItems: 'center',
-                minWidth: screenWidth * 0.5,
-              }}
-            />
+
+            {answers.other_activities_organised_in_the_center?.value && (
+              <Input
+                placeholder={`${t('ENTER_ANSWER')}`}
+                name="any"
+                onChangeText={text => {
+                  setAnswers({
+                    ...answers,
+                    other_activities_organised_in_the_center: {
+                      ...answers.other_activities_organised_in_the_center,
+                      other: text,
+                    },
+                  });
+                }}
+                value={answers.other_activities_organised_in_the_center?.other}
+                empty={!answers.other_activities_organised_in_the_center?.other}
+                message={''}
+                containerStyle={{
+                  alignItems: 'center',
+                  minWidth: screenWidth * 0.5,
+                }}
+              />
+            )}
           </View>
         </View>
 
-        {/* QA13 */}
+        {/* QA13 - go_to_other_coaching*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.go_to_other_coaching
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1028,7 +1094,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.go_to_other_coaching
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {13}
@@ -1089,6 +1157,7 @@ export default function PresentStudentQuestions() {
                   });
                 }}
                 value={answers.go_to_other_coaching?.other}
+                empty={!answers.go_to_other_coaching?.other}
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -1099,12 +1168,15 @@ export default function PresentStudentQuestions() {
           </View>
         </View>
 
-        {/* QA14 */}
+        {/* QA14 - kendra_organize_regular_parents_teacher_meeting*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.kendra_organize_regular_parents_teacher_meeting
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1113,7 +1185,10 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.kendra_organize_regular_parents_teacher_meeting
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {14}
@@ -1313,12 +1388,15 @@ export default function PresentStudentQuestions() {
           </View>
         </View> */}
 
-        {/* QA17*/}
+        {/* QA15 - suggestions_to_improve_the_kendra_activities */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.suggestions_to_improve_the_kendra_activities
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1327,7 +1405,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.suggestions_to_improve_the_kendra_activities
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {15}
@@ -1355,6 +1435,7 @@ export default function PresentStudentQuestions() {
               });
             }}
             value={answers.suggestions_to_improve_the_kendra_activities}
+            empty={!answers.suggestions_to_improve_the_kendra_activities}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -1363,62 +1444,14 @@ export default function PresentStudentQuestions() {
           />
         </View>
 
-        {/* QA18*/}
-        {/* <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {18}
-              </TextHandler>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler style={styles.question}>
-                {t('CURRENT_STUDENTS_Q18')}
-              </TextHandler>
-            </View>
-          </View>
-
-          <Input
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({
-                ...answers,
-                role_model_for_the_student: text,
-              });
-            }}
-            value={answers.role_model_for_the_student}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.25,
-            }}
-          />
-        </View> */}
-
-        {/* QA19 */}
+        {/* QA16 = regularaly_go_to_rss_shakha*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.regularaly_go_to_rss_shakha
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1427,7 +1460,9 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.regularaly_go_to_rss_shakha
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {16}
