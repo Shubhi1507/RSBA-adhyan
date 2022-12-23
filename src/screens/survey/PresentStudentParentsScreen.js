@@ -777,19 +777,26 @@ export default function PresentStudentParentsScreen() {
           {[
             {
               key: 1,
-              value: 'Economic',
+              value: 'Spending free time',
               label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT1',
             },
             {
               key: 2,
-              value: 'Social',
+              value: 'Good quality education',
               label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT2',
             },
             {
               key: 3,
-              value: 'Others',
+              value: 'Sanskaar',
               label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT3',
             },
+            {
+              key: 4,
+              value: 'Others',
+              label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT4',
+            },
+            
+
           ].map((el, index) => {
             return (
               <TouchableOpacity

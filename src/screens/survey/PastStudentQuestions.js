@@ -47,6 +47,7 @@ export default function PastStudentQuestions() {
     contribute_in_betterment_of_the_center: '',
     connected_with_sangh_organizations: '',
     involved_in_any_othe_social_activities: '',
+    reason_for_the_change: [] ,
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
