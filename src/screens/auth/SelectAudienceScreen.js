@@ -44,7 +44,7 @@ export default function SelectAudienceScreen() {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 13,
+      totalQue: 16,
     },
     {
       key: 2,
@@ -133,7 +133,7 @@ export default function SelectAudienceScreen() {
         disabled: false,
         attempted: false,
         completed: false,
-        totalQue: 13,
+        totalQue: 16,
       },
       {
         key: `Student's Parents (Past Students)`,

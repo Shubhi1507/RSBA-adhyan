@@ -30,34 +30,44 @@ export default function PresentStudentParentsScreen() {
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
     // FROM DOCS
-    current_students: 0,
-    no_of_parents_present: 0,
-    educational_background: '',
-    economic_status: '',
+    current_students: '',
+    no_of_parents_present: '',
+    rating_illiterate: '',
+    rating_upto_5th: '',
+    rating_upto_10th: '',
+    rating_graduation: '',
+    econmonic_status_under_1_lakh: '',
+    econmonic_status_between_1_and_3_lakh: '',
+    econmonic_status_between_3_and_5_lakh: '',
+    econmonic_status_between_5_and_10_lakh: '',
     reason_for_sending_children_to_the_centre: [],
     how_these_children_go_to_the_centre: '',
     days_children_are_going_to_the_centre: '',
-
-    experience_due_to_the_centre_education_before: '',
-    overall_living_0f_students: '',
-    experience_due_to_the_centre_living_before: '',
-    experience_due_to_the_centre_behaviour_before: '',
-    experience_due_to_the_centre_sanskar_before: '',
-    experience_due_to_the_centre_habits_before: '',
-    behaviour_and_habit_change: '',
-
-    experience_due_to_the_centre_education_after: '',
-    experience_due_to_the_centre_living_after: '',
-    experience_due_to_the_centre_behaviour_after: '',
-    experience_due_to_the_centre_sanskar_after: '',
-    experience_due_to_the_centre_habits_after: '',
+    listening_skills: '',
+    concentration: '',
+    studies_interest: '',
+    overall_academic_performance: '',
+    clean_and_neat_clothes: '',
+    yoga_exercise: '',
+    nutritious_food: '',
+    follow_proper_daily_routine: '',
+    rating_respect_elders: '',
+    do_not_back_answer_or_fight_with_friend: '',
+    rating_leadership_skills: '',
+    rating_helpful_others: '',
+    rating_religious_practice: '',
+    rating_knowledge_of_vedic_times_and_imp_saints: '',
+    rating_nationalism_knowledge: '',
+    rating_care_for_our_people: '',
+    rating_kendra_teacher_good_behaviour: '',
+    rating_kendra_teacher_effective_management: '',
+    rating_kendra_teacher_teaching_ability: '',
+    rating_kendra_teacher_connect_with_parents: '',
+    expectations_from_the_centre: '',
 
     benefits_of_the_centre: '',
     involvement_in_the_programs_of_the_centre: '',
     contribution_in_running_centre_more_effectively: '',
-    observations_about_kendra_teacher: '',
-    change_among_students_of_tradition: '',
-    expectations_from_the_centre: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -68,6 +78,7 @@ export default function PresentStudentParentsScreen() {
     store?.currentSurveyData?.surveyAnswers.length > 0
       ? [...store?.currentSurveyData?.surveyAnswers]
       : [];
+  let tmp2 = [...answers.reason_for_sending_children_to_the_centre];
 
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
@@ -83,303 +94,205 @@ export default function PresentStudentParentsScreen() {
   const pageValidator = () => {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
+    try {
+      const {
+        benefits_of_the_centre,
+        contribution_in_running_centre_more_effectively,
+        current_students,
+        days_children_are_going_to_the_centre,
+        expectations_from_the_centre,
+        how_these_children_go_to_the_centre,
+        involvement_in_the_programs_of_the_centre,
+        no_of_parents_present,
+        reason_for_sending_children_to_the_centre,
+        rating_illiterate,
+        rating_upto_5th,
+        rating_upto_10th,
+        rating_graduation,
+        econmonic_status_under_1_lakh,
+        econmonic_status_between_1_and_3_lakh,
+        econmonic_status_between_3_and_5_lakh,
+        econmonic_status_between_5_and_10_lakh,
+        listening_skills,
+        concentration,
+        studies_interest,
+        overall_academic_performance,
+        clean_and_neat_clothes,
+        yoga_exercise,
+        nutritious_food,
+        follow_proper_daily_routine,
+        rating_respect_elders,
+        do_not_back_answer_or_fight_with_friend,
+        rating_leadership_skills,
+        rating_helpful_others,
+        rating_religious_practice,
+        rating_knowledge_of_vedic_times_and_imp_saints,
+        rating_nationalism_knowledge,
+        rating_care_for_our_people,
+        rating_kendra_teacher_good_behaviour,
+        rating_kendra_teacher_effective_management,
+        rating_kendra_teacher_teaching_ability,
+        rating_kendra_teacher_connect_with_parents,
+      } = answers;
 
-    const {
-      benefits_of_the_centre,
-      contribution_in_running_centre_more_effectively,
-      current_students,
-      days_children_are_going_to_the_centre,
-      economic_status,
-      educational_background,
-      expectations_from_the_centre,
-      experience_due_to_the_centre_behaviour_after,
-      experience_due_to_the_centre_behaviour_before,
-      experience_due_to_the_centre_education_after,
-      experience_due_to_the_centre_education_before,
-      overall_living_0f_students,
-      behaviour_and_habit_change,
-      experience_due_to_the_centre_habits_after,
-      experience_due_to_the_centre_habits_before,
-      experience_due_to_the_centre_living_after,
-      experience_due_to_the_centre_living_before,
-      experience_due_to_the_centre_sanskar_after,
-      experience_due_to_the_centre_sanskar_before,
-      how_these_children_go_to_the_centre,
-      involvement_in_the_programs_of_the_centre,
-      no_of_parents_present,
+      let q = 16;
+      let unanswered = 16;
+      let ans1 = !current_students ? 0 : 1;
+      let ans2 = !no_of_parents_present ? 0 : 1;
+      let ans3 =
+        rating_illiterate &&
+        rating_upto_5th &&
+        rating_upto_10th &&
+        rating_graduation
+          ? 1
+          : 0;
+      let ans4 =
+        econmonic_status_under_1_lakh &&
+        econmonic_status_between_1_and_3_lakh &&
+        econmonic_status_between_3_and_5_lakh &&
+        econmonic_status_between_5_and_10_lakh
+          ? 1
+          : 0;
+      let ans5 = reason_for_sending_children_to_the_centre.length > 0 ? 1 : 0;
+      let ans6 = !how_these_children_go_to_the_centre ? 0 : 1;
+      let ans7 = !days_children_are_going_to_the_centre ? 0 : 1;
+      let ans8 =
+        listening_skills &&
+        concentration &&
+        studies_interest &&
+        overall_academic_performance
+          ? 1
+          : 0;
+      let ans9 =
+        clean_and_neat_clothes &&
+        yoga_exercise &&
+        nutritious_food &&
+        follow_proper_daily_routine
+          ? 1
+          : 0;
+      let ans10 =
+        rating_respect_elders &&
+        do_not_back_answer_or_fight_with_friend &&
+        rating_leadership_skills &&
+        rating_helpful_others
+          ? 1
+          : 0;
+      let ans11 =
+        rating_religious_practice &&
+        rating_knowledge_of_vedic_times_and_imp_saints &&
+        rating_nationalism_knowledge &&
+        rating_care_for_our_people
+          ? 1
+          : 0;
+      let ans12 = !benefits_of_the_centre ? 0 : 1;
+      let ans13 = !involvement_in_the_programs_of_the_centre ? 0 : 1;
+      let ans14 = !contribution_in_running_centre_more_effectively ? 0 : 1;
+      let ans15 =
+        rating_kendra_teacher_good_behaviour &&
+        rating_kendra_teacher_effective_management &&
+        rating_kendra_teacher_teaching_ability &&
+        rating_kendra_teacher_connect_with_parents
+          ? 1
+          : 0;
+      let ans16 = !expectations_from_the_centre ? 0 : 1;
 
-      change_among_students_of_tradition,
-      observations_about_kendra_teacher,
-      reason_for_sending_children_to_the_centre,
-    } = answers;
-    let answer3 =
-      rating_academic &&
-      rating_behaviour_pattern &&
-      rating_sports &&
-      rating_culture
-        ? true
-        : false;
+      let tmp2 = Object.values(answers).filter(el => {
+        if (el) return el;
+      });
 
-    if (answer3 === true) {
-      p = p - 3;
-    } else {
-      if (
-        rating_illiterate.length > 0 ||
-        rating_upto_5.length > 0 ||
-        rating_upto_10.length > 0 ||
-        rating_graduation.length > 0
-      ) {
-        p = p - 1;
-      }
-    }
+      let p =
+        unanswered -
+        (ans1 +
+          ans2 +
+          ans3 +
+          ans4 +
+          ans5 +
+          ans6 +
+          ans7 +
+          ans8 +
+          ans9 +
+          ans10 +
+          ans11 +
+          ans12 +
+          ans13 +
+          ans14 +
+          ans15 +
+          ans16);
 
-    let answer4 =
-      rating_academic &&
-      rating_behaviour_pattern &&
-      rating_sports &&
-      rating_culture
-        ? true
-        : false;
-
-    if (answer4 === true) {
-      p = p - 3;
-    } else {
-      if (
-        rating_1_lakh.length > 0 ||
-        rating_upto_3_lakh.length > 0 ||
-        rating_upto_5_lakh.length > 0 ||
-        rating_upto_10_lakh.length > 0
-      ) {
-        p = p - 1;
-      }
-    }
-
-    let answer8 =
-      listening_skills && concentration && studies_interest && overall_academic
-        ? true
-        : false;
-
-    if (answer8 === true) {
-      p = p - 3;
-    } else {
-      if (
-        listening_skills.length > 0 ||
-        concentration.length > 0 ||
-        studies_interest.length > 0 ||
-        overall_academic.length > 0
-      ) {
-        p = p - 1;
-      }
-    }
-
-    let answer9 =
-      clean_clothes && yoga_exercise && home_food && daily_routine
-        ? true
-        : false;
-
-    if (answer9 === true) {
-      p = p - 3;
-    } else {
-      if (
-        clean_clothes.length > 0 ||
-        yoga_exercise.length > 0 ||
-        home_food.length > 0 ||
-        daily_routine.length > 0
-      ) {
-        p = p - 1;
-      }
-    }
-
-    let answer10 =
-      rating_respect_elders &&
-      rating_no_fight_with_friend &&
-      rating_leadership &&
-      rating_helpful
-        ? true
-        : false;
-
-    if (answer10 === true) {
-      p = p - 3;
-    } else {
-      if (
-        rating_respect_elders.length > 0 ||
-        rating_no_fight_with_friend.length > 0 ||
-        rating_leadership.length > 0 ||
-        rating_helpful.length > 0
-      ) {
-        p = p - 1;
-      }
-    }
-
-    let answer11 =
-      rating_religious_practice &&
-      rating_vedic_times &&
-      rating_nationalism &&
-      rating_care_for_our_people
-        ? true
-        : false;
-
-    if (answer11 === true) {
-      p = p - 3;
-    } else {
-      if (
-        rating_religious_practice.length > 0 ||
-        rating_vedic_times.length > 0 ||
-        rating_nationalism.length > 0 ||
-        rating_care_for_our_people.length > 0
-      ) {
-        p = p - 1;
-      }
-    }
-
-    let answer15 =
-      good_behaviour && kendra_management && teaching_ability && parents_connect
-        ? true
-        : false;
-
-    if (answer15 === true) {
-      p = p - 3;
-    } else {
-      if (
-        good_behaviour.length > 0 ||
-        kendra_management.length > 0 ||
-        teaching_ability.length > 0 ||
-        parents_connect.length > 0
-      ) {
-        p = p - 1;
-      }
-    }
-
-
-
-
-    let experience_que_answer_completed =
-      experience_due_to_the_centre_behaviour_after &&
-      experience_due_to_the_centre_behaviour_before &&
-      experience_due_to_the_centre_education_after &&
-      experience_due_to_the_centre_education_before &&
-      experience_due_to_the_centre_habits_after &&
-      experience_due_to_the_centre_habits_before &&
-      experience_due_to_the_centre_living_after &&
-      experience_due_to_the_centre_living_before &&
-      experience_due_to_the_centre_sanskar_after &&
-      overall_living_0f_students &&
-      behaviour_and_habit_change &&
-      experience_due_to_the_centre_sanskar_before
-        ? true
-        : false;
-
-    let experience_que_answer_completed_or_condition =
-      experience_due_to_the_centre_behaviour_after ||
-      experience_due_to_the_centre_behaviour_before ||
-      experience_due_to_the_centre_education_after ||
-      experience_due_to_the_centre_education_before ||
-      experience_due_to_the_centre_habits_after ||
-      experience_due_to_the_centre_habits_before ||
-      experience_due_to_the_centre_living_after ||
-      experience_due_to_the_centre_living_before ||
-      experience_due_to_the_centre_sanskar_after ||
-      experience_due_to_the_centre_sanskar_before
-        ? true
-        : false;
-
-    let q = Object.keys(answers).length - 9;
-    let tmp2 = Object.values(answers).filter(el => {
-      if (el) return el;
-    });
-
-    let p = tmp2.length;
-    if (experience_que_answer_completed) {
-      p = q;
-    }
-    if (experience_que_answer_completed_or_condition) {
-      if (p !== q) {
-        p = q - 1;
-      }
-    }
-
-    console.log(p, '/', q);
-    if (
-      !benefits_of_the_centre ||
-      !contribution_in_running_centre_more_effectively ||
-      !current_students ||
-      !days_children_are_going_to_the_centre ||
-      !economic_status ||
-      !educational_background ||
-      !expectations_from_the_centre ||
-      !experience_due_to_the_centre_behaviour_after ||
-      !experience_due_to_the_centre_behaviour_before ||
-      !experience_due_to_the_centre_education_after ||
-      !experience_due_to_the_centre_education_before ||
-      !experience_due_to_the_centre_habits_after ||
-      !experience_due_to_the_centre_habits_before ||
-      !experience_due_to_the_centre_living_after ||
-      !experience_due_to_the_centre_living_before ||
-      !experience_due_to_the_centre_sanskar_after ||
-      !experience_due_to_the_centre_sanskar_before ||
-      !how_these_children_go_to_the_centre ||
-      !involvement_in_the_programs_of_the_centre ||
-      !no_of_parents_present ||
-      !observations_about_kendra_teacher ||
-      !change_among_students_of_tradition ||
-      !reason_for_sending_children_to_the_centre
-    ) {
+      console.log(q - p, '/', q);
       new_obj = {
         ...tmp[0],
         attempted: true,
-        completed: false,
+        completed: q - p == 0 ? true : false,
         disabled: false,
         totalQue: q,
-        answered: p,
+        answered: q - p,
       };
-    } else {
-      new_obj = {
-        ...tmp[0],
-        attempted: true,
-        completed: true,
-        disabled: true,
-        totalQue: q,
-        answered: p,
-      };
-    }
-    tmp.splice(0, 1, new_obj);
+      tmp.splice(0, 1, new_obj);
 
-    let surveyAnswers = [...answersArrTmp];
-    let payload = {};
+      let surveyAnswers = [...answersArrTmp];
+      let payload = {};
 
-    if (answersArrTmp.length > 0) {
-      let new_obj1 = {presentStudentParent: answers};
-      let index;
-      surveyAnswers.some(function (entry, i) {
-        if (entry?.presentStudentParent) {
-          index = i;
+      if (answersArrTmp.length > 0) {
+        let new_obj1 = {presentStudentParent: answers};
+        let index;
+        surveyAnswers.some(function (entry, i) {
+          if (entry?.presentStudentParent) {
+            index = i;
+          }
+        });
+        if (index != undefined) {
+          surveyAnswers.splice(index, 1, new_obj1);
+        } else {
+          surveyAnswers.push({presentStudentParent: answers});
         }
-      });
-      if (index != undefined) {
-        surveyAnswers.splice(index, 1, new_obj1);
       } else {
         surveyAnswers.push({presentStudentParent: answers});
       }
-    } else {
-      surveyAnswers.push({presentStudentParent: answers});
-    }
-    payload = {
-      ...store.currentSurveyData,
-      currentSurveyStatus: tmp,
-      surveyAnswers,
-      updatedAt: new Date().toString(),
-    };
-    let tmp1 = FindAndUpdate(totalSurveys, payload);
-    console.log('tmp1', tmp1);
-    console.log('payload', payload);
+      payload = {
+        ...store.currentSurveyData,
+        currentSurveyStatus: tmp,
+        surveyAnswers,
+        updatedAt: new Date().toString(),
+      };
+      let tmp1 = FindAndUpdate(totalSurveys, payload);
+      console.log('tmp1', tmp1);
+      console.log('payload', payload);
 
-    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-    showModal();
+      dispatch({
+        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+        payload: payload,
+      });
+      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
+      showModal();
+    } catch (error) {
+      setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+      console.log('error', error);
+    }
   };
 
   const pageNavigator = () => {
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
+  };
+
+  const handleSelection = answer => {
+    if (tmp2.length === 0) {
+      tmp2.push(answer);
+    } else {
+      const isExist = tmp2.some(element => answer.key === element.key);
+      if (isExist) {
+        // remove
+        const index = tmp2.findIndex(element => answer.key === element.key);
+        tmp2.splice(index, 1);
+      } else {
+        // different ans chosen
+        tmp2.push(answer);
+      }
+    }
+    setAnswers({
+      ...answers,
+      reason_for_sending_children_to_the_centre: tmp2,
+    });
   };
 
   return (
@@ -437,13 +350,14 @@ export default function PresentStudentParentsScreen() {
 
           <Input
             type={'numeric'}
-            number={4}
+            number={10}
             placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
               setAnswers({...answers, current_students: text});
             }}
             value={answers.current_students}
+            empty={!answers.current_students}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -452,7 +366,7 @@ export default function PresentStudentParentsScreen() {
           />
         </View>
 
-        {/* QA2 */}
+        {/* QA2 - no_of_parents_present */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -487,13 +401,14 @@ export default function PresentStudentParentsScreen() {
           <View>
             <Input
               type={'numeric'}
-              number={4}
+              number={10}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
                 setAnswers({...answers, no_of_parents_present: text});
               }}
               value={answers.no_of_parents_present}
+              empty={!answers.no_of_parents_present}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -503,7 +418,7 @@ export default function PresentStudentParentsScreen() {
           </View>
         </View>
 
-        {/* QA3 - ok - educational_background */}
+        {/* QA3 - ok - rating_illiterate */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -535,17 +450,21 @@ export default function PresentStudentParentsScreen() {
             </View>
           </View>
 
+          {/* QA3_1 */}
           <View>
             <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q3_OPT1')}</TextHandler>
             <Input
               type={'numeric'}
-              number={2}
+              number={3}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_illiterate: text});
+                if (text <= 100) {
+                  setAnswers({...answers, rating_illiterate: text});
+                }
               }}
               value={answers.rating_illiterate}
+              empty={!answers.rating_illiterate}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -553,17 +472,21 @@ export default function PresentStudentParentsScreen() {
               }}
             />
           </View>
+          {/* QA3_2 */}
           <View>
             <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q3_OPT2')}</TextHandler>
             <Input
               type={'numeric'}
-              number={2}
+              number={3}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_upto_5: text});
+                if (text <= 100) {
+                  setAnswers({...answers, rating_upto_5th: text});
+                }
               }}
-              value={answers.rating_upto_5}
+              value={answers.rating_upto_5th}
+              empty={!answers.rating_upto_5th}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -571,17 +494,21 @@ export default function PresentStudentParentsScreen() {
               }}
             />
           </View>
+          {/* QA3_3 */}
           <View>
             <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q3_OPT3')}</TextHandler>
             <Input
               type={'numeric'}
-              number={2}
+              number={3}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_upto_10: text});
+                if (text <= 100) {
+                  setAnswers({...answers, rating_upto_10th: text});
+                }
               }}
-              value={answers.rating_upto_10}
+              value={answers.rating_upto_10th}
+              empty={!answers.rating_upto_10th}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -589,17 +516,21 @@ export default function PresentStudentParentsScreen() {
               }}
             />
           </View>
+          {/* QA3_4 */}
           <View>
             <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q3_OPT4')}</TextHandler>
             <Input
               type={'numeric'}
-              number={2}
+              number={3}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_graduation: text});
+                if (text <= 100) {
+                  setAnswers({...answers, rating_graduation: text});
+                }
               }}
               value={answers.rating_graduation}
+              empty={!answers.rating_graduation}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -609,7 +540,7 @@ export default function PresentStudentParentsScreen() {
           </View>
         </View>
 
-        {/* QA4 - economic_status*/}
+        {/* QA4 - economic_statuses*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -641,17 +572,21 @@ export default function PresentStudentParentsScreen() {
             </View>
           </View>
 
+          {/* QA4_1 */}
           <View>
             <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q4_OPT1')}</TextHandler>
             <Input
               type={'numeric'}
-              number={2}
+              number={3}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_1_lakh: text});
+                if (text <= 100) {
+                  setAnswers({...answers, econmonic_status_under_1_lakh: text});
+                }
               }}
-              value={answers.rating_1_lakh}
+              value={answers.econmonic_status_under_1_lakh}
+              empty={!answers.econmonic_status_under_1_lakh}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -659,17 +594,25 @@ export default function PresentStudentParentsScreen() {
               }}
             />
           </View>
+          {/* QA4_2 */}
+
           <View>
             <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q4_OPT2')}</TextHandler>
             <Input
               type={'numeric'}
-              number={2}
+              number={3}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_upto_3_lakh: text});
+                if (text <= 100) {
+                  setAnswers({
+                    ...answers,
+                    econmonic_status_between_1_and_3_lakh: text,
+                  });
+                }
               }}
-              value={answers.rating_upto_3_lakh}
+              value={answers.econmonic_status_between_1_and_3_lakh}
+              empty={!answers.econmonic_status_between_1_and_3_lakh}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -677,17 +620,25 @@ export default function PresentStudentParentsScreen() {
               }}
             />
           </View>
+          {/* QA4_3 */}
+
           <View>
             <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q4_OPT3')}</TextHandler>
             <Input
               type={'numeric'}
-              number={2}
+              number={3}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_upto_5_lakh: text});
+                if (text <= 100) {
+                  setAnswers({
+                    ...answers,
+                    econmonic_status_between_3_and_5_lakh: text,
+                  });
+                }
               }}
-              value={answers.rating_upto_5_lakh}
+              value={answers.econmonic_status_between_3_and_5_lakh}
+              empty={!answers.econmonic_status_between_3_and_5_lakh}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -695,17 +646,24 @@ export default function PresentStudentParentsScreen() {
               }}
             />
           </View>
+          {/* QA4_4 */}
           <View>
             <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q4_OPT4')}</TextHandler>
             <Input
               type={'numeric'}
-              number={2}
+              number={3}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_upto_10_lakh: text});
+                if (text <= 100) {
+                  setAnswers({
+                    ...answers,
+                    econmonic_status_between_5_and_10_lakh: text,
+                  });
+                }
               }}
-              value={answers.rating_upto_10_lakh}
+              value={answers.econmonic_status_between_5_and_10_lakh}
+              empty={!answers.econmonic_status_between_5_and_10_lakh}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -714,6 +672,7 @@ export default function PresentStudentParentsScreen() {
             />
           </View>
         </View>
+
         {/* QA5 - reason_for_sending_children_to_the_centre */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
@@ -745,34 +704,6 @@ export default function PresentStudentParentsScreen() {
               </TextHandler>
             </View>
           </View>
-          {/* <RadioButtons
-            radioStyle={{
-              borderWidth: 1,
-              marginVertical: 2,
-              borderColor: COLORS.orange,
-            }}
-            data={[
-              {
-                key: 1,
-                value: 'Economic',
-                label: 'INFLUENTIAL_PEOPELE_Q1_OPT1',
-              },
-              {
-                key: 2,
-                value: 'Social',
-                label: 'INFLUENTIAL_PEOPELE_Q1_OPT2',
-              },
-              {
-                key: 3,
-                value: 'Others',
-                label: 'INFLUENTIAL_PEOPELE_Q1_OPT3',
-              },
-            ]}
-            valueProp={answers.donors_and_well_wishers_help}
-            onValueChange={item => {
-              setAnswers({...answers, donors_and_well_wishers_help: item});
-            }}
-          /> */}
 
           {[
             {
@@ -795,8 +726,6 @@ export default function PresentStudentParentsScreen() {
               value: 'Others',
               label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT4',
             },
-            
-
           ].map((el, index) => {
             return (
               <TouchableOpacity
@@ -810,49 +739,7 @@ export default function PresentStudentParentsScreen() {
                   marginVertical: 5,
                 }}
                 onPress={() => {
-                  let tmp = [
-                    ...answers.reason_for_sending_children_to_the_centre,
-                  ];
-
-                  if (tmp.length > 0) {
-                    let j = tmp.filter(element => element.key === 999);
-                    if (j.length > 0) {
-                      tmp = [];
-                      tmp.push(el);
-                      setAnswers({
-                        ...answers,
-                        reason_for_sending_children_to_the_centre: tmp,
-                      });
-                    } else {
-                      tmp.forEach(function (item, index1) {
-                        if (item.value === el.value) {
-                          let tmp = [
-                            ...answers.reason_for_sending_children_to_the_centre,
-                          ];
-                          tmp.splice(index1, 1);
-                          setAnswers({
-                            ...answers,
-                            reason_for_sending_children_to_the_centre: tmp,
-                          });
-                        } else {
-                          let tmp = [
-                            ...answers.reason_for_sending_children_to_the_centre,
-                          ];
-                          tmp.push(el);
-                          setAnswers({
-                            ...answers,
-                            reason_for_sending_children_to_the_centre: tmp,
-                          });
-                        }
-                      });
-                    }
-                  } else {
-                    tmp.push(el);
-                    setAnswers({
-                      ...answers,
-                      reason_for_sending_children_to_the_centre: tmp,
-                    });
-                  }
+                  handleSelection(el);
                 }}>
                 <Checkbox
                   status={
@@ -903,6 +790,9 @@ export default function PresentStudentParentsScreen() {
                       el => el.value === 'Others',
                     )[0]?.['other']
                   : ''
+              }
+              empty={
+                !answers.reason_for_sending_children_to_the_centre?.['other']
               }
               message={''}
               containerStyle={{
@@ -994,6 +884,7 @@ export default function PresentStudentParentsScreen() {
                 });
               }}
               value={answers.how_these_children_go_to_the_centre?.reason}
+              empty={!answers.how_these_children_go_to_the_centre?.reason}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1115,9 +1006,12 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, listening_skills: text});
+                if (text <= 10) {
+                  setAnswers({...answers, listening_skills: text});
+                }
               }}
               value={answers.listening_skills}
+              empty={!answers.listening_skills}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1133,9 +1027,12 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, concentration: text});
+                if (text <= 10) {
+                  setAnswers({...answers, concentration: text});
+                }
               }}
               value={answers.concentration}
+              empty={!answers.concentration}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1151,9 +1048,12 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, studies_interest: text});
+                if (text <= 10) {
+                  setAnswers({...answers, studies_interest: text});
+                }
               }}
               value={answers.studies_interest}
+              empty={!answers.studies_interest}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1169,9 +1069,12 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, overall_academic: text});
+                if (text <= 10) {
+                  setAnswers({...answers, overall_academic_performance: text});
+                }
               }}
-              value={answers.overall_academic}
+              value={answers.overall_academic_performance}
+              empty={!answers.overall_academic_performance}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1221,9 +1124,12 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, clean_clothes: text});
+                if (text <= 10) {
+                  setAnswers({...answers, clean_and_neat_clothes: text});
+                }
               }}
-              value={answers.clean_clothes}
+              value={answers.clean_and_neat_clothes}
+              empty={!answers.clean_and_neat_clothes}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1239,7 +1145,9 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, yoga_exercise: text});
+                if (text <= 10) {
+                  setAnswers({...answers, yoga_exercise: text});
+                }
               }}
               value={answers.yoga_exercise}
               message={''}
@@ -1257,9 +1165,12 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, home_food: text});
+                if (text <= 10) {
+                  setAnswers({...answers, nutritious_food: text});
+                }
               }}
-              value={answers.home_food}
+              value={answers.nutritious_food}
+              empty={!answers.nutritious_food}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1275,9 +1186,12 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, daily_routine: text});
+                if (text <= 10) {
+                  setAnswers({...answers, follow_proper_daily_routine: text});
+                }
               }}
-              value={answers.daily_routine}
+              value={answers.follow_proper_daily_routine}
+              empty={!answers.follow_proper_daily_routine}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1287,7 +1201,7 @@ export default function PresentStudentParentsScreen() {
           </View>
         </View>
 
-        {/* QA10 -  behaviour_and_habit_change*/}
+        {/* QA10 -  */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -1327,9 +1241,12 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_respect_elders: text});
+                if (text <= 10) {
+                  setAnswers({...answers, rating_respect_elders: text});
+                }
               }}
               value={answers.rating_respect_elders}
+              empty={!answers.rating_respect_elders}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1345,9 +1262,15 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_no_fight_with_friend: text});
+                if (text <= 10) {
+                  setAnswers({
+                    ...answers,
+                    do_not_back_answer_or_fight_with_friend: text,
+                  });
+                }
               }}
-              value={answers.rating_no_fight_with_friend}
+              value={answers.do_not_back_answer_or_fight_with_friend}
+              empty={!answers.do_not_back_answer_or_fight_with_friend}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1363,9 +1286,12 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_leadership: text});
+                if (text <= 10) {
+                  setAnswers({...answers, rating_leadership_skills: text});
+                }
               }}
-              value={answers.rating_leadership}
+              value={answers.rating_leadership_skills}
+              empty={!answers.rating_leadership_skills}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1381,9 +1307,12 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_helpful: text});
+                if (text <= 10) {
+                  setAnswers({...answers, rating_helpful_others: text});
+                }
               }}
-              value={answers.rating_helpful}
+              value={answers.rating_helpful_others}
+              empty={!answers.rating_helpful_others}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1393,7 +1322,7 @@ export default function PresentStudentParentsScreen() {
           </View>
         </View>
 
-        {/* QA11 - contribution_in_running_centre_more_effectively */}
+        {/* QA11 -  */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -1433,9 +1362,12 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_religious_practice: text});
+                if (text <= 10) {
+                  setAnswers({...answers, rating_religious_practice: text});
+                }
               }}
               value={answers.rating_religious_practice}
+              empty={!answers.rating_religious_practice}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1451,9 +1383,15 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_vedic_times: text});
+                if (text <= 10) {
+                  setAnswers({
+                    ...answers,
+                    rating_knowledge_of_vedic_times_and_imp_saints: text,
+                  });
+                }
               }}
-              value={answers.rating_vedic_times}
+              value={answers.rating_knowledge_of_vedic_times_and_imp_saints}
+              empty={!answers.rating_knowledge_of_vedic_times_and_imp_saints}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1469,9 +1407,12 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_nationalism: text});
+                if (text <= 10) {
+                  setAnswers({...answers, rating_nationalism_knowledge: text});
+                }
               }}
-              value={answers.rating_nationalism}
+              value={answers.rating_nationalism_knowledge}
+              empty={!answers.rating_nationalism_knowledge}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1487,9 +1428,12 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_care_for_our_people: text});
+                if (text <= 10) {
+                  setAnswers({...answers, rating_care_for_our_people: text});
+                }
               }}
               value={answers.rating_care_for_our_people}
+              empty={!answers.rating_care_for_our_people}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1499,7 +1443,7 @@ export default function PresentStudentParentsScreen() {
           </View>
         </View>
 
-        {/* Q12 - observations_about_kendra_teacher*/}
+        {/* Q12 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -1538,6 +1482,7 @@ export default function PresentStudentParentsScreen() {
               setAnswers({...answers, benefits_of_the_centre: text});
             }}
             value={answers.benefits_of_the_centre}
+            empty={!answers.benefits_of_the_centre}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -1546,7 +1491,7 @@ export default function PresentStudentParentsScreen() {
           />
         </View>
 
-        {/* QA13 - expectations_from_the_centre*/}
+        {/* QA13 - */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
@@ -1585,7 +1530,7 @@ export default function PresentStudentParentsScreen() {
                 marginVertical: 2,
                 borderColor: COLORS.orange,
               }}
-              valueProp={answers.how_these_children_go_to_the_centre}
+              valueProp={answers.involvement_in_the_programs_of_the_centre}
               data={[
                 {
                   key: 1,
@@ -1631,6 +1576,7 @@ export default function PresentStudentParentsScreen() {
                 });
               }}
               value={answers.involvement_in_the_programs_of_the_centre?.reason}
+              empty={!answers.involvement_in_the_programs_of_the_centre?.reason}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1683,6 +1629,7 @@ export default function PresentStudentParentsScreen() {
               });
             }}
             value={answers.contribution_in_running_centre_more_effectively}
+            empty={!answers.contribution_in_running_centre_more_effectively}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -1732,9 +1679,15 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_religious_practice: text});
+                if (text <= 10) {
+                  setAnswers({
+                    ...answers,
+                    rating_kendra_teacher_good_behaviour: text,
+                  });
+                }
               }}
-              value={answers.rating_religious_practice}
+              value={answers.rating_kendra_teacher_good_behaviour}
+              empty={!answers.rating_kendra_teacher_good_behaviour}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1750,9 +1703,15 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_vedic_times: text});
+                if (text <= 10) {
+                  setAnswers({
+                    ...answers,
+                    rating_kendra_teacher_effective_management: text,
+                  });
+                }
               }}
-              value={answers.rating_vedic_times}
+              value={answers.rating_kendra_teacher_effective_management}
+              empty={!answers.rating_kendra_teacher_effective_management}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1768,9 +1727,15 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_nationalism: text});
+                if (text <= 10) {
+                  setAnswers({
+                    ...answers,
+                    rating_kendra_teacher_teaching_ability: text,
+                  });
+                }
               }}
-              value={answers.rating_nationalism}
+              value={answers.rating_kendra_teacher_teaching_ability}
+              empty={!answers.rating_kendra_teacher_teaching_ability}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1786,9 +1751,15 @@ export default function PresentStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_care_for_our_people: text});
+                if (text <= 10) {
+                  setAnswers({
+                    ...answers,
+                    rating_kendra_teacher_connect_with_parents: text,
+                  });
+                }
               }}
-              value={answers.rating_care_for_our_people}
+              value={answers.rating_kendra_teacher_connect_with_parents}
+              empty={!answers.rating_kendra_teacher_connect_with_parents}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1840,6 +1811,7 @@ export default function PresentStudentParentsScreen() {
               });
             }}
             value={answers.expectations_from_the_centre}
+            empty={!answers.expectations_from_the_centre}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -1847,8 +1819,6 @@ export default function PresentStudentParentsScreen() {
             }}
           />
         </View>
-
-
 
         <Button
           title={t('SUBMIT')}

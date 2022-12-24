@@ -44,7 +44,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 13,
+      totalQue: 16,
     },
     {
       key: 2,
