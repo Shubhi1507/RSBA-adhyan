@@ -107,25 +107,6 @@ export default function CentreQuestionsScreen() {
     const {center_details} = store.currentSurveyData;
 
 
-  //   let answer4 =
-  //   rating_need_for_education && rating_no_spare_time_of_parents && rating_no_facility && rating_work_expansion && rating_community_demand
-  //     ? true
-  //     : false;
-
-  // if (answer4 === true) {
-  //   p = p - 3;
-  // } else {
-  //   if (
-  //     rating_need_for_education.length > 0 ||
-  //     rating_no_spare_time_of_parents.length > 0 ||
-  //     rating_no_facility.length > 0 ||
-  //     rating_work_expansion.length > 0 ||
-  //     rating_community_demand
-  //   ) {
-  //     p = p - 1;
-  //   }
-  // }
-
     let new_centre_details = {
       ...center_details,
       establishment,
@@ -437,7 +418,9 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: answers.centre_not_operational_aftermath
+                  ? COLORS.orange
+                  : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -446,7 +429,10 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    answers.centre_not_operational_aftermath.length > 0
+                      ? COLORS.black
+                      : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {4}
@@ -465,93 +451,21 @@ export default function CentreQuestionsScreen() {
           </View>
 
           <View>
-            <TextHandler>{t('CENTER_Q4_OPT1')}</TextHandler>
             <Input
-              type={'numeric'}
-              number={2}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_need_for_education: text});
+                setAnswers({
+                  ...answers,
+                  centre_not_operational_aftermath: text,
+                });
               }}
-              value={answers.rating_need_for_education}
+              value={answers.centre_not_operational_aftermath}
+              empty={!answers.centre_not_operational_aftermath}
               message={''}
               containerStyle={{
                 alignItems: 'center',
-                minWidth: screenWidth * 0.25,
-              }}
-            />
-          </View>
-          <View>
-            <TextHandler>{t('CENTER_Q4_OPT2')}</TextHandler>
-            <Input
-              type={'numeric'}
-              number={2}
-              placeholder={`${t('ENTER_ANSWER')}`}
-              name="any"
-              onChangeText={text => {
-                setAnswers({...answers, rating_no_spare_time_of_parents: text});
-              }}
-              value={answers.rating_no_spare_time_of_parents}
-              message={''}
-              containerStyle={{
-                alignItems: 'center',
-                minWidth: screenWidth * 0.25,
-              }}
-            />
-          </View>
-          <View>
-            <TextHandler>{t('CENTER_Q4_OPT3')}</TextHandler>
-            <Input
-              type={'numeric'}
-              number={2}
-              placeholder={`${t('ENTER_ANSWER')}`}
-              name="any"
-              onChangeText={text => {
-                setAnswers({...answers, rating_no_facility: text});
-              }}
-              value={answers.rating_no_facility}
-              message={''}
-              containerStyle={{
-                alignItems: 'center',
-                minWidth: screenWidth * 0.25,
-              }}
-            />
-          </View>
-          <View>
-            <TextHandler>{t('CENTER_Q4_OPT4')}</TextHandler>
-            <Input
-              type={'numeric'}
-              number={2}
-              placeholder={`${t('ENTER_ANSWER')}`}
-              name="any"
-              onChangeText={text => {
-                setAnswers({...answers, rating_work_expansion: text});
-              }}
-              value={answers.rating_work_expansion}
-              message={''}
-              containerStyle={{
-                alignItems: 'center',
-                minWidth: screenWidth * 0.25,
-              }}
-            />
-          </View>
-
-          <View>
-            <TextHandler>{t('CENTER_Q4_OPT5')}</TextHandler>
-            <Input
-              type={'numeric'}
-              number={2}
-              placeholder={`${t('ENTER_ANSWER')}`}
-              name="any"
-              onChangeText={text => {
-                setAnswers({...answers, rating_community_demand: text});
-              }}
-              value={answers.rating_community_demand}
-              message={''}
-              containerStyle={{
-                alignItems: 'center',
-                minWidth: screenWidth * 0.25,
+                minWidth: screenWidth * 0.5,
               }}
             />
           </View>
