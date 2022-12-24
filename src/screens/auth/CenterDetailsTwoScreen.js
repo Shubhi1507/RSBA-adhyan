@@ -51,8 +51,8 @@ export default function CenterDetailsTwoScreen() {
     is_centre_operational: true,
     non_operational_due_to: '',
   });
+  const globalStore = useSelector(state => state);
 
-  const [Position, setPosition] = useState();
   const [miscControllers] = useState({
     CENTRES: [
       {
@@ -87,7 +87,7 @@ export default function CenterDetailsTwoScreen() {
 
   useEffect(() => {
     CheckSurveyviaParams();
-  }, [store]);
+  }, [store, volunteerInfo]);
 
   const CheckSurveyviaParams = () => {
     if (
@@ -96,7 +96,6 @@ export default function CenterDetailsTwoScreen() {
       Object.keys(store?.currentSurveyData).length > 0
     ) {
       let staledata = store;
-      console.log('c2', staledata?.currentSurveyData);
       setvolunteerInfo(staledata?.currentSurveyData?.center_details);
     }
   };
@@ -193,25 +192,6 @@ export default function CenterDetailsTwoScreen() {
       is_centre_operational,
       non_operational_due_to,
     } = volunteerInfo;
-
-    // if (!type_of_center) {
-    //   return setError({visible: true, message: 'Select Center type'});
-    // }
-    // if (!center_head) {
-    //   return setError({visible: true, message: 'Center head is missing'});
-    // }
-    // if (!center_contact || center_contact.length < 10) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please enter mobile number',
-    //   });
-    // }
-    // if (!parent_org) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Parent organisation is missing',
-    //   });
-    // }
 
     if (is_centre_operational) {
       let center_details = {
@@ -353,16 +333,19 @@ export default function CenterDetailsTwoScreen() {
         {volunteerInfo.is_centre_operational ? (
           <View style={styles.activeCenter}>
             <View style={{paddingVertical: 5}}>
-              <Text
-                style={{
-                  color: 'black',
-                  fontWeight: '600',
-                  marginTop: 8,
-                  fontSize: 18,
-                  margin: 6,
-                }}>
-                {t('CENTER_TYPE')}
-              </Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text
+                  style={{
+                    color: 'black',
+                    fontWeight: '600',
+                    marginTop: 8,
+                    fontSize: 18,
+                    margin: 6,
+                  }}>
+                  {t('CENTER_TYPE')}
+                </Text>
+              </View>
+
               <RadioButtons
                 data={miscControllers.CENTRES}
                 valueProp={volunteerInfo.type_of_center}
