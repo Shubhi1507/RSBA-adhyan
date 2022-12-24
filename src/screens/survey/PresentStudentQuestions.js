@@ -502,11 +502,11 @@ export default function PresentStudentQuestions() {
                   value: 'Our centre coordinator assist them',
                   label: 'CURRENT_STUDENTS_Q5_OPT4',
                 },
-                {
-                  key: 5,
-                  value: 'Others',
-                  label: 'CURRENT_STUDENTS_Q5_OPT5',
-                },
+                // {
+                //   key: 5,
+                //   value: 'Others',
+                //   label: 'CURRENT_STUDENTS_Q5_OPT5',
+                // },
               ]}
               valueProp={answers._how_they_come_to_prakalp}
               onValueChange={item => {

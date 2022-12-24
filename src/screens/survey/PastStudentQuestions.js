@@ -1198,7 +1198,7 @@ export default function PastStudentQuestions() {
                 alignItems: 'flex-start',
               }}>
               <TextHandler style={styles.question}>
-                {t('PAST_STUDENTS_Q11')}
+                {t('PAST_STUDENTS_Q12')}
               </TextHandler>
             </View>
           </View>
@@ -1208,22 +1208,27 @@ export default function PastStudentQuestions() {
             {
               key: 1,
               value: 'Good education',
-              label: 'PAST_STUDENTS_Q11_OPT1',
+              label: 'PAST_STUDENTS_Q12_OPT1',
             },
             {
               key: 2,
               value: 'Improved social status',
-              label: 'PAST_STUDENTS_Q11_OPT2',
+              label: 'PAST_STUDENTS_Q12_OPT2',
             },
             {
               key: 3,
               value: 'Improved financial status',
-              label: 'PAST_STUDENTS_Q11_OPT3',
+              label: 'PAST_STUDENTS_Q12_OPT3',
             },
             {
               key: 4,
               value: 'Other',
-              label: 'PAST_STUDENTS_Q11_OPT4',
+              label: 'PAST_STUDENTS_Q12_OPT4',
+            },
+            {
+              key: 5,
+              value: 'Other',
+              label: 'PAST_STUDENTS_Q12_OPT5',
             },
           ].map((el, index) => {
             return (
@@ -1265,7 +1270,7 @@ export default function PastStudentQuestions() {
             );
           })}
           {answers.experience_between_you_n_other_students_who_do_not_come_to_kendra.filter(
-            item => item.key === 4,
+            item => item.key === 5,
           ).length > 0 && (
             <Input
               placeholder={`${t('ENTER_ANSWER')}`}
@@ -1275,7 +1280,7 @@ export default function PastStudentQuestions() {
                   ...answers.experience_between_you_n_other_students_who_do_not_come_to_kendra,
                 ];
                 tmp.forEach((el, index) => {
-                  if (el.key === 4) {
+                  if (el.key === 5) {
                     let newans = {...el, other: text};
                     tmp.splice(index, 1, newans);
                   }
@@ -1288,10 +1293,10 @@ export default function PastStudentQuestions() {
               }}
               value={
                 answers.experience_between_you_n_other_students_who_do_not_come_to_kendra.filter(
-                  el => el.key === 4,
+                  el => el.key === 5,
                 ).length > 0
                   ? answers.experience_between_you_n_other_students_who_do_not_come_to_kendra.filter(
-                      el => el.key === 4,
+                      el => el.key === 5,
                     )[0]?.['other']
                   : ''
               }
