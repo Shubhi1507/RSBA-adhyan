@@ -674,11 +674,11 @@ export default function CentreQuestionsScreen() {
                 borderColor: COLORS.orange,
               }}
               data={[
-                {
-                  key: 1,
-                  value: 'Less than 1 month',
-                  label: 'CENTER_Q6_DISCONTINUED_CENTER_OPT1',
-                },
+                // {
+                //   key: 1,
+                //   value: 'Less than 1 month',
+                //   label: 'CENTER_Q6_DISCONTINUED_CENTER_OPT1',
+                // },
                 {
                   key: 2,
                   value: '1 to 6 months',
