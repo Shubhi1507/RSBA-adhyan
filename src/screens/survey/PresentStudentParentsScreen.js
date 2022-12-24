@@ -196,10 +196,6 @@ export default function PresentStudentParentsScreen() {
           : 0;
       let ans16 = !expectations_from_the_centre ? 0 : 1;
 
-      let tmp2 = Object.values(answers).filter(el => {
-        if (el) return el;
-      });
-
       let p =
         unanswered -
         (ans1 +
