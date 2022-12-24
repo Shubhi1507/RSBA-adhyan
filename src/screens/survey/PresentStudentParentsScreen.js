@@ -321,7 +321,9 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.current_students
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -330,7 +332,9 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.current_students
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {1}
@@ -371,7 +375,9 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.no_of_parents_present
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -380,7 +386,9 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.no_of_parents_present
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {2}
@@ -423,7 +431,13 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.rating_illiterate ||
+                  !answers.rating_upto_5th ||
+                  !answers.rating_upto_10th ||
+                  !answers.rating_graduation
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -432,7 +446,13 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.rating_illiterate ||
+                    !answers.rating_upto_5th ||
+                    !answers.rating_upto_10th ||
+                    !answers.rating_graduation
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {3}
@@ -545,7 +565,13 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.econmonic_status_under_1_lakh ||
+                  !answers.econmonic_status_between_1_and_3_lakh ||
+                  !answers.econmonic_status_between_3_and_5_lakh ||
+                  !answers.econmonic_status_between_5_and_10_lakh
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -554,7 +580,13 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.econmonic_status_under_1_lakh ||
+                    !answers.econmonic_status_between_1_and_3_lakh ||
+                    !answers.econmonic_status_between_3_and_5_lakh ||
+                    !answers.econmonic_status_between_5_and_10_lakh
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {4}
@@ -678,7 +710,10 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.reason_for_sending_children_to_the_centre
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -687,7 +722,9 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.reason_for_sending_children_to_the_centre
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {5}
@@ -808,7 +845,9 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.how_these_children_go_to_the_centre
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -817,7 +856,9 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.reason_for_sending_children_to_the_centre
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {6}
@@ -899,7 +940,9 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.days_children_are_going_to_the_centre
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -908,7 +951,9 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.days_children_are_going_to_the_centre
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {7}
@@ -971,7 +1016,13 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.listening_skills ||
+                  !answers.concentration ||
+                  !answers.studies_interest ||
+                  !answers.overall_academic_performance
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -980,7 +1031,13 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.listening_skills ||
+                    !answers.concentration ||
+                    !answers.studies_interest ||
+                    !answers.overall_academic_performance
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {8}
@@ -1089,7 +1146,13 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.clean_and_neat_clothes ||
+                  !answers.yoga_exercise ||
+                  !answers.nutritious_food ||
+                  !answers.follow_proper_daily_routine
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1098,7 +1161,13 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.clean_and_neat_clothes ||
+                    !answers.yoga_exercise ||
+                    !answers.nutritious_food ||
+                    !answers.follow_proper_daily_routine
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {9}
@@ -1150,6 +1219,7 @@ export default function PresentStudentParentsScreen() {
                 }
               }}
               value={answers.yoga_exercise}
+              empty={!answers.yoga_exercise}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1206,7 +1276,13 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.rating_respect_elders ||
+                  !answers.do_not_back_answer_or_fight_with_friend ||
+                  !answers.rating_leadership_skills ||
+                  !answers.rating_helpful_others
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1215,7 +1291,13 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.rating_respect_elders ||
+                    !answers.do_not_back_answer_or_fight_with_friend ||
+                    !answers.rating_leadership_skills ||
+                    !answers.rating_helpful_others
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {10}
@@ -1327,7 +1409,13 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.rating_religious_practice ||
+                  !answers.rating_knowledge_of_vedic_times_and_imp_saints ||
+                  !answers.rating_nationalism_knowledge ||
+                  !answers.rating_care_for_our_people
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1336,7 +1424,13 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.rating_religious_practice ||
+                    !answers.rating_knowledge_of_vedic_times_and_imp_saints ||
+                    !answers.rating_nationalism_knowledge ||
+                    !answers.rating_care_for_our_people
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {11}
@@ -1448,7 +1542,9 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.benefits_of_the_centre
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1457,7 +1553,9 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.benefits_of_the_centre
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {12}
@@ -1496,7 +1594,10 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.involvement_in_the_programs_of_the_centre
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1505,7 +1606,9 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.involvement_in_the_programs_of_the_centre
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {13}
@@ -1592,7 +1695,10 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.contribution_in_running_centre_more_effectively
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1601,7 +1707,10 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.contribution_in_running_centre_more_effectively
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {14}
@@ -1644,7 +1753,13 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.rating_kendra_teacher_good_behaviour ||
+                  !answers.rating_kendra_teacher_effective_management ||
+                  !answers.rating_kendra_teacher_teaching_ability ||
+                  !answers.rating_kendra_teacher_connect_with_parents
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1653,7 +1768,13 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.rating_kendra_teacher_good_behaviour ||
+                    !answers.rating_kendra_teacher_effective_management ||
+                    !answers.rating_kendra_teacher_teaching_ability ||
+                    !answers.rating_kendra_teacher_connect_with_parents
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {15}
@@ -1774,7 +1895,9 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.expectations_from_the_centre
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1783,7 +1906,9 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.expectations_from_the_centre
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {16}
