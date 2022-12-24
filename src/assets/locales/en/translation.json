@@ -406,16 +406,21 @@
   "PAST_STUDENTS_Q9_OPT3_NEW": "Good habits",
   "PAST_STUDENTS_Q9_OPT4_NEW": "Other",
 
-  "PAST_STUDENTS_Q11": "What difference you experience between you & other students(Who does not come to kendra) of your age, due to the center? (You can choose more than one answer )",
-  "PAST_STUDENTS_Q11_OPT1": " Good education",
-  "PAST_STUDENTS_Q11_OPT2": " Improved social status",
-  "PAST_STUDENTS_Q11_OPT3": "Improved financial status",
-  "PAST_STUDENTS_Q11_OPT4": " Other",
+  // "PAST_STUDENTS_Q11": "What difference you experience between you & other students(Who does not come to kendra) of your age, due to the center? (You can choose more than one answer )",
+  // "PAST_STUDENTS_Q11_OPT1": " Good education",
+  // "PAST_STUDENTS_Q11_OPT2": " Improved social status",
+  // "PAST_STUDENTS_Q11_OPT3": "Improved financial status",
+  // "PAST_STUDENTS_Q11_OPT4": " Other",
   "PAST_STUDENTS_Q12": "What difference you experience between you & other students elder to you, due to the center ?",
   "PAST_STUDENTS_Q12_OPT1": "Good education",
-  "PAST_STUDENTS_Q12_OPT2": "Improved social status",
-  "PAST_STUDENTS_Q12_OPT3": "Improved financial status",
-  "PAST_STUDENTS_Q12_OPT4": "Other",
+  "PAST_STUDENTS_Q12_OPT2" : "Good Habits " ,
+  "PAST_STUDENTS_Q12_OPT3": "Adjusting with other people  ",
+  "PAST_STUDENTS_Q12_OPT4": "Increase in social & cultural awarness  ",
+  "PAST_STUDENTS_Q12_OPT5": "Other ",
+
+
+
+
   "PAST_STUDENTS_Q13": "What difference you notice in the family, due to the center?  (You can choose more than one answer )",
   "PAST_STUDENTS_Q13_OPT1": "Improved respect",
   "PAST_STUDENTS_Q13_OPT2": "Changed Habits",
@@ -585,7 +590,7 @@
   "WHY_IS_CENTER_NON_OPERATIONAL": "Why is center non operational ?",
   "INVALID_OTP": "Invalid OTP",
   "INVALID_PHONE_NUMBER": "Invalid phone number",
-  "IS_ADDRESS_CHANGED": "Is address changed?",
+  "IS_ADDRESS_CHANGED": "Has address changed?",
 
   //E
   "ENTER_PHONE_NUMBER_TO_CONTIUE": "Enter phone number to contiue",
