@@ -1054,7 +1054,7 @@ export default function PresentStudentParentsScreen() {
           </View>
 
           <View>
-            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q8_OPT1')}</TextHandler>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q8_1')}</TextHandler>
             <Input
               type={'numeric'}
               number={2}
