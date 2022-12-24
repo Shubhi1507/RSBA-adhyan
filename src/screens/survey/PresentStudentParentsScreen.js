@@ -711,7 +711,7 @@ export default function PresentStudentParentsScreen() {
             <View
               style={{
                 backgroundColor:
-                  !answers.reason_for_sending_children_to_the_centre
+                  !answers.reason_for_sending_children_to_the_centre.length > 0
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -722,9 +722,11 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.reason_for_sending_children_to_the_centre
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.reason_for_sending_children_to_the_centre.length >
+                    0
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {5}
@@ -856,7 +858,7 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.reason_for_sending_children_to_the_centre
+                  color: !answers.how_these_children_go_to_the_centre
                     ? COLORS.white
                     : COLORS.black,
                   textAlign: 'center',
