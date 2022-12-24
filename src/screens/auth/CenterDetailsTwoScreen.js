@@ -96,6 +96,7 @@ export default function CenterDetailsTwoScreen() {
       Object.keys(store?.currentSurveyData).length > 0
     ) {
       let staledata = store;
+      console.log(staledata)
       setvolunteerInfo(staledata?.currentSurveyData?.center_details);
     }
   };
@@ -193,7 +194,7 @@ export default function CenterDetailsTwoScreen() {
       non_operational_due_to,
     } = volunteerInfo;
 
-    if (is_centre_operational) {
+    if (isCenterOperational) {
       let center_details = {
         ...store.currentSurveyData.center_details,
         center_contact,
@@ -253,6 +254,12 @@ export default function CenterDetailsTwoScreen() {
       dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
       navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
       navigate(ROUTES.AUTH.DASHBOARDSCREEN);
+      setError({
+        ...error,
+        message: 'Survey submitted succesfully',
+        visible: true,
+        type: 'ok',
+      });
     }
   }
 
@@ -310,10 +317,9 @@ export default function CenterDetailsTwoScreen() {
               {t('NO')}
             </TextHandler>
             <CustomSwitch
-              isSwitchOn={volunteerInfo.is_centre_operational}
+              isSwitchOn={isCenterOperational}
               setIsSwitchOn={() => {
                 setCenterOperational(!isCenterOperational);
-                console.log(volunteerInfo.is_centre_operational);
                 setvolunteerInfo({
                   ...volunteerInfo,
                   is_centre_operational: !volunteerInfo.is_centre_operational,
@@ -330,7 +336,7 @@ export default function CenterDetailsTwoScreen() {
             </TextHandler>
           </View>
         </View>
-        {volunteerInfo.is_centre_operational ? (
+        {isCenterOperational ? (
           <View style={styles.activeCenter}>
             <View style={{paddingVertical: 5}}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
