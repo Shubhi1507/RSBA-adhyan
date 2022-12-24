@@ -127,7 +127,6 @@ export default function DashboardScreen({route, navigation}) {
   const pageNavigator = () => {
     if (selectedCenter) {
       let {k, j} = isSurveyExists2(totalSurveys, selectedCenter);
-      console.log('k', k, j[0]);
       if (k == true) {
         if (j[0].isCompleted == false) {
           return setError({

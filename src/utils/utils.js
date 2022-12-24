@@ -117,7 +117,7 @@ export const checkInReviewSurveyAndReturnRemaingingTime = totalSurveys => {
   let tmp = [];
   if (totalSurveys && Array.isArray(totalSurveys) && totalSurveys.length > 0) {
     tmp = totalSurveys.filter(function (el) {
-      if (el.isSaved === true && el?.release_date) {
+      if (el.isSaved === true && el?.isCompleted) {
         if (new Date(el.release_date).getTime() - new Date().getTime() > 0) {
           return el;
         }

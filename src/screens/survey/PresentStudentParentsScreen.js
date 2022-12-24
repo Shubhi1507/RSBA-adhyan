@@ -215,15 +215,16 @@ export default function PresentStudentParentsScreen() {
           ans15 +
           ans16);
 
-      console.log(q - p, '/', q);
+      console.log(p, q - p, '/', q);
       new_obj = {
         ...tmp[0],
         attempted: true,
-        completed: q - p == 0 ? true : false,
+        completed: p === 0 ? true : false,
         disabled: false,
         totalQue: q,
         answered: q - p,
       };
+      console.log('new obj', new_obj);
       tmp.splice(0, 1, new_obj);
 
       let surveyAnswers = [...answersArrTmp];

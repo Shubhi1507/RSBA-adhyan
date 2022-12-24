@@ -161,7 +161,7 @@ export default function PastStudentParentsScreen() {
       new_obj = {
         ...tmp[1],
         attempted: true,
-        completed: q - p == 0 ? true : false,
+        completed: p === 0 ? true : false,
         disabled: false,
         totalQue: q,
         answered: q - p,

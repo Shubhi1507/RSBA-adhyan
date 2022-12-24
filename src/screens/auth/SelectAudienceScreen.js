@@ -249,7 +249,6 @@ export default function SelectAudienceScreen() {
       default:
         break;
     }
-
   };
   const submitSurvey = () => {
     let tmp = store?.currentSurveyData;
