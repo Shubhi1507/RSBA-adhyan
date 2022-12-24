@@ -31,16 +31,29 @@ export default function PastStudentParentsScreen() {
 
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
-    // doc
-    no_of_parents_present: 0,
-    educational_background: '',
-    economic_status: '',
+    no_of_parents_present: '',
+    rating_illiterate: '',
+    rating_upto_5th: '',
+    rating_upto_10th: '',
+    rating_graduation: '',
+
+    econmonic_status_under_1_lakh: '',
+    econmonic_status_between_1_and_3_lakh: '',
+    econmonic_status_between_3_and_5_lakh: '',
+    econmonic_status_between_5_and_10_lakh: '',
+
     reason_for_sending_children_to_the_centre: '',
     how_these_children_go_to_the_centre: '',
     days_children_are_going_to_the_centre: '',
     children_occupation_nowadays: [],
 
-    how_centre_was_helpful_in_the_development: '',
+    rating_good_habits: '',
+    rating_patriotism: '',
+    rating_good_sanskaar: '',
+    rating_study_interest: '',
+    rating_development_of_qualities_in_students: '',
+    rating_attitude_for_better_life: '',
+
     involvement_in_the_programs_of_the_centre: '',
     contribution_in_running_centre_more_effectively: '',
     expectations_from_the_centre: '',
@@ -54,6 +67,7 @@ export default function PastStudentParentsScreen() {
     store?.currentSurveyData?.surveyAnswers.length > 0
       ? [...store?.currentSurveyData?.surveyAnswers]
       : [];
+  let tmp2 = [...answers.children_occupation_nowadays];
 
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
@@ -69,137 +83,154 @@ export default function PastStudentParentsScreen() {
   const pageValidator = () => {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
-    let tmpans = [];
+    const {
+      children_occupation_nowadays,
+      contribution_in_running_centre_more_effectively,
+      days_children_are_going_to_the_centre,
+      econmonic_status_between_1_and_3_lakh,
+      econmonic_status_between_3_and_5_lakh,
+      econmonic_status_between_5_and_10_lakh,
+      econmonic_status_under_1_lakh,
+      expectations_from_the_centre,
+      how_these_children_go_to_the_centre,
+      involvement_in_the_programs_of_the_centre,
+      no_of_parents_present,
+      rating_attitude_for_better_life,
+      rating_development_of_qualities_in_students,
+      rating_good_habits,
+      rating_good_sanskaar,
+      rating_graduation,
+      rating_illiterate,
+      rating_patriotism,
+      rating_study_interest,
+      rating_upto_10th,
+      rating_upto_5th,
+      reason_for_sending_children_to_the_centre,
+    } = answers;
     let q = 11;
-    let p = 0;
-    Object.values(answers).forEach(el => {
-      if (el && Array.isArray(el) && el.length > 0) {
-        return tmpans.push(el);
-      } else {
-        if (typeof el === 'string' && el.length > 0) {
-          return tmpans.push(el);
+    let unanswered = 11;
+    try {
+      let ans1 = !no_of_parents_present ? 0 : 1;
+      let ans2 =
+        rating_illiterate &&
+        rating_upto_5th &&
+        rating_upto_10th &&
+        rating_graduation
+          ? 1
+          : 0;
+      let ans3 =
+        econmonic_status_under_1_lakh &&
+        econmonic_status_between_1_and_3_lakh &&
+        econmonic_status_between_3_and_5_lakh &&
+        econmonic_status_between_5_and_10_lakh
+          ? 1
+          : 0;
+      let ans4 = !reason_for_sending_children_to_the_centre ? 0 : 1;
+      let ans5 = !how_these_children_go_to_the_centre ? 0 : 1;
+      let ans6 = !days_children_are_going_to_the_centre ? 0 : 1;
+      let ans7 = children_occupation_nowadays.length > 0 ? 1 : 0;
+      let ans8 =
+        rating_good_habits &&
+        rating_patriotism &&
+        rating_good_sanskaar &&
+        rating_study_interest &&
+        rating_development_of_qualities_in_students &&
+        rating_attitude_for_better_life
+          ? 1
+          : 0;
+      let ans9 = !involvement_in_the_programs_of_the_centre ? 0 : 1;
+      let ans10 = !contribution_in_running_centre_more_effectively ? 0 : 1;
+      let ans11 = !expectations_from_the_centre ? 0 : 1;
+
+      let p =
+        unanswered -
+        (ans1 +
+          ans2 +
+          ans3 +
+          ans4 +
+          ans5 +
+          ans6 +
+          ans7 +
+          ans8 +
+          ans9 +
+          ans10 +
+          ans11);
+
+      console.log(q - p, '/', q);
+
+      new_obj = {
+        ...tmp[1],
+        attempted: true,
+        completed: q - p == 0 ? true : false,
+        disabled: false,
+        totalQue: q,
+        answered: q - p,
+      };
+
+      tmp.splice(1, 1, new_obj);
+
+      let surveyAnswers = [...answersArrTmp];
+      let payload = {};
+
+      if (answersArrTmp.length > 0) {
+        let new_obj1 = {pastStudentParent: answers};
+        let index;
+        surveyAnswers.some(function (entry, i) {
+          if (entry?.pastStudentParent) {
+            index = i;
+          }
+        });
+        if (index != undefined) {
+          surveyAnswers.splice(index, 1, new_obj1);
+        } else {
+          surveyAnswers.push({pastStudentParent: answers});
         }
-        if (typeof el === 'object' && Object.values(el).length > 0) {
-          return tmpans.push(el);
-        }
-      }
-    });
-    p = tmpans.length;
-
-    let answer2 =
-      rating_academic &&
-      rating_behaviour_pattern &&
-      rating_sports &&
-      rating_culture
-        ? true
-        : false;
-
-    if (answer2 === true) {
-      p = p - 3;
-    } else {
-      if (
-        rating_illiterate.length > 0 ||
-        rating_upto_5.length > 0 ||
-        rating_upto_10.length > 0 ||
-        rating_graduation.length > 0
-      ) {
-        p = p - 1;
-      }
-    }
-
-    let answer3 =
-      rating_1_lakh &&
-      rating_upto_3_lakh &&
-      rating_upto_5_lakh &&
-      rating_upto_10_lakh
-        ? true
-        : false;
-
-    if (answer3 === true) {
-      p = p - 3;
-    } else {
-      if (
-        rating_1_lakh.length > 0 ||
-        rating_upto_3_lakh.length > 0 ||
-        rating_upto_5_lakh.length > 0 ||
-        rating_upto_10_lakh.length > 0
-      ) {
-        p = p - 1;
-      }
-    }
-
-    let answer8 =
-      rating_good_habits &&
-      rating_patriotism &&
-      rating_good_sanskaar &&
-      rating_study_interest &&
-      rating_study_interest &&
-      rating_development_of_qualities
-        ? true
-        : false;
-
-    if (answer8 === true) {
-      p = p - 3;
-    } else {
-      if (
-        rating_good_habits.length > 0 ||
-        rating_patriotism.length > 0 ||
-        rating_good_sanskaar.length > 0 ||
-        rating_study_interest.length > 0 ||
-        rating_development_of_qualities ||
-        rating_better_life
-      ) {
-        p = p - 1;
-      }
-    }
-
-    console.log(p, '/', q, tmpans);
-    new_obj = {
-      ...tmp[1],
-      attempted: true,
-      completed: p !== q ? false : true,
-      disabled: false,
-      totalQue: q,
-      answered: p,
-    };
-
-    tmp.splice(1, 1, new_obj);
-
-    let surveyAnswers = [...answersArrTmp];
-    let payload = {};
-
-    if (answersArrTmp.length > 0) {
-      let new_obj1 = {pastStudentParent: answers};
-      let index;
-      surveyAnswers.some(function (entry, i) {
-        if (entry?.pastStudentParent) {
-          index = i;
-        }
-      });
-      if (index != undefined) {
-        surveyAnswers.splice(index, 1, new_obj1);
       } else {
         surveyAnswers.push({pastStudentParent: answers});
       }
-    } else {
-      surveyAnswers.push({pastStudentParent: answers});
-    }
-    payload = {
-      ...store.currentSurveyData,
-      currentSurveyStatus: tmp,
-      surveyAnswers,
-      updatedAt: new Date().toString(),
-    };
-    let tmp1 = FindAndUpdate(totalSurveys, payload);
-    console.log('payload', payload);
+      payload = {
+        ...store.currentSurveyData,
+        currentSurveyStatus: tmp,
+        surveyAnswers,
+        updatedAt: new Date().toString(),
+      };
+      let tmp1 = FindAndUpdate(totalSurveys, payload);
+      console.log('payload', payload);
 
-    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-    showModal();
+      dispatch({
+        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+        payload: payload,
+      });
+      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
+      showModal();
+    } catch (error) {
+      setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+      console.log('error', error);
+    }
   };
 
   const pageNavigator = () => {
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
+  };
+
+  const handleSelection = answer => {
+    if (tmp2.length === 0) {
+      tmp2.push(answer);
+    } else {
+      const isExist = tmp2.some(element => answer.key === element.key);
+      if (isExist) {
+        // remove
+        const index = tmp2.findIndex(element => answer.key === element.key);
+        tmp2.splice(index, 1);
+      } else {
+        // different ans chosen
+        tmp2.push(answer);
+      }
+    }
+    setAnswers({
+      ...answers,
+      children_occupation_nowadays: tmp2,
+    });
   };
 
   return (
@@ -228,7 +259,9 @@ export default function PastStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.no_of_parents_present
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -237,7 +270,9 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.no_of_parents_present
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {1}
@@ -265,6 +300,7 @@ export default function PastStudentParentsScreen() {
                 setAnswers({...answers, no_of_parents_present: text});
               }}
               value={answers.no_of_parents_present}
+              empty={!answers.no_of_parents_present}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -274,12 +310,18 @@ export default function PastStudentParentsScreen() {
           </View>
         </View>
 
-        {/* QA2 - ok - educational_background */}
+        {/* QA2 - ok  */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.rating_illiterate ||
+                  !answers.rating_upto_5th ||
+                  !answers.rating_upto_10th ||
+                  !answers.rating_graduation
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -288,10 +330,16 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.rating_illiterate ||
+                    !answers.rating_upto_5th ||
+                    !answers.rating_upto_10th ||
+                    !answers.rating_graduation
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
-                {3}
+                {2}
               </TextHandler>
             </View>
 
@@ -310,13 +358,16 @@ export default function PastStudentParentsScreen() {
             <TextHandler>{t('PAST_STUDENTS_PARENTS_Q2_OPT1')}</TextHandler>
             <Input
               type={'numeric'}
-              number={2}
+              number={3}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_illiterate: text});
+                if (text <= 100) {
+                  setAnswers({...answers, rating_illiterate: text});
+                }
               }}
               value={answers.rating_illiterate}
+              empty={!answers.rating_illiterate}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -328,13 +379,16 @@ export default function PastStudentParentsScreen() {
             <TextHandler>{t('PAST_STUDENTS_PARENTS_Q2_OPT2')}</TextHandler>
             <Input
               type={'numeric'}
-              number={2}
+              number={3}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_upto_5: text});
+                if (text <= 100) {
+                  setAnswers({...answers, rating_upto_5th: text});
+                }
               }}
-              value={answers.rating_upto_5}
+              value={answers.rating_upto_5th}
+              empty={!answers.rating_upto_5th}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -346,13 +400,16 @@ export default function PastStudentParentsScreen() {
             <TextHandler>{t('PAST_STUDENTS_PARENTS_Q2_OPT3')}</TextHandler>
             <Input
               type={'numeric'}
-              number={2}
+              number={3}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_upto_10: text});
+                if (text <= 100) {
+                  setAnswers({...answers, rating_upto_10th: text});
+                }
               }}
-              value={answers.rating_upto_10}
+              value={answers.rating_upto_10th}
+              empty={!answers.rating_upto_10th}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -364,13 +421,16 @@ export default function PastStudentParentsScreen() {
             <TextHandler>{t('PAST_STUDENTS_PARENTS_Q2_OPT4')}</TextHandler>
             <Input
               type={'numeric'}
-              number={2}
+              number={3}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_graduation: text});
+                if (text <= 100) {
+                  setAnswers({...answers, rating_graduation: text});
+                }
               }}
               value={answers.rating_graduation}
+              empty={!answers.rating_graduation}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -380,12 +440,18 @@ export default function PastStudentParentsScreen() {
           </View>
         </View>
 
-        {/* QA3 - economic_status */}
+        {/* QA3  */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.econmonic_status_under_1_lakh ||
+                  !answers.econmonic_status_between_1_and_3_lakh ||
+                  !answers.econmonic_status_between_3_and_5_lakh ||
+                  !answers.econmonic_status_between_5_and_10_lakh
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -394,7 +460,13 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.econmonic_status_under_1_lakh ||
+                    !answers.econmonic_status_between_1_and_3_lakh ||
+                    !answers.econmonic_status_between_3_and_5_lakh ||
+                    !answers.econmonic_status_between_5_and_10_lakh
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {3}
@@ -420,9 +492,12 @@ export default function PastStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_1_lakh: text});
+                if (text <= 100) {
+                  setAnswers({...answers, econmonic_status_under_1_lakh: text});
+                }
               }}
-              value={answers.rating_1_lakh}
+              value={answers.econmonic_status_under_1_lakh}
+              empty={!answers.econmonic_status_under_1_lakh}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -438,9 +513,15 @@ export default function PastStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_upto_3_lakh: text});
+                if (text <= 100) {
+                  setAnswers({
+                    ...answers,
+                    econmonic_status_between_1_and_3_lakh: text,
+                  });
+                }
               }}
-              value={answers.rating_upto_3_lakh}
+              value={answers.econmonic_status_between_1_and_3_lakh}
+              empty={!answers.econmonic_status_between_1_and_3_lakh}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -456,9 +537,15 @@ export default function PastStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_upto_5_lakh: text});
+                if (text <= 100) {
+                  setAnswers({
+                    ...answers,
+                    econmonic_status_between_3_and_5_lakh: text,
+                  });
+                }
               }}
-              value={answers.rating_upto_5_lakh}
+              value={answers.econmonic_status_between_3_and_5_lakh}
+              empty={!answers.econmonic_status_between_3_and_5_lakh}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -474,9 +561,15 @@ export default function PastStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_upto_10_lakh: text});
+                if (text <= 100) {
+                  setAnswers({
+                    ...answers,
+                    econmonic_status_between_5_and_10_lakh: text,
+                  });
+                }
               }}
-              value={answers.rating_upto_10_lakh}
+              value={answers.econmonic_status_between_5_and_10_lakh}
+              empty={!answers.econmonic_status_between_5_and_10_lakh}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -491,7 +584,10 @@ export default function PastStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.reason_for_sending_children_to_the_centre
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -500,7 +596,9 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.reason_for_sending_children_to_the_centre
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {4}
@@ -567,6 +665,7 @@ export default function PastStudentParentsScreen() {
                 });
               }}
               value={answers.reason_for_sending_children_to_the_centre?.reason}
+              empty={!answers.reason_for_sending_children_to_the_centre?.reason}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -581,7 +680,9 @@ export default function PastStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.how_these_children_go_to_the_centre
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -590,7 +691,9 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.how_these_children_go_to_the_centre
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {5}
@@ -657,6 +760,7 @@ export default function PastStudentParentsScreen() {
                 });
               }}
               value={answers.how_these_children_go_to_the_centre?.reason}
+              empty={!answers.how_these_children_go_to_the_centre?.reason}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -671,7 +775,9 @@ export default function PastStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.days_children_are_going_to_the_centre
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -680,7 +786,9 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.days_children_are_going_to_the_centre
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {6}
@@ -798,11 +906,6 @@ export default function PastStudentParentsScreen() {
                 value: 'Others',
                 label: 'OTHERS',
               },
-              // {
-              //   key: 5,
-              //   value: 'Self-support',
-              //   label: 'BASTI_Q2_OPT5',
-              // },
             ].map((el, index) => {
               return (
                 <TouchableOpacity
@@ -866,7 +969,7 @@ export default function PastStudentParentsScreen() {
                       )[0]?.['other']
                     : ''
                 }
-                empty={!answers.children_occupation_nowadays?.other}
+                // empty={!answers.children_occupation_nowadays?.other}
                 message={''}
                 containerStyle={{
                   alignItems: 'center',
@@ -882,7 +985,15 @@ export default function PastStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.rating_good_habits ||
+                  !answers.rating_patriotism ||
+                  !answers.rating_good_sanskaar ||
+                  !answers.rating_study_interest ||
+                  !answers.rating_development_of_qualities_in_students ||
+                  !answers.rating_attitude_for_better_life
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -891,7 +1002,15 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.rating_good_habits ||
+                    !answers.rating_patriotism ||
+                    !answers.rating_good_sanskaar ||
+                    !answers.rating_study_interest ||
+                    !answers.rating_development_of_qualities_in_students ||
+                    !answers.rating_attitude_for_better_life
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {8}
@@ -917,9 +1036,12 @@ export default function PastStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_good_habits: text});
+                if (text <= 10) {
+                  setAnswers({...answers, rating_good_habits: text});
+                }
               }}
               value={answers.rating_good_habits}
+              empty={!answers.rating_good_habits}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -935,9 +1057,12 @@ export default function PastStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_patriotism: text});
+                if (text <= 10) {
+                  setAnswers({...answers, rating_patriotism: text});
+                }
               }}
               value={answers.rating_patriotism}
+              empty={!answers.rating_patriotism}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -956,6 +1081,7 @@ export default function PastStudentParentsScreen() {
                 setAnswers({...answers, rating_good_sanskaar: text});
               }}
               value={answers.rating_good_sanskaar}
+              empty={!answers.rating_good_sanskaar}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -974,6 +1100,7 @@ export default function PastStudentParentsScreen() {
                 setAnswers({...answers, rating_study_interest: text});
               }}
               value={answers.rating_study_interest}
+              empty={!answers.rating_study_interest}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -990,9 +1117,13 @@ export default function PastStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_development_of_qualities: text});
+                setAnswers({
+                  ...answers,
+                  rating_development_of_qualities_in_students: text,
+                });
               }}
-              value={answers.rating_development_of_qualities}
+              value={answers.rating_development_of_qualities_in_students}
+              empty={!answers.rating_development_of_qualities_in_students}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1009,9 +1140,10 @@ export default function PastStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_better_life: text});
+                setAnswers({...answers, rating_attitude_for_better_life: text});
               }}
-              value={answers.rating_better_life}
+              value={answers.rating_attitude_for_better_life}
+              empty={!answers.rating_attitude_for_better_life}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1026,7 +1158,10 @@ export default function PastStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.involvement_in_the_programs_of_the_centre
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1035,7 +1170,9 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.involvement_in_the_programs_of_the_centre
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {9}
@@ -1102,6 +1239,7 @@ export default function PastStudentParentsScreen() {
                 });
               }}
               value={answers.involvement_in_the_programs_of_the_centre?.reason}
+              empty={!answers.involvement_in_the_programs_of_the_centre?.reason}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1116,7 +1254,10 @@ export default function PastStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor:
+                  !answers.contribution_in_running_centre_more_effectively
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1125,7 +1266,10 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.contribution_in_running_centre_more_effectively
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {10}
@@ -1152,6 +1296,7 @@ export default function PastStudentParentsScreen() {
               });
             }}
             value={answers.contribution_in_running_centre_more_effectively}
+            empty={!answers.contribution_in_running_centre_more_effectively}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -1165,7 +1310,9 @@ export default function PastStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: COLORS.orange,
+                backgroundColor: !answers.expectations_from_the_centre
+                  ? COLORS.red
+                  : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1174,7 +1321,9 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.expectations_from_the_centre
+                    ? COLORS.white
+                    : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {11}
@@ -1199,6 +1348,7 @@ export default function PastStudentParentsScreen() {
               setAnswers({...answers, expectations_from_the_centre: text});
             }}
             value={answers.expectations_from_the_centre}
+            empty={!answers.expectations_from_the_centre}
             message={''}
             containerStyle={{
               alignItems: 'center',

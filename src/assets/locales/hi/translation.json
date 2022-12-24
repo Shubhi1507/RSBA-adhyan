@@ -168,7 +168,9 @@
   "CURRENT_STUDENTS_PARENTS_Q8": "केंद्र में आने के बाद  बच्चों में हुए बदलाव (हर  पहलु पर 10 में से अंक दे |  (1=असंतुष्ट  से 10 = संतुष्ट )",
   
   "BEFORE": "पहले का अनुभव",
-  "CURRENT_STUDENTS_PARENTS_Q8_OPT1 ": "सुनने की क्षमता",
+  "CURRENT_STUDENTS_PARENTS_Q8_1":"सुनने की क्षमता",
+
+  "LISTENING_SKILL ": "सुनने की क्षमता",
   "CURRENT_STUDENTS_PARENTS_Q8_OPT2": "पढाई में मन लगना  ",
   "AFTER": "अभी का अनुभव",
   "CURRENT_STUDENTS_PARENTS_Q8_OPT3": "पढाई में रूचि बढ़ना    ",
@@ -595,7 +597,7 @@
   "CENTER_HEAD_NAME": "केंद्र का नाम",
   "CENTER_CONTACT_DETAILS": "केंद्र संपर्क विवरण",
   "LOCATION": "अपना स्थान साझा करें",
-  "PARENT_ORGANIZATION": "मूल संगठन",
+  "PARENT_ORGANIZATION": "केन्द्र का संचालन करने वाली संस्था का नाम",
   "CENTER_INFO": "केंद्र की जानकारी",
   "SELECT_AUDIENCE": "ऑडियंस का चयन करें",
   "PAST_STUDENTS_PARENTS": "छात्र के माता-पिता (पूर्व)",

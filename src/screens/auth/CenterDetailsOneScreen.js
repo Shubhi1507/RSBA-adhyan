@@ -169,9 +169,40 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     cityArr: [],
   });
 
+  let CENTRES = [
+    {
+      key: 'Balsanskaar Kendra',
+      value: 'Balsanskaar Kendra',
+      label: 'BALSANSKAR_KENDRA',
+    },
+    {
+      key: 'Abyasika',
+      value: 'Abyasika',
+      label: 'ABYASIKA',
+    },
+    {
+      key: 'Pathdaan Centre',
+      value: 'Pathdaan Centre',
+      label: 'PATHDAAN_CENTRE',
+    },
+    {
+      key: 'Bal Gokulam',
+      value: 'Bal Gokulam',
+      label: 'BAL_GOKULAM',
+    },
+    {
+      key: 'Balwadi',
+      value: 'Balwadi',
+      label: 'BALWADI',
+    },
+  ];
+
   useEffect(() => {
     if (route && route?.params && route.params?.centre) {
-      console.log(route.params?.centre.survey_form_id);
+      let toc = CENTRES.filter(
+        el => el.value === route.params.centre?.sewakarya_type,
+      );
+      console.log('toc', toc);
       setvolunteerInfo({
         ...volunteerInfo,
         address: route.params.centre?.address,
@@ -183,6 +214,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
         state_id: route.params.centre?.state_id,
         state_pranth: route.params.centre?.state_name,
         district_jila: route.params.centre?.district_name,
+        type_of_center: toc && toc.length > 0 ? toc[0] : {},
       });
     }
     CheckSurveyviaParams();
