@@ -135,6 +135,10 @@
   "RSB": "Rashtriya Sewa Bharati",
   "ADHAYAN": "Adhyayan Survey",
 
+  "CENTRE_Q4_OPT1": "Students will not able to do education",
+  "CENTRE_Q4_OPT2": "Crime will increase in the community",
+  "CENTRE_Q4_OPT3": "No one will be available in the locality to take care of education and sanskar",
+
   // CURRENT STUDENT PARENT - CSP
   "CURRENT_STUDENTS_PARENTS_Q1": "Current Students",
   "CURRENT_STUDENTS_PARENTS_Q2": "No. of parents present",
@@ -173,7 +177,7 @@
   "CURRENT_STUDENTS_PARENTS_Q7_OPT3": "1-2 years ",
   "CURRENT_STUDENTS_PARENTS_Q7_OPT4": "More than 2 years ",
   "CURRENT_STUDENTS_PARENTS_Q8": " What changes in education level of students you experienced due to the centre? - Rate your answer out of 10 where 1 = Poor & 10 = Best   ",
-  "CURRENT_STUDENTS_PARENTS_Q8_1":"Listening skills",
+  "CURRENT_STUDENTS_PARENTS_Q8_1": "Listening skills",
   "LISTENING_SKILL": "Listening skills",
   "BEFORE": "Before",
   "CURRENT_STUDENTS_PARENTS_Q8_OPT2": "Concentration",
@@ -413,13 +417,10 @@
   // "PAST_STUDENTS_Q11_OPT4": " Other",
   "PAST_STUDENTS_Q12": "What difference you experience between you & other students elder to you, due to the center ?",
   "PAST_STUDENTS_Q12_OPT1": "Good education",
-  "PAST_STUDENTS_Q12_OPT2" : "Good Habits " ,
+  "PAST_STUDENTS_Q12_OPT2": "Good Habits ",
   "PAST_STUDENTS_Q12_OPT3": "Adjusting with other people  ",
   "PAST_STUDENTS_Q12_OPT4": "Increase in social & cultural awarness  ",
   "PAST_STUDENTS_Q12_OPT5": "Other ",
-
-
-
 
   "PAST_STUDENTS_Q13": "What difference you notice in the family, due to the center?  (You can choose more than one answer )",
   "PAST_STUDENTS_Q13_OPT1": "Improved respect",

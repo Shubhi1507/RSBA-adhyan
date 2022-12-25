@@ -213,8 +213,8 @@ export default function DashboardScreen({route, navigation}) {
                 <TouchableOpacity
                   onPress={openMenu}
                   style={styles.languageToggler}>
-                  <TextHandler style={{textTransform: 'uppercase'}}>
-                    {language.default}
+                  <TextHandler style={{}}>
+                    {language.default === 'en' ? t('ENGLISH') : t('HINDI')}
                   </TextHandler>
                   <ADIcons name="down" size={18}></ADIcons>
                 </TouchableOpacity>
@@ -235,21 +235,6 @@ export default function DashboardScreen({route, navigation}) {
               />
             </Menu>
           </View>
-
-          {/* <Button
-            title={t('LANGUAGE_CHANGE')}
-            onPress={() => {
-              if (language.default === 'hi') {
-                LangugeConverter({label: 'English', value: 'en'});
-              } else {
-                LangugeConverter({label: 'Hindi', value: 'hi'});
-              }
-            }}
-            ButtonContainerStyle={{
-              alignItems: 'center',
-              textAlign: 'center',
-            }}
-          /> */}
         </View>
         <TextHandler style={styles.subtitle}>
           {`${t('ALL_SURVEYS')}`}
@@ -457,6 +442,19 @@ export default function DashboardScreen({route, navigation}) {
                         <TextHandler
                           style={{
                             fontSize: 16,
+                            fontWeight: '400',
+                            lineHeight: 22,
+                            color:
+                              selectedCenter?.survey_form_id ==
+                              item.survey_form_id
+                                ? COLORS.blue
+                                : COLORS.black,
+                          }}>
+                          {`${item.district_name}, ${item.sanstha_name} (${item.sewakarya_type})`}
+                        </TextHandler>
+                        <TextHandler
+                          style={{
+                            fontSize: 14,
                             fontWeight: '400',
                             lineHeight: 22,
                             color:

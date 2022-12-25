@@ -220,7 +220,6 @@ export default function SelectAudienceScreen() {
     let tmp = [...store.currentSurveyData?.currentSurveyStatus];
     tmp.forEach(el => {
       if (el.completed == false) {
-        console.log('el', el);
         flag = false;
         return;
       }

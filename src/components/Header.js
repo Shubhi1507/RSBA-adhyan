@@ -28,7 +28,7 @@ export function Header({onPressBack, title, home}) {
       <View style={{flex: 0.1, alignItems: 'flex-end'}}>
         <Image
           source={require('../assets/logo.png')}
-          style={{width: 21, height: 21}}
+          style={{width: 35, height: 35}}
           resizeMode={'contain'}
         />
         {/* <FAIcons name="user-circle-o" color={COLORS.white} size={21} /> */}
@@ -51,7 +51,11 @@ export function Header({onPressBack, title, home}) {
         {store?.centre_id && (
           <TextHandler style={{color: COLORS.white, textAlign: 'center'}}>
             {store?.centre_id
-              ? `(${t('CENTRE')} - ` + store.centre_id + ')'
+              ? `(${t('CENTRE')} - ` +
+                store.centre_id +
+                ', ' +
+                store.center_details.sewakarya_type +
+                ')'
               : ''}
           </TextHandler>
         )}

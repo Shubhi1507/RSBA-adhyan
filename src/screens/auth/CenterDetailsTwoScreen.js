@@ -28,7 +28,7 @@ import {ROUTES} from '../../navigation/RouteConstants';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
-import {Snackbar} from 'react-native-paper';
+import {RadioButton, Snackbar} from 'react-native-paper';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {ADIcons, EnIcons, FAIcons} from '../../libs/VectorIcons';
 import Geolocation from '@react-native-community/geolocation';
@@ -87,7 +87,7 @@ export default function CenterDetailsTwoScreen() {
 
   useEffect(() => {
     CheckSurveyviaParams();
-  }, [store, volunteerInfo]);
+  }, []);
 
   const CheckSurveyviaParams = () => {
     if (
@@ -96,7 +96,7 @@ export default function CenterDetailsTwoScreen() {
       Object.keys(store?.currentSurveyData).length > 0
     ) {
       let staledata = store;
-      console.log(staledata)
+      console.log(staledata);
       setvolunteerInfo(staledata?.currentSurveyData?.center_details);
     }
   };
@@ -301,7 +301,7 @@ export default function CenterDetailsTwoScreen() {
             </TextHandler>
           </View>
 
-          <View
+          {/* <View
             style={{
               flex: 0.6,
               flexDirection: 'row',
@@ -334,7 +334,79 @@ export default function CenterDetailsTwoScreen() {
               }}>
               {t('YES')}
             </TextHandler>
-          </View>
+          </View> */}
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              setCenterOperational(false);
+              setvolunteerInfo({
+                ...volunteerInfo,
+                is_centre_operational: false,
+              });
+            }}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              borderColor: COLORS.blue,
+              borderWidth: 1,
+              borderRadius: 10,
+            }}>
+            <RadioButton
+              value={t('NO')}
+              status={
+                !volunteerInfo.is_centre_operational ? 'checked' : 'unchecked'
+              }
+              uncheckedColor={COLORS.lightGrey}
+              onPress={() => {
+                setCenterOperational(false);
+                setvolunteerInfo({
+                  ...volunteerInfo,
+                  is_centre_operational: false,
+                });
+              }}
+            />
+            <TextHandler style={styles.headingInput}>{t('NO')}</TextHandler>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              setCenterOperational(true);
+              setvolunteerInfo({
+                ...volunteerInfo,
+                is_centre_operational: true,
+              });
+            }}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              borderColor: COLORS.blue,
+              borderWidth: 1,
+              borderRadius: 10,
+            }}>
+            <RadioButton
+              value={t('YES')}
+              status={
+                volunteerInfo.is_centre_operational ? 'checked' : 'unchecked'
+              }
+              uncheckedColor={COLORS.lightGrey}
+              onPress={() => {
+                setCenterOperational(true);
+                setvolunteerInfo({
+                  ...volunteerInfo,
+                  is_centre_operational: true,
+                });
+              }}
+            />
+            <TextHandler style={styles.headingInput}>{t('YES')}</TextHandler>
+          </TouchableOpacity>
         </View>
         {isCenterOperational ? (
           <View style={styles.activeCenter}>

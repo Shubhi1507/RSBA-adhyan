@@ -106,7 +106,6 @@ export default function CentreQuestionsScreen() {
 
     const {center_details} = store.currentSurveyData;
 
-
     let new_centre_details = {
       ...center_details,
       establishment,
@@ -451,7 +450,7 @@ export default function CentreQuestionsScreen() {
           </View>
 
           <View>
-            <Input
+            {/* <Input
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
@@ -466,6 +465,37 @@ export default function CentreQuestionsScreen() {
               containerStyle={{
                 alignItems: 'center',
                 minWidth: screenWidth * 0.5,
+              }}
+            /> */}
+            <RadioButtons
+              radioStyle={{
+                borderWidth: 1,
+                marginVertical: 2,
+                borderColor: COLORS.orange,
+              }}
+              data={[
+                {
+                  key: 1,
+                  value: 'Students will not able to do education',
+                  label: 'CENTRE_Q4_OPT1',
+                },
+                {
+                  key: 2,
+                  value: 'Crime will increase in the community',
+                  label: 'CENTRE_Q4_OPT2',
+                },
+                {
+                  key: 3,
+                  value: 'No one will be available in the locality to take care of education and sanskar',
+                  label: 'CENTRE_Q4_OPT3',
+                },
+              ]}
+              valueProp={answers.centre_not_operational_aftermath}
+              onValueChange={item => {
+                setAnswers({
+                  ...answers,
+                  centre_not_operational_aftermath: item,
+                });
               }}
             />
           </View>

@@ -27,6 +27,7 @@ import LoaderIndicator from '../../components/Loader';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {FindAndUpdate, isSurveyExists} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
+import {RadioButton} from 'react-native-paper';
 
 export default function CenterDetailsOneScreen({navigation, route}) {
   const store = useSelector(state => state);
@@ -443,7 +444,10 @@ export default function CenterDetailsOneScreen({navigation, route}) {
             }}
             optionsArr={store?.RegionReducer?.bastiList || []}
             error={'City'}
-            value={volunteerInfo.centre_id}
+            value={
+              volunteerInfo.centre_id +
+              `, ${volunteerInfo.district_jila}, ${volunteerInfo.sanstha_name} (${volunteerInfo.sewakarya_type})`
+            }
           />
         </View>
 
@@ -491,27 +495,74 @@ export default function CenterDetailsOneScreen({navigation, route}) {
               {t('IS_ADDRESS_CHANGED')}
             </TextHandler>
           </View>
-
-          <View
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+          }}>
+          <TouchableOpacity
+            onPress={() =>
+              setvolunteerInfo({
+                ...volunteerInfo,
+                is_address_changed: false,
+              })
+            }
             style={{
-              flex: 0.6,
               flexDirection: 'row',
               justifyContent: 'space-around',
               alignItems: 'center',
+              borderColor: COLORS.blue,
+              borderWidth: 1,
+              borderRadius: 10,
             }}>
-            <TextHandler style={styles.headingInput}>{t('NO')}</TextHandler>
-            <CustomSwitch
-              isSwitchOn={volunteerInfo.is_address_changed}
-              setIsSwitchOn={() => {
-                console.log(volunteerInfo.is_address_changed);
+            <RadioButton
+              value={t('NO')}
+              status={
+                !volunteerInfo.is_address_changed ? 'checked' : 'unchecked'
+              }
+              uncheckedColor={COLORS.lightGrey}
+              onPress={() =>
                 setvolunteerInfo({
                   ...volunteerInfo,
-                  is_address_changed: !volunteerInfo.is_address_changed,
-                });
-              }}
+                  is_address_changed: false,
+                })
+              }
+            />
+            <TextHandler style={styles.headingInput}>{t('NO')}</TextHandler>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() =>
+              setvolunteerInfo({
+                ...volunteerInfo,
+                is_address_changed: true,
+              })
+            }
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              borderColor: COLORS.blue,
+              borderWidth: 1,
+              borderRadius: 10,
+            }}>
+            <RadioButton
+              value={t('YES')}
+              status={
+                volunteerInfo.is_address_changed ? 'checked' : 'unchecked'
+              }
+              uncheckedColor={COLORS.lightGrey}
+              onPress={() =>
+                setvolunteerInfo({
+                  ...volunteerInfo,
+                  is_address_changed: true,
+                })
+              }
             />
             <TextHandler style={styles.headingInput}>{t('YES')}</TextHandler>
-          </View>
+          </TouchableOpacity>
         </View>
 
         {volunteerInfo.is_address_changed && (

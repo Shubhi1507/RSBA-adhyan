@@ -1222,7 +1222,7 @@ export default function PastStudentQuestions() {
             },
             {
               key: 4,
-              value: 'Other',
+              value: 'Increase in social and cultural awareness',
               label: 'PAST_STUDENTS_Q12_OPT4',
             },
             {
