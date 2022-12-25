@@ -486,7 +486,8 @@ export default function CentreQuestionsScreen() {
                 },
                 {
                   key: 3,
-                  value: 'No one will be available in the locality to take care of education and sanskar',
+                  value:
+                    'No one will be available in the locality to take care of education and sanskar',
                   label: 'CENTRE_Q4_OPT3',
                 },
               ]}
@@ -2350,6 +2351,7 @@ export default function CentreQuestionsScreen() {
 
           <View style={{marginTop: 10}}>
             <Input
+              type={'numeric'}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {

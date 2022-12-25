@@ -25,10 +25,10 @@ export function Header({onPressBack, title, home}) {
           </TouchableOpacity>
         )}
       </View>
-      <View style={{flex: 0.1, alignItems: 'flex-end'}}>
+      <View style={{flex: 0.2, alignItems: 'flex-end'}}>
         <Image
           source={require('../assets/logo.png')}
-          style={{width: 35, height: 35}}
+          style={{width: 38, height: 38}}
           resizeMode={'contain'}
         />
         {/* <FAIcons name="user-circle-o" color={COLORS.white} size={21} /> */}
