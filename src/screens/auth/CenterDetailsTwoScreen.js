@@ -31,7 +31,9 @@ import {useEffect} from 'react';
 import {RadioButton, Snackbar} from 'react-native-paper';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {ADIcons, EnIcons, FAIcons} from '../../libs/VectorIcons';
-import Geolocation from '@react-native-community/geolocation';
+// import Geolocation from '@react-native-community/geolocation';
+import Geolocation from 'react-native-geolocation-service';
+
 import {getDistance, getPreciseDistance} from 'geolib';
 import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
@@ -52,6 +54,7 @@ export default function CenterDetailsTwoScreen() {
     non_operational_due_to: '',
   });
   const globalStore = useSelector(state => state);
+  const [locationPermissionError, setLocationPermissionError] = useState(false);
 
   const [miscControllers] = useState({
     CENTRES: [
@@ -117,8 +120,10 @@ export default function CenterDetailsTwoScreen() {
         console.log('granted', granted);
         if (granted === 'granted') {
           console.log('You can use Geolocation');
+          requestLocationPermission();
           return true;
         } else {
+          getLocationPermission();
           console.log('You cannot use Geolocation');
           return false;
         }
@@ -126,6 +131,7 @@ export default function CenterDetailsTwoScreen() {
         requestLocationPermission();
       }
     } catch (err) {
+      console.log('error', err);
       setError({
         ...error,
         message: t('SOMETHING_WENT_WRONG'),
@@ -137,6 +143,7 @@ export default function CenterDetailsTwoScreen() {
   const requestLocationPermission = () => {
     Geolocation.getCurrentPosition(
       position => {
+        setLocationPermissionError(false);
         console.log(position);
         setvolunteerInfo({
           ...volunteerInfo,
@@ -150,6 +157,7 @@ export default function CenterDetailsTwoScreen() {
       error => {
         // See error code charts below.
         console.log(error.code, error.message);
+        setLocationPermissionError(true);
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
     );
@@ -502,6 +510,11 @@ export default function CenterDetailsTwoScreen() {
                     />
                   </View>
                 </View>
+                {locationPermissionError && (
+                  <TextHandler style={{color: COLORS.lightGrey}}>
+                    {t('LOCATION_PERMISSION_DENIED')}
+                  </TextHandler>
+                )}
               </TouchableOpacity>
             ) : (
               <TouchableOpacity

@@ -14,6 +14,7 @@
   "CENTER_Q1": "केंद्र का स्थापना वर्ष",
 
   "CENTER_Q2": "केंद्र आरम्भ करने का उद्देश्य ?(आप एक से अधिक उत्तर का चयन कर सकते है )",
+  "LOCATION_PERMISSION_DENIED": "स्थान अनुमति अस्वीकृत",
   "CENTER_Q2_OPT1": "शिक्षा की आवश्यकता   ",
   "CENTER_Q2_OPT2": "अभिवावक अपने बच्चे के लिए समय नहीं निकल पाते है |",
   "CENTER_Q2_OPT3": "नजदीक में ऐसी कोई दूसरी सुविधा उपलब्ध नहीं है |  ",
@@ -136,7 +137,7 @@
   "LITERATE": "साक्षर",
   "EDUCATED": "अच्छे पढे लिखे",
   "MIX": "अन्य",
-  "CURRENT_STUDENTS_PARENTS_Q3_OPT4" : "स्नातक एवं ऊपर (%)  " ,
+  "CURRENT_STUDENTS_PARENTS_Q3_OPT4": "स्नातक एवं ऊपर (%)  ",
   "CURRENT_STUDENTS_PARENTS_Q3_OPT1": "निरक्षर (%)  ",
   "CURRENT_STUDENTS_PARENTS_Q3_OPT2": "पांचवी पास (%)  ",
   "CURRENT_STUDENTS_PARENTS_Q3_OPT3": "बारहवी पास (%)",
@@ -166,9 +167,9 @@
   "CURRENT_STUDENTS_PARENTS_Q7_OPT3": "1 से - 2 वर्ष",
   "CURRENT_STUDENTS_PARENTS_Q7_OPT4": "2 वर्ष से अधिक ",
   "CURRENT_STUDENTS_PARENTS_Q8": "केंद्र में आने के बाद  बच्चों में हुए बदलाव (हर  पहलु पर 10 में से अंक दे |  (1=असंतुष्ट  से 10 = संतुष्ट )",
-  
+
   "BEFORE": "पहले का अनुभव",
-  "CURRENT_STUDENTS_PARENTS_Q8_1":"सुनने की क्षमता",
+  "CURRENT_STUDENTS_PARENTS_Q8_1": "सुनने की क्षमता",
 
   "CENTRE_Q4_OPT1": "छात्र पढ़ाई नहीं कर पाएंगे",
   "CENTRE_Q4_OPT2": "समाज  में अपराध बढ़ेगा",
@@ -192,28 +193,25 @@
   "CURRENT_STUDENTS_PARENTS_Q10_OPT3": " नेतृत्व क्षमता ",
   "CURRENT_STUDENTS_PARENTS_Q10_OPT4": " दुसरो की सहायता",
   "CURRENT_STUDENTS_PARENTS_Q11": "केंद्र में आने के बाद  बच्चों में हुए बदलाव (हर  पहलु पर 10 में से अंक दे |  (1=असंतुष्ट  से 10 = संतुष्ट )",
-"CURRENT_STUDENTS_PARENTS_Q11_OPT1" : "धार्मिक ग्रंथों / परंपराओं की जानकारी" ,
-"CURRENT_STUDENTS_PARENTS_Q11_OPT2" : "वैदिक काल एवं साधु संतों की जानकारी " ,
-"CURRENT_STUDENTS_PARENTS_Q11_OPT3" : "राष्ट्रीयता एवं आदर्श पुरुषों की जानकारी " ,
-"CURRENT_STUDENTS_PARENTS_Q11_OPT4" : "राष्ट्रीयता एवं स्वजनों का ख्याल करना " ,
-
+  "CURRENT_STUDENTS_PARENTS_Q11_OPT1": "धार्मिक ग्रंथों / परंपराओं की जानकारी",
+  "CURRENT_STUDENTS_PARENTS_Q11_OPT2": "वैदिक काल एवं साधु संतों की जानकारी ",
+  "CURRENT_STUDENTS_PARENTS_Q11_OPT3": "राष्ट्रीयता एवं आदर्श पुरुषों की जानकारी ",
+  "CURRENT_STUDENTS_PARENTS_Q11_OPT4": "राष्ट्रीयता एवं स्वजनों का ख्याल करना ",
 
   "CURRENT_STUDENTS_PARENTS_Q12": "केंद्र  चलाने से क्या फायदा हो रहा है? परिवार को/ बस्ती को/ समाज को) केंद्र की विशेषता सफलता क्या रही है? ",
- 
 
   "CURRENT_STUDENTS_PARENTS_Q13": "केंद्र पर होने वाले कार्यक्रमों में आपका सहयोग ?   ",
-"CURRENT_STUDENTS_PARENTS_Q13_OPT1" : "आर्थिक",
-"CURRENT_STUDENTS_PARENTS_Q13_OPT2" : "समय" ,
-"CURRENT_STUDENTS_PARENTS_Q13_OPT3" : "श्रमदान" ,
-"CURRENT_STUDENTS_PARENTS_Q13_OPT4" : "अन्य" ,
+  "CURRENT_STUDENTS_PARENTS_Q13_OPT1": "आर्थिक",
+  "CURRENT_STUDENTS_PARENTS_Q13_OPT2": "समय",
+  "CURRENT_STUDENTS_PARENTS_Q13_OPT3": "श्रमदान",
+  "CURRENT_STUDENTS_PARENTS_Q13_OPT4": "अन्य",
 
   "CURRENT_STUDENTS_PARENTS_Q14": "केंद्र को और अच्छे से चलाने के लिये आप क्या कर सकते है? ",
-  "CURRENT_STUDENTS_PARENTS_Q15" : "केंद्र में आने के बाद  बच्चों में हुए बदलाव (हर  पहलु पर 10 में से अंक दे | (1=असंतुष्ट  से 10 = संतुष्ट )" ,
+  "CURRENT_STUDENTS_PARENTS_Q15": "केंद्र में आने के बाद  बच्चों में हुए बदलाव (हर  पहलु पर 10 में से अंक दे | (1=असंतुष्ट  से 10 = संतुष्ट )",
   "CURRENT_STUDENTS_PARENTS_Q15_OPT1": "अच्छा व्यवहार ( विनम्र एवं सहनशील )  ",
-"CURRENT_STUDENTS_PARENTS_Q15_OPT2" : "प्रभावशाली केंद्र प्रबंधन  " ,
-"CURRENT_STUDENTS_PARENTS_Q15_OPT3" : "प्रभावशाली शिक्षणशैली " ,
-"CURRENT_STUDENTS_PARENTS_Q15_OPT4" : "अभिभावकों के साथ अच्छा संपर्क " ,
-
+  "CURRENT_STUDENTS_PARENTS_Q15_OPT2": "प्रभावशाली केंद्र प्रबंधन  ",
+  "CURRENT_STUDENTS_PARENTS_Q15_OPT3": "प्रभावशाली शिक्षणशैली ",
+  "CURRENT_STUDENTS_PARENTS_Q15_OPT4": "अभिभावकों के साथ अच्छा संपर्क ",
 
   "CURRENT_STUDENTS_PARENTS_Q16": "  केंद्र से अपेक्षा  ",
 
@@ -234,13 +232,13 @@
   "PAST_STUDENTS_PARENTS_Q2_OPT1": "निरक्षर",
   "PAST_STUDENTS_PARENTS_Q2_OPT2": "पांचवी पास   ",
   "PAST_STUDENTS_PARENTS_Q2_OPT3": "बारहवी पास  ",
-  "PAST_STUDENTS_PARENTS_Q2_OPT4" : "स्नातक एवं ऊपर ",
+  "PAST_STUDENTS_PARENTS_Q2_OPT4": "स्नातक एवं ऊपर ",
 
   "PAST_STUDENTS_PARENTS_Q3": "आर्थिक स्तर   ",
   "PAST_STUDENTS_PARENTS_Q3_OPT1": "1 लाख से कम   ",
   "PAST_STUDENTS_PARENTS_Q3_OPT2": "1 से 3 लाख ",
   "PAST_STUDENTS_PARENTS_Q3_OPT3": "3 से 5 लाख   ",
-  "PAST_STUDENTS_PARENTS_Q3_OPT4" : " 5 से 10 लाख " ,
+  "PAST_STUDENTS_PARENTS_Q3_OPT4": " 5 से 10 लाख ",
 
   "PAST_STUDENTS_PARENTS_Q4": "केंद्र में बच्चे को भेजने का कारण  - (एक से अधिक उत्तर का चयन कर सकते हैं)  ",
   "PAST_STUDENTS_PARENTS_Q4_OPT1": "समय का उपयोग  ",
@@ -284,7 +282,7 @@
 
   "PAST_STUDENTS_PARENTS_Q11": "केंद्र से अपेक्षा ",
 
-  "CURRENT_STUDENTS_Q1":"कुल कितने विद्यार्थी नामांकित है ",
+  "CURRENT_STUDENTS_Q1": "कुल कितने विद्यार्थी नामांकित है ",
 
   "CURRENT_STUDENTS_Q2": "वर्तमान नामांकित संख्या में से कितने छात्र नियमित रूप से कक्षा में उपस्थित रहते हैं   ",
   "CURRENT_STUDENTS_Q2_OPT1": "20-25 %   ",
@@ -310,7 +308,7 @@
   "CURRENT_STUDENTS_Q5_OPT3": "छात्र टोली बनाकर आते है  ",
   "CURRENT_STUDENTS_Q5_OPT4": "केंद्र समन्वयक उन्हें सहायता प्रदान करते है ",
 
-  "CURRENT_STUDENTS_Q6": "क्या छात्र अपने से छोटी कक्षाओं के छात्रों को भी पढ़ने में मदद करते हैं?" ,
+  "CURRENT_STUDENTS_Q6": "क्या छात्र अपने से छोटी कक्षाओं के छात्रों को भी पढ़ने में मदद करते हैं?",
   "CURRENT_STUDENTS_Q6_OPT1": "हाँ",
   "CURRENT_STUDENTS_Q6_OPT2": "ना",
 
@@ -361,7 +359,7 @@
   "PAST_STUDENTS_Q3": "क्या केन्द्र अभी भी वैसा ही है जैसा आपके समय पर था ?  ",
   "PAST_STUDENTS_Q3_OPT1": "हाँ",
   "PAST_STUDENTS_Q3_OPT2": " ना",
-  "PAST_STUDENTS_Q4":"कितने वर्षो तक आप इस केंद्र पर आते रहे थे?",
+  "PAST_STUDENTS_Q4": "कितने वर्षो तक आप इस केंद्र पर आते रहे थे?",
   "PAST_STUDENTS_Q4_OPT1": "१ वर्ष से कम ",
   "PAST_STUDENTS_Q4_OPT2": " १ वर्ष से ३ वर्ष",
   "PAST_STUDENTS_Q4_OPT3": " ३ वर्ष से अधिक",
@@ -372,11 +370,10 @@
   "PAST_STUDENTS_Q5_OPT4": "उच्च अध्ययन  ",
   "PAST_STUDENTS_Q6": "क्या अभी भी केन्द्र से जुड़े है/ क्या केन्द्र को किसी प्रकार की सेवाएँ दे रहे हैं?",
   "PAST_STUDENTS_Q6_OPT1": "हाँ - निम्न विकल्पों में से बताएं:",
-"PAST_STUDENTS_Q6_OPT1_A" : "छात्रों के साथ जुड़ाव " ,
-"PAST_STUDENTS_Q6_OPT1_B" : "आर्थिक संसाधन प्रदान करते हैं" ,
-"PAST_STUDENTS_Q6_OPT1_C" : "आयोजन में भाग लेते हैं" ,
-"PAST_STUDENTS_Q6_OPT1_D" :"अन्य संसाधन प्रदान करते हैं" ,
-
+  "PAST_STUDENTS_Q6_OPT1_A": "छात्रों के साथ जुड़ाव ",
+  "PAST_STUDENTS_Q6_OPT1_B": "आर्थिक संसाधन प्रदान करते हैं",
+  "PAST_STUDENTS_Q6_OPT1_C": "आयोजन में भाग लेते हैं",
+  "PAST_STUDENTS_Q6_OPT1_D": "अन्य संसाधन प्रदान करते हैं",
 
   "PAST_STUDENTS_Q6_OPT2": "ना",
   "PAST_STUDENTS_Q7": "केंद्र पर आने से हमारे परिणाम और आचरण पर क्या प्रभाव रहा व उसके क्या कारण थे?",
@@ -418,7 +415,7 @@
   // "PAST_STUDENTS_Q11_OPT5": " अन्य",
   "PAST_STUDENTS_Q12": "केंद्र के कारण आप और आपकी उम्र के अन्य छात्रों (जो केंद्र में नहीं आते हैं) के बीच आप क्या अंतर महसूस करते हैं? (आप एक से अधिक उत्तर चुन सकते हैं)  ",
   "PAST_STUDENTS_Q12_OPT1": "अच्छी शिक्षा",
-  "PAST_STUDENTS_Q12_OPT2" : "अच्छी आदतें   " ,
+  "PAST_STUDENTS_Q12_OPT2": "अच्छी आदतें   ",
   "PAST_STUDENTS_Q12_OPT3": "दूसरे लोगों के साथ एडजस्ट करना  ",
   "PAST_STUDENTS_Q12_OPT4": "सामाजिक और सांस्कृतिक जागरूकता में वृद्धि  ",
   "PAST_STUDENTS_Q12_OPT5": "अन्य ",
@@ -463,7 +460,6 @@
   "TEACHER_Q4_OPT2": "व्यवहार का पैटर्न ",
   "TEACHER_Q4_OPT3": "खेलकूद",
   "TEACHER_Q4_OPT4": "कला संस्कृति",
- 
 
   //E
   "ENTER_PHONE_NUMBER_TO_CONTIUE": "संपर्क करने के लिए फ़ोन नंबर दर्ज करें",

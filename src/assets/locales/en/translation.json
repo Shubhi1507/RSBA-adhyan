@@ -12,7 +12,7 @@
 
   // CENTER QUESTIONS
   "CENTER_Q1": "Establishment Year of the Kendra ?",
-
+  "LOCATION_PERMISSION_DENIED": "Location permission denied",
   "CENTER_Q2": " Objective to start the kendra ? ( You can choose more than one answer ) ",
   "CENTER_Q2_OPT1": "Need for Education",
   "CENTER_Q2_OPT2": "Parents could not spare time for students ",
