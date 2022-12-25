@@ -666,7 +666,7 @@ export default function PastStudentQuestions() {
                     </TouchableOpacity>
                   );
                 })}
-                {answers.still_associated_with_the_center_reasons.filter(
+                {/* {answers.still_associated_with_the_center_reasons.filter(
                   item => item.key === 4,
                 ).length > 0 && (
                   <Input
@@ -705,7 +705,7 @@ export default function PastStudentQuestions() {
                       minWidth: screenWidth * 0.25,
                     }}
                   />
-                )}
+                )} */}
               </View>
             )}
           </View>

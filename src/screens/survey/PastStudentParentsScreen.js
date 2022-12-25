@@ -1078,7 +1078,9 @@ export default function PastStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_good_sanskaar: text});
+                if (text <= 10) {
+                  setAnswers({...answers, rating_good_sanskaar: text});
+                }
               }}
               value={answers.rating_good_sanskaar}
               empty={!answers.rating_good_sanskaar}
@@ -1097,7 +1099,9 @@ export default function PastStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_study_interest: text});
+                if (text <= 10) {
+                  setAnswers({...answers, rating_study_interest: text});
+                }
               }}
               value={answers.rating_study_interest}
               empty={!answers.rating_study_interest}
@@ -1117,10 +1121,12 @@ export default function PastStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({
-                  ...answers,
-                  rating_development_of_qualities_in_students: text,
-                });
+                if (text <= 10) {
+                  setAnswers({
+                    ...answers,
+                    rating_development_of_qualities_in_students: text,
+                  });
+                }
               }}
               value={answers.rating_development_of_qualities_in_students}
               empty={!answers.rating_development_of_qualities_in_students}
@@ -1140,7 +1146,12 @@ export default function PastStudentParentsScreen() {
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, rating_attitude_for_better_life: text});
+                if (text <= 10) {
+                  setAnswers({
+                    ...answers,
+                    rating_attitude_for_better_life: text,
+                  });
+                }
               }}
               value={answers.rating_attitude_for_better_life}
               empty={!answers.rating_attitude_for_better_life}

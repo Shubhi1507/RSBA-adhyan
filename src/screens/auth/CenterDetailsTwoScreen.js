@@ -418,7 +418,7 @@ export default function CenterDetailsTwoScreen() {
         </View>
         {isCenterOperational ? (
           <View style={styles.activeCenter}>
-            <View style={{paddingVertical: 5}}>
+            {/* <View style={{paddingVertical: 5}}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Text
                   style={{
@@ -439,7 +439,7 @@ export default function CenterDetailsTwoScreen() {
                   setvolunteerInfo({...volunteerInfo, type_of_center: item});
                 }}
               />
-            </View>
+            </View> */}
             <View style={{paddingVertical: 5}}>
               <Text style={styles.headingInput}>{t('CENTER_HEAD_NAME')}</Text>
               <Input
