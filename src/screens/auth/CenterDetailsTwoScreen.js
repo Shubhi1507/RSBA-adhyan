@@ -28,10 +28,12 @@ import {ROUTES} from '../../navigation/RouteConstants';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
-import {Snackbar} from 'react-native-paper';
+import {RadioButton, Snackbar} from 'react-native-paper';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {ADIcons, EnIcons, FAIcons} from '../../libs/VectorIcons';
-import Geolocation from '@react-native-community/geolocation';
+// import Geolocation from '@react-native-community/geolocation';
+import Geolocation from 'react-native-geolocation-service';
+
 import {getDistance, getPreciseDistance} from 'geolib';
 import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
@@ -52,6 +54,7 @@ export default function CenterDetailsTwoScreen() {
     non_operational_due_to: '',
   });
   const globalStore = useSelector(state => state);
+  const [locationPermissionError, setLocationPermissionError] = useState(false);
 
   const [miscControllers] = useState({
     CENTRES: [
@@ -87,7 +90,7 @@ export default function CenterDetailsTwoScreen() {
 
   useEffect(() => {
     CheckSurveyviaParams();
-  }, [store, volunteerInfo]);
+  }, []);
 
   const CheckSurveyviaParams = () => {
     if (
@@ -96,6 +99,7 @@ export default function CenterDetailsTwoScreen() {
       Object.keys(store?.currentSurveyData).length > 0
     ) {
       let staledata = store;
+      console.log(staledata);
       setvolunteerInfo(staledata?.currentSurveyData?.center_details);
     }
   };
@@ -116,8 +120,10 @@ export default function CenterDetailsTwoScreen() {
         console.log('granted', granted);
         if (granted === 'granted') {
           console.log('You can use Geolocation');
+          requestLocationPermission();
           return true;
         } else {
+          getLocationPermission();
           console.log('You cannot use Geolocation');
           return false;
         }
@@ -125,6 +131,7 @@ export default function CenterDetailsTwoScreen() {
         requestLocationPermission();
       }
     } catch (err) {
+      console.log('error', err);
       setError({
         ...error,
         message: t('SOMETHING_WENT_WRONG'),
@@ -136,6 +143,7 @@ export default function CenterDetailsTwoScreen() {
   const requestLocationPermission = () => {
     Geolocation.getCurrentPosition(
       position => {
+        setLocationPermissionError(false);
         console.log(position);
         setvolunteerInfo({
           ...volunteerInfo,
@@ -149,6 +157,7 @@ export default function CenterDetailsTwoScreen() {
       error => {
         // See error code charts below.
         console.log(error.code, error.message);
+        setLocationPermissionError(true);
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
     );
@@ -193,7 +202,7 @@ export default function CenterDetailsTwoScreen() {
       non_operational_due_to,
     } = volunteerInfo;
 
-    if (is_centre_operational) {
+    if (isCenterOperational) {
       let center_details = {
         ...store.currentSurveyData.center_details,
         center_contact,
@@ -253,6 +262,12 @@ export default function CenterDetailsTwoScreen() {
       dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
       navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
       navigate(ROUTES.AUTH.DASHBOARDSCREEN);
+      setError({
+        ...error,
+        message: 'Survey submitted succesfully',
+        visible: true,
+        type: 'ok',
+      });
     }
   }
 
@@ -294,7 +309,7 @@ export default function CenterDetailsTwoScreen() {
             </TextHandler>
           </View>
 
-          <View
+          {/* <View
             style={{
               flex: 0.6,
               flexDirection: 'row',
@@ -310,10 +325,9 @@ export default function CenterDetailsTwoScreen() {
               {t('NO')}
             </TextHandler>
             <CustomSwitch
-              isSwitchOn={volunteerInfo.is_centre_operational}
+              isSwitchOn={isCenterOperational}
               setIsSwitchOn={() => {
                 setCenterOperational(!isCenterOperational);
-                console.log(volunteerInfo.is_centre_operational);
                 setvolunteerInfo({
                   ...volunteerInfo,
                   is_centre_operational: !volunteerInfo.is_centre_operational,
@@ -328,11 +342,83 @@ export default function CenterDetailsTwoScreen() {
               }}>
               {t('YES')}
             </TextHandler>
-          </View>
+          </View> */}
         </View>
-        {volunteerInfo.is_centre_operational ? (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              setCenterOperational(false);
+              setvolunteerInfo({
+                ...volunteerInfo,
+                is_centre_operational: false,
+              });
+            }}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              borderColor: COLORS.blue,
+              borderWidth: 1,
+              borderRadius: 10,
+            }}>
+            <RadioButton
+              value={t('NO')}
+              status={
+                !volunteerInfo.is_centre_operational ? 'checked' : 'unchecked'
+              }
+              uncheckedColor={COLORS.lightGrey}
+              onPress={() => {
+                setCenterOperational(false);
+                setvolunteerInfo({
+                  ...volunteerInfo,
+                  is_centre_operational: false,
+                });
+              }}
+            />
+            <TextHandler style={styles.headingInput}>{t('NO')}</TextHandler>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              setCenterOperational(true);
+              setvolunteerInfo({
+                ...volunteerInfo,
+                is_centre_operational: true,
+              });
+            }}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              borderColor: COLORS.blue,
+              borderWidth: 1,
+              borderRadius: 10,
+            }}>
+            <RadioButton
+              value={t('YES')}
+              status={
+                volunteerInfo.is_centre_operational ? 'checked' : 'unchecked'
+              }
+              uncheckedColor={COLORS.lightGrey}
+              onPress={() => {
+                setCenterOperational(true);
+                setvolunteerInfo({
+                  ...volunteerInfo,
+                  is_centre_operational: true,
+                });
+              }}
+            />
+            <TextHandler style={styles.headingInput}>{t('YES')}</TextHandler>
+          </TouchableOpacity>
+        </View>
+        {isCenterOperational ? (
           <View style={styles.activeCenter}>
-            <View style={{paddingVertical: 5}}>
+            {/* <View style={{paddingVertical: 5}}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Text
                   style={{
@@ -353,7 +439,7 @@ export default function CenterDetailsTwoScreen() {
                   setvolunteerInfo({...volunteerInfo, type_of_center: item});
                 }}
               />
-            </View>
+            </View> */}
             <View style={{paddingVertical: 5}}>
               <Text style={styles.headingInput}>{t('CENTER_HEAD_NAME')}</Text>
               <Input
@@ -424,6 +510,11 @@ export default function CenterDetailsTwoScreen() {
                     />
                   </View>
                 </View>
+                {locationPermissionError && (
+                  <TextHandler style={{color: COLORS.lightGrey}}>
+                    {t('LOCATION_PERMISSION_DENIED')}
+                  </TextHandler>
+                )}
               </TouchableOpacity>
             ) : (
               <TouchableOpacity

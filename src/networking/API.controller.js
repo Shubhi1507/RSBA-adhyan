@@ -113,9 +113,8 @@ const submitSurveyAPI = async data => {
   }
 };
 
-
-
 const LatestVolunteerData = async data => {
+  console.log('payload', data);
   try {
     const URL = BASE_URL + 'volunteer/latestassignedcenter';
     const formdata = new FormData();
@@ -129,14 +128,12 @@ const LatestVolunteerData = async data => {
     });
     let respJson = await response.json();
     console.log('v. res- >', respJson);
-
     return respJson;
   } catch (error) {
     console.log(error);
     return error;
   }
 };
-
 
 export {
   Login,
@@ -145,5 +142,5 @@ export {
   getListofStates,
   VerifyOTP,
   submitSurveyAPI,
-  LatestVolunteerData
+  LatestVolunteerData,
 };

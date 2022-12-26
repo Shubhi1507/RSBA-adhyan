@@ -249,7 +249,6 @@ export default function SelectAudienceScreen() {
       default:
         break;
     }
-
   };
   const submitSurvey = () => {
     let tmp = store?.currentSurveyData;
@@ -462,22 +461,22 @@ export default function SelectAudienceScreen() {
               );
             }}
           />
+        </View>
 
+        {isSurveyCompleted ? (
           <Button
-            title={t('SAVE')}
-            onPress={() => navigate(ROUTES.AUTH.DASHBOARDSCREEN)}
+            title={t('SUBMIT')}
+            onPress={() => submitSurvey()}
             ButtonContainerStyle={{
               marginVertical: 17,
               alignItems: 'center',
               textAlign: 'center',
             }}
           />
-        </View>
-
-        {isSurveyCompleted && (
+        ) : (
           <Button
-            title={t('SAVE_REVIEW_QUESTIONS')}
-            onPress={() => submitSurvey()}
+            title={t('SAVE')}
+            onPress={() => navigate(ROUTES.AUTH.DASHBOARDSCREEN)}
             ButtonContainerStyle={{
               marginVertical: 17,
               alignItems: 'center',

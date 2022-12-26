@@ -33,7 +33,6 @@ export default function TeacherQuestionsScreen() {
     consistency_in_attending_the_kendra: '',
     methods_used_to_teach_basic_concepts: '',
     teach_social_work: [],
-    which_area_we_can_see_transformation_in_our_students: '',
     rating_academic: '',
     rating_behaviour_pattern: '',
     rating_sports: '',
@@ -47,7 +46,6 @@ export default function TeacherQuestionsScreen() {
     qualification_of_the_teacher: '',
     since_when_teacher_is_associated_with_this_kendra: '',
     reason_to_join_this_kendra: '',
-    role_model: '',
     expectations_from_sanstha_for_the_betterment: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
@@ -83,7 +81,6 @@ export default function TeacherQuestionsScreen() {
       consistency_in_attending_the_kendra,
       methods_used_to_teach_basic_concepts,
       teach_social_work,
-      which_area_we_can_see_transformation_in_our_students,
       expectations_from_sanstha_for_the_betterment,
       personally_meet_all_the_parents_every_month,
       qualification_of_the_teacher,
@@ -92,7 +89,6 @@ export default function TeacherQuestionsScreen() {
       rating_sincerity,
       rating_trustworthy,
       reason_to_join_this_kendra,
-      role_model,
       since_when_teacher_is_associated_with_this_kendra,
       compromise_on_our_teaching_agenda,
       rating_academic,
@@ -101,78 +97,55 @@ export default function TeacherQuestionsScreen() {
       rating_sports,
     } = answers;
     let q = 11;
-    let p = Object.values(answers).filter(el => {
-      if (el) return el;
-    }).length;
+    let unanswered = 11;
 
-    let answer4 =
+    let ans1 = !consistency_in_attending_the_kendra ? 0 : 1;
+    let ans2 = !methods_used_to_teach_basic_concepts ? 0 : 1;
+    let ans3 = teach_social_work.length > 0 ? 1 : 0;
+    let ans4 =
       rating_academic &&
       rating_behaviour_pattern &&
       rating_sports &&
       rating_culture
-        ? true
-        : false;
-
-    if (answer4 === true) {
-      p = p - 3;
-    } else {
-      if (
-        rating_academic.length > 0 ||
-        rating_behaviour_pattern.length > 0 ||
-        rating_sports.length > 0 ||
-        rating_culture.length > 0
-      ) {
-        p = p - 1;
-      }
-    }
-
-    let answer5 =
-      rating_punctuality &&
+        ? 1
+        : 0;
+    let ans5 =
       rating_sincerity &&
+      rating_punctuality &&
       rating_trustworthy &&
       leadership_qualities
-        ? true
-        : false;
+        ? 1
+        : 0;
+    let ans6 = !compromise_on_our_teaching_agenda ? 0 : 1;
+    let ans7 = !personally_meet_all_the_parents_every_month ? 0 : 1;
+    let ans8 = !qualification_of_the_teacher ? 0 : 1;
+    let ans9 = !since_when_teacher_is_associated_with_this_kendra ? 0 : 1;
+    let ans10 = !reason_to_join_this_kendra ? 0 : 1;
+    let ans11 = !expectations_from_sanstha_for_the_betterment ? 0 : 1;
 
-    if (answer5 === true) {
-      p = p - 3;
-    } else {
-      if (
-        rating_punctuality.length > 0 ||
-        rating_sincerity.length > 0 ||
-        rating_trustworthy.length > 0 ||
-        leadership_qualities.length > 0
-      ) {
-        p = p - 1;
-      }
-    }
+    let p =
+      unanswered -
+      (ans1 +
+        ans2 +
+        ans3 +
+        ans4 +
+        ans5 +
+        ans6 +
+        ans7 +
+        ans8 +
+        ans9 +
+        ans10 +
+        ans11);
 
-    if (
-      !consistency_in_attending_the_kendra ||
-      !methods_used_to_teach_basic_concepts ||
-      !teach_social_work ||
-      !which_area_we_can_see_transformation_in_our_students ||
-      !compromise_on_our_teaching_agenda ||
-      !answer5
-    ) {
-      new_obj = {
-        ...tmp[4],
-        attempted: true,
-        completed: false,
-        disabled: false,
-        totalQue: q,
-        answered: p,
-      };
-    } else {
-      new_obj = {
-        ...tmp[4],
-        attempted: true,
-        completed: true,
-        disabled: true,
-        totalQue: q,
-        answered: p,
-      };
-    }
+        new_obj = {
+          ...tmp[4],
+          attempted: true,
+          completed: p === 0 ? true : false,
+          disabled: false,
+          totalQue: q,
+          answered: q - p,
+        };
+
     tmp.splice(4, 1, new_obj);
 
     let surveyAnswers = [...answersArrTmp];

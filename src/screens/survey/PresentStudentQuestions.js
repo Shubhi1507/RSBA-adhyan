@@ -1147,6 +1147,7 @@ export default function PresentStudentQuestions() {
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
                 name="any"
+                type={'numeric'}
                 onChangeText={text => {
                   setAnswers({
                     ...answers,
