@@ -244,10 +244,8 @@ export default function CenterDetailsTwoScreen() {
       let payload = {
         ...store.currentSurveyData,
         center_details,
-        isSaved: true,
-        release_date: new Date(
-          new Date().setTime(new Date().getTime() + 72 * 60 * 60 * 1000),
-        ).toString(),
+        isSaved: false,
+        release_date: '' ,
         updatedAt: new Date().toString(),
       };
 
@@ -261,13 +259,13 @@ export default function CenterDetailsTwoScreen() {
       });
       dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
       navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
-      navigate(ROUTES.AUTH.DASHBOARDSCREEN);
-      setError({
-        ...error,
-        message: 'Survey submitted succesfully',
-        visible: true,
-        type: 'ok',
-      });
+      // navigate(ROUTES.AUTH.DASHBOARDSCREEN);
+      // setError({
+      //   ...error,
+      //   message: 'Survey submitted succesfully',
+      //   visible: true,
+      //   type: 'ok',
+      // });
     }
   }
 
