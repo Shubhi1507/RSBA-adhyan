@@ -40,6 +40,7 @@ import LocalizationContext from '../../context/LanguageContext';
 
 export default function CenterDetailsTwoScreen() {
   const store = useSelector(state => state?.surveyReducer);
+  const userStore = useSelector(state => state?.authReducer);
   const {t} = useContext(LocalizationContext);
   let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
@@ -99,7 +100,6 @@ export default function CenterDetailsTwoScreen() {
       Object.keys(store?.currentSurveyData).length > 0
     ) {
       let staledata = store;
-      console.log(staledata);
       setvolunteerInfo(staledata?.currentSurveyData?.center_details);
     }
   };
@@ -117,14 +117,11 @@ export default function CenterDetailsTwoScreen() {
             buttonPositive: 'OK',
           },
         );
-        console.log('granted', granted);
         if (granted === 'granted') {
-          console.log('You can use Geolocation');
           requestLocationPermission();
           return true;
         } else {
           getLocationPermission();
-          console.log('You cannot use Geolocation');
           return false;
         }
       } else {
@@ -144,7 +141,6 @@ export default function CenterDetailsTwoScreen() {
     Geolocation.getCurrentPosition(
       position => {
         setLocationPermissionError(false);
-        console.log(position);
         setvolunteerInfo({
           ...volunteerInfo,
           volunteer_location: {
@@ -156,7 +152,6 @@ export default function CenterDetailsTwoScreen() {
       },
       error => {
         // See error code charts below.
-        console.log(error.code, error.message);
         setLocationPermissionError(true);
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
@@ -202,74 +197,60 @@ export default function CenterDetailsTwoScreen() {
       non_operational_due_to,
     } = volunteerInfo;
 
-    if (isCenterOperational) {
-      let center_details = {
-        ...store.currentSurveyData.center_details,
-        center_contact,
-        center_head,
-        parent_org,
-        type_of_center,
-        volunteer_location,
-        is_centre_operational,
-        non_operational_due_to,
-      };
-      let payload = {
-        ...store.currentSurveyData,
-        center_details,
-        isSaved: false,
-        release_date: '',
-        updatedAt: new Date().toString(),
-      };
+    let center_details = {
+      ...store.currentSurveyData.center_details,
+      center_contact,
+      center_head,
+      parent_org,
+      type_of_center,
+      volunteer_location,
+      is_centre_operational,
+      non_operational_due_to,
+    };
+    let payload = {
+      ...store.currentSurveyData,
+      center_details,
+      isSaved: false,
+      release_date: '',
+      updatedAt: new Date().toString(),
+    };
 
-      let tmp = FindAndUpdate(totalSurveys, payload);
-      console.log('pg2', payload);
-      console.log('TMP', tmp);
-      dispatch({
-        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
-        payload: payload,
-      });
-      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
-      navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
-    } else {
-      let center_details = {
-        ...store.currentSurveyData.center_details,
-        center_contact,
-        center_head,
-        parent_org,
-        type_of_center,
-        volunteer_location,
-        is_centre_operational,
-        non_operational_due_to,
-      };
-      let payload = {
-        ...store.currentSurveyData,
-        center_details,
-        isSaved: true,
-        release_date: new Date(
-          new Date().setTime(new Date().getTime() + 72 * 60 * 60 * 1000),
-        ).toString(),
-        updatedAt: new Date().toString(),
-      };
+    let tmp = FindAndUpdate(totalSurveys, payload);
+    console.log('pg2', payload);
+    console.log('TMP', tmp);
+    dispatch({
+      type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+      payload: payload,
+    });
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
+    navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
 
-      let tmp = FindAndUpdate(totalSurveys, payload);
-      console.log('pg2b', payload);
-      console.log('total surveys->', tmp);
-
-      dispatch({
-        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
-        payload: payload,
-      });
-      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
-      navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
-      navigate(ROUTES.AUTH.DASHBOARDSCREEN);
-      setError({
-        ...error,
-        message: 'Survey submitted succesfully',
-        visible: true,
-        type: 'ok',
-      });
-    }
+    let userdata = userStore?.userData?.userData;
+    let apiPayload = {
+      volunteer_id: userdata?.data?.user?.id,
+      state_id: center_details?.state_id,
+      district_id: center_details?.district_id,
+      address: center_details?.address,
+      type: center_details?.type_of_center?.value,
+      head_name: center_details?.center_head,
+      contact_details: center_contact,
+      is_operational: isCenterOperational ? 1 : 0,
+      reason_not_operational:
+        center_details?.non_operational_due_to?.reason ||
+        center_details?.non_operational_due_to?.value ||
+        '',
+      survey_device_location: center_details?.volunteer_location,
+      partially_filled: 1,
+      survey_form_id: center_details?.survey_form_id,
+      town: center_details?.district_jila,
+    };
+    console.log(center_details);
+    console.log('apiPayload', apiPayload);
   }
+
+  const createCentreSurvey = data => {
+    console.log('api payload', data);
+  };
 
   return (
     <View style={styles.container}>
@@ -485,7 +466,7 @@ export default function CenterDetailsTwoScreen() {
                     },
                     {
                       text: t('NO'),
-                      onPress: () => console.log('Cancel Pressed'),
+                      onPress: () => {},
                       style: 'cancel',
                     },
                   ]);
@@ -681,7 +662,7 @@ export default function CenterDetailsTwoScreen() {
             </View>
 
             <Button
-              title={t('SUBMIT')}
+              title={t('NEXT')}
               onPress={() => {
                 PageValidator();
               }}

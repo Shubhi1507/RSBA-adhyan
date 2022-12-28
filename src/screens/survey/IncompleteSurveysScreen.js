@@ -60,7 +60,6 @@ export default function IncompleteSurveysScreen() {
         <FlatList
           data={incompleteSurveyDataTmpArr}
           renderItem={({item, index}) => {
-            console.log('item', item);
             return (
               <CustomCheckbox
                 label={

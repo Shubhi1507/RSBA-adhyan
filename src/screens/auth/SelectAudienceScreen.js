@@ -34,6 +34,7 @@ export default function SelectAudienceScreen() {
   const {t} = useContext(LocalizationContext);
   const [isSurveyCompleted, setisSurveyCompleted] = useState(false);
   const store = useSelector(state => state?.surveyReducer);
+
   let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
   let CENTRES_STATUS_FOR_ANEW_SURVEY = [
@@ -210,17 +211,27 @@ export default function SelectAudienceScreen() {
 
   const hideModal = () => setVisible(false);
   const showModal = () => setVisible(true);
+  let isCentreOperational =
+    store.currentSurveyData?.center_details?.is_centre_operational;
+  let [flatlistData, setFlatListData] = useState([]);
 
   useEffect(() => {
-    checkIsSurveyCompleted();
+    console.log('isCentreOperational', isCentreOperational);
+    let tmp = [...store.currentSurveyData?.currentSurveyStatus];
+    if (!isCentreOperational) {
+      tmp = tmp.filter(item => {
+        return item.key !== 1 && item.key !== 3;
+      });
+    }
+    setFlatListData(tmp);
+    checkIsSurveyCompleted(tmp);
   }, [store]);
 
-  const checkIsSurveyCompleted = () => {
+  const checkIsSurveyCompleted = (tmp: []) => {
     let flag = true;
-    let tmp = [...store.currentSurveyData?.currentSurveyStatus];
+    // let tmp = [...store.currentSurveyData?.currentSurveyStatus];
     tmp.forEach(el => {
       if (el.completed == false) {
-        console.log('el', el);
         flag = false;
         return;
       }
@@ -355,14 +366,10 @@ export default function SelectAudienceScreen() {
           </TextHandler>
 
           <FlatList
-            data={
-              store.currentSurveyData?.currentSurveyStatus &&
-              store.currentSurveyData?.currentSurveyStatus.length > 0
-                ? store.currentSurveyData?.currentSurveyStatus
-                : []
-            }
+            data={flatlistData}
             style={{flex: 1}}
             renderItem={({item, index}) => {
+              console.log('item', item);
               return (
                 <TouchableOpacity
                   style={{
