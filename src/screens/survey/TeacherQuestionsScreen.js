@@ -117,7 +117,13 @@ export default function TeacherQuestionsScreen() {
         ? 1
         : 0;
     let ans6 = !compromise_on_our_teaching_agenda ? 0 : 1;
-    let ans7 = !personally_meet_all_the_parents_every_month ? 0 : 1;
+    let ans7 =
+      personally_meet_all_the_parents_every_month?.value === 'Yes' &&
+      !personally_meet_all_the_parents_every_month?.other
+        ? 0
+        : !personally_meet_all_the_parents_every_month?.value
+        ? 0
+        : 1;
     let ans8 = !qualification_of_the_teacher ? 0 : 1;
     let ans9 = !since_when_teacher_is_associated_with_this_kendra ? 0 : 1;
     let ans10 = !reason_to_join_this_kendra ? 0 : 1;
@@ -137,14 +143,14 @@ export default function TeacherQuestionsScreen() {
         ans10 +
         ans11);
 
-        new_obj = {
-          ...tmp[4],
-          attempted: true,
-          completed: p === 0 ? true : false,
-          disabled: false,
-          totalQue: q,
-          answered: q - p,
-        };
+    new_obj = {
+      ...tmp[4],
+      attempted: true,
+      completed: p === 0 ? true : false,
+      disabled: false,
+      totalQue: q,
+      answered: q - p,
+    };
 
     tmp.splice(4, 1, new_obj);
 
@@ -796,7 +802,10 @@ export default function TeacherQuestionsScreen() {
             <View
               style={{
                 backgroundColor:
-                  !answers.personally_meet_all_the_parents_every_month
+                  !answers.personally_meet_all_the_parents_every_month ||
+                  (answers.personally_meet_all_the_parents_every_month
+                    ?.value === 'Yes' &&
+                    !answers.personally_meet_all_the_parents_every_month?.other)
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -807,9 +816,14 @@ export default function TeacherQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.personally_meet_all_the_parents_every_month
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.personally_meet_all_the_parents_every_month ||
+                    (answers.personally_meet_all_the_parents_every_month
+                      ?.value === 'Yes' &&
+                      !answers.personally_meet_all_the_parents_every_month
+                        ?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {7}
@@ -859,16 +873,16 @@ export default function TeacherQuestionsScreen() {
                     ...answers,
                     personally_meet_all_the_parents_every_month: {
                       ...answers.personally_meet_all_the_parents_every_month,
-                      reason: text,
+                      other: text,
                     },
                   });
                 }}
                 // multi
                 value={
-                  answers.personally_meet_all_the_parents_every_month?.reason
+                  answers.personally_meet_all_the_parents_every_month?.other
                 }
                 empty={
-                  !answers.personally_meet_all_the_parents_every_month?.reason
+                  !answers.personally_meet_all_the_parents_every_month?.other
                 }
                 message={''}
                 containerStyle={{
