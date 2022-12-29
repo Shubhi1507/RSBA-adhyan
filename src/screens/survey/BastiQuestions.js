@@ -64,18 +64,19 @@ export default function BastiQuestions() {
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
   };
 
-  const checkArrayValuesfunction = (arr = [], key) => {
-    let i = 0;
-    arr.forEach(el => {
-      if (el.value === 'Others' && !el.value[key]) {
-        i = 0;
-      } else i = 1;
+  const checkarrayforOtherValues = (arr = [], key) => {
+    let j = 1;
+    arr.map(el => {
+      if (el.value === 'Others') {
+        if (!el.hasOwnProperty('other') || !el.other) {
+          j = 0;
+        }
+      }
     });
-    return i;
+    return j;
   };
 
   const pageValidator = async () => {
-    console.log('store', store);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     const {
@@ -86,10 +87,22 @@ export default function BastiQuestions() {
       our_beneficiaries_also_take_benefits_from_other_organisations,
     } = answers;
     let q = 5;
-    let tmpans = [];
     let unanswered = 5;
-    let ans1 = !are_any_other_organizations_active_in_the_basti ? 0 : 1;
-    let ans2 = activities_conducted_by_these_organisations.length === 0 ? 0 : 1;
+    // answeres
+    let ans1 =
+      are_any_other_organizations_active_in_the_basti?.value === 'Yes' &&
+      !are_any_other_organizations_active_in_the_basti?.other
+        ? 0
+        : !are_any_other_organizations_active_in_the_basti?.value
+        ? 0
+        : 1;
+    let ans2 =
+      activities_conducted_by_these_organisations.length !== 0
+        ? checkarrayforOtherValues(
+            activities_conducted_by_these_organisations,
+            'other',
+          )
+        : 0;
     let ans3 = !involved_in_anti_social_activities ? 0 : 1;
 
     let ans4 =
@@ -99,6 +112,7 @@ export default function BastiQuestions() {
     let ans5 = !our_beneficiaries_also_take_benefits_from_other_organisations
       ? 0
       : 1;
+    console.log(ans1, ans2, ans3, ans4, ans5);
 
     let p = unanswered - (ans1 + ans2 + ans3 + ans4 + ans5);
 
@@ -142,9 +156,9 @@ export default function BastiQuestions() {
     };
     let tmp1 = FindAndUpdate(totalSurveys, payload);
 
-    console.log('payload basti', store?.currentSurveyData?.center_details);
+    // console.log('payload basti', store?.currentSurveyData?.center_details);
 
-    console.log(answers);
+    // console.log(answers);
     let formdata = new FormData();
     formdata.append('center_id', '5'); // would come from create survey centre api
     formdata.append('audience_id', '7'); // for basti -
@@ -164,7 +178,7 @@ export default function BastiQuestions() {
         our_beneficiaries_also_take_benefits_from_other_organisations?.value
       }}`,
     );
-    console.log(formdata);
+    // console.log(formdata);
     try {
       const url = BASE_URL + 'center/survey';
       // const response = await fetch(url, {
@@ -176,9 +190,9 @@ export default function BastiQuestions() {
     } catch (error) {
       console.log(error);
     }
-    // dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
-    // dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-    // showModal();
+    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
+    showModal();
   };
 
   const handleSelection = answer => {
@@ -227,8 +241,10 @@ export default function BastiQuestions() {
               style={{
                 backgroundColor:
                   !answers.are_any_other_organizations_active_in_the_basti ||
-                  !answers.are_any_other_organizations_active_in_the_basti
-                    ?.other
+                  (answers.are_any_other_organizations_active_in_the_basti
+                    ?.value === 'Yes' &&
+                    !answers.are_any_other_organizations_active_in_the_basti
+                      ?.other)
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -241,8 +257,10 @@ export default function BastiQuestions() {
                 style={{
                   color:
                     !answers.are_any_other_organizations_active_in_the_basti ||
-                    !answers.are_any_other_organizations_active_in_the_basti
-                      ?.other
+                    (answers.are_any_other_organizations_active_in_the_basti
+                      ?.value === 'Yes' &&
+                      !answers.are_any_other_organizations_active_in_the_basti
+                        ?.other)
                       ? COLORS.white
                       : COLORS.black,
                   textAlign: 'center',
@@ -328,9 +346,10 @@ export default function BastiQuestions() {
                 backgroundColor:
                   answers.activities_conducted_by_these_organisations.length ===
                     0 ||
-                  !answers.activities_conducted_by_these_organisations.filter(
-                    el => el.value === 'Others',
-                  )[0]?.['other']
+                  checkarrayforOtherValues(
+                    answers.activities_conducted_by_these_organisations,
+                    'other',
+                  ) === 0
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -343,7 +362,11 @@ export default function BastiQuestions() {
                 style={{
                   color:
                     answers.activities_conducted_by_these_organisations
-                      .length === 0
+                      .length === 0 ||
+                    checkarrayforOtherValues(
+                      answers.activities_conducted_by_these_organisations,
+                      'other',
+                    ) === 0
                       ? COLORS.white
                       : COLORS.black,
                   textAlign: 'center',
@@ -383,11 +406,6 @@ export default function BastiQuestions() {
                 value: 'Environmental',
                 label: 'BASTI_Q2_OPT4',
               },
-              // {
-              //   key: 5,
-              //   value: 'Self-support',
-              //   label: 'BASTI_Q2_OPT5',
-              // },
               {
                 key: 6,
                 value: 'Others',

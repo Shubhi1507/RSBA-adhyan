@@ -37,6 +37,7 @@ import Geolocation from 'react-native-geolocation-service';
 import {getDistance, getPreciseDistance} from 'geolib';
 import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
+import {createSubmitSurveyData} from '../../networking/API.controller';
 
 export default function CenterDetailsTwoScreen() {
   const store = useSelector(state => state?.surveyReducer);
@@ -225,8 +226,6 @@ export default function CenterDetailsTwoScreen() {
       type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
       payload: payload,
     });
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
-    navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
 
     let userdata = userStore?.userData?.userData;
     let apiPayload = {
@@ -247,12 +246,43 @@ export default function CenterDetailsTwoScreen() {
       survey_form_id: center_details?.survey_form_id,
       town: center_details?.district_jila,
     };
-    console.log(center_details);
-    console.log('apiPayload', apiPayload);
+
+    const formdata = new FormData();
+    formdata.append('volunteer_id', apiPayload.volunteer_id);
+    formdata.append('state_id', apiPayload.state_id);
+    formdata.append('district_id', apiPayload.district_id);
+    formdata.append('address', apiPayload.address);
+    formdata.append('type', apiPayload.type);
+    formdata.append('head_name', apiPayload.head_name);
+    formdata.append('contact_details', apiPayload.contact_details);
+    formdata.append('is_operational', apiPayload.is_operational);
+    formdata.append(
+      'reason_not_operational',
+      apiPayload.reason_not_operational,
+    );
+    formdata.append(
+      'survey_device_location',
+      apiPayload.survey_device_location,
+    );
+    formdata.append('partially_filled', apiPayload.partially_filled);
+    formdata.append('survey_form_id', apiPayload.survey_form_id);
+    formdata.append('town', apiPayload.town);
+
+    console.log('formdata', formdata);
+
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
+    navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
+    // createCentreSurvey(formdata);
   }
 
-  const createCentreSurvey = data => {
+  const createCentreSurvey = async data => {
     console.log('api payload', data);
+    try {
+      const res = createSubmitSurveyData(data);
+      console.log('res', res);
+    } catch (error) {
+      console.log('error', error);
+    }
   };
 
   return (

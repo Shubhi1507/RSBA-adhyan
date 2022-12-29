@@ -135,21 +135,10 @@ const LatestVolunteerData = async data => {
   }
 };
 
-const createSubmitSurveyData = async data => {
+const createSubmitSurveyData = async formdata => {
   try {
     const URL = BASE_URL + 'center';
-    const formdata = new FormData();
-    formdata.append('volunteer_id', data.volunteer_id);
-    formdata.append('state_id', data.state_id);
-    formdata.append('district_id', data.district_id);
-    formdata.append('address', data.address);
-    formdata.append('type', data.head_name);
-    formdata.append('contact_details', data.contact_details);
-    formdata.append('is_operational', data.is_operational);
-    formdata.append('reason_not_operational', data.reason_not_operational);
-    formdata.append('survey_device_location', data.survey_device_location);
-    formdata.append('partially_filled', data.partially_filled);
-    formdata.append('survey_form_id', data.survey_form_id);
+
     const response = await fetch(URL, {
       method: 'POST',
       headers: headers,

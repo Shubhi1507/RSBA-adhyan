@@ -82,59 +82,47 @@ export default function KendraSanchalakQuestions() {
       families_from_the_locality_have_influenced_due_to_our_kendra_activities,
       percentage_of_decline_in_school_dropout_due_to_kendra,
       conduct_medical_test_for_students,
-      feedback_mechanism_to_address_issues,
-      observation_not_covered,
       plan_for_expansion,
       submit_status_report_of_kendra_to_all_the_stakeholders_each_month,
+      feedback_mechanism_to_address_issues,
+      observation_not_covered,
     } = answers;
     let q = 10;
+    let unanswered = 10;
     let tmpans = [];
-    let p = 0;
-    Object.values(answers).forEach(el => {
-      if (el && Array.isArray(el) && el.length > 0) {
-        return tmpans.push(el);
-      } else {
-        if (typeof el === 'string' && el.length > 0) {
-          return tmpans.push(el);
-        }
-        if (typeof el === 'object' && Object.values(el).length > 0) {
-          return tmpans.push(el);
-        }
-      }
-    });
-    p = tmpans.length;
-    console.log(p, '/', q);
-    if (
-      !total_students_attend_the_class_regularly ||
-      !was_the_kendra_able_to_perform_during_the_covid ||
-      difference_observed_in_the_families_of_students_coming_to_kendra.length ===
-        0 ||
-      !families_from_the_locality_have_influenced_due_to_our_kendra_activities ||
-      !percentage_of_decline_in_school_dropout_due_to_kendra ||
-      !conduct_medical_test_for_students ||
-      !feedback_mechanism_to_address_issues ||
-      !observation_not_covered ||
-      !plan_for_expansion ||
+    // answeres
+    let ans1 = !total_students_attend_the_class_regularly ? 0 : 1;
+    let ans2 = !was_the_kendra_able_to_perform_during_the_covid ? 0 : 1;
+    let ans3 =
+      difference_observed_in_the_families_of_students_coming_to_kendra.length >
+      0
+        ? 1
+        : 0;
+    let ans4 =
+      !families_from_the_locality_have_influenced_due_to_our_kendra_activities
+        ? 0
+        : 1;
+    let ans5 = !percentage_of_decline_in_school_dropout_due_to_kendra ? 0 : 1;
+    let ans6 = !conduct_medical_test_for_students ? 0 : 1;
+    let ans7 = !plan_for_expansion ? 0 : 1;
+    let ans8 =
       !submit_status_report_of_kendra_to_all_the_stakeholders_each_month
-    ) {
-      new_obj = {
-        ...tmp[5],
-        attempted: true,
-        completed: false,
-        disabled: false,
-        totalQue: q,
-        answered: p,
-      };
-    } else {
-      new_obj = {
-        ...tmp[5],
-        attempted: true,
-        completed: true,
-        disabled: true,
-        totalQue: q,
-        answered: p,
-      };
-    }
+        ? 0
+        : 1;
+    let ans9 = !feedback_mechanism_to_address_issues ? 0 : 1;
+    let ans10 = !observation_not_covered ? 0 : 1;
+    let p =
+      unanswered -
+      (ans1 + ans2 + ans3 + ans4 + ans5 + ans6 + ans7 + ans8 + ans9 + ans10);
+    console.log(q - p, '/', q);
+    new_obj = {
+      ...tmp[5],
+      attempted: true,
+      completed: p === 0 ? true : false,
+      disabled: false,
+      totalQue: q,
+      answered: q - p,
+    };
     tmp.splice(5, 1, new_obj);
 
     let surveyAnswers = [...answersArrTmp];
