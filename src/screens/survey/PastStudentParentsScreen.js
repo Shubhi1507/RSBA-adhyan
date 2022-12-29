@@ -125,8 +125,20 @@ export default function PastStudentParentsScreen() {
         econmonic_status_between_5_and_10_lakh
           ? 1
           : 0;
-      let ans4 = !reason_for_sending_children_to_the_centre ? 0 : 1;
-      let ans5 = !how_these_children_go_to_the_centre ? 0 : 1;
+      let ans4 =
+        reason_for_sending_children_to_the_centre?.value === 'Others' &&
+        !reason_for_sending_children_to_the_centre?.other
+          ? 0
+          : !reason_for_sending_children_to_the_centre?.value
+          ? 0
+          : 1;
+      let ans5 =
+        how_these_children_go_to_the_centre?.value === 'Others' &&
+        !how_these_children_go_to_the_centre?.other
+          ? 0
+          : !how_these_children_go_to_the_centre?.value
+          ? 0
+          : 1;
       let ans6 = !days_children_are_going_to_the_centre ? 0 : 1;
       let ans7 = children_occupation_nowadays.length > 0 ? 1 : 0;
       let ans8 =
@@ -138,7 +150,14 @@ export default function PastStudentParentsScreen() {
         rating_attitude_for_better_life
           ? 1
           : 0;
-      let ans9 = !involvement_in_the_programs_of_the_centre ? 0 : 1;
+      let ans9 =
+        involvement_in_the_programs_of_the_centre?.value === 'Others' &&
+        !involvement_in_the_programs_of_the_centre?.other
+          ? 0
+          : !involvement_in_the_programs_of_the_centre?.value
+          ? 0
+          : 1;
+
       let ans10 = !contribution_in_running_centre_more_effectively ? 0 : 1;
       let ans11 = !expectations_from_the_centre ? 0 : 1;
 
@@ -167,6 +186,7 @@ export default function PastStudentParentsScreen() {
         answered: q - p,
       };
 
+      return console.log(new_obj);
       tmp.splice(1, 1, new_obj);
 
       let surveyAnswers = [...answersArrTmp];
@@ -585,7 +605,10 @@ export default function PastStudentParentsScreen() {
             <View
               style={{
                 backgroundColor:
-                  !answers.reason_for_sending_children_to_the_centre
+                  !answers.reason_for_sending_children_to_the_centre ||
+                  (answers.reason_for_sending_children_to_the_centre?.value ===
+                    'Others' &&
+                    !answers.reason_for_sending_children_to_the_centre?.other)
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -596,9 +619,13 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.reason_for_sending_children_to_the_centre
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.reason_for_sending_children_to_the_centre ||
+                    (answers.reason_for_sending_children_to_the_centre
+                      ?.value === 'Others' &&
+                      !answers.reason_for_sending_children_to_the_centre?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {4}
@@ -660,12 +687,12 @@ export default function PastStudentParentsScreen() {
                   ...answers,
                   reason_for_sending_children_to_the_centre: {
                     ...answers.reason_for_sending_children_to_the_centre,
-                    reason: text,
+                    other: text,
                   },
                 });
               }}
-              value={answers.reason_for_sending_children_to_the_centre?.reason}
-              empty={!answers.reason_for_sending_children_to_the_centre?.reason}
+              value={answers.reason_for_sending_children_to_the_centre?.other}
+              empty={!answers.reason_for_sending_children_to_the_centre?.other}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -680,9 +707,13 @@ export default function PastStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: !answers.how_these_children_go_to_the_centre
-                  ? COLORS.red
-                  : COLORS.orange,
+                backgroundColor:
+                  !answers.how_these_children_go_to_the_centre ||
+                  (answers.how_these_children_go_to_the_centre?.value ===
+                    'Others' &&
+                    !answers.how_these_children_go_to_the_centre?.other)
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -691,9 +722,13 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.how_these_children_go_to_the_centre
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.how_these_children_go_to_the_centre ||
+                    (answers.how_these_children_go_to_the_centre?.value ===
+                      'Others' &&
+                      !answers.how_these_children_go_to_the_centre?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {5}
@@ -755,12 +790,12 @@ export default function PastStudentParentsScreen() {
                   ...answers,
                   how_these_children_go_to_the_centre: {
                     ...answers.how_these_children_go_to_the_centre,
-                    reason: text,
+                    other: text,
                   },
                 });
               }}
-              value={answers.how_these_children_go_to_the_centre?.reason}
-              empty={!answers.how_these_children_go_to_the_centre?.reason}
+              value={answers.how_these_children_go_to_the_centre?.other}
+              empty={!answers.how_these_children_go_to_the_centre?.other}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1170,7 +1205,10 @@ export default function PastStudentParentsScreen() {
             <View
               style={{
                 backgroundColor:
-                  !answers.involvement_in_the_programs_of_the_centre
+                  !answers.involvement_in_the_programs_of_the_centre ||
+                  (answers.involvement_in_the_programs_of_the_centre?.value ===
+                    'Others' &&
+                    !answers.involvement_in_the_programs_of_the_centre?.other)
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -1181,9 +1219,13 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.involvement_in_the_programs_of_the_centre
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.involvement_in_the_programs_of_the_centre ||
+                    (answers.involvement_in_the_programs_of_the_centre
+                      ?.value === 'Others' &&
+                      !answers.involvement_in_the_programs_of_the_centre?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {9}
@@ -1245,12 +1287,12 @@ export default function PastStudentParentsScreen() {
                   ...answers,
                   involvement_in_the_programs_of_the_centre: {
                     ...answers.involvement_in_the_programs_of_the_centre,
-                    reason: text,
+                    other: text,
                   },
                 });
               }}
-              value={answers.involvement_in_the_programs_of_the_centre?.reason}
-              empty={!answers.involvement_in_the_programs_of_the_centre?.reason}
+              value={answers.involvement_in_the_programs_of_the_centre?.other}
+              empty={!answers.involvement_in_the_programs_of_the_centre?.other}
               message={''}
               containerStyle={{
                 alignItems: 'center',
