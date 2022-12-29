@@ -23,6 +23,7 @@ import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
 import {useContext} from 'react';
 import {Checkbox} from 'react-native-paper';
+import {BASE_URL} from '../../networking';
 
 export default function PrabuddhaJanQuestions() {
   const dispatch = useDispatch();
@@ -145,9 +146,38 @@ export default function PrabuddhaJanQuestions() {
     let tmp1 = FindAndUpdate(totalSurveys, payload);
 
     console.log('payload prabbudhJan', payload);
-    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-    showModal();
+
+    let formdata = new FormData();
+    formdata.append('center_id', '5'); // would come from create survey centre api
+    formdata.append('audience_id', '6'); // for basti -
+    formdata.append(
+      'survey_data',
+      `{'How the donors and well wishers help (Multiple choice)?': ${donors_and_well_wishers_help.map(
+        el => {
+          if (el.value === 'Others') {
+            return answers.donors_and_well_wishers_help.filter(
+              el => el.value === 'Others',
+            )[0]?.['other'];
+          }
+          return el.value + '|';
+        },
+      )},}`,
+    );
+    console.log(formdata);
+    try {
+      const url = BASE_URL + 'center/survey';
+      // const response = await fetch(url, {
+      //   method: 'POST',
+      //   body: formdata,
+      // });
+      // if (response.status === 200) {
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+    // dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    // dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
+    // showModal();
   };
 
   const handleSelection = answer => {
@@ -306,7 +336,11 @@ export default function PrabuddhaJanQuestions() {
                     )[0]?.['other']
                   : ''
               }
-              empty={!answers.donors_and_well_wishers_help?.other}
+              empty={
+                !answers.donors_and_well_wishers_help.filter(
+                  el => el.value === 'Others',
+                )[0]?.['other']
+              }
               message={''}
               containerStyle={{
                 alignItems: 'center',

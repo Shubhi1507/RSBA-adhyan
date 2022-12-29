@@ -100,7 +100,10 @@ export default function CenterDetailsTwoScreen() {
       Object.keys(store?.currentSurveyData).length > 0
     ) {
       let staledata = store;
+      let isCentreOperational =
+        store.currentSurveyData?.center_details?.is_centre_operational;
       setvolunteerInfo(staledata?.currentSurveyData?.center_details);
+      setCenterOperational(isCentreOperational);
     }
   };
 
@@ -289,41 +292,6 @@ export default function CenterDetailsTwoScreen() {
               {t('IS_CENTER_OPERATIONAL')}
             </TextHandler>
           </View>
-
-          {/* <View
-            style={{
-              flex: 0.6,
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-            }}>
-            <TextHandler
-              style={{
-                color: 'black',
-                fontSize: 18,
-                textAlign: 'left',
-              }}>
-              {t('NO')}
-            </TextHandler>
-            <CustomSwitch
-              isSwitchOn={isCenterOperational}
-              setIsSwitchOn={() => {
-                setCenterOperational(!isCenterOperational);
-                setvolunteerInfo({
-                  ...volunteerInfo,
-                  is_centre_operational: !volunteerInfo.is_centre_operational,
-                });
-              }}
-            />
-            <TextHandler
-              style={{
-                color: 'black',
-                fontSize: 18,
-                textAlign: 'right',
-              }}>
-              {t('YES')}
-            </TextHandler>
-          </View> */}
         </View>
         <View
           style={{
