@@ -80,6 +80,18 @@ export default function PastStudentParentsScreen() {
   const hideModal = () => setVisible(false);
   const showModal = () => setVisible(true);
 
+  const checkarrayforOtherValues = (arr = [], key) => {
+    let j = 1;
+    arr.map(el => {
+      if (el.value === 'Others' || el.value === 'Other') {
+        if (!el.hasOwnProperty('other') || !el.other) {
+          j = 0;
+        }
+      }
+    });
+    return j;
+  };
+
   const pageValidator = () => {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
@@ -140,7 +152,11 @@ export default function PastStudentParentsScreen() {
           ? 0
           : 1;
       let ans6 = !days_children_are_going_to_the_centre ? 0 : 1;
-      let ans7 = children_occupation_nowadays.length > 0 ? 1 : 0;
+      // let ans7 = children_occupation_nowadays.length > 0 ? 1 : 0;
+      let ans7 =
+        children_occupation_nowadays.length !== 0
+          ? checkarrayforOtherValues(children_occupation_nowadays, 'other')
+          : 0;
       let ans8 =
         rating_good_habits &&
         rating_patriotism &&
@@ -186,7 +202,7 @@ export default function PastStudentParentsScreen() {
         answered: q - p,
       };
 
-      return console.log(new_obj);
+      // return console.log(new_obj);
       tmp.splice(1, 1, new_obj);
 
       let surveyAnswers = [...answersArrTmp];
@@ -887,9 +903,16 @@ export default function PastStudentParentsScreen() {
             <View
               style={{
                 backgroundColor:
-                  answers.children_occupation_nowadays.length === 0
-                    ? COLORS.red
-                    : COLORS.orange,
+                  // answers.children_occupation_nowadays.length === 0
+                  answers.children_occupation_nowadays.length !== 0
+                    ? checkarrayforOtherValues(
+                        answers.children_occupation_nowadays,
+                        'other',
+                      ) === 1
+                      ? COLORS.orange
+                      : COLORS.red
+                    : COLORS.red,
+
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -899,9 +922,14 @@ export default function PastStudentParentsScreen() {
               <TextHandler
                 style={{
                   color:
-                    answers.children_occupation_nowadays.length === 0
-                      ? COLORS.white
-                      : COLORS.black,
+                    answers.children_occupation_nowadays.length !== 0
+                      ? checkarrayforOtherValues(
+                          answers.children_occupation_nowadays,
+                          'other',
+                        ) === 1
+                        ? COLORS.black
+                        : COLORS.white
+                      : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {7}
