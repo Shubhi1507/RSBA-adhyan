@@ -12,7 +12,7 @@ j = 0;
 return j;
 };
 
-<!--scq On selecting Yes/No textbox opens up -->
+<!--scq On selecting Yes/No/Other/Reason textbox opens up -->
 
 let answer = are_any_other_organizations_active_in_the_basti?.value === 'Yes' &&
 !are_any_other_organizations_active_in_the_basti?.other
