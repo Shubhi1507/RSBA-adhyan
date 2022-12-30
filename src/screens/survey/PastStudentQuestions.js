@@ -45,7 +45,6 @@ export default function PastStudentQuestions() {
     contribute_in_betterment_of_the_center: '',
     connected_with_sangh_organizations: '',
     involved_in_any_othe_social_activities: '',
-    reason_for_the_change: [],
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -104,7 +103,6 @@ export default function PastStudentQuestions() {
       involved_in_any_othe_social_activities,
       is_the_center_same_as_before,
       reason_for_leaving_the_center,
-      reason_for_the_change,
       reasons_for_change_in_your_personality,
       still_associated_with_the_center,
       still_associated_with_the_center_reasons,
