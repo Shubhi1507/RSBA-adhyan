@@ -64,7 +64,6 @@ export default function PresentStudentParentsScreen() {
     rating_kendra_teacher_teaching_ability: '',
     rating_kendra_teacher_connect_with_parents: '',
     expectations_from_the_centre: '',
-
     benefits_of_the_centre: '',
     involvement_in_the_programs_of_the_centre: '',
     contribution_in_running_centre_more_effectively: '',
@@ -90,6 +89,19 @@ export default function PresentStudentParentsScreen() {
 
   const hideModal = () => setVisible(false);
   const showModal = () => setVisible(true);
+
+  const checkarrayforOtherValues = (arr = [], key) => {
+    let j = 1;
+    arr.map(el => {
+      if (el.value === 'Other') {
+        if (!el.hasOwnProperty('other') || !el.other) {
+          console.log(el)
+          j = 0;
+        }
+      }
+    });
+    return j;
+  };
 
   const pageValidator = () => {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
@@ -153,8 +165,20 @@ export default function PresentStudentParentsScreen() {
         econmonic_status_between_5_and_10_lakh
           ? 1
           : 0;
-      let ans5 = reason_for_sending_children_to_the_centre.length > 0 ? 1 : 0;
-      let ans6 = !how_these_children_go_to_the_centre ? 0 : 1;
+      let ans5 =
+        reason_for_sending_children_to_the_centre.length !== 0
+          ? checkarrayforOtherValues(
+              reason_for_sending_children_to_the_centre,
+              'other',
+            )
+          : 0;
+      let ans6 =
+        how_these_children_go_to_the_centre?.value === 'Other' &&
+        !how_these_children_go_to_the_centre?.other
+          ? 0
+          : !how_these_children_go_to_the_centre?.value
+          ? 0
+          : 1;
       let ans7 = !days_children_are_going_to_the_centre ? 0 : 1;
       let ans8 =
         listening_skills &&
@@ -185,7 +209,13 @@ export default function PresentStudentParentsScreen() {
           ? 1
           : 0;
       let ans12 = !benefits_of_the_centre ? 0 : 1;
-      let ans13 = !involvement_in_the_programs_of_the_centre ? 0 : 1;
+      let ans13 =
+        involvement_in_the_programs_of_the_centre?.value === 'Other' &&
+        !involvement_in_the_programs_of_the_centre?.other
+          ? 0
+          : !involvement_in_the_programs_of_the_centre?.value
+          ? 0
+          : 1;
       let ans14 = !contribution_in_running_centre_more_effectively ? 0 : 1;
       let ans15 =
         rating_kendra_teacher_good_behaviour &&
@@ -215,7 +245,7 @@ export default function PresentStudentParentsScreen() {
           ans15 +
           ans16);
 
-      console.log(p, q - p, '/', q);
+      console.log(q - p, '/', q);
       new_obj = {
         ...tmp[0],
         attempted: true,
@@ -224,7 +254,6 @@ export default function PresentStudentParentsScreen() {
         totalQue: q,
         answered: q - p,
       };
-      console.log('new obj', new_obj);
       tmp.splice(0, 1, new_obj);
 
       let surveyAnswers = [...answersArrTmp];
@@ -253,8 +282,6 @@ export default function PresentStudentParentsScreen() {
         updatedAt: new Date().toString(),
       };
       let tmp1 = FindAndUpdate(totalSurveys, payload);
-      console.log('tmp1', tmp1);
-      console.log('payload', payload);
 
       dispatch({
         type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
@@ -708,7 +735,12 @@ export default function PresentStudentParentsScreen() {
             <View
               style={{
                 backgroundColor:
-                  !answers.reason_for_sending_children_to_the_centre.length > 0
+                  answers.reason_for_sending_children_to_the_centre.length ===
+                    0 ||
+                  checkarrayforOtherValues(
+                    answers.reason_for_sending_children_to_the_centre,
+                    'other',
+                  ) === 0
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -720,8 +752,12 @@ export default function PresentStudentParentsScreen() {
               <TextHandler
                 style={{
                   color:
-                    !answers.reason_for_sending_children_to_the_centre.length >
-                    0
+                    answers.reason_for_sending_children_to_the_centre.length ===
+                      0 ||
+                    checkarrayforOtherValues(
+                      answers.reason_for_sending_children_to_the_centre,
+                      'other',
+                    ) === 0
                       ? COLORS.white
                       : COLORS.black,
                   textAlign: 'center',
@@ -759,7 +795,7 @@ export default function PresentStudentParentsScreen() {
             },
             {
               key: 4,
-              value: 'Others',
+              value: 'Other',
               label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT4',
             },
           ].map((el, index) => {
@@ -798,7 +834,7 @@ export default function PresentStudentParentsScreen() {
             );
           })}
           {answers.reason_for_sending_children_to_the_centre.filter(
-            item => item.value === 'Others',
+            item => item.value === 'Other',
           ).length > 0 && (
             <Input
               placeholder={`${t('ENTER_ANSWER')}`}
@@ -808,7 +844,7 @@ export default function PresentStudentParentsScreen() {
                   ...answers.reason_for_sending_children_to_the_centre,
                 ];
                 tmp.forEach((el, index) => {
-                  if (el.value === 'Others') {
+                  if (el.value === 'Other') {
                     let newans = {...el, other: text};
                     tmp.splice(index, 1, newans);
                   }
@@ -820,10 +856,10 @@ export default function PresentStudentParentsScreen() {
               }}
               value={
                 answers.reason_for_sending_children_to_the_centre.filter(
-                  el => el.value === 'Others',
+                  el => el.value === 'Other',
                 ).length > 0
                   ? answers.reason_for_sending_children_to_the_centre.filter(
-                      el => el.value === 'Others',
+                      el => el.value === 'Other',
                     )[0]?.['other']
                   : ''
               }
@@ -844,9 +880,13 @@ export default function PresentStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: !answers.how_these_children_go_to_the_centre
-                  ? COLORS.red
-                  : COLORS.orange,
+                backgroundColor:
+                  !answers.how_these_children_go_to_the_centre ||
+                  (answers.how_these_children_go_to_the_centre?.value ===
+                    'Other' &&
+                    !answers.how_these_children_go_to_the_centre?.other)
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -855,9 +895,13 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.how_these_children_go_to_the_centre
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.how_these_children_go_to_the_centre ||
+                    (answers.how_these_children_go_to_the_centre?.value ===
+                      'Other' &&
+                      !answers.how_these_children_go_to_the_centre?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {6}
@@ -899,7 +943,7 @@ export default function PresentStudentParentsScreen() {
                   value: 'directed by parents',
                   label: 'CURRENT_STUDENTS_PARENTS_Q6_OPT3',
                 },
-                {key: 4, value: 'Others', label: 'OTHERS'},
+                {key: 4, value: 'Other', label: 'OTHERS'},
               ]}
               onValueChange={item => {
                 setAnswers({
@@ -919,12 +963,12 @@ export default function PresentStudentParentsScreen() {
                   ...answers,
                   how_these_children_go_to_the_centre: {
                     ...answers.how_these_children_go_to_the_centre,
-                    reason: text,
+                    other: text,
                   },
                 });
               }}
-              value={answers.how_these_children_go_to_the_centre?.reason}
-              empty={!answers.how_these_children_go_to_the_centre?.reason}
+              value={answers.how_these_children_go_to_the_centre?.other}
+              empty={!answers.how_these_children_go_to_the_centre?.other}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1594,7 +1638,11 @@ export default function PresentStudentParentsScreen() {
             <View
               style={{
                 backgroundColor:
-                  !answers.involvement_in_the_programs_of_the_centre
+                  // !answers.involvement_in_the_programs_of_the_centre
+                  !answers.involvement_in_the_programs_of_the_centre ||
+                  (answers.involvement_in_the_programs_of_the_centre?.value ===
+                    'Other' &&
+                    !answers.involvement_in_the_programs_of_the_centre?.other)
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -1605,9 +1653,13 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.involvement_in_the_programs_of_the_centre
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.involvement_in_the_programs_of_the_centre ||
+                    (answers.involvement_in_the_programs_of_the_centre
+                      ?.value === 'Other' &&
+                      !answers.involvement_in_the_programs_of_the_centre?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {13}
@@ -1651,7 +1703,7 @@ export default function PresentStudentParentsScreen() {
                 },
                 {
                   key: 4,
-                  value: 'Others',
+                  value: 'Other',
                   label: 'CURRENT_STUDENTS_PARENTS_Q13_OPT4',
                 },
               ]}
@@ -1673,12 +1725,12 @@ export default function PresentStudentParentsScreen() {
                   ...answers,
                   involvement_in_the_programs_of_the_centre: {
                     ...answers.involvement_in_the_programs_of_the_centre,
-                    reason: text,
+                    other: text,
                   },
                 });
               }}
-              value={answers.involvement_in_the_programs_of_the_centre?.reason}
-              empty={!answers.involvement_in_the_programs_of_the_centre?.reason}
+              value={answers.involvement_in_the_programs_of_the_centre?.other}
+              empty={!answers.involvement_in_the_programs_of_the_centre?.other}
               message={''}
               containerStyle={{
                 alignItems: 'center',
