@@ -46,8 +46,6 @@ export default function PresentStudentQuestions() {
     other_activities_organised_in_the_center: '',
     go_to_other_coaching: '',
     kendra_organize_regular_parents_teacher_meeting: '',
-    conduct_monthly_or_quarterly_tests: '',
-    share_results_of_these_tests_with_the_parents: '',
     suggestions_to_improve_the_kendra_activities: '',
     regularaly_go_to_rss_shakha: '',
   });
@@ -80,30 +78,105 @@ export default function PresentStudentQuestions() {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     let q = 16;
-    let tmpans = [];
-    let p = 0;
-    Object.values(answers).forEach(el => {
-      if (el && Array.isArray(el) && el.length > 0) {
-        return tmpans.push(el);
-      } else {
-        if (typeof el === 'string' && el.length > 0) {
-          return tmpans.push(el);
-        }
-        if (typeof el === 'object' && Object.values(el).length > 0) {
-          return tmpans.push(el);
-        }
-      }
-    });
-    p = tmpans.length;
+    let unanswered = 16;
+    const {
+      _how_they_come_to_prakalp,
+      decrease_in_results_after_joining_the_kendra,
+      do_students_get_any_benefit_by_teaching,
+      do_students_help_other_students,
+      go_to_other_coaching,
+      how_students_get_to_know_about_the_kendra,
+      interest_of_the_students_towards_kendra,
+      kendra_organize_regular_parents_teacher_meeting,
+      other_activities_organised_in_the_center,
+      reason_of_the_decreasing_result,
+      regularaly_go_to_rss_shakha,
+      since_how_long_they_are_coming_to_the_prakalp,
+      students_coming_regularly,
+      students_enrolled,
+      students_improvemnet,
+      suggestions_to_improve_the_kendra_activities,
+    } = answers;
 
-    console.log(p, '/', q, tmpans);
+    let ans1 = !students_enrolled ? 0 : 1;
+
+    let ans2 = !students_coming_regularly ? 0 : 1;
+
+    let ans3 = !interest_of_the_students_towards_kendra ? 0 : 1;
+
+    let ans4 = !since_how_long_they_are_coming_to_the_prakalp ? 0 : 1;
+
+    let ans5 = !_how_they_come_to_prakalp ? 0 : 1;
+
+    let ans6 = !do_students_help_other_students ? 0 : 1;
+
+    let ans7 = !do_students_get_any_benefit_by_teaching ? 0 : 1;
+
+    let ans8 = !students_improvemnet ? 0 : 1;
+
+    let ans9 = !decrease_in_results_after_joining_the_kendra ? 0 : 1;
+
+    // qq
+    let ans10 =
+      reason_of_the_decreasing_result?.value === 'Other' &&
+      !reason_of_the_decreasing_result?.other
+        ? 0
+        : !reason_of_the_decreasing_result?.value
+        ? 0
+        : 1;
+    // qq
+
+    let ans11 =
+      !how_students_get_to_know_about_the_kendra?.value === 'Other' &&
+      !how_students_get_to_know_about_the_kendra?.other
+        ? 0
+        : !how_students_get_to_know_about_the_kendra?.value
+        ? 0
+        : 1;
+
+    // qq
+    let ans12 = !other_activities_organised_in_the_center?.other ? 0 : 1;
+    let ans13 =
+      go_to_other_coaching?.value === 'Yes' && !go_to_other_coaching?.other
+        ? 0
+        : !go_to_other_coaching?.value
+        ? 0
+        : 1;
+
+    let ans14 = !kendra_organize_regular_parents_teacher_meeting ? 0 : 1;
+
+    let ans15 = !suggestions_to_improve_the_kendra_activities ? 0 : 1;
+
+    let ans16 = !regularaly_go_to_rss_shakha ? 0 : 1;
+
+    let p =
+      unanswered -
+      (ans1 +
+        ans2 +
+        ans3 +
+        ans4 +
+        ans5 +
+        ans6 +
+        ans7 +
+        ans8 +
+        ans9 +
+        ans10 +
+        ans11 +
+        ans12 +
+        ans13 +
+        ans14 +
+        ans15 +
+        ans16);
+
+    console.log(q - p + '/', q);
+
     new_obj = {
       ...tmp[2],
       attempted: true,
-      completed: p !== q ? false : true,
+      completed: p === 0 ? false : true,
       disabled: false,
       totalQue: q,
-      answered: p,
+      answered: q - p,
     };
 
     tmp.splice(2, 1, new_obj);
@@ -504,7 +577,7 @@ export default function PresentStudentQuestions() {
                 },
                 // {
                 //   key: 5,
-                //   value: 'Others',
+                //   value: 'Other',
                 //   label: 'CURRENT_STUDENTS_Q5_OPT5',
                 // },
               ]}
@@ -795,9 +868,13 @@ export default function PresentStudentQuestions() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: !answers.reason_of_the_decreasing_result
-                  ? COLORS.red
-                  : COLORS.orange,
+                backgroundColor:
+                  !answers.reason_of_the_decreasing_result ||
+                  (answers.reason_of_the_decreasing_result?.value ===
+                    'Other' &&
+                    !answers.reason_of_the_decreasing_result?.other)
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -806,9 +883,13 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.reason_of_the_decreasing_result
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.reason_of_the_decreasing_result ||
+                    (answers.reason_of_the_decreasing_result?.value ===
+                      'Other' &&
+                      !answers.reason_of_the_decreasing_result?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {10}
@@ -852,7 +933,7 @@ export default function PresentStudentQuestions() {
 
                 {
                   key: 4,
-                  value: 'Others',
+                  value: 'Other',
                   label: 'CURRENT_STUDENTS_Q10_OPT4',
                 },
               ]}
@@ -892,7 +973,10 @@ export default function PresentStudentQuestions() {
             <View
               style={{
                 backgroundColor:
-                  !answers.how_students_get_to_know_about_the_kendra
+                  !answers.how_students_get_to_know_about_the_kendra ||
+                  (answers.how_students_get_to_know_about_the_kendra?.value ===
+                    'Other' &&
+                    !answers.how_students_get_to_know_about_the_kendra?.other)
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -903,9 +987,13 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.how_students_get_to_know_about_the_kendra
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.how_students_get_to_know_about_the_kendra ||
+                    (answers.how_students_get_to_know_about_the_kendra
+                      ?.value === 'Other' &&
+                      !answers.how_students_get_to_know_about_the_kendra?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {11}
@@ -949,7 +1037,7 @@ export default function PresentStudentQuestions() {
 
                 {
                   key: 4,
-                  value: 'Others',
+                  value: 'Other',
                   label: 'CURRENT_STUDENTS_Q11_OPT4',
                 },
               ]}
@@ -994,7 +1082,8 @@ export default function PresentStudentQuestions() {
             <View
               style={{
                 backgroundColor:
-                  !answers.other_activities_organised_in_the_center
+                  !answers.other_activities_organised_in_the_center ||
+                  !answers.other_activities_organised_in_the_center?.other
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -1005,9 +1094,11 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.other_activities_organised_in_the_center
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.other_activities_organised_in_the_center &&
+                    !answers.other_activities_organised_in_the_center?.other
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {12}
@@ -1083,9 +1174,12 @@ export default function PresentStudentQuestions() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: !answers.go_to_other_coaching
-                  ? COLORS.red
-                  : COLORS.orange,
+                backgroundColor:
+                  !answers.go_to_other_coaching ||
+                  (answers.go_to_other_coaching?.value === 'Yes' &&
+                    !answers.go_to_other_coaching?.other)
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1094,9 +1188,12 @@ export default function PresentStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.go_to_other_coaching
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.go_to_other_coaching ||
+                    (answers.go_to_other_coaching?.value === 'Yes' &&
+                      !answers.go_to_other_coaching?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {13}
@@ -1124,7 +1221,7 @@ export default function PresentStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: 'Yes (Enter %)  ',
+                  value: 'Yes',
                   label: 'CURRENT_STUDENTS_Q13_OPT1',
                 },
                 {
@@ -1134,7 +1231,7 @@ export default function PresentStudentQuestions() {
                 },
                 {
                   key: 3,
-                  value: 'Some ',
+                  value: 'Some',
                   label: 'CURRENT_STUDENTS_Q13_OPT3',
                 },
               ]}
@@ -1238,156 +1335,6 @@ export default function PresentStudentQuestions() {
             />
           </View>
         </View>
-
-        {/* QA15 */}
-        {/* <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {15}
-              </TextHandler>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler style={styles.question}>
-                {t('CURRENT_STUDENTS_Q15')}
-              </TextHandler>
-            </View>
-          </View>
-
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: 'Yes ',
-                  label: 'YES',
-                },
-                {
-                  key: 2,
-                  value: 'No',
-                  label: 'NO',
-                },
-              ]}
-              valueProp={answers.conduct_monthly_or_quarterly_tests}
-              onValueChange={item => {
-                setAnswers({
-                  ...answers,
-                  conduct_monthly_or_quarterly_tests: item,
-                });
-              }}
-            />
-          </View>
-        </View> */}
-
-        {/* QA16 */}
-        {/* <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {16}
-              </TextHandler>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler style={styles.question}>
-                {t('CURRENT_STUDENTS_Q16')}
-              </TextHandler>
-            </View>
-          </View>
-
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: 'Yes ',
-                  label: 'CURRENT_STUDENTS_Q16_OPT1',
-                },
-                {
-                  key: 2,
-                  value: 'No',
-                  label: 'NO',
-                },
-              ]}
-              valueProp={answers.share_results_of_these_tests_with_the_parents}
-              onValueChange={item => {
-                setAnswers({
-                  ...answers,
-                  share_results_of_these_tests_with_the_parents: item,
-                });
-              }}
-            />
-            {answers.share_results_of_these_tests_with_the_parents?.key ===
-              1 && (
-              <>
-                <Input
-                  placeholder={`${t('ENTER_ANSWER')}`}
-                  name="any"
-                  onChangeText={text => {
-                    setAnswers({
-                      ...answers,
-                      share_results_of_these_tests_with_the_parents: {
-                        ...answers.share_results_of_these_tests_with_the_parents,
-                        other: text,
-                      },
-                    });
-                  }}
-                  value={
-                    answers.share_results_of_these_tests_with_the_parents?.other
-                  }
-                  message={''}
-                  containerStyle={{
-                    alignItems: 'center',
-                    minWidth: screenWidth * 0.5,
-                  }}
-                />
-              </>
-            )}
-          </View>
-        </View> */}
 
         {/* QA15 - suggestions_to_improve_the_kendra_activities */}
         <View>
