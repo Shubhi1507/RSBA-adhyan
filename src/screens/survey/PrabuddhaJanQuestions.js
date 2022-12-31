@@ -161,7 +161,21 @@ export default function PrabuddhaJanQuestions() {
           }
           return el.value + '|';
         },
-      )},}`,
+      )}, 'How the donors and well wishers are connected to us ' : ${donors_and_well_wishers_are_connected_to_us.map(
+        el => {
+          return el.value + '|';
+        },
+      )}, 'Have these well wishers and donors helped us during Corona crisis ?' : ${well_wishers_and_donors_helped_us_during_corona_crisis.map(
+        el => {
+          return el.value + '|';
+        },
+      )},
+    'Influence of well wishers  in different sections of society ' : ${influence_of_well_wishers_in_society.map(
+      el => {
+        return el.value + '|';
+      },
+    )}
+    }`,
     );
     console.log(formdata);
     try {
