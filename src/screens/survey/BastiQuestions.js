@@ -119,7 +119,7 @@ export default function BastiQuestions() {
       !total_population_of_the_basti?.other;
     console.log(ans1, ans2, ans3, ans4, ans5);
 
-    let p = unanswered - (ans1 + ans2 + ans3 + ans4 + ans5+ans6);
+    let p = unanswered - (ans1 + ans2 + ans3 + ans4 + ans5 + ans6);
 
     console.log(q - p, '/', q);
 
@@ -169,19 +169,23 @@ export default function BastiQuestions() {
     formdata.append('audience_id', '7'); // for basti -
     formdata.append(
       'survey_data',
-      `{'Are any other organizations active in the basti?': ${
+      `{'Are any other organizations active in the basti?': '${
         are_any_other_organizations_active_in_the_basti?.value === 'Yes'
           ? are_any_other_organizations_active_in_the_basti?.other
           : 'No'
-      },'What kind of activities are conducted by these organisations? (can also select more than one)' : ${activities_conducted_by_these_organisations.map(
+      }',
+      'What kind of activities are conducted by these organisations? (can also select more than one)' : '${activities_conducted_by_these_organisations.map(
         el => {
-          return el.value + '|';
+          return el.value;
         },
-      )},'Are they involved in any anti - social activities?' : ${involved_in_anti_social_activities},What is the status of these anti -social institutions after our center: ${
+      )}',
+      'Are they involved in any anti - social activities?' : '${involved_in_anti_social_activities}',
+      What is the status of these anti -social institutions after our center: '${
         status_of_anti_social_institutions_after_our_center_establishment?.value
-      },Do our beneficiaries also take benefits from other organisations:${
+      },
+      Do our beneficiaries also take benefits from other organisations: '${
         our_beneficiaries_also_take_benefits_from_other_organisations?.value
-      }}`,
+      }'}`,
     );
     // console.log(formdata);
     try {
