@@ -207,8 +207,8 @@ export default function PresentStudentQuestions() {
       updatedAt: new Date().toString(),
     };
 
-    formdatacentre.append('center_id', parsed?.data?.id);
-    formdatacentre.append('audience_id', 10);
+    formdatapresentstudent.append('center_id', parsed?.data?.id);
+    formdatapresentstudent.append('audience_id', 10);
     let forman12 = other_activities_organised_in_the_center?.value ==='Yes'?
     `Yes- ${other_activities_organised_in_the_center?.other}`
     : `No-${other_activities_organised_in_the_center?.other}`
@@ -219,8 +219,7 @@ export default function PresentStudentQuestions() {
 
     let payload3 = {
       'No of current students enrolled': `${students_enrolled}`,
-      'Out of current strength how many students regularly attend the class?': `${
-        students_coming_regularly?.value || ' '}`,
+      'Out of current strength how many students regularly attend the class?': `${ students_coming_regularly?.value || ' '}`,
 'To what extent student is motivated to come to kendra? (Single select)' : `${interest_of_the_students_towards_kendra?.value || ' '}` ,
 'Since how long they are coming to the Prakalp?' : `${since_how_long_they_are_coming_to_the_prakalp?.value || ' '}` ,
 'Means of transport to and from the Kendra?' : `${_how_they_come_to_prakalp?.value || ' '}` ,
@@ -235,6 +234,7 @@ export default function PresentStudentQuestions() {
 'Does the Kendra organize regular parents teacher meeting or some informal get together with the Parents?' : `${kendra_organize_regular_parents_teacher_meeting?.value || ' '}` ,
 'Suggestions to improve the Kendra activities ? ' : `${suggestions_to_improve_the_kendra_activities}` ,
 'Do you regularaly go to RSS shakha?' : `${regularaly_go_to_rss_shakha?.value || ' '}`
+
 
 
 

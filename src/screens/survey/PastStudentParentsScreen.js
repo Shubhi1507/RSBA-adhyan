@@ -230,6 +230,32 @@ export default function PastStudentParentsScreen() {
         surveyAnswers,
         updatedAt: new Date().toString(),
       };
+
+
+      formdatapastparents.append('center_id', parsed?.data?.id);
+      formdatapastparents.append('audience_id', 10);
+
+
+
+      let payload2 = {
+        ' No of parents present':`${no_of_parents_present}` ,
+        // '':`${}` ,       //incomplete   q2 and  q3
+        // '':`${}` ,
+        'Reason for sending children to the centre?':`${reason_for_sending_children_to_the_centre?.value || ' '}` ,
+        'How the children use to go to the centre? ':`${how_these_children_go_to_the_centre?.value || ' '}` ,
+        'Number of days children went to the centre ? ':`${days_children_are_going_to_the_centre?.value || ' '}` ,
+        'What are your children doing currently? - (More than one option can be selected )':`${children_occupation_nowadays?.map( el => {
+          return el.value;
+         },)}` ,
+        // '':`${}` , //incomplete q8
+        'Now how are you involved in the running of the centre ':`${involvement_in_the_programs_of_the_centre?.value || ' '}` ,
+        'How can you contribute in running Centre more effectively':`${contribution_in_running_centre_more_effectively}` ,
+        'Expectations from the Centre':`${expectations_from_the_centre}` ,
+
+      }
+
+
+
       let tmp1 = FindAndUpdate(totalSurveys, payload);
       console.log('payload', payload);
 
