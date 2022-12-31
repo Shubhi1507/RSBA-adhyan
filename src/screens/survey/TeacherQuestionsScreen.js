@@ -186,18 +186,20 @@ export default function TeacherQuestionsScreen() {
     let formdata = new FormData();
     formdata.append('center_id', '5');
     formdata.append('audience_id', '6');
-    formdata.append(
-      'survey_data',
-      `{'How consistent are the students in attending the Kendra?
-      ': '${consistency_in_attending_the_kendra?.value}',
-      'What method we use to teach basic concepts of different topics other than study? (Such as religion, traditions, Sewa, behavioural science etc.)
-      ' : '${methods_used_to_teach_basic_concepts?.value}',
+//     formdata.append(
 
-      'How we teach social work to our students? (Multiple choice)
-      : '${      teach_social_work.map()}',
-      What is the status of these anti -social institutions after our center: '${status_of_anti_social_institutions_after_our_center_establishment?.value},
-      Do our beneficiaries also take benefits from other organisations: '${our_beneficiaries_also_take_benefits_from_other_organisations?.value}'}`,
-    );
+//       'survey_data',
+//       `{'How consistent are the students in attending the Kendra?
+//       ': '${consistency_in_attending_the_kendra?.value}',
+//       'What method we use to teach basic concepts of different topics other than study? (Such as religion, traditions, Sewa, behavioural science etc.)
+//       ' : '${methods_used_to_teach_basic_concepts?.value}',
+
+//       'How we teach social work to our students? (Multiple choice)
+//       : '${      teach_social_work.map()}',
+//       Fields in which you have observed transformation / improvement  in our students. Rate your answer out of 10 where 1=Poor & 10 = Best  : '${?.value},
+//       What type of behavioural changes we can observe in our students?
+// : '${our_beneficiaries_also_take_benefits_from_other_organisations?.value}'}`,
+//     );
 
     try {
       const url = BASE_URL + 'center/survey';

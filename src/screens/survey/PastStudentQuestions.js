@@ -228,6 +228,19 @@ export default function PastStudentQuestions() {
     };
     let tmp1 = FindAndUpdate(totalSurveys, payload);
 
+
+let payload4= {
+
+  'Are your friends- siblings coming to center these days?': `${friends_coming_to_center_the_days?.value ||" "}`,
+  
+
+}
+
+
+
+
+
+
     console.log('payload past student ', payload);
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
     dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
