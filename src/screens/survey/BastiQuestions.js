@@ -36,6 +36,7 @@ export default function BastiQuestions() {
     involved_in_anti_social_activities: '',
     status_of_anti_social_institutions_after_our_center_establishment: '',
     our_beneficiaries_also_take_benefits_from_other_organisations: '',
+    total_population_of_the_basti: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -85,9 +86,10 @@ export default function BastiQuestions() {
       involved_in_anti_social_activities,
       status_of_anti_social_institutions_after_our_center_establishment,
       our_beneficiaries_also_take_benefits_from_other_organisations,
+      total_population_of_the_basti,
     } = answers;
-    let q = 5;
-    let unanswered = 5;
+    let q = 6;
+    let unanswered = 6;
     // answeres
     let ans1 =
       are_any_other_organizations_active_in_the_basti?.value === 'Yes' &&
@@ -112,9 +114,12 @@ export default function BastiQuestions() {
     let ans5 = !our_beneficiaries_also_take_benefits_from_other_organisations
       ? 0
       : 1;
+    let ans6 =
+      !total_population_of_the_basti?.hindu ||
+      !total_population_of_the_basti?.other;
     console.log(ans1, ans2, ans3, ans4, ans5);
 
-    let p = unanswered - (ans1 + ans2 + ans3 + ans4 + ans5);
+    let p = unanswered - (ans1 + ans2 + ans3 + ans4 + ans5+ans6);
 
     console.log(q - p, '/', q);
 
@@ -678,6 +683,104 @@ export default function BastiQuestions() {
                   our_beneficiaries_also_take_benefits_from_other_organisations:
                     item,
                 });
+              }}
+            />
+          </View>
+        </View>
+
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <View
+              style={{
+                backgroundColor:
+                  answers.total_population_of_the_basti?.hindu &&
+                  answers.total_population_of_the_basti?.others
+                    ? COLORS.orange
+                    : COLORS.red,
+                height: 20,
+                width: 20,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}>
+              <TextHandler
+                style={{
+                  color:
+                    answers.total_population_of_the_basti?.hindu &&
+                    answers.total_population_of_the_basti?.others
+                      ? COLORS.black
+                      : COLORS.white,
+                  textAlign: 'center',
+                }}>
+                {6}
+              </TextHandler>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CENTER_Q23')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View style={{marginTop: 10}}>
+            <TextHandler
+              style={{
+                color: 'black',
+              }}>
+              {t('HINDU')}
+            </TextHandler>
+            <Input
+              type={'numeric'}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({
+                  ...answers,
+                  total_population_of_the_basti: {
+                    ...answers.total_population_of_the_basti,
+                    hindu: text,
+                  },
+                });
+              }}
+              value={answers.total_population_of_the_basti?.hindu}
+              empty={!answers.total_population_of_the_basti?.hindu}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
+              }}
+            />
+            <TextHandler
+              style={{
+                color: 'black',
+                marginTop: 10,
+              }}>
+              {t('OTHERS')}
+            </TextHandler>
+            <Input
+              type={'numeric'}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                setAnswers({
+                  ...answers,
+                  total_population_of_the_basti: {
+                    ...answers.total_population_of_the_basti,
+                    others: text,
+                  },
+                });
+              }}
+              value={answers.total_population_of_the_basti?.others}
+              empty={!answers.total_population_of_the_basti?.others}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.5,
               }}
             />
           </View>

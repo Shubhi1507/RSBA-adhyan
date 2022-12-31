@@ -99,7 +99,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 5,
+      totalQue: 6,
     },
     {
       key: 8,

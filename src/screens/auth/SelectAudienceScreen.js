@@ -99,7 +99,7 @@ export default function SelectAudienceScreen() {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 5,
+      totalQue: 6,
     },
     {
       key: 8,
@@ -188,7 +188,7 @@ export default function SelectAudienceScreen() {
         disabled: false,
         attempted: false,
         completed: false,
-        totalQue: 5,
+        totalQue: 6,
       },
       {
         key: 'Influential Persons from the Basti',
