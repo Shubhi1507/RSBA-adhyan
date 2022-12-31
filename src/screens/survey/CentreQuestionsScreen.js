@@ -210,6 +210,22 @@ export default function CentreQuestionsScreen() {
       ans20 +
       ans21;
 
+    // let payload = {
+    //   ...store.currentSurveyData,
+    //   center_details: new_centre_details,
+    //   updatedAt: new Date().toString(),
+    // };
+    // setDataLoading(false);
+    // let tmp = FindAndUpdate(totalSurveys, payload);
+    // console.log('new payload cqs', payload);
+
+    // dispatch({
+    //   type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+    //   payload: payload,
+    // });
+    // dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
+    // return navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
+
     console.log('ansum->', ansSum);
     if (ansSum !== 21) {
       setDataLoading(false);
