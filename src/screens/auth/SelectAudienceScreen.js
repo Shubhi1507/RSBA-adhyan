@@ -319,20 +319,7 @@ export default function SelectAudienceScreen() {
     ]);
   };
 
-  const statusColorGrader = (p, q) => {
-    let j = parseInt((p / q) * 100);
-    switch (j) {
-      case 0 < j < 50:
-        return COLORS.error;
-        break;
-      case 50 < j < 100:
-        return COLORS.orange;
-      case j == 100:
-        return COLORS.black;
-      default:
-        return COLORS.black;
-    }
-  };
+ 
 
   return (
     <View style={styles.container}>
@@ -369,7 +356,6 @@ export default function SelectAudienceScreen() {
             data={flatlistData}
             style={{flex: 1}}
             renderItem={({item, index}) => {
-              console.log('item', item);
               return (
                 <TouchableOpacity
                   style={{

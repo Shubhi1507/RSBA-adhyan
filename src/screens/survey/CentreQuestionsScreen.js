@@ -42,7 +42,6 @@ export default function CentreQuestionsScreen() {
     discontinuation_time_period: '',
     type_of_basti: '',
     infrastructure: '',
-    project_init_before: '',
     pictures_of_bharatmata_and_indian_legends: '',
     sewa_sanstha_running_the_center: '',
     visitors_details_captured: '',
@@ -84,7 +83,7 @@ export default function CentreQuestionsScreen() {
       establishment,
       infrastructure,
       type_of_basti,
-      project_init_before,
+
       availability_of_infrastructure,
       basti_toli_active,
       center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time,
@@ -92,6 +91,7 @@ export default function CentreQuestionsScreen() {
       centre_not_operational_aftermath,
       discontinuation_time_period,
       divyang_and_single_parent_students_enrolled,
+
       is_participation_of_basti_satisfactory,
       kendra_effect_on_anti_social_problems,
       majorprevelant_problems_in_the_basti,
@@ -114,7 +114,7 @@ export default function CentreQuestionsScreen() {
       establishment,
       infrastructure,
       type_of_basti,
-      project_init_before,
+
       availability_of_infrastructure,
       basti_toli_active,
       center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time,
@@ -136,7 +136,6 @@ export default function CentreQuestionsScreen() {
       kendra_samiti_work,
       visitors_details_captured,
     };
-
     let ans1 = !answers.establishment ? 0 : 1;
     let ans2 = answers.centre_commence_motive.length > 0 ? 1 : 0;
     let ans3 = !answers.students_passed_out_from_centre ? 0 : 1;
@@ -150,7 +149,7 @@ export default function CentreQuestionsScreen() {
         ? 1
         : 0;
     let ans6 = !answers.type_of_basti ? 0 : 1;
-    let ans7 = !answers.project_init_before ? 0 : 1;
+    let ans7 = !answers.infrastructure ? 0 : 1;
     let ans8 = !answers.pictures_of_bharatmata_and_indian_legends ? 0 : 1;
     let ans9 = !answers.sewa_sanstha_running_the_center ? 0 : 1;
     let ans10 = !answers.visitors_details_captured ? 0 : 1;
@@ -211,7 +210,8 @@ export default function CentreQuestionsScreen() {
       ans20 +
       ans21;
 
-    if (ansSum === 21) {
+    console.log('ansum->', ansSum);
+    if (ansSum !== 21) {
       setDataLoading(false);
       return setError({
         ...error,
@@ -219,75 +219,183 @@ export default function CentreQuestionsScreen() {
         visible: true,
       });
     } else {
+      let payload = {};
       try {
-        // create survey centre api
         let userdata = userStore?.userData?.userData;
         console.log(center_details);
-        // let apiPayload = {
-        //   volunteer_id: userdata?.data?.user?.id,
-        //   state_id: center_details?.state_id,
-        //   district_id: center_details?.district_id,
-        //   address: center_details?.address,
-        //   type: center_details?.type_of_center?.value,
-        //   head_name: center_details?.center_head,
-        //   contact_details: center_details?.center_contact,
-        //   is_operational: center_details?.is_centre_operational ? 1 : 0,
-        //   reason_not_operational:
-        //     center_details?.non_operational_due_to?.reason ||
-        //     center_details?.non_operational_due_to?.value ||
-        //     '',
-        //   survey_device_location: center_details?.volunteer_location,
-        //   partially_filled: 1,
-        //   survey_form_id: center_details?.survey_form_id,
-        //   town: center_details?.district_jila,
-        //   parent_org: center_details?.parent_org,
-        // };
+        // if centre id from api is not present then call api ang register for centre id
+        if (!store?.currentSurveyData?.api_centre_id) {
+          const formdatacentre = new FormData();
+          const formdata = new FormData();
 
-        // const formdata = new FormData();
-        // formdata.append('volunteer_id', parseInt(apiPayload.volunteer_id));
-        // formdata.append('state_id', apiPayload.state_id);
-        // formdata.append('address', apiPayload.address);
-        // formdata.append('district_id', apiPayload.district_id);
-        // formdata.append('type', apiPayload.type);
-        // formdata.append('head_name', apiPayload.head_name);
-        // formdata.append('contact_details', apiPayload.contact_details);
-        // formdata.append('is_operational', apiPayload.is_operational);
-        // formdata.append('parent_organization', apiPayload.parent_org);
-        // formdata.append(
-        //   'reason_not_operational',
-        //   apiPayload.reason_not_operational,
-        // );
-        // formdata.append('survey_device_location', '');
-        // formdata.append('partially_filled', '1');
-        // formdata.append('survey_form_id', apiPayload.survey_form_id);
-        // formdata.append('town', apiPayload.town);
-        // formdata.append('establishment_year', establishment);
+          // create survey centre api
+          let apiPayload = {
+            volunteer_id: userdata?.data?.user?.id,
+            state_id: center_details?.state_id,
+            district_id: center_details?.district_id,
+            address: center_details?.address,
+            type: center_details?.type_of_center?.value,
+            head_name: center_details?.center_head,
+            contact_details: center_details?.center_contact,
+            is_operational: center_details?.is_centre_operational ? 1 : 0,
+            reason_not_operational:
+              center_details?.non_operational_due_to?.reason ||
+              center_details?.non_operational_due_to?.value ||
+              '',
+            survey_device_location: center_details?.volunteer_location,
+            partially_filled: 1,
+            survey_form_id: center_details?.survey_form_id,
+            town: center_details?.district_jila,
+            parent_org: center_details?.parent_org,
+          };
+          formdata.append('volunteer_id', parseInt(apiPayload.volunteer_id));
+          formdata.append('state_id', apiPayload.state_id);
+          formdata.append('address', apiPayload.address);
+          formdata.append('district_id', apiPayload.district_id);
+          formdata.append('type', apiPayload.type);
+          formdata.append('head_name', apiPayload.head_name);
+          formdata.append('contact_details', apiPayload.contact_details);
+          formdata.append('is_operational', apiPayload.is_operational);
+          formdata.append('parent_organization', apiPayload.parent_org);
+          formdata.append(
+            'reason_not_operational',
+            apiPayload.reason_not_operational,
+          );
+          formdata.append('survey_device_location', '');
+          formdata.append('partially_filled', '1');
+          formdata.append('survey_form_id', apiPayload.survey_form_id);
+          formdata.append('town', apiPayload.town);
+          formdata.append('establishment_year', establishment);
 
-        // console.log('formdata', formdata);
-        // var requestOptions = {
-        //   method: 'POST',
-        //   body: formdata,
-        //   redirect: 'follow',
-        // };
-        // const response = await fetch(BASE_URL + 'center', requestOptions);
-        // console.log('response', await response.json());
+          console.log('formdata', formdata);
+          var requestOptions = {
+            method: 'POST',
+            body: formdata,
+            redirect: 'follow',
+          };
+          const response1 = await fetch(BASE_URL + 'center', requestOptions);
+          let parsed = await response1.json();
+          console.log('parsed', parsed?.data);
+
+          payload = {
+            ...store.currentSurveyData,
+            center_details: new_centre_details,
+            api_centre_id: parsed?.data?.id,
+            updatedAt: new Date().toString(),
+          };
+
+          // create survey of center api
+          formdatacentre.append('center_id', parsed?.data?.id);
+          formdatacentre.append('audience_id', 10);
+          let formans5 =
+            center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time?.key ===
+            2
+              ? discontinuation_time_period?.value
+              : center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time?.value ||
+                '';
+          let formans14 =
+            divyang_and_single_parent_students_enrolled?.value === 'Yes'
+              ? `Divyang : ${divyang_and_single_parent_students_enrolled?.divyang_count}, Single parent count : ${divyang_and_single_parent_students_enrolled?.no_or_single_parent_count}`
+              : 'No';
+          let formans16 =
+            oppose_of_the_kendras_activities_by_basti?.value === 'Yes'
+              ? `Yes- ${oppose_of_the_kendras_activities_by_basti?.other}`
+              : 'No';
+          let formans17 =
+            members_of_basti_toli_reside_in_same_area?.value === 'No'
+              ? `No, ${members_of_basti_toli_reside_in_same_area?.other} `
+              : 'Yes';
+          let formans18 =
+            role_of_our_kendra_in_our_basti_during__corona?.value === 'Yes'
+              ? `Yes- ${kendra_samiti_work
+                  .map(el => {
+                    return el?.value;
+                  })
+                  .join()}`
+              : 'No';
+          let formans20 = majorprevelant_problems_in_the_basti.map(el => {
+            return el?.value;
+          });
+
+          let payload12 = {
+            'Establishment Year of the Kendra': `${establishment}`,
+            'Objective to start the kendra ? ( You can choose more than one answer )': `${centre_commence_motive.map(
+              el => {
+                return el.value;
+              },
+            )}`,
+            'How many students have passed out from this Kendra? (Since inception)': `${
+              students_passed_out_from_centre?.value || ''
+            }`,
+            'What will happen if this kendra did not function?': `${
+              centre_not_operational_aftermath?.value || ''
+            }`,
+            'Whether the center is operating continuously since its inception or is it closed for some time in between? (Excluding Covid period)': `${formans5}`,
+            'Basti Type': `${type_of_basti?.value}`,
+            'Infrastructure of Kendra (Place)': `${
+              infrastructure?.value || ''
+            }`,
+            'Does kendra use Pictures of Bharatmata & Indian Legends (Mahapurush)?': `${
+              pictures_of_bharatmata_and_indian_legends?.value || ''
+            }`,
+            'Is there a board of Sewa sanstha running the center?': `${
+              sewa_sanstha_running_the_center?.value || ''
+            }`,
+            'Visitor’s details are properly captured and preserved?': `${
+              visitors_details_captured?.value || ''
+            }`,
+            'Availability of  infrastructure in kendra': `${
+              availability_of_infrastructure?.value || ''
+            }`,
+            'How is the participation of the basti people in various cultural activities- festivals organised by Kendra?': `${
+              participation_of_the_basti_people?.value || ''
+            }`,
+            'Is the participation of Basti residents is satisfactory (More than 30%) in these events': `${
+              is_participation_of_basti_satisfactory?.value || ''
+            }`,
+            'Are Divyang & Single parent students enrolled in our centre?': `${formans14}`,
+            'Has centres Kendra Samiti been formed and is active?': `${
+              basti_toli_active?.value || ''
+            }`,
+            'Is there any oppose of the Kendra "s Activities by Basti resident': `${formans16}`,
+            'Do all members of Basti Toli reside in that basti only?': `${formans17}`,
+            'Has Kendra samiti performed any role during Corona pandemic?': `${formans18}`,
+            'Kendra effect on anti -social problems such as (drug, child marriage) on the Basti': `${
+              kendra_effect_on_anti_social_problems?.value || ''
+            }`,
+            'Major prevelant problems in the Basti (You can choose more than one answer)': `${formans20}`,
+            'Total beneficiaries of the kendra?': `${total_population_of_sewa_bharti_beneficiaries}`,
+          };
+          formdatacentre.append('survey_data', JSON.stringify(payload12));
+          var requestOptions2 = {
+            method: 'POST',
+            body: formdatacentre,
+            redirect: 'follow',
+          };
+          console.log('payload=>', formdatacentre);
+
+          const response = await fetch(
+            BASE_URL + 'center/survey',
+            requestOptions2,
+          );
+          console.log('response', await response.json());
+        } else {
+          payload = {
+            ...store.currentSurveyData,
+            center_details: new_centre_details,
+            updatedAt: new Date().toString(),
+          };
+        }
         setDataLoading(false);
-        let payload = {
-          ...store.currentSurveyData,
-          center_details: new_centre_details,
-          // api_centre_id: response?.data?.id,
-          updatedAt: new Date().toString(),
-        };
         let tmp = FindAndUpdate(totalSurveys, payload);
         console.log('new payload cqs', payload);
+
         dispatch({
           type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
           payload: payload,
         });
         dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
         navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
-
-        // create survey of center api
       } catch (error) {
         console.log(error);
         setDataLoading(false);
@@ -833,12 +941,12 @@ export default function CentreQuestionsScreen() {
           </View>
         </View>
 
-        {/* QA7 - OK - project_init_before*/}
+        {/* QA7 - OK - infrastructure*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: answers.project_init_before
+                backgroundColor: answers.infrastructure
                   ? COLORS.orange
                   : COLORS.red,
                 height: 20,
@@ -849,9 +957,7 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: answers.project_init_before
-                    ? COLORS.black
-                    : COLORS.white,
+                  color: answers.infrastructure ? COLORS.black : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {7}
@@ -893,9 +999,9 @@ export default function CentreQuestionsScreen() {
                   label: 'CENTER_Q8_OPT3',
                 },
               ]}
-              valueProp={answers.project_init_before}
+              valueProp={answers.infrastructure}
               onValueChange={item => {
-                setAnswers({...answers, project_init_before: item});
+                setAnswers({...answers, infrastructure: item});
               }}
             />
           </View>
@@ -1850,22 +1956,22 @@ export default function CentreQuestionsScreen() {
             {[
               {
                 key: 1,
-                value: 'Less than 1 month',
+                value: 'Kadha distribution',
                 label: 'CENTER_Q20_DISCONTINUED_OPT1',
               },
               {
                 key: 2,
-                value: '1 to 6 months',
+                value: 'Sanitization',
                 label: 'CENTER_Q20_DISCONTINUED_OPT2',
               },
               {
                 key: 3,
-                value: '6 to 12 months',
+                value: 'Medicine distribution',
                 label: 'CENTER_Q20_DISCONTINUED_OPT3',
               },
               {
                 key: 4,
-                value: 'More than 12 months',
+                value: 'Quarantine center',
                 label: 'CENTER_Q20_DISCONTINUED_OPT4',
               },
               {
@@ -1979,7 +2085,6 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler style={styles.question}>
                 {t('CENTER_Q21')}
-                {/* {answers.kendra_effect_on_anti_social_problems} */}
               </TextHandler>
             </View>
           </View>
