@@ -152,29 +152,25 @@ export default function PrabuddhaJanQuestions() {
     formdata.append('audience_id', '6'); // for basti -
     formdata.append(
       'survey_data',
-      `{'How the donors and well wishers help (Multiple choice)?': ${donors_and_well_wishers_help.map(
+      `{'How the donors and well wishers help (Multiple choice)?': '${donors_and_well_wishers_help.map(
         el => {
           if (el.value === 'Others') {
             return answers.donors_and_well_wishers_help.filter(
               el => el.value === 'Others',
             )[0]?.['other'];
           }
-          return el.value + '|';
+          return el.value;
         },
-      )}, 'How the donors and well wishers are connected to us ' : ${donors_and_well_wishers_are_connected_to_us.map(
-        el => {
-          return el.value + '|';
-        },
-      )}, 'Have these well wishers and donors helped us during Corona crisis ?' : ${well_wishers_and_donors_helped_us_during_corona_crisis.map(
-        el => {
-          return el.value + '|';
-        },
-      )},
-    'Influence of well wishers  in different sections of society ' : ${influence_of_well_wishers_in_society.map(
-      el => {
-        return el.value + '|';
-      },
-    )}
+      )}', 
+      'How the donors and well wishers are connected to us' : '${
+        donors_and_well_wishers_are_connected_to_us?.value
+      }',
+      'Have these well wishers and donors helped us during Corona crisis ?' : '${
+        well_wishers_and_donors_helped_us_during_corona_crisis?.value
+      }',
+    'Influence of well wishers  in different sections of society' : '${
+      influence_of_well_wishers_in_society?.value
+    }'
     }`,
     );
     console.log(formdata);
