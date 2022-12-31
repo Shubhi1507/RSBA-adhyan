@@ -182,6 +182,35 @@ export default function TeacherQuestionsScreen() {
     let tmp1 = FindAndUpdate(totalSurveys, payload);
 
     console.log('payload teacher', payload, tmp1);
+
+    let formdata = new FormData();
+    formdata.append('center_id', '5');
+    formdata.append('audience_id', '6');
+    formdata.append(
+      'survey_data',
+      `{'How consistent are the students in attending the Kendra?
+      ': '${consistency_in_attending_the_kendra?.value}',
+      'What method we use to teach basic concepts of different topics other than study? (Such as religion, traditions, Sewa, behavioural science etc.)
+      ' : '${methods_used_to_teach_basic_concepts?.value}',
+
+      'How we teach social work to our students? (Multiple choice)
+      : '${      teach_social_work.map()}',
+      What is the status of these anti -social institutions after our center: '${status_of_anti_social_institutions_after_our_center_establishment?.value},
+      Do our beneficiaries also take benefits from other organisations: '${our_beneficiaries_also_take_benefits_from_other_organisations?.value}'}`,
+    );
+
+    try {
+      const url = BASE_URL + 'center/survey';
+      // const response = await fetch(url, {
+      //   method: 'POST',
+      //   body: formdata,
+      // });
+      // if (response.status === 200) {
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
     dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
     showModal();
