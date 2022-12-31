@@ -72,7 +72,7 @@ export default function KendraSanchalakQuestions() {
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
   };
 
-  const pageValidator = () => {
+  const pageValidator = async () => {
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     const {
@@ -154,9 +154,24 @@ export default function KendraSanchalakQuestions() {
     let tmp1 = FindAndUpdate(totalSurveys, payload);
 
     console.log('payload kendraSanchalak ', payload);
-    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-    showModal();
+    try {
+      // audience- 5
+      let formdata = new FormData();
+      formdata.append('center_id', '14');
+      formdata.append('audience_id', '5');
+      formdata.append(
+        'survey_data',
+        `{'How many students attend the class regularly? (Boys + Girls)':'${answers.total_students_attend_the_class_regularly}', 'Was the Kendra able to perform its work during the Covid period?':'${answers.was_the_kendra_able_to_perform_during_the_covid}', '':''}`,
+      );
+      console.log(formdata)
+    } catch (error) {
+      console.log(error);
+      return setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+    }
+
+    // dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    // dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
+    // showModal();
   };
 
   const handleSelection = answer => {
