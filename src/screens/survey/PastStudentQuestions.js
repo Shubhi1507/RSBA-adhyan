@@ -228,18 +228,63 @@ export default function PastStudentQuestions() {
     };
     let tmp1 = FindAndUpdate(totalSurveys, payload);
 
+    formdatacentre.append('center_id', parsed?.data?.id);
+    formdatacentre.append('audience_id', 10);
+    let formans5 =
+      still_associated_with_the_center_reasons?.value === 'Yes'
+        ? `Yes- ${still_associated_with_the_center_reasons?.other}`
+        : 'No';
+        let formans16 =
+        involved_in_any_othe_social_activities?.value === 'Yes (Enter short description)'
+          ? `Yes  (Enter short description)- ${involved_in_any_othe_social_activities?.other}`
+          : 'No';
 
-let payload4= {
-
-  'Are your friends- siblings coming to center these days?': `${friends_coming_to_center_the_days?.value ||" "}`,
-  
-
-}
 
 
+    let payload4 = {
+      'Are your friends- siblings coming to center these days?': `${
+        friends_coming_to_center_the_days?.value || ' '
+      }`,
+      'Is the center same as was in your time?': `${
+        is_the_center_same_as_before?.value || ' '
+      }`,
+      'For how many years were you coming to the center?': `${
+        how_many_years_were_you_coming_to_the_center?.value || ' '
+      }`,
+
+      'Reason for leaving the center?': `${
+        reason_for_leaving_the_center?.value || ' '
+      }`,
+      'Are you still associated with the center? ': `${formans5}`,
+      'How has the centre influenced your overall personality? (More than one option can be selected )': `${how_the_center_has_influnced_your_overall_personality.map(
+        el => {
+          return el.value;
+        },
+      )}`,
+      'What are the reasons for this change? (More than one option can be selected )': `${reasons_for_change_in_your_personality.map(
+        el => {
+          return el.value;
+        },
+      )}`,
+      'Do you encourage other students living near you to join the center, do you help them to come to center?': `${
+        encourage_other_students_join_the_center?.value || ' '
+      }`,
+      'How the center has influnced your personality?': `${how_the_center_has_influnced_your_overall_personality}`,
+      'What difference you experience between you & other students(Who does not come to kendra) of your age, due to the center? (You can choose more than one answer )': `${experience_between_you_n_other_students_who_do_not_come_to_kendra.map(
+        el => {
+          return el.value;
+        },
+      )}`,
+      'What difference you notice in the family, due to the center?(You can choose more than one answer )': `${difference_noticed_in_the_family_due_to_the_center.map(el => {
+        return el.value;
+      },)}`,
+      'How can you contribute in betterment of the center ?': `${contribute_in_betterment_of_the_center?.value || ' '}`,
+
+      'How are you connected with Sangh Organizations?': `${connected_with_sangh_organizations?.value || ' '}`,
+      'Are you involved in any othe social activities?': `${involved_in_any_othe_social_activities?.value || ' '}`,
 
 
-
+    };
 
     console.log('payload past student ', payload);
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
