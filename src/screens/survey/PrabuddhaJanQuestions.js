@@ -155,7 +155,7 @@ export default function PrabuddhaJanQuestions() {
         const formdata = new FormData();
         formdata.append('survey_data', JSON.stringify(surveydata));
         formdata.append('center_id', store?.currentSurveyData?.api_centre_id);
-        formdata.append('audience_id', 6);
+        formdata.append('audience_id', 7);
         const requestOptions = {
           method: 'POST',
           body: formdata,

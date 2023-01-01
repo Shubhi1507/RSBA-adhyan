@@ -195,7 +195,7 @@ export default function BastiQuestions() {
         console.log('surveydata', surveydata);
         const formdata = new FormData();
         formdata.append('center_id', store?.currentSurveyData?.api_centre_id);
-        formdata.append('audience_id', 7);
+        formdata.append('audience_id', 8);
         formdata.append('survey_data', JSON.stringify(surveydata));
         const requestOptions = {
           method: 'POST',

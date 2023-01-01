@@ -187,8 +187,6 @@ export default function TeacherQuestionsScreen() {
     console.log('payload teacher', payload, tmp1);
 
     let formdata = new FormData();
-    formdata.append('center_id', '5');
-    formdata.append('audience_id', '6');
 
     try {
       if (p === 0) {

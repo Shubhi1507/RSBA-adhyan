@@ -333,7 +333,7 @@ export default function CentreQuestionsScreen() {
             return el?.value;
           });
 
-          let payload12 = {
+          let surveydata = {
             'Establishment Year of the Kendra': `${establishment}`,
             'Objective to start the kendra ? ( You can choose more than one answer )': `${centre_commence_motive.map(
               el => {
@@ -382,7 +382,7 @@ export default function CentreQuestionsScreen() {
             'Major prevelant problems in the Basti (You can choose more than one answer)': `${formans20}`,
             'Total beneficiaries of the kendra?': `${total_population_of_sewa_bharti_beneficiaries}`,
           };
-          formdatacentre.append('survey_data', JSON.stringify(payload12));
+          formdatacentre.append('survey_data', JSON.stringify(surveydata));
           var requestOptions2 = {
             method: 'POST',
             body: formdatacentre,
