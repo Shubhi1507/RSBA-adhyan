@@ -201,6 +201,23 @@ export default function CenterDetailsTwoScreen() {
       non_operational_due_to,
     } = volunteerInfo;
 
+    if (isCenterOperational) {
+      if (!center_contact || !center_head || !parent_org) {
+        return setError({
+          ...error,
+          message: t('PLEASE_ANSWER_ALL_QUE'),
+          visible: true,
+        });
+      }
+    } else {
+      if (non_operational_due_to?.value === undefined) {
+        return setError({
+          ...error,
+          message: t('PLEASE_ANSWER_ALL_QUE'),
+          visible: true,
+        });
+      }
+    }
     let center_details = {
       ...store.currentSurveyData.center_details,
       center_contact,

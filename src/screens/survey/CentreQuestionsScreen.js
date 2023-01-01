@@ -249,7 +249,9 @@ export default function CentreQuestionsScreen() {
             volunteer_id: userdata?.data?.user?.id,
             state_id: center_details?.state_id,
             district_id: center_details?.district_id,
-            address: center_details?.address,
+            address: center_details?.is_address_changed
+              ? center_details?.current_address
+              : center_details?.address,
             type: center_details?.type_of_center?.value,
             head_name: center_details?.center_head,
             contact_details: center_details?.center_contact,
