@@ -170,27 +170,31 @@ export default function BastiQuestions() {
       payload: payload,
     });
     dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-    
+
     try {
       if (p === 0) {
         let surveydata = {
-          'Are any other organizations active in the basti?': `${
+          // 'Are any other organizations active in the basti?'
+          100: `${
             are_any_other_organizations_active_in_the_basti?.value === 'Yes'
               ? are_any_other_organizations_active_in_the_basti?.other
               : 'No'
           }`,
-          'What kind of activities are conducted by these organisations? (can also select more than one)': `${activities_conducted_by_these_organisations.map(
-            el => {
-              if (el.value === 'Other') {
-                return el?.other;
-              }
-              return el.value;
-            },
-          )}`,
-          'Are they involved in any anti - social activities?': `${involved_in_anti_social_activities}`,
-          'What is the status of these anti -social institutions after our center': `${status_of_anti_social_institutions_after_our_center_establishment?.value}`,
-          'Do our beneficiaries also take benefits from other organisations': `${our_beneficiaries_also_take_benefits_from_other_organisations?.value}`,
-          'Total population of the Basti': `Hindu - ${total_population_of_the_basti?.hindu}, Other - ${total_population_of_the_basti?.other}`,
+          // 'What kind of activities are conducted by these organisations? (can also select more than one)'
+          101: `${activities_conducted_by_these_organisations.map(el => {
+            if (el.value === 'Other') {
+              return el?.other;
+            }
+            return el.value;
+          })}`,
+          // 'Are they involved in any anti - social activities?'
+          102: `${involved_in_anti_social_activities}`,
+          // 'What is the status of these anti -social institutions after our center'
+          103: `${status_of_anti_social_institutions_after_our_center_establishment?.value}`,
+          // 'Do our beneficiaries also take benefits from other organisations'
+          104: `${our_beneficiaries_also_take_benefits_from_other_organisations?.value}`,
+          // 'Total population of the Basti'
+          105: `Hindu - ${total_population_of_the_basti?.hindu}, Other - ${total_population_of_the_basti?.other}`,
         };
         console.log('surveydata', surveydata);
         const formdata = new FormData();
