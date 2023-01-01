@@ -160,20 +160,30 @@ export default function KendraSanchalakQuestions() {
     try {
       if (p === 0) {
         let surveydata = {
-          'How many students attend the class regularly? (Boys + Girls)': `${total_students_attend_the_class_regularly}`,
-          'Was the Kendra able to perform its work during the Covid period?': `${was_the_kendra_able_to_perform_during_the_covid?.value}`,
-          'What difference you observe in the families of students coming to Kendra? (At least 50% cases should be there) (Multiple choice)': `${difference_observed_in_the_families_of_students_coming_to_kendra.map(
+          // 'How many students attend the class regularly? (Boys + Girls)'
+          90: `${total_students_attend_the_class_regularly}`,
+          // 'Was the Kendra able to perform its work during the Covid period?'
+          91: `${was_the_kendra_able_to_perform_during_the_covid?.value}`,
+          // 'What difference you observe in the families of students coming to Kendra? (At least 50% cases should be there) (Multiple choice)'
+          92: `${difference_observed_in_the_families_of_students_coming_to_kendra.map(
             el => {
               return el?.value;
             },
           )}`,
-          'How many families from the locality we have influenced due to our Kendra activities?': `${families_from_the_locality_have_influenced_due_to_our_kendra_activities?.value}`,
-          'What is percentage of decline in school dropout ratio due to our Kendra performance? (Before and After Comparison). Apply this till Std 10th': `${percentage_of_decline_in_school_dropout_due_to_kendra?.value}`,
-          'Do we conduct “Medical test” (Physical test) for our students?': `${conduct_medical_test_for_students?.value}`,
-          'Is there any plan for expansion (Scaling the work)?': `${plan_for_expansion?.value}`,
-          'Do we submit status report of Kendra to all the stakeholders each month?': `${submit_status_report_of_kendra_to_all_the_stakeholders_each_month?.value}`,
-          'Is there any feedback mechanism in place to address issues arise in day to day work? If yes, are the issues addressed in timely manner?': `${feedback_mechanism_to_address_issues?.value}`,
-          'Any other observations which are not covered in above questions ? Please elaborate': `${observation_not_covered}`,
+          // 'How many families from the locality we have influenced due to our Kendra activities?'
+          93: `${families_from_the_locality_have_influenced_due_to_our_kendra_activities?.value}`,
+          // 'What is percentage of decline in school dropout ratio due to our Kendra performance? (Before and After Comparison). Apply this till Std 10th'
+          94: `${percentage_of_decline_in_school_dropout_due_to_kendra?.value}`,
+          // 'Do we conduct “Medical test” (Physical test) for our students?'
+          95: `${conduct_medical_test_for_students?.value}`,
+          // 'Is there any plan for expansion (Scaling the work)?'
+          96: `${plan_for_expansion?.value}`,
+          // 'Do we submit status report of Kendra to all the stakeholders each month?'
+          97: `${submit_status_report_of_kendra_to_all_the_stakeholders_each_month?.value}`,
+          // 'Is there any feedback mechanism in place to address issues arise in day to day work? If yes, are the issues addressed in timely manner?'
+          98: `${feedback_mechanism_to_address_issues?.value}`,
+          // 'Any other observations which are not covered in above questions ? Please elaborate'
+          99: `${observation_not_covered}`,
         };
         console.log(surveydata);
         const surveyform = new FormData();
