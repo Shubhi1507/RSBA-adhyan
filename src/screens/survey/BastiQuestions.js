@@ -165,7 +165,12 @@ export default function BastiQuestions() {
       updatedAt: new Date().toString(),
     };
     let tmp1 = FindAndUpdate(totalSurveys, payload);
-
+    dispatch({
+      type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+      payload: payload,
+    });
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
+    
     try {
       if (p === 0) {
         let surveydata = {
@@ -203,11 +208,7 @@ export default function BastiQuestions() {
         );
         console.log('response->', await response.json());
       }
-      dispatch({
-        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
-        payload: payload,
-      });
-      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
+
       showModal();
       setDataLoading(false);
     } catch (error) {
