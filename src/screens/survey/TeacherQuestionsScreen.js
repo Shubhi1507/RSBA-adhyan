@@ -198,21 +198,32 @@ export default function TeacherQuestionsScreen() {
           expectations_from_sanstha_for_the_betterment?.other ||
           expectations_from_sanstha_for_the_betterment?.value;
         let surveydata = {
-          'How consistent are the students in attending the Kendra?': `${consistency_in_attending_the_kendra?.value}`,
-          'What method we use to teach basic concepts of different topics other than study? (Such as religion, traditions, Sewa, behavioural science etc.)': `${methods_used_to_teach_basic_concepts?.value}`,
-          'How we teach social work to our students? (Multiple choice)': `${teach_social_work.map(
+          // 'How consistent are the students in attending the Kendra?'
+          79: `${consistency_in_attending_the_kendra?.value}`,
+          // 'What method we use to teach basic concepts of different topics other than study? (Such as religion, traditions, Sewa, behavioural science etc.)'
+          80: `${methods_used_to_teach_basic_concepts?.value}`,
+          // 'How we teach social work to our students? (Multiple choice)'
+          81: `${teach_social_work.map(
             el => {
               return el?.value;
             },
           )}`,
-          'Fields in which you have observed transformation / improvement  in our students. Rate your answer out of 10 where 1=Poor & 10 = Best': `Academic - Rating between 1 to 10 - ${rating_academic}, Behavioural pattern - Rating between 1 to 10 - ${rating_behaviour_pattern}, Sports - Rating between 1 to 10 - ${rating_sports}, Culture & Art - Rating between 1 to 10 - ${rating_culture}`,
-          'What type of behavioural changes we can observe in our students?': `Sincerity - Rating between 1 to 10 - ${rating_sincerity}, Punctuality - Rating between 1 to 10 - ${rating_punctuality}, Trustworthy - Rating between 1 to 10 - ${rating_trustworthy}, Leadership qualities - Rating between 1 to 10 - ${leadership_qualities}`,
-          'Do we compromise on our teaching agenda if student belonging to other religion attends the Kendra?': `${compromise_on_our_teaching_agenda?.value}`,
-          'Do you personally meet all the parents every month?': `${formans7}`,
-          'What is the qualification of the teacher?': `${qualification_of_the_teacher?.value}`,
-          'Since when teacher is associated with this Kendra?': `${since_when_teacher_is_associated_with_this_kendra?.value}`,
-          'Why have you joined this kendra?': `${reason_to_join_this_kendra}`,
-          'What are your expectations from Sanstha for the betterment of the kendra?': `${formasn11}`,
+          // 'Fields in which you have observed transformation / improvement  in our students. Rate your answer out of 10 where 1=Poor & 10 = Best'
+          82: `Academic - Rating between 1 to 10 - ${rating_academic}, Behavioural pattern - Rating between 1 to 10 - ${rating_behaviour_pattern}, Sports - Rating between 1 to 10 - ${rating_sports}, Culture & Art - Rating between 1 to 10 - ${rating_culture}`,
+          // 'What type of behavioural changes we can observe in our students?'
+          83: `Sincerity - Rating between 1 to 10 - ${rating_sincerity}, Punctuality - Rating between 1 to 10 - ${rating_punctuality}, Trustworthy - Rating between 1 to 10 - ${rating_trustworthy}, Leadership qualities - Rating between 1 to 10 - ${leadership_qualities}`,
+          // 'Do we compromise on our teaching agenda if student belonging to other religion attends the Kendra?'
+          84: `${compromise_on_our_teaching_agenda?.value}`,
+          // 'Do you personally meet all the parents every month?'
+          85: `${formans7}`,
+          // 'What is the qualification of the teacher?'
+          86: `${qualification_of_the_teacher?.value}`,
+          // 'Since when teacher is associated with this Kendra?'
+          87: `${since_when_teacher_is_associated_with_this_kendra?.value}`,
+          // 'Why have you joined this kendra?'
+          88: `${reason_to_join_this_kendra}`,
+          // 'What are your expectations from Sanstha for the betterment of the kendra?'
+          89: `${formasn11}`,
         };
         const surveyform = new FormData();
         surveyform.append('center_id', store?.currentSurveyData?.api_centre_id);
