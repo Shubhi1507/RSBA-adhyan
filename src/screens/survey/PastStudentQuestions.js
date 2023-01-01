@@ -22,11 +22,14 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
 import {Checkbox} from 'react-native-paper';
+import {BASE_URL} from '../../networking';
+import LoaderIndicator from '../../components/Loader';
 
 export default function PastStudentQuestions() {
   const store = useSelector(state => state?.surveyReducer);
   let totalSurveys = store.totalSurveys;
   const {t} = useContext(LocalizationContext);
+  const [dataLoading, setDataLoading] = useState(false);
 
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
@@ -59,7 +62,6 @@ export default function PastStudentQuestions() {
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
       if (entry?.pastStudent) {
-        console.log(entry?.pastStudent);
         setAnswers(entry.pastStudent);
       }
     });
@@ -75,7 +77,7 @@ export default function PastStudentQuestions() {
   const checkarrayforOtherValues = (arr = [], key) => {
     let j = 1;
     arr.map(el => {
-      if (el.value === 'Others' || el.value === 'Other') {
+      if (el.value === 'Other' || el.value === 'Other') {
         if (!el.hasOwnProperty('other') || !el.other) {
           j = 0;
         }
@@ -84,7 +86,8 @@ export default function PastStudentQuestions() {
     return j;
   };
 
-  const pageValidator = () => {
+  const pageValidator = async () => {
+    setDataLoading(true);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     let q = 14;
@@ -126,13 +129,21 @@ export default function PastStudentQuestions() {
         : 1;
     let ans6 =
       how_the_center_has_influnced_your_overall_personality.length > 0 ? 1 : 0;
-    let ans7 = reasons_for_change_in_your_personality.length > 0 ? 1 : 0;
-    // reasons_for_change_in_your_personality.length !== 0
-    //   ? checkarrayforOtherValues(
-    //       reasons_for_change_in_your_personality,
-    //       'other',
-    //     )
-    //   : 0;
+    let ans7 =
+      reasons_for_change_in_your_personality.length > 0
+        ? reasons_for_change_in_your_personality.filter(el => el?.key === 5)
+            .length === 0
+          ? 1
+          : reasons_for_change_in_your_personality.filter(
+              el => el?.key === 5,
+            )[0]?.other !== undefined &&
+            reasons_for_change_in_your_personality.filter(
+              el => el?.key === 5,
+            )[0]?.other
+          ? 1
+          : 0
+        : 1;
+
     let ans8 = !encourage_other_students_join_the_center ? 0 : 1;
     let ans9 =
       how_the_center_has_influnced_your_personality.length !== 0
@@ -228,63 +239,108 @@ export default function PastStudentQuestions() {
     };
     let tmp1 = FindAndUpdate(totalSurveys, payload);
 
-    formdatacentre.append('center_id', parsed?.data?.id);
-    formdatacentre.append('audience_id', 10);
-    let formans5 =
-      still_associated_with_the_center_reasons?.value === 'Yes'
-        ? `Yes- ${still_associated_with_the_center_reasons?.other}`
-        : 'No';
-        let formans16 =
-        involved_in_any_othe_social_activities?.value === 'Yes (Enter short description)'
-          ? `Yes  (Enter short description)- ${involved_in_any_othe_social_activities?.other}`
-          : 'No';
+    if (p === 0) {
+      try {
+        let formans5 =
+          still_associated_with_the_center?.value === 'Yes'
+            ? `Yes- ${still_associated_with_the_center_reasons.map(el => {
+                if (el.value === 'Other') {
+                  el.other;
+                } else return el.value;
+              })}`
+            : 'No';
 
+        let surveydata = {
+          'Are your friends- siblings coming to center these days?': `${
+            friends_coming_to_center_the_days?.value || ' '
+          }`,
+          'Is the center same as was in your time?': `${
+            is_the_center_same_as_before?.value || ' '
+          }`,
+          'For how many years were you coming to the center?': `${
+            how_many_years_were_you_coming_to_the_center?.value || ' '
+          }`,
 
+          'Reason for leaving the center?': `${
+            reason_for_leaving_the_center?.other ||
+            reason_for_leaving_the_center?.value ||
+            ' '
+          }`,
+          'Are you still associated with the center?': `${formans5}`,
+          'How has the centre influenced your overall personality? (More than one option can be selected )': `${how_the_center_has_influnced_your_overall_personality.map(
+            el => {
+              if (el.value === 'Other') {
+                return el.other;
+              } else return el.value;
+            },
+          )}`,
+          'What are the reasons for this change? (More than one option can be selected )': `${reasons_for_change_in_your_personality.map(
+            el => {
+              if (el.value === 'Other') {
+                return el.other;
+              } else return el.value;
+            },
+          )}`,
+          'Do you encourage other students living near you to join the center, do you help them to come to center?': `${
+            encourage_other_students_join_the_center?.value || ' '
+          }`,
+          'How the center has influnced your personality?': `${how_the_center_has_influnced_your_overall_personality.map(
+            el => {
+              if (el.value === 'Other') {
+                return el.other;
+              } else return el.value;
+            },
+          )}`,
+          'What difference you experience between you & other students(Who does not come to kendra) of your age, due to the center? (You can choose more than one answer )': `${experience_between_you_n_other_students_who_do_not_come_to_kendra.map(
+            el => {
+              if (el.value === 'Other') {
+                el.other;
+              } else return el.value;
+            },
+          )}`,
+          'What difference you notice in the family, due to the center?(You can choose more than one answer )': `${difference_noticed_in_the_family_due_to_the_center.map(
+            el => {
+              if (el.value === 'Other') {
+                return el.other;
+              } else return el.value;
+            },
+          )}`,
+          'How can you contribute in betterment of the center ?': `${
+            contribute_in_betterment_of_the_center?.other ||
+            contribute_in_betterment_of_the_center?.value ||
+            ' '
+          }`,
 
-    let payload4 = {
-      'Are your friends- siblings coming to center these days?': `${
-        friends_coming_to_center_the_days?.value || ' '
-      }`,
-      'Is the center same as was in your time?': `${
-        is_the_center_same_as_before?.value || ' '
-      }`,
-      'For how many years were you coming to the center?': `${
-        how_many_years_were_you_coming_to_the_center?.value || ' '
-      }`,
+          'How are you connected with Sangh Organizations?': `${
+            connected_with_sangh_organizations?.value || ' '
+          }`,
+          'Are you involved in any othe social activities?': `${
+            involved_in_any_othe_social_activities?.value || ' '
+          }`,
+        };
+        console.log(surveydata);
+        const surveyform = new FormData();
+        surveyform.append('center_id', store?.currentSurveyData?.api_centre_id);
+        surveyform.append('audience_id', 3);
+        surveyform.append('survey_data', JSON.stringify(surveydata));
 
-      'Reason for leaving the center?': `${
-        reason_for_leaving_the_center?.value || ' '
-      }`,
-      'Are you still associated with the center? ': `${formans5}`,
-      'How has the centre influenced your overall personality? (More than one option can be selected )': `${how_the_center_has_influnced_your_overall_personality.map(
-        el => {
-          return el.value;
-        },
-      )}`,
-      'What are the reasons for this change? (More than one option can be selected )': `${reasons_for_change_in_your_personality.map(
-        el => {
-          return el.value;
-        },
-      )}`,
-      'Do you encourage other students living near you to join the center, do you help them to come to center?': `${
-        encourage_other_students_join_the_center?.value || ' '
-      }`,
-      'How the center has influnced your personality?': `${how_the_center_has_influnced_your_overall_personality}`,
-      'What difference you experience between you & other students(Who does not come to kendra) of your age, due to the center? (You can choose more than one answer )': `${experience_between_you_n_other_students_who_do_not_come_to_kendra.map(
-        el => {
-          return el.value;
-        },
-      )}`,
-      'What difference you notice in the family, due to the center?(You can choose more than one answer )': `${difference_noticed_in_the_family_due_to_the_center.map(el => {
-        return el.value;
-      },)}`,
-      'How can you contribute in betterment of the center ?': `${contribute_in_betterment_of_the_center?.value || ' '}`,
-
-      'How are you connected with Sangh Organizations?': `${connected_with_sangh_organizations?.value || ' '}`,
-      'Are you involved in any othe social activities?': `${involved_in_any_othe_social_activities?.value || ' '}`,
-
-
-    };
+        const requestOptions = {
+          method: 'POST',
+          body: surveyform,
+          redirect: 'follow',
+        };
+        const response = await fetch(
+          BASE_URL + 'center/survey',
+          requestOptions,
+        );
+        console.log('response->', await response.json());
+        setDataLoading(false);
+      } catch (error) {
+        setDataLoading(false);
+        setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+        console.log('error', error);
+      }
+    }
 
     console.log('payload past student ', payload);
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
@@ -377,6 +433,7 @@ export default function PastStudentQuestions() {
 
   return (
     <View style={styles.container}>
+      <LoaderIndicator loading={dataLoading} />
       <View style={{flex: 0.2}}>
         <Header title={t('PAST_STUDENTS')} onPressBack={goBack} />
       </View>
@@ -598,7 +655,7 @@ export default function PastStudentQuestions() {
               style={{
                 backgroundColor:
                   !answers.reason_for_leaving_the_center ||
-                  (answers.reason_for_leaving_the_center?.value === 'Others' &&
+                  (answers.reason_for_leaving_the_center?.value === 'Other' &&
                     !answers.reason_for_leaving_the_center?.other)
                     ? COLORS.red
                     : COLORS.orange,
@@ -612,8 +669,7 @@ export default function PastStudentQuestions() {
                 style={{
                   color:
                     !answers.reason_for_leaving_the_center ||
-                    (answers.reason_for_leaving_the_center?.value ===
-                      'Others' &&
+                    (answers.reason_for_leaving_the_center?.value === 'Other' &&
                       !answers.reason_for_leaving_the_center?.other)
                       ? COLORS.white
                       : COLORS.black,
@@ -656,7 +712,7 @@ export default function PastStudentQuestions() {
                 },
                 {
                   key: 4,
-                  value: 'Others',
+                  value: 'Other',
                   label: 'PAST_STUDENTS_Q5_OPT3',
                 },
               ]}
@@ -696,10 +752,6 @@ export default function PastStudentQuestions() {
             <View
               style={{
                 backgroundColor:
-                  // answers.still_associated_with_the_center?.value === 'Yes' &&
-                  // answers.still_associated_with_the_center_reasons.length === 0
-                  //   ? COLORS.red
-                  //   : !answers.still_associated_with_the_center_reasons?.value
                   !answers.still_associated_with_the_center ||
                   (answers.still_associated_with_the_center?.value === 'Yes' &&
                     answers.still_associated_with_the_center_reasons.length ===
@@ -946,19 +998,19 @@ export default function PastStudentQuestions() {
             <View
               style={{
                 backgroundColor:
-                  answers.reasons_for_change_in_your_personality.length === 0
-                    ? //  checkarrayforOtherValues(
-                      //   answers.reasons_for_change_in_your_personality,
-                      //   'other',
-                      // // ) === 0
-                      // 1
-                      //  : 0
-                      // answers.reasons_for_change_in_your_personality.length === 0 ||
-                      // checkarrayforOtherValues(
-                      //   answers.reasons_for_change_in_your_personality,
-                      //   'other',
-                      // ) === 0
-                      COLORS.red
+                  answers.reasons_for_change_in_your_personality.length > 0
+                    ? answers.reasons_for_change_in_your_personality.filter(
+                        el => el?.key === 5,
+                      ).length === 0
+                      ? COLORS.orange
+                      : answers.reasons_for_change_in_your_personality.filter(
+                          el => el?.key === 5,
+                        )[0]?.other !== undefined &&
+                        answers.reasons_for_change_in_your_personality.filter(
+                          el => el?.key === 5,
+                        )[0]?.other
+                      ? COLORS.orange
+                      : COLORS.red
                     : COLORS.orange,
                 height: 20,
                 width: 20,
@@ -969,8 +1021,19 @@ export default function PastStudentQuestions() {
               <TextHandler
                 style={{
                   color:
-                    answers.reasons_for_change_in_your_personality.length === 0
-                      ? COLORS.white
+                    answers.reasons_for_change_in_your_personality.length > 0
+                      ? answers.reasons_for_change_in_your_personality.filter(
+                          el => el?.key === 5,
+                        ).length === 0
+                        ? COLORS.black
+                        : answers.reasons_for_change_in_your_personality.filter(
+                            el => el?.key === 5,
+                          )[0]?.other !== undefined &&
+                          answers.reasons_for_change_in_your_personality.filter(
+                            el => el?.key === 5,
+                          )[0]?.other
+                        ? COLORS.black
+                        : COLORS.white
                       : COLORS.black,
                   textAlign: 'center',
                 }}>
@@ -1011,7 +1074,7 @@ export default function PastStudentQuestions() {
             },
             {
               key: 5,
-              value: 'Others',
+              value: 'Other',
               label: 'PAST_STUDENTS_Q7_NEW_OPT5',
             },
           ].map((el, index) => {
@@ -1059,7 +1122,7 @@ export default function PastStudentQuestions() {
               onChangeText={text => {
                 let tmp = [...answers.reasons_for_change_in_your_personality];
                 tmp.forEach((el, index) => {
-                  if (el.key === 4) {
+                  if (el.key === 5) {
                     let newans = {...el, other: text};
                     tmp.splice(index, 1, newans);
                   }
@@ -1072,11 +1135,7 @@ export default function PastStudentQuestions() {
               value={
                 answers.reasons_for_change_in_your_personality.filter(
                   el => el.key === 5,
-                ).length > 0
-                  ? answers.reasons_for_change_in_your_personality.filter(
-                      el => el.key === 5,
-                    )[0]?.['other']
-                  : ''
+                )[0]?.['other']
               }
               empty={
                 !answers.reasons_for_change_in_your_personality.filter(
