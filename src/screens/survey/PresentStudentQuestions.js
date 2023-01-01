@@ -227,48 +227,48 @@ export default function PresentStudentQuestions() {
             : 'No';
 
         let surveydata = {
-          'No of current students enrolled': `${students_enrolled}`,
-          'Out of current strength how many students regularly attend the class?': `${
-            students_coming_regularly?.value || ' '
-          }`,
-          'To what extent student is motivated to come to kendra? (Single select)': `${
-            interest_of_the_students_towards_kendra?.value || ' '
-          }`,
-          'Since how long they are coming to the Prakalp?': `${
-            since_how_long_they_are_coming_to_the_prakalp?.value || ' '
-          }`,
-          'Means of transport to and from the Kendra?': `${
-            _how_they_come_to_prakalp?.value || ' '
-          }`,
-          'Do our students help other students of small age group in their studies?': `${
-            do_students_help_other_students?.value || ' '
-          }`,
-          'Do we (Students) get any benefit by teaching other students?': `${do_students_get_any_benefit_by_teaching}`,
-          'Annual results of how many students (in %) have been improved after joining the Kendra?': `${
-            students_improvemnet?.value || ' '
-          }`,
-          'Annual results have been decreased after joining the Kendra?': `${
-            decrease_in_results_after_joining_the_kendra?.value || ' '
-          }`,
-          'Reason of the decreasing result?': `${
+          // 'No of current students enrolled'
+          49: `${students_enrolled}`,
+          // 'Out of current strength how many students regularly attend the class?'
+          50: `${students_coming_regularly?.value || ' '}`,
+          // 'To what extent student is motivated to come to kendra? (Single select)'
+          51: `${interest_of_the_students_towards_kendra?.value || ' '}`,
+          // 'Since how long they are coming to the Prakalp?'
+          52: `${since_how_long_they_are_coming_to_the_prakalp?.value || ' '}`,
+          // 'Means of transport to and from the Kendra?'
+          53: `${_how_they_come_to_prakalp?.value || ' '}`,
+          // 'Do our students help other students of small age group in their studies?'
+          54: `${do_students_help_other_students?.value || ' '}`,
+          // 'Do we (Students) get any benefit by teaching other students?'
+          55: `${do_students_get_any_benefit_by_teaching}`,
+          // 'Annual results of how many students (in %) have been improved after joining the Kendra?'
+          56: `${students_improvemnet?.value || ' '}`,
+          // 'Annual results have been decreased after joining the Kendra?'
+          57: `${decrease_in_results_after_joining_the_kendra?.value || ' '}`,
+          // 'Reason of the decreasing result?'
+          58: `${
             reason_of_the_decreasing_result?.other ||
             reason_of_the_decreasing_result?.value ||
-            ' '
+            ''
           }`,
-          'How students get to know about the Kendra?': `${
+          // 'How students get to know about the Kendra?'
+          59: `${
             how_students_get_to_know_about_the_kendra?.other ||
             how_students_get_to_know_about_the_kendra?.value ||
             ''
           }`,
-          'Are there any other activities organised in the center?': `${forman12}`, //could be incorrect - no its correct, lemds//
-          'Do you go to other coaching also?': `${formans13}`,
-          'Does the Kendra organize regular parents teacher meeting or some informal get together with the Parents?': `${
+          // 'Are there any other activities organised in the center?'
+          60: `${forman12}`, //could be incorrect - no its correct, lemds//
+          // 'Do you go to other coaching also?'
+          61: `${formans13}`,
+          // 'Does the Kendra organize regular parents teacher meeting or some informal get together with the Parents?'
+          62: `${
             kendra_organize_regular_parents_teacher_meeting?.value || ' '
           }`,
-          'Suggestions to improve the Kendra activities ? ': `${suggestions_to_improve_the_kendra_activities}`,
-          'Do you regularaly go to RSS shakha?': `${
-            regularaly_go_to_rss_shakha?.value || ' '
-          }`,
+          // 'Suggestions to improve the Kendra activities ?'
+          63: `${suggestions_to_improve_the_kendra_activities}`,
+          // 'Do you regularaly go to RSS shakha?'
+          64: `${regularaly_go_to_rss_shakha?.value || ' '}`,
         };
         console.log(surveydata);
         const surveyform = new FormData();
