@@ -239,42 +239,42 @@ export default function PastStudentParentsScreen() {
       // completed survey. calling api
       if (p === 0) {
         let surveydata = {
-          ' No of parents present': `${no_of_parents_present}`,
-
-          'Educational background ( Enter the percentage data )': `Illiterate-${rating_illiterate}, Upto 5th(%) - ${rating_upto_5th}, Upto 10th(%) - ${rating_upto_10th}, Graduation and above(%) - ${rating_graduation}`,
-
-          'Economic status ( Enter the percentage data )': `Less than 1 Lac (%)-${econmonic_status_under_1_lakh}, 1 to 3 Lacs (%) - ${econmonic_status_between_1_and_3_lakh}, 3 to 5 Lacs (%) - ${econmonic_status_between_3_and_5_lakh}, 5 to 10 Lacs (%) - ${econmonic_status_between_5_and_10_lakh}`,
-
-          'Reason for sending children to the center?': `${
+          // 'No of parents present'
+          38: `${no_of_parents_present}`,
+          // 'Educational background ( Enter the percentage data )'
+          39: `Illiterate-${rating_illiterate}, Upto 5th(%) - ${rating_upto_5th}, Upto 10th(%) - ${rating_upto_10th}, Graduation and above(%) - ${rating_graduation}`,
+          // 'Economic status ( Enter the percentage data )'
+          40: `Less than 1 Lac (%)-${econmonic_status_under_1_lakh}, 1 to 3 Lacs (%) - ${econmonic_status_between_1_and_3_lakh}, 3 to 5 Lacs (%) - ${econmonic_status_between_3_and_5_lakh}, 5 to 10 Lacs (%) - ${econmonic_status_between_5_and_10_lakh}`,
+          // 'Reason for sending children to the center?'
+          41: `${
             reason_for_sending_children_to_the_centre?.other ||
             reason_for_sending_children_to_the_centre?.value
           }`,
-          'How these children go to the center?': `${
+          // 'How these children go to the center?'
+          42: `${
             how_these_children_go_to_the_centre?.other ||
             how_these_children_go_to_the_centre?.value
           }`,
-          'Number of days children went to the centre ? ': `${
-            days_children_are_going_to_the_centre?.value || ' '
-          }`,
-
-          'What are your children doing currently? - (More than one option can be selected )': `${children_occupation_nowadays?.map(
-            el => {
-              if (el?.value === 'Other') {
-                return el?.other;
-              }
-              return el?.value;
-            },
-          )}`,
-          'To what extent the center is helpful in the overall development of your children?  Rate your answer out of 10 where 1 = Poor & 10 = Best': `Good habits - ${rating_good_habits}, Patriotism - ${rating_patriotism}, Good Sanskar - ${rating_good_sanskaar}, Increased interest in study - ${rating_study_interest}, Development of qualities in students - ${rating_development_of_qualities_in_students}, Attitude for better life-${rating_attitude_for_better_life}`,
-
-          'Now how are you involved in the running of the centre ': `${
+          // 'Number of days children went to the centre?'
+          43: `${days_children_are_going_to_the_centre?.value || ' '}`,
+          // 'What are your children doing currently? - (More than one option can be selected )'
+          44: `${children_occupation_nowadays?.map(el => {
+            if (el?.value === 'Other') {
+              return el?.other;
+            }
+            return el?.value;
+          })}`,
+          // 'To what extent the center is helpful in the overall development of your children?  Rate your answer out of 10 where 1 = Poor & 10 = Best'
+          45: `Good habits - ${rating_good_habits}, Patriotism - ${rating_patriotism}, Good Sanskar - ${rating_good_sanskaar}, Increased interest in study - ${rating_study_interest}, Development of qualities in students - ${rating_development_of_qualities_in_students}, Attitude for better life-${rating_attitude_for_better_life}`,
+          // 'Now how are you involved in the running of the centre '
+          46: `${
             involvement_in_the_programs_of_the_centre?.other ||
             involvement_in_the_programs_of_the_centre?.value
           }`,
-
-          'How can you contribute in running Centre more effectively': `${contribution_in_running_centre_more_effectively}`,
-
-          'Expectations from the Centre': `${expectations_from_the_centre}`,
+          // 'How can you contribute in running Centre more effectively'
+          47: `${contribution_in_running_centre_more_effectively}`,
+          // 'Expectations from the Centre'
+          48: `${expectations_from_the_centre}`,
         };
         console.log('surveydata', surveydata);
 
