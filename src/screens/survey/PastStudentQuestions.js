@@ -314,9 +314,8 @@ export default function PastStudentQuestions() {
           }`,
           // 'How are you connected with Sangh Organizations?'
           77: `${connected_with_sangh_organizations?.value || ' '}`,
-          'Are you involved in any othe social activities?': `${
-            involved_in_any_othe_social_activities?.value || ' '
-          }`,
+          // 'Are you involved in any othe social activities?'
+          78: `${involved_in_any_othe_social_activities?.value || ' '}`,
         };
         console.log(surveydata);
         const surveyform = new FormData();
