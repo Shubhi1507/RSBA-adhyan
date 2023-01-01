@@ -22,10 +22,13 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
 import {useContext} from 'react';
+import LoaderIndicator from '../../components/Loader';
+import { BASE_URL } from '../../networking';
 
 export default function PresentStudentQuestions() {
   const store = useSelector(state => state?.surveyReducer);
   const {t} = useContext(LocalizationContext);
+  const [dataLoading, setDataLoading] = useState(false);
 
   const dispatch = useDispatch();
   let totalSurveys = store.totalSurveys;
@@ -74,7 +77,8 @@ export default function PresentStudentQuestions() {
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
   };
 
-  const pageValidator = () => {
+  const pageValidator = async () => {
+    setDataLoading(true)
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     let q = 16;
@@ -207,49 +211,97 @@ export default function PresentStudentQuestions() {
       updatedAt: new Date().toString(),
     };
 
-    formdatapresentstudent.append('center_id', parsed?.data?.id);
-    formdatapresentstudent.append('audience_id', 10);
-    let forman12 = other_activities_organised_in_the_center?.value ==='Yes'?
-    `Yes- ${other_activities_organised_in_the_center?.other}`
-    : `No-${other_activities_organised_in_the_center?.other}`
-
-    let formans13 =  go_to_other_coaching?.value === 'Yes'
-    ? `Yes- ${go_to_other_coaching?.other}`
-    : 'No';
-
-    let payload3 = {
-      'No of current students enrolled': `${students_enrolled}`,
-      'Out of current strength how many students regularly attend the class?': `${ students_coming_regularly?.value || ' '}`,
-'To what extent student is motivated to come to kendra? (Single select)' : `${interest_of_the_students_towards_kendra?.value || ' '}` ,
-'Since how long they are coming to the Prakalp?' : `${since_how_long_they_are_coming_to_the_prakalp?.value || ' '}` ,
-'Means of transport to and from the Kendra?' : `${_how_they_come_to_prakalp?.value || ' '}` ,
-'Do our students help other students of small age group in their studies?' : `${do_students_help_other_students?.value || ' '}` ,
-'Do we (Students) get any benefit by teaching other students?' : `${do_students_get_any_benefit_by_teaching}` ,
-'Annual results of how many students (in %) have been improved after joining the Kendra?' : `${students_improvemnet?.value || ' '}` ,
-'Annual results have been decreased after joining the Kendra?' : `${decrease_in_results_after_joining_the_kendra?.value || ' '}` ,
-'Reason of the decreasing result?' : `${reason_of_the_decreasing_result?.value || ' '}` ,
-'How students get to know about the Kendra?' : `${how_students_get_to_know_about_the_kendra?.value || ' '}` ,
-'Are there any other activities organised in the center?' : `${forman12}` ,    //could be incorrect//
-'Do you go to other coaching also?' : `${formans13}` ,
-'Does the Kendra organize regular parents teacher meeting or some informal get together with the Parents?' : `${kendra_organize_regular_parents_teacher_meeting?.value || ' '}` ,
-'Suggestions to improve the Kendra activities ? ' : `${suggestions_to_improve_the_kendra_activities}` ,
-'Do you regularaly go to RSS shakha?' : `${regularaly_go_to_rss_shakha?.value || ' '}`
-
-
-
-
-    };
-
     let tmp1 = FindAndUpdate(totalSurveys, payload);
+    try {
+      if (p === 0) {
+        let forman12 =
+          other_activities_organised_in_the_center?.value === 'Yes'
+            ? `Yes- ${other_activities_organised_in_the_center?.other}`
+            : `No-${other_activities_organised_in_the_center?.other}`;
+
+        let formans13 =
+          go_to_other_coaching?.value === 'Yes'
+            ? `Yes- ${go_to_other_coaching?.other}%`
+            : 'No';
+
+        let surveydata = {
+          'No of current students enrolled': `${students_enrolled}`,
+          'Out of current strength how many students regularly attend the class?': `${
+            students_coming_regularly?.value || ' '
+          }`,
+          'To what extent student is motivated to come to kendra? (Single select)': `${
+            interest_of_the_students_towards_kendra?.value || ' '
+          }`,
+          'Since how long they are coming to the Prakalp?': `${
+            since_how_long_they_are_coming_to_the_prakalp?.value || ' '
+          }`,
+          'Means of transport to and from the Kendra?': `${
+            _how_they_come_to_prakalp?.value || ' '
+          }`,
+          'Do our students help other students of small age group in their studies?': `${
+            do_students_help_other_students?.value || ' '
+          }`,
+          'Do we (Students) get any benefit by teaching other students?': `${do_students_get_any_benefit_by_teaching}`,
+          'Annual results of how many students (in %) have been improved after joining the Kendra?': `${
+            students_improvemnet?.value || ' '
+          }`,
+          'Annual results have been decreased after joining the Kendra?': `${
+            decrease_in_results_after_joining_the_kendra?.value || ' '
+          }`,
+          'Reason of the decreasing result?': `${
+            reason_of_the_decreasing_result?.other ||
+            reason_of_the_decreasing_result?.value ||
+            ' '
+          }`,
+          'How students get to know about the Kendra?': `${
+            how_students_get_to_know_about_the_kendra?.other ||
+            how_students_get_to_know_about_the_kendra?.value ||
+            ''
+          }`,
+          'Are there any other activities organised in the center?': `${forman12}`, //could be incorrect - no its correct, lemds//
+          'Do you go to other coaching also?': `${formans13}`,
+          'Does the Kendra organize regular parents teacher meeting or some informal get together with the Parents?': `${
+            kendra_organize_regular_parents_teacher_meeting?.value || ' '
+          }`,
+          'Suggestions to improve the Kendra activities ? ': `${suggestions_to_improve_the_kendra_activities}`,
+          'Do you regularaly go to RSS shakha?': `${
+            regularaly_go_to_rss_shakha?.value || ' '
+          }`,
+        };
+        console.log(surveydata);
+        const surveyform = new FormData();
+        surveyform.append('center_id', store?.currentSurveyData?.api_centre_id);
+        surveyform.append('audience_id', 2);
+        surveyform.append('survey_data', JSON.stringify(surveydata));
+
+        const requestOptions = {
+          method: 'POST',
+          body: surveyform,
+          redirect: 'follow',
+        };
+        const response = await fetch(
+          BASE_URL + 'center/survey',
+          requestOptions,
+        );
+        console.log('response->', await response.json());
+      }
+      setDataLoading(false);
+    } catch (error) {
+      setDataLoading(false);
+      setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+      console.log('error', error);
+    }
 
     console.log('payload ', payload);
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
     dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
     showModal();
+    setDataLoading(false);
   };
 
   return (
     <View style={styles.container}>
+      <LoaderIndicator loading={dataLoading} />
       <View style={{flex: 0.2}}>
         <Header title={t('PRESENT_STUDENT')} onPressBack={goBack} />
       </View>
