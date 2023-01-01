@@ -23,7 +23,7 @@ import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
 import {useContext} from 'react';
 import LoaderIndicator from '../../components/Loader';
-import { BASE_URL } from '../../networking';
+import {BASE_URL} from '../../networking';
 
 export default function PresentStudentQuestions() {
   const store = useSelector(state => state?.surveyReducer);
@@ -78,7 +78,7 @@ export default function PresentStudentQuestions() {
   };
 
   const pageValidator = async () => {
-    setDataLoading(true)
+    setDataLoading(true);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     let q = 16;
@@ -177,7 +177,7 @@ export default function PresentStudentQuestions() {
     new_obj = {
       ...tmp[2],
       attempted: true,
-      completed: p === 0 ? false : true,
+      completed: p === 0 ? true : false,
       disabled: false,
       totalQue: q,
       answered: q - p,
@@ -212,6 +212,8 @@ export default function PresentStudentQuestions() {
     };
 
     let tmp1 = FindAndUpdate(totalSurveys, payload);
+    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
     try {
       if (p === 0) {
         let forman12 =
@@ -286,6 +288,7 @@ export default function PresentStudentQuestions() {
         console.log('response->', await response.json());
       }
       setDataLoading(false);
+      showModal();
     } catch (error) {
       setDataLoading(false);
       setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
@@ -293,10 +296,6 @@ export default function PresentStudentQuestions() {
     }
 
     console.log('payload ', payload);
-    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-    showModal();
-    setDataLoading(false);
   };
 
   return (

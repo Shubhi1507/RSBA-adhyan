@@ -204,12 +204,13 @@ export default function PastStudentQuestions() {
     new_obj = {
       ...tmp[3],
       attempted: true,
-      completed: p === 0 ? false : true,
+      completed: p === 0 ? true : false,
       disabled: false,
       totalQue: q,
       answered: q - p,
     };
 
+    console.log(new_obj);
     tmp.splice(3, 1, new_obj);
 
     let surveyAnswers = [...answersArrTmp];
@@ -238,6 +239,8 @@ export default function PastStudentQuestions() {
       updatedAt: new Date().toString(),
     };
     let tmp1 = FindAndUpdate(totalSurveys, payload);
+    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
 
     if (p === 0) {
       try {
@@ -335,6 +338,7 @@ export default function PastStudentQuestions() {
         );
         console.log('response->', await response.json());
         setDataLoading(false);
+        showModal();
       } catch (error) {
         setDataLoading(false);
         setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
@@ -343,9 +347,6 @@ export default function PastStudentQuestions() {
     }
 
     console.log('payload past student ', payload);
-    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-    showModal();
   };
 
   const handleSelection = (answer, type) => {
