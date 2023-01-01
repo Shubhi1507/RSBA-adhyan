@@ -24,6 +24,7 @@ import LocalizationContext from '../../context/LanguageContext';
 import {useContext} from 'react';
 import {Checkbox} from 'react-native-paper';
 import {BASE_URL} from '../../networking';
+import LoaderIndicator from '../../components/Loader';
 
 export default function PrabuddhaJanQuestions() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ export default function PrabuddhaJanQuestions() {
     influence_of_well_wishers_in_society: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
+  const [dataLoading, setDataLoading] = useState(false);
   const [visible, setVisible] = React.useState(false);
   let answersArrTmp =
     store?.currentSurveyData?.surveyAnswers &&
@@ -64,58 +66,41 @@ export default function PrabuddhaJanQuestions() {
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
   };
 
-  const pageValidator = () => {
+  const pageValidator = async () => {
+    setDataLoading(true);
     console.log('store', store);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
-    let new_obj;
     const {
       donors_and_well_wishers_help,
       donors_and_well_wishers_are_connected_to_us,
       well_wishers_and_donors_helped_us_during_corona_crisis,
       influence_of_well_wishers_in_society,
     } = answers;
-    let q = 4;
-    let tmpans = [];
-    let p = 0;
-    Object.values(answers).forEach(el => {
-      if (el && Array.isArray(el) && el.length > 0) {
-        return tmpans.push(el);
-      } else {
-        if (typeof el === 'string' && el.length > 0) {
-          return tmpans.push(el);
-        }
-        if (typeof el === 'object' && Object.values(el).length > 0) {
-          return tmpans.push(el);
-        }
-      }
-    });
-    p = tmpans.length;
 
-    console.log(p, '/', q);
-    if (
-      !donors_and_well_wishers_help ||
-      !donors_and_well_wishers_are_connected_to_us ||
-      !well_wishers_and_donors_helped_us_during_corona_crisis ||
-      !influence_of_well_wishers_in_society
-    ) {
-      new_obj = {
-        ...tmp[7],
-        attempted: true,
-        completed: false,
-        disabled: false,
-        totalQue: q,
-        answered: p,
-      };
-    } else {
-      new_obj = {
-        ...tmp[7],
-        attempted: true,
-        completed: true,
-        disabled: true,
-        totalQue: q,
-        answered: p,
-      };
-    }
+    let q = 4;
+    let unanswered = 4;
+    let new_obj;
+    let ans1 =
+      donors_and_well_wishers_help.length === 0 ||
+      (donors_and_well_wishers_help.filter(e => e?.value === 'Other').length >
+        0 &&
+        !donors_and_well_wishers_help.filter(e => e?.value === 'Other')[0]
+          ?.other)
+        ? 0
+        : 1;
+    let ans2 = !donors_and_well_wishers_are_connected_to_us ? 0 : 1;
+    let ans3 = !well_wishers_and_donors_helped_us_during_corona_crisis ? 0 : 1;
+    let ans4 = !influence_of_well_wishers_in_society ? 0 : 1;
+    let p = unanswered - (ans1 + ans2 + ans3 + ans4);
+
+    new_obj = {
+      ...tmp[7],
+      attempted: true,
+      completed: p === 0 ? true : false,
+      disabled: false,
+      totalQue: q,
+      answered: q - p,
+    };
     tmp.splice(7, 1, new_obj);
 
     let surveyAnswers = [...answersArrTmp];
@@ -146,48 +131,50 @@ export default function PrabuddhaJanQuestions() {
     let tmp1 = FindAndUpdate(totalSurveys, payload);
 
     console.log('payload prabbudhJan', payload);
+    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
 
-    let formdata = new FormData();
-    formdata.append('center_id', '5'); // would come from create survey centre api
-    formdata.append('audience_id', '6'); // for basti -
-    formdata.append(
-      'survey_data',
-      `{'How the donors and well wishers help (Multiple choice)?': '${donors_and_well_wishers_help.map(
-        el => {
-          if (el.value === 'Others') {
-            return answers.donors_and_well_wishers_help.filter(
-              el => el.value === 'Others',
-            )[0]?.['other'];
-          }
-          return el.value;
-        },
-      )}', 
-      'How the donors and well wishers are connected to us' : '${
-        donors_and_well_wishers_are_connected_to_us?.value
-      }',
-      'Have these well wishers and donors helped us during Corona crisis ?' : '${
-        well_wishers_and_donors_helped_us_during_corona_crisis?.value
-      }',
-    'Influence of well wishers  in different sections of society' : '${
-      influence_of_well_wishers_in_society?.value
-    }'
-    }`,
-    );
-    console.log(formdata);
     try {
-      const url = BASE_URL + 'center/survey';
-      // const response = await fetch(url, {
-      //   method: 'POST',
-      //   body: formdata,
-      // });
-      // if (response.status === 200) {
-      // }
+      if (p === 0) {
+        let surveydata = {
+          'How the donors and well wishers help (Multiple choice)?': `${donors_and_well_wishers_help.map(
+            el => {
+              if (el.value === 'Other') {
+                return answers.donors_and_well_wishers_help.filter(
+                  el => el.value === 'Other',
+                )[0]?.['other'];
+              }
+              return el.value;
+            },
+          )}`,
+          'How the donors and well wishers are connected to us': `${donors_and_well_wishers_are_connected_to_us?.value}`,
+          'Have these well wishers and donors helped us during Corona crisis ?': `${well_wishers_and_donors_helped_us_during_corona_crisis?.value}`,
+          'Influence of well wishers  in different sections of society': `${influence_of_well_wishers_in_society?.value}`,
+        };
+        console.log(surveydata);
+        const formdata = new FormData();
+        formdata.append('survey_data', JSON.stringify(surveydata));
+        formdata.append('center_id', store?.currentSurveyData?.api_centre_id);
+        formdata.append('audience_id', 6);
+        const requestOptions = {
+          method: 'POST',
+          body: formdata,
+          redirect: 'follow',
+        };
+        const response = await fetch(
+          BASE_URL + 'center/survey',
+          requestOptions,
+        );
+        console.log('response->', await response.json());
+      }
+
+      setDataLoading(false);
+      showModal();
     } catch (error) {
-      console.log(error);
+      setDataLoading(false);
+      setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+      console.log('error', error);
     }
-    // dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
-    // dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-    // showModal();
   };
 
   const handleSelection = answer => {
@@ -213,6 +200,7 @@ export default function PrabuddhaJanQuestions() {
 
   return (
     <View style={styles.container}>
+      <LoaderIndicator loading={dataLoading} />
       <View style={{flex: 0.2}}>
         <Header title={t('PRABUDDHA_JAN')} onPressBack={goBack} />
       </View>
@@ -235,7 +223,13 @@ export default function PrabuddhaJanQuestions() {
             <View
               style={{
                 backgroundColor:
-                  answers.donors_and_well_wishers_help.length === 0
+                  answers.donors_and_well_wishers_help.length === 0 ||
+                  (answers.donors_and_well_wishers_help.filter(
+                    e => e?.value === 'Other',
+                  ).length > 0 &&
+                    !answers.donors_and_well_wishers_help.filter(
+                      e => e?.value === 'Other',
+                    )[0]?.other)
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -247,7 +241,13 @@ export default function PrabuddhaJanQuestions() {
               <TextHandler
                 style={{
                   color:
-                    answers.donors_and_well_wishers_help.length === 0
+                    answers.donors_and_well_wishers_help.length === 0 ||
+                    (answers.donors_and_well_wishers_help.filter(
+                      e => e?.value === 'Other',
+                    ).length > 0 &&
+                      !answers.donors_and_well_wishers_help.filter(
+                        e => e?.value === 'Other',
+                      )[0]?.other)
                       ? COLORS.white
                       : COLORS.black,
                   textAlign: 'center',
@@ -280,7 +280,7 @@ export default function PrabuddhaJanQuestions() {
             },
             {
               key: 3,
-              value: 'Others',
+              value: 'Other',
               label: 'INFLUENTIAL_PEOPELE_Q1_OPT3',
             },
           ].map((el, index) => {
@@ -319,7 +319,7 @@ export default function PrabuddhaJanQuestions() {
             );
           })}
           {answers.donors_and_well_wishers_help.filter(
-            item => item.value === 'Others',
+            item => item.value === 'Other',
           ).length > 0 && (
             <Input
               placeholder={`${t('ENTER_ANSWER')}`}
@@ -327,7 +327,7 @@ export default function PrabuddhaJanQuestions() {
               onChangeText={text => {
                 let tmp = [...answers.donors_and_well_wishers_help];
                 tmp.forEach((el, index) => {
-                  if (el.value === 'Others') {
+                  if (el.value === 'Other') {
                     let newans = {...el, other: text};
                     tmp.splice(index, 1, newans);
                   }
@@ -339,16 +339,16 @@ export default function PrabuddhaJanQuestions() {
               }}
               value={
                 answers.donors_and_well_wishers_help.filter(
-                  el => el.value === 'Others',
+                  el => el.value === 'Other',
                 ).length > 0
                   ? answers.donors_and_well_wishers_help.filter(
-                      el => el.value === 'Others',
+                      el => el.value === 'Other',
                     )[0]?.['other']
                   : ''
               }
               empty={
                 !answers.donors_and_well_wishers_help.filter(
-                  el => el.value === 'Others',
+                  el => el.value === 'Other',
                 )[0]?.['other']
               }
               message={''}
