@@ -249,7 +249,9 @@ export default function CentreQuestionsScreen() {
             volunteer_id: userdata?.data?.user?.id,
             state_id: center_details?.state_id,
             district_id: center_details?.district_id,
-            address: center_details?.address,
+            address: center_details?.is_address_changed
+              ? center_details?.current_address
+              : center_details?.address,
             type: center_details?.type_of_center?.value,
             head_name: center_details?.center_head,
             contact_details: center_details?.center_contact,
@@ -333,56 +335,53 @@ export default function CentreQuestionsScreen() {
             return el?.value;
           });
 
-          let payload12 = {
-            'Establishment Year of the Kendra': `${establishment}`,
-            'Objective to start the kendra ? ( You can choose more than one answer )': `${centre_commence_motive.map(
-              el => {
-                return el.value;
-              },
-            )}`,
-            'How many students have passed out from this Kendra? (Since inception)': `${
-              students_passed_out_from_centre?.value || ''
-            }`,
-            'What will happen if this kendra did not function?': `${
-              centre_not_operational_aftermath?.value || ''
-            }`,
-            'Whether the center is operating continuously since its inception or is it closed for some time in between? (Excluding Covid period)': `${formans5}`,
-            'Basti Type': `${type_of_basti?.value}`,
-            'Infrastructure of Kendra (Place)': `${
-              infrastructure?.value || ''
-            }`,
-            'Does kendra use Pictures of Bharatmata & Indian Legends (Mahapurush)?': `${
-              pictures_of_bharatmata_and_indian_legends?.value || ''
-            }`,
-            'Is there a board of Sewa sanstha running the center?': `${
-              sewa_sanstha_running_the_center?.value || ''
-            }`,
-            'Visitor’s details are properly captured and preserved?': `${
-              visitors_details_captured?.value || ''
-            }`,
-            'Availability of  infrastructure in kendra': `${
-              availability_of_infrastructure?.value || ''
-            }`,
-            'How is the participation of the basti people in various cultural activities- festivals organised by Kendra?': `${
-              participation_of_the_basti_people?.value || ''
-            }`,
-            'Is the participation of Basti residents is satisfactory (More than 30%) in these events': `${
-              is_participation_of_basti_satisfactory?.value || ''
-            }`,
-            'Are Divyang & Single parent students enrolled in our centre?': `${formans14}`,
-            'Has centres Kendra Samiti been formed and is active?': `${
-              basti_toli_active?.value || ''
-            }`,
-            'Is there any oppose of the Kendra "s Activities by Basti resident': `${formans16}`,
-            'Do all members of Basti Toli reside in that basti only?': `${formans17}`,
-            'Has Kendra samiti performed any role during Corona pandemic?': `${formans18}`,
-            'Kendra effect on anti -social problems such as (drug, child marriage) on the Basti': `${
-              kendra_effect_on_anti_social_problems?.value || ''
-            }`,
-            'Major prevelant problems in the Basti (You can choose more than one answer)': `${formans20}`,
-            'Total beneficiaries of the kendra?': `${total_population_of_sewa_bharti_beneficiaries}`,
+          let surveydata = {
+            // 'Establishment Year of the Kendra'
+            1: `${establishment}`,
+            //'Objective to start the kendra ? ( You can choose more than one answer )'
+            2: `${centre_commence_motive.map(el => {
+              return el.value;
+            })}`,
+            // 'How many students have passed out from this Kendra? (Since inception)'
+            3: `${students_passed_out_from_centre?.value || ''}`,
+            //  'What will happen if this kendra did not function?'
+            4: `${centre_not_operational_aftermath?.value || ''}`,
+            //'Whether the center is operating continuously since its inception or is it closed for some time in between? (Excluding Covid period)'
+            5: `${formans5}`,
+            // 'Basti Type'
+            6: `${type_of_basti?.value}`,
+            // 'Infrastructure of Kendra (Place)'
+            7: `${infrastructure?.value || ''}`,
+            // 'Does kendra use Pictures of Bharatmata & Indian Legends (Mahapurush)?'
+            8: `${pictures_of_bharatmata_and_indian_legends?.value || ''}`,
+            //'Is there a board of Sewa sanstha running the center?'
+            9: `${sewa_sanstha_running_the_center?.value || ''}`,
+            //'Visitor’s details are properly captured and preserved?'
+            10: `${visitors_details_captured?.value || ''}`,
+            //'Availability of  infrastructure in kendra'
+            11: `${availability_of_infrastructure?.value || ''}`,
+            //'How is the participation of the basti people in various cultural activities- festivals organised by Kendra?'
+            12: `${participation_of_the_basti_people?.value || ''}`,
+            //'Is the participation of Basti residents is satisfactory (More than 30%) in these events'
+            13: `${is_participation_of_basti_satisfactory?.value || ''}`,
+            //'Are Divyang & Single parent students enrolled in our centre?'
+            14: `${formans14}`,
+            //'Has centres Kendra Samiti been formed and is active?'
+            15: `${basti_toli_active?.value || ''}`,
+            //'Is there any oppose of the Kendra "s Activities by Basti resident'
+            16: `${formans16}`,
+            //'Do all members of Basti Toli reside in that basti only?'
+            17: `${formans17}`,
+            //'Has Kendra samiti performed any role during Corona pandemic?'
+            18: `${formans18}`,
+            //'Kendra effect on anti -social problems such as (drug, child marriage) on the Basti'
+            19: `${kendra_effect_on_anti_social_problems?.value || ''}`,
+            //'Major prevelant problems in the Basti (You can choose more than one answer)'
+            20: `${formans20}`,
+            //'Total beneficiaries of the kendra?'
+            21: `${total_population_of_sewa_bharti_beneficiaries}`,
           };
-          formdatacentre.append('survey_data', JSON.stringify(payload12));
+          formdatacentre.append('survey_data', JSON.stringify(surveydata));
           var requestOptions2 = {
             method: 'POST',
             body: formdatacentre,

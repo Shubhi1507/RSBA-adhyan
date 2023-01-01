@@ -149,9 +149,11 @@ export const findMinimumTimeLeft = totalSurveys => {
     }
     if (tmp) {
       const total = Date.parse(tmp.release_date) - Date.parse(new Date());
-      const minutes = Math.floor((total / 1000 / 60) % 60);
-      const hours = Math.floor(total / (1000 * 60 * 60));
-      time = hours + ':' + minutes + '';
+      if (total > 0) {
+        const minutes = Math.floor((total / 1000 / 60) % 60);
+        const hours = Math.floor(total / (1000 * 60 * 60));
+        time = hours + ':' + minutes + '';
+      }
     }
   }
   console.log('time', time);

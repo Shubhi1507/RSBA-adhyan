@@ -24,10 +24,12 @@ import {useContext} from 'react';
 import LocalizationContext from '../../context/LanguageContext';
 import {Checkbox} from 'react-native-paper';
 import {BASE_URL} from '../../networking';
+import LoaderIndicator from '../../components/Loader';
 
 export default function BastiQuestions() {
   const store = useSelector(state => state?.surveyReducer);
   const {t} = useContext(LocalizationContext);
+  const [dataLoading, setDataLoading] = useState(false);
   let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
@@ -68,7 +70,7 @@ export default function BastiQuestions() {
   const checkarrayforOtherValues = (arr = [], key) => {
     let j = 1;
     arr.map(el => {
-      if (el.value === 'Others') {
+      if (el.value === 'Other') {
         if (!el.hasOwnProperty('other') || !el.other) {
           j = 0;
         }
@@ -78,6 +80,7 @@ export default function BastiQuestions() {
   };
 
   const pageValidator = async () => {
+    setDataLoading(true);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     const {
@@ -116,8 +119,10 @@ export default function BastiQuestions() {
       : 1;
     let ans6 =
       !total_population_of_the_basti?.hindu ||
-      !total_population_of_the_basti?.other;
-    console.log(ans1, ans2, ans3, ans4, ans5);
+      !total_population_of_the_basti?.other
+        ? 0
+        : 1;
+    console.log(ans1, ans2, ans3, ans4, ans5, ans6);
 
     let p = unanswered - (ans1 + ans2 + ans3 + ans4 + ans5 + ans6);
 
@@ -160,48 +165,61 @@ export default function BastiQuestions() {
       updatedAt: new Date().toString(),
     };
     let tmp1 = FindAndUpdate(totalSurveys, payload);
-
-    // console.log('payload basti', store?.currentSurveyData?.center_details);
-
-    // console.log(answers);
-    let formdata = new FormData();
-    formdata.append('center_id', '5'); // would come from create survey centre api
-    formdata.append('audience_id', '7'); // for basti -
-    formdata.append(
-      'survey_data',
-      `{'Are any other organizations active in the basti?': '${
-        are_any_other_organizations_active_in_the_basti?.value === 'Yes'
-          ? are_any_other_organizations_active_in_the_basti?.other
-          : 'No'
-      }',
-      'What kind of activities are conducted by these organisations? (can also select more than one)' : '${activities_conducted_by_these_organisations.map(
-        el => {
-          return el.value;
-        },
-      )}',
-      'Are they involved in any anti - social activities?' : '${involved_in_anti_social_activities}',
-      What is the status of these anti -social institutions after our center: '${
-        status_of_anti_social_institutions_after_our_center_establishment?.value
-      },
-      Do our beneficiaries also take benefits from other organisations: '${
-        our_beneficiaries_also_take_benefits_from_other_organisations?.value
-      }'}`,
-    );
-    // console.log(formdata);
-    try {
-      const url = BASE_URL + 'center/survey';
-      // const response = await fetch(url, {
-      //   method: 'POST',
-      //   body: formdata,
-      // });
-      // if (response.status === 200) {
-      // }
-    } catch (error) {
-      console.log(error);
-    }
-    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
+    dispatch({
+      type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+      payload: payload,
+    });
     dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-    showModal();
+
+    try {
+      if (p === 0) {
+        let surveydata = {
+          // 'Are any other organizations active in the basti?'
+          100: `${
+            are_any_other_organizations_active_in_the_basti?.value === 'Yes'
+              ? are_any_other_organizations_active_in_the_basti?.other
+              : 'No'
+          }`,
+          // 'What kind of activities are conducted by these organisations? (can also select more than one)'
+          101: `${activities_conducted_by_these_organisations.map(el => {
+            if (el.value === 'Other') {
+              return el?.other;
+            }
+            return el.value;
+          })}`,
+          // 'Are they involved in any anti - social activities?'
+          102: `${involved_in_anti_social_activities}`,
+          // 'What is the status of these anti -social institutions after our center'
+          103: `${status_of_anti_social_institutions_after_our_center_establishment?.value}`,
+          // 'Do our beneficiaries also take benefits from other organisations'
+          104: `${our_beneficiaries_also_take_benefits_from_other_organisations?.value}`,
+          // 'Total population of the Basti'
+          105: `Hindu - ${total_population_of_the_basti?.hindu}, Other - ${total_population_of_the_basti?.other}`,
+        };
+        console.log('surveydata', surveydata);
+        const formdata = new FormData();
+        formdata.append('center_id', store?.currentSurveyData?.api_centre_id);
+        formdata.append('audience_id', 8);
+        formdata.append('survey_data', JSON.stringify(surveydata));
+        const requestOptions = {
+          method: 'POST',
+          body: formdata,
+          redirect: 'follow',
+        };
+        const response = await fetch(
+          BASE_URL + 'center/survey',
+          requestOptions,
+        );
+        console.log('response->', await response.json());
+      }
+
+      showModal();
+      setDataLoading(false);
+    } catch (error) {
+      setDataLoading(false);
+      setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+      console.log('error', error);
+    }
   };
 
   const handleSelection = answer => {
@@ -226,6 +244,7 @@ export default function BastiQuestions() {
 
   return (
     <View style={styles.container}>
+      <LoaderIndicator loading={dataLoading} />
       <View style={{flex: 0.2}}>
         <Header title={t('BASTI')} onPressBack={goBack} />
       </View>
@@ -417,7 +436,7 @@ export default function BastiQuestions() {
               },
               {
                 key: 6,
-                value: 'Others',
+                value: 'Other',
                 label: 'BASTI_Q2_OPT6',
               },
             ].map((el, index) => {
@@ -456,7 +475,7 @@ export default function BastiQuestions() {
               );
             })}
             {answers.activities_conducted_by_these_organisations.filter(
-              item => item.value === 'Others',
+              item => item.value === 'Other',
             ).length > 0 && (
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
@@ -466,7 +485,7 @@ export default function BastiQuestions() {
                     ...answers.activities_conducted_by_these_organisations,
                   ];
                   tmp.forEach((el, index) => {
-                    if (el.value === 'Others') {
+                    if (el.value === 'Other') {
                       let newans = {...el, other: text};
                       tmp.splice(index, 1, newans);
                     }
@@ -478,16 +497,16 @@ export default function BastiQuestions() {
                 }}
                 value={
                   answers.activities_conducted_by_these_organisations.filter(
-                    el => el.value === 'Others',
+                    el => el.value === 'Other',
                   ).length > 0
                     ? answers.activities_conducted_by_these_organisations.filter(
-                        el => el.value === 'Others',
+                        el => el.value === 'Other',
                       )[0]?.['other']
                     : ''
                 }
                 empty={
                   !answers.activities_conducted_by_these_organisations.filter(
-                    el => el.value === 'Others',
+                    el => el.value === 'Other',
                   )[0]?.['other']
                 }
                 message={''}
@@ -698,7 +717,7 @@ export default function BastiQuestions() {
               style={{
                 backgroundColor:
                   answers.total_population_of_the_basti?.hindu &&
-                  answers.total_population_of_the_basti?.others
+                  answers.total_population_of_the_basti?.other
                     ? COLORS.orange
                     : COLORS.red,
                 height: 20,
@@ -711,7 +730,7 @@ export default function BastiQuestions() {
                 style={{
                   color:
                     answers.total_population_of_the_basti?.hindu &&
-                    answers.total_population_of_the_basti?.others
+                    answers.total_population_of_the_basti?.other
                       ? COLORS.black
                       : COLORS.white,
                   textAlign: 'center',
@@ -775,12 +794,12 @@ export default function BastiQuestions() {
                   ...answers,
                   total_population_of_the_basti: {
                     ...answers.total_population_of_the_basti,
-                    others: text,
+                    other: text,
                   },
                 });
               }}
-              value={answers.total_population_of_the_basti?.others}
-              empty={!answers.total_population_of_the_basti?.others}
+              value={answers.total_population_of_the_basti?.other}
+              empty={!answers.total_population_of_the_basti?.other}
               message={''}
               containerStyle={{
                 alignItems: 'center',

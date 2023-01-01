@@ -23,6 +23,8 @@ import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
 import {useContext} from 'react';
 import {Checkbox} from 'react-native-paper';
+import LoaderIndicator from '../../components/Loader';
+import {BASE_URL} from '../../networking';
 
 export default function KendraSanchalakQuestions() {
   const store = useSelector(state => state?.surveyReducer);
@@ -31,7 +33,7 @@ export default function KendraSanchalakQuestions() {
   const dispatch = useDispatch();
   let totalSurveys = store.totalSurveys;
   const [checked, setChecked] = React.useState(false);
-
+  const [dataLoading, setDataLoading] = useState(false);
   let [answers, setAnswers] = useState({
     total_students_attend_the_class_regularly: '',
     was_the_kendra_able_to_perform_during_the_covid: '',
@@ -73,6 +75,7 @@ export default function KendraSanchalakQuestions() {
   };
 
   const pageValidator = async () => {
+    setDataLoading(true);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     const {
@@ -155,23 +158,63 @@ export default function KendraSanchalakQuestions() {
 
     console.log('payload kendraSanchalak ', payload);
     try {
-      // audience- 5
-      let formdata = new FormData();
-      formdata.append('center_id', '14');
-      formdata.append('audience_id', '5');
-      formdata.append(
-        'survey_data',
-        `{'How many students attend the class regularly? (Boys + Girls)':'${answers.total_students_attend_the_class_regularly}', 'Was the Kendra able to perform its work during the Covid period?':'${answers.was_the_kendra_able_to_perform_during_the_covid}', '':''}`,
-      );
-      console.log(formdata)
-    } catch (error) {
-      console.log(error);
-      return setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
-    }
+      if (p === 0) {
+        let surveydata = {
+          // 'How many students attend the class regularly? (Boys + Girls)'
+          90: `${total_students_attend_the_class_regularly}`,
+          // 'Was the Kendra able to perform its work during the Covid period?'
+          91: `${was_the_kendra_able_to_perform_during_the_covid?.value}`,
+          // 'What difference you observe in the families of students coming to Kendra? (At least 50% cases should be there) (Multiple choice)'
+          92: `${difference_observed_in_the_families_of_students_coming_to_kendra.map(
+            el => {
+              return el?.value;
+            },
+          )}`,
+          // 'How many families from the locality we have influenced due to our Kendra activities?'
+          93: `${families_from_the_locality_have_influenced_due_to_our_kendra_activities?.value}`,
+          // 'What is percentage of decline in school dropout ratio due to our Kendra performance? (Before and After Comparison). Apply this till Std 10th'
+          94: `${percentage_of_decline_in_school_dropout_due_to_kendra?.value}`,
+          // 'Do we conduct “Medical test” (Physical test) for our students?'
+          95: `${conduct_medical_test_for_students?.value}`,
+          // 'Is there any plan for expansion (Scaling the work)?'
+          96: `${plan_for_expansion?.value}`,
+          // 'Do we submit status report of Kendra to all the stakeholders each month?'
+          97: `${submit_status_report_of_kendra_to_all_the_stakeholders_each_month?.value}`,
+          // 'Is there any feedback mechanism in place to address issues arise in day to day work? If yes, are the issues addressed in timely manner?'
+          98: `${feedback_mechanism_to_address_issues?.value}`,
+          // 'Any other observations which are not covered in above questions ? Please elaborate'
+          99: `${observation_not_covered}`,
+        };
+        console.log(surveydata);
+        const surveyform = new FormData();
+        surveyform.append('center_id', store?.currentSurveyData?.api_centre_id);
+        surveyform.append('audience_id', 5);
+        surveyform.append('survey_data', JSON.stringify(surveydata));
+        const requestOptions = {
+          method: 'POST',
+          body: surveyform,
+          redirect: 'follow',
+        };
 
-    // dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
-    // dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-    // showModal();
+        const response = await fetch(
+          BASE_URL + 'center/survey',
+          requestOptions,
+        );
+        console.log('response->', await response.json());
+      }
+
+      dispatch({
+        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+        payload: payload,
+      });
+      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
+      showModal();
+      setDataLoading(false);
+    } catch (error) {
+      setDataLoading(false);
+      setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+      console.log('error', error);
+    }
   };
 
   const handleSelection = answer => {
@@ -196,6 +239,7 @@ export default function KendraSanchalakQuestions() {
 
   return (
     <View style={styles.container}>
+      <LoaderIndicator loading={dataLoading} />
       <View style={{flex: 0.2}}>
         <Header title={t('KENDRA_SANCHALAK')} onPressBack={goBack} />
       </View>

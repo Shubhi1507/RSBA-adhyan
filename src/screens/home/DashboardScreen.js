@@ -103,7 +103,11 @@ export default function DashboardScreen({route, navigation}) {
     const focus = navigation.addListener('focus', () => {
       let x = findMinimumTimeLeft(totalSurveys);
       if (x) {
-        setReviewTimeLeft(x.toString());
+        if (x > 0) {
+          setReviewTimeLeft(x.toString());
+        } else {
+          moveReviewArrays();
+        }
       } else setReviewTimeLeft('');
     });
     return focus;
@@ -116,6 +120,15 @@ export default function DashboardScreen({route, navigation}) {
     dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
   }, []);
 
+  function moveReviewArrays() {
+    let all = [...totalSurveys];
+    let filtered = all.filter(
+      e =>
+        e?.release_date &&
+        Date.parse(e.release_date) - Date.parse(new Date() < 0),
+    );
+    // filtered.map
+  }
   const handleLocalizationChange = useCallback(
     newLocale => {
       const newSetLocale = i18n.setI18nConfig(newLocale);

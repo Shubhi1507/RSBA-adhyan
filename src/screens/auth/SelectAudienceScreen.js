@@ -232,6 +232,7 @@ export default function SelectAudienceScreen() {
     // let tmp = [...store.currentSurveyData?.currentSurveyStatus];
     tmp.forEach(el => {
       if (el.completed == false) {
+        console.log('incompleted->', el);
         flag = false;
         return;
       }
@@ -318,8 +319,6 @@ export default function SelectAudienceScreen() {
       },
     ]);
   };
-
- 
 
   return (
     <View style={styles.container}>

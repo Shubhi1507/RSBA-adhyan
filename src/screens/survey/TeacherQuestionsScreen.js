@@ -22,12 +22,14 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
 import {Checkbox} from 'react-native-paper';
+import LoaderIndicator from '../../components/Loader';
+import {BASE_URL} from '../../networking';
 
 export default function TeacherQuestionsScreen() {
   const store = useSelector(state => state?.surveyReducer);
   let totalSurveys = store.totalSurveys;
   const {t} = useContext(LocalizationContext);
-
+  const [dataLoading, setDataLoading] = useState(false);
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
     consistency_in_attending_the_kendra: '',
@@ -74,7 +76,8 @@ export default function TeacherQuestionsScreen() {
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
   };
 
-  const pageValidator = () => {
+  const pageValidator = async () => {
+    setDataLoading(true);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     const {
@@ -184,33 +187,67 @@ export default function TeacherQuestionsScreen() {
     console.log('payload teacher', payload, tmp1);
 
     let formdata = new FormData();
-    formdata.append('center_id', '5');
-    formdata.append('audience_id', '6');
-//     formdata.append(
-
-//       'survey_data',
-//       `{'How consistent are the students in attending the Kendra?
-//       ': '${consistency_in_attending_the_kendra?.value}',
-//       'What method we use to teach basic concepts of different topics other than study? (Such as religion, traditions, Sewa, behavioural science etc.)
-//       ' : '${methods_used_to_teach_basic_concepts?.value}',
-
-//       'How we teach social work to our students? (Multiple choice)
-//       : '${      teach_social_work.map()}',
-//       Fields in which you have observed transformation / improvement  in our students. Rate your answer out of 10 where 1=Poor & 10 = Best  : '${?.value},
-//       What type of behavioural changes we can observe in our students?
-// : '${our_beneficiaries_also_take_benefits_from_other_organisations?.value}'}`,
-//     );
 
     try {
-      const url = BASE_URL + 'center/survey';
-      // const response = await fetch(url, {
-      //   method: 'POST',
-      //   body: formdata,
-      // });
-      // if (response.status === 200) {
-      // }
+      if (p === 0) {
+        let formans7 =
+          personally_meet_all_the_parents_every_month?.value === 'Yes'
+            ? `Yes, ${personally_meet_all_the_parents_every_month?.other}`
+            : 'No';
+        let formasn11 =
+          expectations_from_sanstha_for_the_betterment?.other ||
+          expectations_from_sanstha_for_the_betterment?.value;
+        let surveydata = {
+          // 'How consistent are the students in attending the Kendra?'
+          79: `${consistency_in_attending_the_kendra?.value}`,
+          // 'What method we use to teach basic concepts of different topics other than study? (Such as religion, traditions, Sewa, behavioural science etc.)'
+          80: `${methods_used_to_teach_basic_concepts?.value}`,
+          // 'How we teach social work to our students? (Multiple choice)'
+          81: `${teach_social_work.map(
+            el => {
+              return el?.value;
+            },
+          )}`,
+          // 'Fields in which you have observed transformation / improvement  in our students. Rate your answer out of 10 where 1=Poor & 10 = Best'
+          82: `Academic - Rating between 1 to 10 - ${rating_academic}, Behavioural pattern - Rating between 1 to 10 - ${rating_behaviour_pattern}, Sports - Rating between 1 to 10 - ${rating_sports}, Culture & Art - Rating between 1 to 10 - ${rating_culture}`,
+          // 'What type of behavioural changes we can observe in our students?'
+          83: `Sincerity - Rating between 1 to 10 - ${rating_sincerity}, Punctuality - Rating between 1 to 10 - ${rating_punctuality}, Trustworthy - Rating between 1 to 10 - ${rating_trustworthy}, Leadership qualities - Rating between 1 to 10 - ${leadership_qualities}`,
+          // 'Do we compromise on our teaching agenda if student belonging to other religion attends the Kendra?'
+          84: `${compromise_on_our_teaching_agenda?.value}`,
+          // 'Do you personally meet all the parents every month?'
+          85: `${formans7}`,
+          // 'What is the qualification of the teacher?'
+          86: `${qualification_of_the_teacher?.value}`,
+          // 'Since when teacher is associated with this Kendra?'
+          87: `${since_when_teacher_is_associated_with_this_kendra?.value}`,
+          // 'Why have you joined this kendra?'
+          88: `${reason_to_join_this_kendra}`,
+          // 'What are your expectations from Sanstha for the betterment of the kendra?'
+          89: `${formasn11}`,
+        };
+        const surveyform = new FormData();
+        surveyform.append('center_id', store?.currentSurveyData?.api_centre_id);
+        surveyform.append('audience_id', 4);
+        surveyform.append('survey_data', JSON.stringify(surveydata));
+        console.log('surveydata', surveydata);
+        console.log('surveyform', surveyform);
+
+        const requestOptions = {
+          method: 'POST',
+          body: surveyform,
+          redirect: 'follow',
+        };
+        const response = await fetch(
+          BASE_URL + 'center/survey',
+          requestOptions,
+        );
+        console.log('response->', await response.json());
+      }
+      setDataLoading(false);
     } catch (error) {
-      console.log(error);
+      setDataLoading(false);
+      setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+      console.log('error', error);
     }
 
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
@@ -240,6 +277,7 @@ export default function TeacherQuestionsScreen() {
 
   return (
     <View style={styles.container}>
+      <LoaderIndicator loading={dataLoading} />
       <View style={{flex: 0.2}}>
         <Header title={t('TEACHERS_SURVERS')} onPressBack={goBack} />
       </View>
@@ -1100,60 +1138,17 @@ export default function TeacherQuestionsScreen() {
           />
         </View>
 
-        {/* QA11*/}
-        {/* <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {11}
-              </TextHandler>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler style={styles.question}>
-                {t('TEACHER_Q11')}
-              </TextHandler>
-            </View>
-          </View>
-
-          <Input
-            placeholder={`${t('ENTER_ANSWER')}`}
-            name="any"
-            onChangeText={text => {
-              setAnswers({...answers, role_model: text});
-            }}
-            value={answers.role_model}
-            message={''}
-            containerStyle={{
-              alignItems: 'center',
-              minWidth: screenWidth * 0.25,
-            }}
-          />
-        </View> */}
-
         {/* QA11 - expectations_from_sanstha_for_the_betterment*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
                 backgroundColor:
-                  !answers.expectations_from_sanstha_for_the_betterment
+                  !answers.expectations_from_sanstha_for_the_betterment ||
+                  (answers.expectations_from_sanstha_for_the_betterment
+                    ?.value == 'Other' &&
+                    !answers.expectations_from_sanstha_for_the_betterment
+                      ?.other)
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -1164,9 +1159,14 @@ export default function TeacherQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.expectations_from_sanstha_for_the_betterment
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.expectations_from_sanstha_for_the_betterment ||
+                    (answers.expectations_from_sanstha_for_the_betterment
+                      ?.value == 'Other' &&
+                      !answers.expectations_from_sanstha_for_the_betterment
+                        ?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {11}
@@ -1196,7 +1196,7 @@ export default function TeacherQuestionsScreen() {
                 {key: 2, value: 'Cooperation', label: 'TEACHER_Q12_OPT2'},
                 {
                   key: 3,
-                  value: 'Other (Please enter)',
+                  value: 'Other',
                   label: 'TEACHER_Q12_OPT3',
                 },
                 {
@@ -1227,10 +1227,10 @@ export default function TeacherQuestionsScreen() {
                   });
                 }}
                 value={
-                  answers.expectations_from_sanstha_for_the_betterment?.text
+                  answers.expectations_from_sanstha_for_the_betterment?.other
                 }
                 empty={
-                  !answers.expectations_from_sanstha_for_the_betterment?.text
+                  !answers.expectations_from_sanstha_for_the_betterment?.other
                 }
                 message={''}
                 containerStyle={{
