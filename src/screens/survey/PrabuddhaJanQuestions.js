@@ -137,19 +137,21 @@ export default function PrabuddhaJanQuestions() {
     try {
       if (p === 0) {
         let surveydata = {
-          'How the donors and well wishers help (Multiple choice)?': `${donors_and_well_wishers_help.map(
-            el => {
-              if (el.value === 'Other') {
-                return answers.donors_and_well_wishers_help.filter(
-                  el => el.value === 'Other',
-                )[0]?.['other'];
-              }
-              return el.value;
-            },
-          )}`,
-          'How the donors and well wishers are connected to us': `${donors_and_well_wishers_are_connected_to_us?.value}`,
-          'Have these well wishers and donors helped us during Corona crisis ?': `${well_wishers_and_donors_helped_us_during_corona_crisis?.value}`,
-          'Influence of well wishers  in different sections of society': `${influence_of_well_wishers_in_society?.value}`,
+          // 'How the donors and well wishers help (Multiple choice)?'
+          106: `${donors_and_well_wishers_help.map(el => {
+            if (el.value === 'Other') {
+              return answers.donors_and_well_wishers_help.filter(
+                el => el.value === 'Other',
+              )[0]?.['other'];
+            }
+            return el.value;
+          })}`,
+          // 'How the donors and well wishers are connected to us'
+          107: `${donors_and_well_wishers_are_connected_to_us?.value}`,
+          // 'Have these well wishers and donors helped us during Corona crisis ?'
+          108: `${well_wishers_and_donors_helped_us_during_corona_crisis?.value}`,
+          // 'Influence of well wishers  in different sections of society'
+          109: `${influence_of_well_wishers_in_society?.value}`,
         };
         console.log(surveydata);
         const formdata = new FormData();
