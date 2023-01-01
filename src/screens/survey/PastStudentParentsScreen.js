@@ -280,7 +280,7 @@ export default function PastStudentParentsScreen() {
 
         const surveyform = new FormData();
         surveyform.append('center_id', store?.currentSurveyData?.api_centre_id);
-        surveyform.append('audience_id', 2);
+        surveyform.append('audience_id', 9);
         surveyform.append('survey_data', JSON.stringify(surveydata));
         const requestOptions = {
           method: 'POST',
