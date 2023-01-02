@@ -260,9 +260,9 @@ export default function PastStudentParentsScreen() {
           // 'What are your children doing currently? - (More than one option can be selected )'
           44: `${children_occupation_nowadays?.map(el => {
             if (el?.value === 'Other') {
-              return el?.other;
+              return el?.other + ' | ';
             }
-            return el?.value;
+            return el?.value + ' | ';
           })}`,
           // 'To what extent the center is helpful in the overall development of your children?  Rate your answer out of 10 where 1 = Poor & 10 = Best'
           45: `Good habits - ${rating_good_habits}, Patriotism - ${rating_patriotism}, Good Sanskar - ${rating_good_sanskaar}, Increased interest in study - ${rating_study_interest}, Development of qualities in students - ${rating_development_of_qualities_in_students}, Attitude for better life-${rating_attitude_for_better_life}`,

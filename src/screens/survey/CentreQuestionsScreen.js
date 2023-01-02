@@ -327,12 +327,12 @@ export default function CentreQuestionsScreen() {
             role_of_our_kendra_in_our_basti_during__corona?.value === 'Yes'
               ? `Yes- ${kendra_samiti_work
                   .map(el => {
-                    return el?.value;
+                    return el?.value+' | ';
                   })
                   .join()}`
               : 'No';
           let formans20 = majorprevelant_problems_in_the_basti.map(el => {
-            return el?.value;
+            return el?.value+' | ';
           });
 
           let surveydata = {
@@ -340,7 +340,7 @@ export default function CentreQuestionsScreen() {
             1: `${establishment}`,
             //'Objective to start the kendra ? ( You can choose more than one answer )'
             2: `${centre_commence_motive.map(el => {
-              return el.value;
+              return el.value+' | ';
             })}`,
             // 'How many students have passed out from this Kendra? (Since inception)'
             3: `${students_passed_out_from_centre?.value || ''}`,
