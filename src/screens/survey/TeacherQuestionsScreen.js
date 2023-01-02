@@ -205,7 +205,7 @@ export default function TeacherQuestionsScreen() {
           // 'How we teach social work to our students? (Multiple choice)'
           81: `${teach_social_work.map(
             el => {
-              return el?.value;
+              return el?.value+' | ';;
             },
           )}`,
           // 'Fields in which you have observed transformation / improvement  in our students. Rate your answer out of 10 where 1=Poor & 10 = Best'

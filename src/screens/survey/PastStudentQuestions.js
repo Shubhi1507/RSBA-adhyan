@@ -142,7 +142,7 @@ export default function PastStudentQuestions() {
             )[0]?.other
           ? 1
           : 0
-        : 1;
+        : 0;
 
     let ans8 = !encourage_other_students_join_the_center ? 0 : 1;
     let ans9 =
@@ -248,8 +248,8 @@ export default function PastStudentQuestions() {
           still_associated_with_the_center?.value === 'Yes'
             ? `Yes- ${still_associated_with_the_center_reasons.map(el => {
                 if (el.value === 'Other') {
-                  el.other;
-                } else return el.value;
+                  el.other + ' | ';
+                } else return el.value + ' | ';
               })}`
             : 'No';
 
@@ -272,15 +272,15 @@ export default function PastStudentQuestions() {
           70: `${how_the_center_has_influnced_your_overall_personality.map(
             el => {
               if (el.value === 'Other') {
-                return el.other;
-              } else return el.value;
+                return el.other + ' | ';
+              } else return el.value + ' | ';
             },
           )}`,
           // 'What are the reasons for this change? (More than one option can be selected )'
           71: `${reasons_for_change_in_your_personality.map(el => {
             if (el.value === 'Other') {
-              return el.other;
-            } else return el.value;
+              return el.other + ' | ';
+            } else return el.value + ' | ';
           })}`,
           // 'Do you encourage other students living near you to join the center, do you help them to come to center?'
           72: `${encourage_other_students_join_the_center?.value || ''}`,
@@ -288,23 +288,23 @@ export default function PastStudentQuestions() {
           73: `${how_the_center_has_influnced_your_overall_personality.map(
             el => {
               if (el.value === 'Other') {
-                return el.other;
-              } else return el.value;
+                return el.other + ' | ';
+              } else return el.value + ' | ';
             },
           )}`,
           // 'What difference you experience between you & other students(Who does not come to kendra) of your age, due to the center? (You can choose more than one answer )'
           74: `${experience_between_you_n_other_students_who_do_not_come_to_kendra.map(
             el => {
               if (el.value === 'Other') {
-                el.other;
-              } else return el.value;
+                el.other + ' | ';
+              } else return el.value + ' | ';
             },
           )}`,
           // 'What difference you notice in the family, due to the center?(You can choose more than one answer )'
           75: `${difference_noticed_in_the_family_due_to_the_center.map(el => {
             if (el.value === 'Other') {
-              return el.other;
-            } else return el.value;
+              return el.other + ' | ';
+            } else return el.value + ' | ';
           })}`,
           // 'How can you contribute in betterment of the center ?'
           76: `${
@@ -1008,7 +1008,7 @@ export default function PastStudentQuestions() {
                         )[0]?.other
                       ? COLORS.orange
                       : COLORS.red
-                    : COLORS.orange,
+                    : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1031,7 +1031,7 @@ export default function PastStudentQuestions() {
                           )[0]?.other
                         ? COLORS.black
                         : COLORS.white
-                      : COLORS.black,
+                      : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {7}

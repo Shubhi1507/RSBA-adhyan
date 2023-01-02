@@ -36,7 +36,7 @@ export default function CentreQuestionsScreen() {
     establishment: '',
     centre_commence_motive: [],
     students_passed_out_from_centre: '',
-    centre_not_operational_aftermath: '',
+    centre_not_operational_aftermath: [],
     center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time:
       '',
     discontinuation_time_period: '',
@@ -139,7 +139,7 @@ export default function CentreQuestionsScreen() {
     let ans1 = !answers.establishment ? 0 : 1;
     let ans2 = answers.centre_commence_motive.length > 0 ? 1 : 0;
     let ans3 = !answers.students_passed_out_from_centre ? 0 : 1;
-    let ans4 = !answers.centre_not_operational_aftermath ? 0 : 1;
+    let ans4 = answers.centre_not_operational_aftermath.length === 0 ? 0 : 1;
     let ans5 =
       answers.center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time ||
       (answers
@@ -327,12 +327,12 @@ export default function CentreQuestionsScreen() {
             role_of_our_kendra_in_our_basti_during__corona?.value === 'Yes'
               ? `Yes- ${kendra_samiti_work
                   .map(el => {
-                    return el?.value;
+                    return el?.value + ' | ';
                   })
                   .join()}`
               : 'No';
           let formans20 = majorprevelant_problems_in_the_basti.map(el => {
-            return el?.value;
+            return el?.value + ' | ';
           });
 
           let surveydata = {
@@ -340,12 +340,12 @@ export default function CentreQuestionsScreen() {
             1: `${establishment}`,
             //'Objective to start the kendra ? ( You can choose more than one answer )'
             2: `${centre_commence_motive.map(el => {
-              return el.value;
+              return el.value + ' | ';
             })}`,
             // 'How many students have passed out from this Kendra? (Since inception)'
             3: `${students_passed_out_from_centre?.value || ''}`,
             //  'What will happen if this kendra did not function?'
-            4: `${centre_not_operational_aftermath?.value || ''}`,
+            4: `${centre_not_operational_aftermath.map(e=>{return e?.value+' | '})}`,
             //'Whether the center is operating continuously since its inception or is it closed for some time in between? (Excluding Covid period)'
             5: `${formans5}`,
             // 'Basti Type'
@@ -687,7 +687,7 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: answers.centre_not_operational_aftermath
+                backgroundColor: answers.centre_not_operational_aftermath.length > 0
                   ? COLORS.orange
                   : COLORS.red,
                 height: 20,
@@ -719,7 +719,7 @@ export default function CentreQuestionsScreen() {
             </View>
           </View>
 
-          <View>
+          {/* <View>
             <RadioButtons
               radioStyle={{
                 borderWidth: 1,
@@ -752,6 +752,96 @@ export default function CentreQuestionsScreen() {
                 });
               }}
             />
+          </View> */}
+          <View>
+            {[
+              {
+                key: 1,
+                value: 'Students will not able to do education',
+                label: 'CENTRE_Q4_OPT1',
+              },
+              {
+                key: 2,
+                value: 'Crime will increase in the community',
+                label: 'CENTRE_Q4_OPT2',
+              },
+              {
+                key: 3,
+                value:
+                  'No one will be available in the locality to take care of education and sanskar',
+                label: 'CENTRE_Q4_OPT3',
+              },
+            ].map((el, index) => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    marginVertical: 2,
+                    borderColor: COLORS.orange,
+                    paddingVertical: 5,
+                    marginVertical: 5,
+                  }}
+                  onPress={() => {
+                    let tmp = [...answers.centre_not_operational_aftermath];
+
+                    if (tmp.length > 0) {
+                      let j = tmp.filter(element => element.key === 999);
+                      if (j.length > 0) {
+                        tmp = [];
+                        tmp.push(el);
+                        setAnswers({
+                          ...answers,
+                          centre_not_operational_aftermath: tmp,
+                        });
+                      } else {
+                        tmp.forEach(function (item, index1) {
+                          if (item.value === el.value) {
+                            let tmp = [...answers.centre_not_operational_aftermath];
+                            tmp.splice(index1, 1);
+                            setAnswers({
+                              ...answers,
+                              centre_not_operational_aftermath: tmp,
+                            });
+                          } else {
+                            let tmp = [...answers.centre_not_operational_aftermath];
+                            tmp.push(el);
+                            setAnswers({
+                              ...answers,
+                              centre_not_operational_aftermath: tmp,
+                            });
+                          }
+                        });
+                      }
+                    } else {
+                      tmp.push(el);
+                      setAnswers({
+                        ...answers,
+                        centre_not_operational_aftermath: tmp,
+                      });
+                    }
+                  }}>
+                  <Checkbox
+                    status={
+                      answers.centre_not_operational_aftermath.filter(
+                        item => item.value === el.value,
+                      ).length > 0
+                        ? 'checked'
+                        : 'unchecked'
+                    }
+                    color={COLORS.blue}
+                  />
+                  <TextHandler
+                    style={{
+                      color: 'black',
+                      // textAlign: 'left',
+                    }}>
+                    {t(el.label)}
+                  </TextHandler>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         </View>
 

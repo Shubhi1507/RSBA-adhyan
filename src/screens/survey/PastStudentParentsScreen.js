@@ -138,7 +138,12 @@ export default function PastStudentParentsScreen() {
         econmonic_status_under_1_lakh &&
         econmonic_status_between_1_and_3_lakh &&
         econmonic_status_between_3_and_5_lakh &&
-        econmonic_status_between_5_and_10_lakh
+        econmonic_status_between_5_and_10_lakh &&
+        econmonic_status_under_1_lakh +
+          econmonic_status_between_1_and_3_lakh +
+          econmonic_status_between_3_and_5_lakh +
+          econmonic_status_between_5_and_10_lakh !==
+          100
           ? 1
           : 0;
       let ans4 =
@@ -260,9 +265,9 @@ export default function PastStudentParentsScreen() {
           // 'What are your children doing currently? - (More than one option can be selected )'
           44: `${children_occupation_nowadays?.map(el => {
             if (el?.value === 'Other') {
-              return el?.other;
+              return el?.other + ' | ';
             }
-            return el?.value;
+            return el?.value + ' | ';
           })}`,
           // 'To what extent the center is helpful in the overall development of your children?  Rate your answer out of 10 where 1 = Poor & 10 = Best'
           45: `Good habits - ${rating_good_habits}, Patriotism - ${rating_patriotism}, Good Sanskar - ${rating_good_sanskaar}, Increased interest in study - ${rating_study_interest}, Development of qualities in students - ${rating_development_of_qualities_in_students}, Attitude for better life-${rating_attitude_for_better_life}`,
@@ -552,7 +557,14 @@ export default function PastStudentParentsScreen() {
                   !answers.econmonic_status_under_1_lakh ||
                   !answers.econmonic_status_between_1_and_3_lakh ||
                   !answers.econmonic_status_between_3_and_5_lakh ||
-                  !answers.econmonic_status_between_5_and_10_lakh
+                  !answers.econmonic_status_between_5_and_10_lakh ||
+                  parseFloat(answers.econmonic_status_under_1_lakh) +
+                    parseFloat(answers.econmonic_status_between_1_and_3_lakh) +
+                    parseFloat(answers.econmonic_status_between_3_and_5_lakh) +
+                    parseFloat(
+                      answers.econmonic_status_between_5_and_10_lakh,
+                    ) !==
+                    100
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -567,7 +579,18 @@ export default function PastStudentParentsScreen() {
                     !answers.econmonic_status_under_1_lakh ||
                     !answers.econmonic_status_between_1_and_3_lakh ||
                     !answers.econmonic_status_between_3_and_5_lakh ||
-                    !answers.econmonic_status_between_5_and_10_lakh
+                    !answers.econmonic_status_between_5_and_10_lakh ||
+                    parseFloat(answers.econmonic_status_under_1_lakh) +
+                      parseFloat(
+                        answers.econmonic_status_between_1_and_3_lakh,
+                      ) +
+                      parseFloat(
+                        answers.econmonic_status_between_3_and_5_lakh,
+                      ) +
+                      parseFloat(
+                        answers.econmonic_status_between_5_and_10_lakh,
+                      ) !==
+                      100
                       ? COLORS.white
                       : COLORS.black,
                   textAlign: 'center',
@@ -584,6 +607,15 @@ export default function PastStudentParentsScreen() {
               <TextHandler style={styles.question}>
                 {t('PAST_STUDENTS_PARENTS_Q3')}
               </TextHandler>
+              {parseFloat(answers.econmonic_status_under_1_lakh) +
+                parseFloat(answers.econmonic_status_between_1_and_3_lakh) +
+                parseFloat(answers.econmonic_status_between_3_and_5_lakh) +
+                parseFloat(answers.econmonic_status_between_5_and_10_lakh) !==
+                100 && (
+                <TextHandler style={{fontSize: 10, color: COLORS.red}}>
+                  {t('SUM_NOT_100')}
+                </TextHandler>
+              )}
             </View>
           </View>
 

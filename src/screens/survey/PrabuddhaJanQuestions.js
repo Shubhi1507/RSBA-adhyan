@@ -140,11 +140,13 @@ export default function PrabuddhaJanQuestions() {
           // 'How the donors and well wishers help (Multiple choice)?'
           106: `${donors_and_well_wishers_help.map(el => {
             if (el.value === 'Other') {
-              return answers.donors_and_well_wishers_help.filter(
-                el => el.value === 'Other',
-              )[0]?.['other'];
+              return (
+                answers.donors_and_well_wishers_help.filter(
+                  el => el.value === 'Other',
+                )[0]?.['other'] + ' | '
+              );
             }
-            return el.value;
+            return el.value + ' | ';
           })}`,
           // 'How the donors and well wishers are connected to us'
           107: `${donors_and_well_wishers_are_connected_to_us?.value}`,

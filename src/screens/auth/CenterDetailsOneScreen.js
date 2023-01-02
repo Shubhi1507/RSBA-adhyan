@@ -136,7 +136,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     centre_commence_motive: [],
     kendra_samiti_work: [],
     students_passed_out_from_centre: '',
-    centre_not_operational_aftermath: '',
+    centre_not_operational_aftermath: [],
     center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time:
       '',
     discontinuation_time_period: '',

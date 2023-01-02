@@ -137,7 +137,7 @@
 
   "CENTRE_Q4_OPT1": "Students will not able to do education",
   "CENTRE_Q4_OPT2": "Crime will increase in the community",
-  "CENTRE_Q4_OPT3": "No one will be available in the locality to take care of education and sanskar",
+  "CENTRE_Q4_OPT3": "No one will be available in the locality \n to take care of education and sanskar",
 
   // CURRENT STUDENT PARENT - CSP
   "CURRENT_STUDENTS_PARENTS_Q1": "Current Students",
@@ -662,6 +662,7 @@
   // S
   "SAVE_REVIEW_QUESTIONS": "Under Review",
   "SOMETHING_WENT_WRONG": "Something went wrong. please try again in sometime",
+  "SUM_NOT_100": "Sum is not equal to 100%",
 
   "SIX_DIGIT_CODE": "A 6-digit code will be sent via SMS to verify your mobile number.",
   "START_SURVEY": "Start Survey",

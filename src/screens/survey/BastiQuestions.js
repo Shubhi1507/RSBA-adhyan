@@ -183,9 +183,9 @@ export default function BastiQuestions() {
           // 'What kind of activities are conducted by these organisations? (can also select more than one)'
           101: `${activities_conducted_by_these_organisations.map(el => {
             if (el.value === 'Other') {
-              return el?.other;
+              return el?.other+' | ';;
             }
-            return el.value;
+            return el.value+' | ';;
           })}`,
           // 'Are they involved in any anti - social activities?'
           102: `${involved_in_anti_social_activities}`,

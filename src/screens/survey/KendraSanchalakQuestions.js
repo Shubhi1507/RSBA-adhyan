@@ -167,7 +167,7 @@ export default function KendraSanchalakQuestions() {
           // 'What difference you observe in the families of students coming to Kendra? (At least 50% cases should be there) (Multiple choice)'
           92: `${difference_observed_in_the_families_of_students_coming_to_kendra.map(
             el => {
-              return el?.value;
+              return el?.value+' | ';;
             },
           )}`,
           // 'How many families from the locality we have influenced due to our Kendra activities?'

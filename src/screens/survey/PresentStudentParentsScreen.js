@@ -301,9 +301,9 @@ export default function PresentStudentParentsScreen() {
           // 'Reason for sending children to the center? ( You can choose more than one answer )'
           26: `${reason_for_sending_children_to_the_centre.map(el => {
             if (el?.value === 'Other') {
-              return el?.other;
+              return el?.other + ' | ';
             }
-            return el?.value;
+            return el?.value + ' | ';
           })}`,
           //'How these children go to the center?'
           27: `${
