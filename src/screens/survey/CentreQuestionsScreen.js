@@ -450,26 +450,25 @@ export default function CentreQuestionsScreen() {
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
         {/* QA1 - OK - establishment */}
         <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
+          <View style={{flexDirection: 'row', marginVertical: 20, alignItems:'center'}}>
+            <TextHandler
+              style={{
+                color: answers.establishment ? COLORS.black : COLORS.red,
+                textAlign: 'center',
+              }}>
+              {1}
+            </TextHandler>
             <View
               style={{
                 backgroundColor: answers.establishment
                   ? COLORS.orange
                   : COLORS.red,
-                height: 20,
-                width: 20,
+                height: 8 ,
+                width: 8,
                 borderRadius: 40,
                 justifyContent: 'flex-start',
                 marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: answers.establishment ? COLORS.black : COLORS.white,
-                  textAlign: 'center',
-                }}>
-                {1}
-              </TextHandler>
-            </View>
+              }}></View>
 
             <View
               style={{
