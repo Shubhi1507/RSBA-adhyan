@@ -246,11 +246,14 @@ export default function PastStudentQuestions() {
       try {
         let formans5 =
           still_associated_with_the_center?.value === 'Yes'
-            ? `Yes- ${still_associated_with_the_center_reasons.map(el => {
-                if (el.value === 'Other') {
-                  el.other + ' | ';
-                } else return el.value + ' | ';
-              })}`
+            ? `Yes- ${still_associated_with_the_center_reasons
+                .map(el => {
+                  if (el.value === 'Other') {
+                    el.other;
+                  } else return el.value;
+                })
+                .join()
+                .replace(/\,/g, '||')}`
             : 'No';
 
         let surveydata = {
@@ -269,43 +272,52 @@ export default function PastStudentQuestions() {
           // 'Are you still associated with the center?'
           69: `${formans5}`,
           // 'How has the centre influenced your overall personality? (More than one option can be selected )'
-          70: `${how_the_center_has_influnced_your_overall_personality.map(
-            el => {
+          70: `${how_the_center_has_influnced_your_overall_personality
+            .map(el => {
               if (el.value === 'Other') {
-                return el.other + ' | ';
-              } else return el.value + ' | ';
-            },
-          )}`,
+                return el.other;
+              } else return el.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
           // 'What are the reasons for this change? (More than one option can be selected )'
-          71: `${reasons_for_change_in_your_personality.map(el => {
-            if (el.value === 'Other') {
-              return el.other + ' | ';
-            } else return el.value + ' | ';
-          })}`,
+          71: `${reasons_for_change_in_your_personality
+            .map(el => {
+              if (el.value === 'Other') {
+                return el.other;
+              } else return el.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
           // 'Do you encourage other students living near you to join the center, do you help them to come to center?'
           72: `${encourage_other_students_join_the_center?.value || ''}`,
           // 'How the center has influnced your personality?'
-          73: `${how_the_center_has_influnced_your_overall_personality.map(
-            el => {
+          73: `${how_the_center_has_influnced_your_overall_personality
+            .map(el => {
               if (el.value === 'Other') {
-                return el.other + ' | ';
-              } else return el.value + ' | ';
-            },
-          )}`,
+                return el.other;
+              } else return el.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
           // 'What difference you experience between you & other students(Who does not come to kendra) of your age, due to the center? (You can choose more than one answer )'
-          74: `${experience_between_you_n_other_students_who_do_not_come_to_kendra.map(
-            el => {
+          74: `${experience_between_you_n_other_students_who_do_not_come_to_kendra
+            .map(el => {
               if (el.value === 'Other') {
-                el.other + ' | ';
-              } else return el.value + ' | ';
-            },
-          )}`,
+                el.other;
+              } else return el.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
           // 'What difference you notice in the family, due to the center?(You can choose more than one answer )'
-          75: `${difference_noticed_in_the_family_due_to_the_center.map(el => {
-            if (el.value === 'Other') {
-              return el.other + ' | ';
-            } else return el.value + ' | ';
-          })}`,
+          75: `${difference_noticed_in_the_family_due_to_the_center
+            .map(el => {
+              if (el.value === 'Other') {
+                return el.other;
+              } else return el.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
           // 'How can you contribute in betterment of the center ?'
           76: `${
             contribute_in_betterment_of_the_center?.other ||
