@@ -263,12 +263,15 @@ export default function PastStudentParentsScreen() {
           // 'Number of days children went to the centre?'
           43: `${days_children_are_going_to_the_centre?.value || ' '}`,
           // 'What are your children doing currently? - (More than one option can be selected )'
-          44: `${children_occupation_nowadays?.map(el => {
-            if (el?.value === 'Other') {
-              return el?.other + ' | ';
-            }
-            return el?.value + ' | ';
-          })}`,
+          44: `${children_occupation_nowadays
+            ?.map(el => {
+              if (el?.value === 'Other') {
+                return el?.other;
+              }
+              return el?.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
           // 'To what extent the center is helpful in the overall development of your children?  Rate your answer out of 10 where 1 = Poor & 10 = Best'
           45: `Good habits - ${rating_good_habits}, Patriotism - ${rating_patriotism}, Good Sanskar - ${rating_good_sanskaar}, Increased interest in study - ${rating_study_interest}, Development of qualities in students - ${rating_development_of_qualities_in_students}, Attitude for better life-${rating_attitude_for_better_life}`,
           // 'Now how are you involved in the running of the centre '
