@@ -138,16 +138,17 @@ export default function PrabuddhaJanQuestions() {
       if (p === 0) {
         let surveydata = {
           // 'How the donors and well wishers help (Multiple choice)?'
-          106: `${donors_and_well_wishers_help.map(el => {
-            if (el.value === 'Other') {
-              return (
-                answers.donors_and_well_wishers_help.filter(
+          106: `${donors_and_well_wishers_help
+            .map(el => {
+              if (el.value === 'Other') {
+                return answers.donors_and_well_wishers_help.filter(
                   el => el.value === 'Other',
-                )[0]?.['other'] + ' | '
-              );
-            }
-            return el.value + ' | ';
-          })}`,
+                )[0]?.['other'];
+              }
+              return el.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
           // 'How the donors and well wishers are connected to us'
           107: `${donors_and_well_wishers_are_connected_to_us?.value}`,
           // 'Have these well wishers and donors helped us during Corona crisis ?'
