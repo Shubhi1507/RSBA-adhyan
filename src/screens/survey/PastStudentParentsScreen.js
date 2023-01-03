@@ -427,7 +427,12 @@ export default function PastStudentParentsScreen() {
                   !answers.rating_illiterate ||
                   !answers.rating_upto_5th ||
                   !answers.rating_upto_10th ||
-                  !answers.rating_graduation
+                  !answers.rating_graduation ||
+                  parseFloat(answers.rating_illiterate) +
+                  parseFloat(answers.rating_upto_5th) +
+                  parseFloat(answers.rating_upto_10th) +
+                  parseFloat(answers.rating_graduation) !==
+                  100
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -442,7 +447,12 @@ export default function PastStudentParentsScreen() {
                     !answers.rating_illiterate ||
                     !answers.rating_upto_5th ||
                     !answers.rating_upto_10th ||
-                    !answers.rating_graduation
+                    !answers.rating_graduation ||
+                    parseFloat(answers.rating_illiterate) +
+                    parseFloat(answers.rating_upto_5th) +
+                    parseFloat(answers.rating_upto_10th) +
+                    parseFloat(answers.rating_graduation) !==
+                    100
                       ? COLORS.white
                       : COLORS.black,
                   textAlign: 'center',
@@ -459,6 +469,15 @@ export default function PastStudentParentsScreen() {
               <TextHandler style={styles.question}>
                 {t('PAST_STUDENTS_PARENTS_Q2')}
               </TextHandler>
+              {parseFloat(answers.rating_illiterate) +
+                parseFloat(answers.rating_upto_5th) +
+                parseFloat(answers.rating_upto_10th) +
+                parseFloat(answers.rating_graduation) !==
+                100 && (
+                <TextHandler style={{fontSize: 10, color: COLORS.red}}>
+                  {t('SUM_NOT_100')}
+                </TextHandler>
+              )}
             </View>
           </View>
 
