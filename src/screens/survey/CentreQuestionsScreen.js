@@ -227,7 +227,7 @@ export default function CentreQuestionsScreen() {
     // return navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
 
     console.log('ansum->', ansSum);
-    if (ansSum !== 21) {
+    if (ansSum === 21) {
       setDataLoading(false);
       return setError({
         ...error,
@@ -284,7 +284,6 @@ export default function CentreQuestionsScreen() {
           formdata.append('survey_form_id', apiPayload.survey_form_id);
           formdata.append('town', apiPayload.town);
           formdata.append('establishment_year', establishment);
-
           console.log('formdata', formdata);
           var requestOptions = {
             method: 'POST',
@@ -305,6 +304,13 @@ export default function CentreQuestionsScreen() {
           // create survey of center api
           formdatacentre.append('center_id', parsed?.data?.id);
           formdatacentre.append('audience_id', 10);
+          let formans2 = centre_commence_motive
+            .map(el => {
+              return el?.value;
+            })
+            .join()
+            .replace(/\,/g, '||');
+
           let formans5 =
             center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time?.key ===
             2
@@ -327,25 +333,32 @@ export default function CentreQuestionsScreen() {
             role_of_our_kendra_in_our_basti_during__corona?.value === 'Yes'
               ? `Yes- ${kendra_samiti_work
                   .map(el => {
-                    return el?.value + ' | ';
+                    return el?.value;
                   })
-                  .join()}`
+                  .join()
+                  .replace(/\,/g, '||')}`
               : 'No';
-          let formans20 = majorprevelant_problems_in_the_basti.map(el => {
-            return el?.value + ' | ';
-          });
+          let formans20 = majorprevelant_problems_in_the_basti
+            .map(el => {
+              return el?.value;
+            })
+            .join()
+            .replace(/\,/g, '||');
 
           let surveydata = {
             // 'Establishment Year of the Kendra'
             1: `${establishment}`,
             //'Objective to start the kendra ? ( You can choose more than one answer )'
-            2: `${centre_commence_motive.map(el => {
-              return el.value + ' | ';
-            })}`,
+            2: `${formans2}`,
             // 'How many students have passed out from this Kendra? (Since inception)'
-            3: `${students_passed_out_from_centre?.value || ''}`,
+            3: `${students_passed_out_from_centre || ''}`,
             //  'What will happen if this kendra did not function?'
-            4: `${centre_not_operational_aftermath.map(e=>{return e?.value+' | '})}`,
+            4: `${centre_not_operational_aftermath
+              .map(e => {
+                return e?.value;
+              })
+              .join()
+              .replace(/\,/g, '||')}`,
             //'Whether the center is operating continuously since its inception or is it closed for some time in between? (Excluding Covid period)'
             5: `${formans5}`,
             // 'Basti Type'
@@ -642,10 +655,9 @@ export default function CentreQuestionsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color:
-                    answers.students_passed_out_from_centre.length > 0
-                      ? COLORS.black
-                      : COLORS.white,
+                  color: answers.students_passed_out_from_centre
+                    ? COLORS.black
+                    : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {3}
@@ -687,9 +699,10 @@ export default function CentreQuestionsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: answers.centre_not_operational_aftermath.length > 0
-                  ? COLORS.orange
-                  : COLORS.red,
+                backgroundColor:
+                  answers.centre_not_operational_aftermath.length > 0
+                    ? COLORS.orange
+                    : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -798,14 +811,18 @@ export default function CentreQuestionsScreen() {
                       } else {
                         tmp.forEach(function (item, index1) {
                           if (item.value === el.value) {
-                            let tmp = [...answers.centre_not_operational_aftermath];
+                            let tmp = [
+                              ...answers.centre_not_operational_aftermath,
+                            ];
                             tmp.splice(index1, 1);
                             setAnswers({
                               ...answers,
                               centre_not_operational_aftermath: tmp,
                             });
                           } else {
-                            let tmp = [...answers.centre_not_operational_aftermath];
+                            let tmp = [
+                              ...answers.centre_not_operational_aftermath,
+                            ];
                             tmp.push(el);
                             setAnswers({
                               ...answers,
@@ -2277,7 +2294,7 @@ export default function CentreQuestionsScreen() {
               data={[
                 {
                   key: 1,
-                  value: 'Addiction (Nasha),                  ',
+                  value: 'Addiction (Nasha)',
                   label: 'CENTER_Q22_OPT1',
                 },
                 {
@@ -2312,7 +2329,7 @@ export default function CentreQuestionsScreen() {
             {[
               {
                 key: 1,
-                value: 'Addiction (Nasha),                  ',
+                value: 'Addiction (Nasha)',
                 label: 'CENTER_Q22_OPT1',
               },
               {
