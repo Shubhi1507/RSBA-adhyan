@@ -239,6 +239,7 @@ export default function CenterDetailsTwoScreen() {
         ...store.currentSurveyData,
         center_details,
         isSaved: true,
+        isCompleted: true,
         release_date: new Date().toString(),
         updatedAt: new Date().toString(),
       };
