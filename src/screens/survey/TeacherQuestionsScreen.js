@@ -203,11 +203,12 @@ export default function TeacherQuestionsScreen() {
           // 'What method we use to teach basic concepts of different topics other than study? (Such as religion, traditions, Sewa, behavioural science etc.)'
           80: `${methods_used_to_teach_basic_concepts?.value}`,
           // 'How we teach social work to our students? (Multiple choice)'
-          81: `${teach_social_work.map(
-            el => {
-              return el?.value+' | ';;
-            },
-          )}`,
+          81: `${teach_social_work
+            .map(el => {
+              return el?.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
           // 'Fields in which you have observed transformation / improvement  in our students. Rate your answer out of 10 where 1=Poor & 10 = Best'
           82: `Academic - Rating between 1 to 10 - ${rating_academic}, Behavioural pattern - Rating between 1 to 10 - ${rating_behaviour_pattern}, Sports - Rating between 1 to 10 - ${rating_sports}, Culture & Art - Rating between 1 to 10 - ${rating_culture}`,
           // 'What type of behavioural changes we can observe in our students?'
