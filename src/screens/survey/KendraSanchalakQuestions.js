@@ -165,11 +165,12 @@ export default function KendraSanchalakQuestions() {
           // 'Was the Kendra able to perform its work during the Covid period?'
           91: `${was_the_kendra_able_to_perform_during_the_covid?.value}`,
           // 'What difference you observe in the families of students coming to Kendra? (At least 50% cases should be there) (Multiple choice)'
-          92: `${difference_observed_in_the_families_of_students_coming_to_kendra.map(
-            el => {
-              return el?.value+' | ';;
-            },
-          )}`,
+          92: `${difference_observed_in_the_families_of_students_coming_to_kendra
+            .map(el => {
+              return el?.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
           // 'How many families from the locality we have influenced due to our Kendra activities?'
           93: `${families_from_the_locality_have_influenced_due_to_our_kendra_activities?.value}`,
           // 'What is percentage of decline in school dropout ratio due to our Kendra performance? (Before and After Comparison). Apply this till Std 10th'
