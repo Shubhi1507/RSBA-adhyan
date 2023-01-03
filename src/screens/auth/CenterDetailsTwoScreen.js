@@ -240,7 +240,10 @@ export default function CenterDetailsTwoScreen() {
         center_details,
         isSaved: true,
         isCompleted: true,
-        release_date: new Date().toString(),
+        // release_date: new Date().toString(),
+        release_date: new Date(
+          new Date().setTime(new Date().getTime() + 72 * 60 * 60 * 1000),
+        ).toString(),
         updatedAt: new Date().toString(),
       };
       let userdata = userStore?.userData?.userData;
@@ -304,7 +307,6 @@ export default function CenterDetailsTwoScreen() {
         ...store.currentSurveyData,
         center_details,
         isSaved: false,
-        release_date: '',
         updatedAt: new Date().toString(),
       };
       console.log('pg2', payload);
