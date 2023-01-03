@@ -227,7 +227,7 @@ export default function CentreQuestionsScreen() {
     // return navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
 
     console.log('ansum->', ansSum);
-    if (ansSum === 21) {
+    if (ansSum !== 21) {
       setDataLoading(false);
       return setError({
         ...error,
