@@ -262,28 +262,28 @@ export default function KendraSanchalakQuestions() {
         {/* QA1 - total_students_attend_the_class_regularly*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.total_students_attend_the_class_regularly
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: !answers.total_students_attend_the_class_regularly
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {1}
               </TextHandler>
-            </View>
+
+              <TextHandler
+                style={{
+                  color: !answers.total_students_attend_the_class_regularly
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
 
             <View
               style={{
@@ -320,30 +320,30 @@ export default function KendraSanchalakQuestions() {
         {/* QA2 - was_the_kendra_able_to_perform_during_the_covid */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.was_the_kendra_able_to_perform_during_the_covid
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
                     !answers.was_the_kendra_able_to_perform_during_the_covid
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {2}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color:
+                    !answers.was_the_kendra_able_to_perform_during_the_covid
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+               {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -406,34 +406,37 @@ export default function KendraSanchalakQuestions() {
               flexDirection: 'row',
               marginVertical: 20,
             }}>
-            <View
-              style={{
-                backgroundColor:
-                  answers
-                    .difference_observed_in_the_families_of_students_coming_to_kendra
-                    .length === 0
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color:
                     answers
                       .difference_observed_in_the_families_of_students_coming_to_kendra
                       .length === 0
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {3}
               </TextHandler>
-            </View>
 
+
+              <TextHandler
+                style={{
+                  color:
+                    answers
+                      .difference_observed_in_the_families_of_students_coming_to_kendra
+                      .length === 0
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "700"
+                }}>
+              {'•'}
+
+              </TextHandler>
+            
             <View
               style={{
                 flex: 1,
@@ -507,30 +510,30 @@ export default function KendraSanchalakQuestions() {
         {/* QA4 - families_from_the_locality_have_influenced_due_to_our_kendra_activities */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.families_from_the_locality_have_influenced_due_to_our_kendra_activities
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+        
               <TextHandler
                 style={{
                   color:
                     !answers.families_from_the_locality_have_influenced_due_to_our_kendra_activities
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
+                      fontWeight : "700" ,
                   textAlign: 'center',
                 }}>
                 {4}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color:
+                    !answers.families_from_the_locality_have_influenced_due_to_our_kendra_activities
+                      ? COLORS.red
+                      : COLORS.black,
+                      fontWeight : "900" ,
+                  textAlign: 'center',
+                }}>
+               {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -588,30 +591,30 @@ export default function KendraSanchalakQuestions() {
         {/* QA5 - percentage_of_decline_in_school_dropout_due_to_kendra */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.percentage_of_decline_in_school_dropout_due_to_kendra
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color:
                     !answers.percentage_of_decline_in_school_dropout_due_to_kendra
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {5}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color:
+                    !answers.percentage_of_decline_in_school_dropout_due_to_kendra
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "700"
+                }}>
+                 {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -652,28 +655,28 @@ export default function KendraSanchalakQuestions() {
         {/* QA6 - conduct_medical_test_for_students*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.conduct_medical_test_for_students
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: !answers.conduct_medical_test_for_students
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {6}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color: !answers.conduct_medical_test_for_students
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+              {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -710,27 +713,30 @@ export default function KendraSanchalakQuestions() {
         {/* QA7 -plan_for_expansion */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.plan_for_expansion
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: !answers.plan_for_expansion
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {7}
               </TextHandler>
-            </View>
+
+
+              <TextHandler
+                style={{
+                  color: !answers.plan_for_expansion
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+                 {'•'}
+
+              </TextHandler>
 
             <View
               style={{
@@ -765,30 +771,31 @@ export default function KendraSanchalakQuestions() {
         {/* QA8 - submit_status_report_of_kendra_to_all_the_stakeholders_each_month*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.submit_status_report_of_kendra_to_all_the_stakeholders_each_month
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
                     !answers.submit_status_report_of_kendra_to_all_the_stakeholders_each_month
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {8}
               </TextHandler>
-            </View>
 
+
+              <TextHandler
+                style={{
+                  color:
+                    !answers.submit_status_report_of_kendra_to_all_the_stakeholders_each_month
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -828,27 +835,28 @@ export default function KendraSanchalakQuestions() {
         {/* QA9 - feedback_mechanism_to_address_issues*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.feedback_mechanism_to_address_issues
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+          
               <TextHandler
                 style={{
                   color: !answers.feedback_mechanism_to_address_issues
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {9}
               </TextHandler>
-            </View>
+
+              <TextHandler
+                style={{
+                  color: !answers.feedback_mechanism_to_address_issues
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
 
             <View
               style={{
@@ -886,28 +894,30 @@ export default function KendraSanchalakQuestions() {
         {/* QA10 - observation_not_covered*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.observation_not_covered
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color: !answers.observation_not_covered
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {10}
               </TextHandler>
-            </View>
 
+
+              <TextHandler
+                style={{
+                  color: !answers.observation_not_covered
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+                 {'•'}
+
+              </TextHandler>
             <View
               style={{
                 flex: 1,

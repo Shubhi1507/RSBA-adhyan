@@ -462,28 +462,27 @@ export default function PastStudentQuestions() {
         {/* QA1 -  friends_coming_to_center_the_days*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.friends_coming_to_center_the_days
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+          
               <TextHandler
                 style={{
                   color: !answers.friends_coming_to_center_the_days
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {1}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color: !answers.friends_coming_to_center_the_days
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -528,28 +527,27 @@ export default function PastStudentQuestions() {
         {/* QA2 - is_the_center_same_as_before*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.is_the_center_same_as_before
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: !answers.is_the_center_same_as_before
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {2}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color: !answers.is_the_center_same_as_before
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -591,29 +589,27 @@ export default function PastStudentQuestions() {
         {/* QA3- how_many_years_were_you_coming_to_the_center */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.how_many_years_were_you_coming_to_the_center
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: !answers.how_many_years_were_you_coming_to_the_center
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {3}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color: !answers.how_many_years_were_you_coming_to_the_center
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -660,34 +656,33 @@ export default function PastStudentQuestions() {
         {/* QA4 - reason_for_leaving_the_center*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.reason_for_leaving_the_center ||
-                  (answers.reason_for_leaving_the_center?.value === 'Other' &&
-                    !answers.reason_for_leaving_the_center?.other)
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+         
               <TextHandler
                 style={{
                   color:
                     !answers.reason_for_leaving_the_center ||
                     (answers.reason_for_leaving_the_center?.value === 'Other' &&
                       !answers.reason_for_leaving_the_center?.other)
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {4}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color:
+                    !answers.reason_for_leaving_the_center ||
+                    (answers.reason_for_leaving_the_center?.value === 'Other' &&
+                      !answers.reason_for_leaving_the_center?.other)
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -758,21 +753,7 @@ export default function PastStudentQuestions() {
         {/* QA5 -still_associated_with_the_center */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.still_associated_with_the_center ||
-                  (answers.still_associated_with_the_center?.value === 'Yes' &&
-                    answers.still_associated_with_the_center_reasons.length ===
-                      0)
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color:
@@ -781,13 +762,30 @@ export default function PastStudentQuestions() {
                       'Yes' &&
                       answers.still_associated_with_the_center_reasons
                         .length === 0)
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {5}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color:
+                    !answers.still_associated_with_the_center ||
+                    (answers.still_associated_with_the_center?.value ===
+                      'Yes' &&
+                      answers.still_associated_with_the_center_reasons
+                        .length === 0)
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "700"
+                }}>
+              {'•'}
+              </TextHandler>
+
+
 
             <View
               style={{
@@ -897,33 +895,34 @@ export default function PastStudentQuestions() {
         {/* QA6 -  how_the_center_has_influnced_your_overall_personality*/}
         <View style={{marginTop: 10}}>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  answers.how_the_center_has_influnced_your_overall_personality
-                    .length === 0
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color:
                     answers
                       .how_the_center_has_influnced_your_overall_personality
                       .length === 0
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {6}
               </TextHandler>
-            </View>
-
+          
+              <TextHandler
+                style={{
+                  color:
+                    answers
+                      .how_the_center_has_influnced_your_overall_personality
+                      .length === 0
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1004,29 +1003,7 @@ export default function PastStudentQuestions() {
         {/* QA7 - reasons_for_change_in_your_personality*/}
         <View style={{marginTop: 10}}>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  answers.reasons_for_change_in_your_personality.length > 0
-                    ? answers.reasons_for_change_in_your_personality.filter(
-                        el => el?.key === 5,
-                      ).length === 0
-                      ? COLORS.orange
-                      : answers.reasons_for_change_in_your_personality.filter(
-                          el => el?.key === 5,
-                        )[0]?.other !== undefined &&
-                        answers.reasons_for_change_in_your_personality.filter(
-                          el => el?.key === 5,
-                        )[0]?.other
-                      ? COLORS.orange
-                      : COLORS.red
-                    : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
@@ -1042,13 +1019,36 @@ export default function PastStudentQuestions() {
                             el => el?.key === 5,
                           )[0]?.other
                         ? COLORS.black
-                        : COLORS.white
-                      : COLORS.white,
+                        : COLORS.red
+                      : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {7}
               </TextHandler>
-            </View>
+
+              <TextHandler
+                style={{
+                  color:
+                    answers.reasons_for_change_in_your_personality.length > 0
+                      ? answers.reasons_for_change_in_your_personality.filter(
+                          el => el?.key === 5,
+                        ).length === 0
+                        ? COLORS.black
+                        : answers.reasons_for_change_in_your_personality.filter(
+                            el => el?.key === 5,
+                          )[0]?.other !== undefined &&
+                          answers.reasons_for_change_in_your_personality.filter(
+                            el => el?.key === 5,
+                          )[0]?.other
+                        ? COLORS.black
+                        : COLORS.red
+                      : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
 
             <View
               style={{
@@ -1163,31 +1163,31 @@ export default function PastStudentQuestions() {
         {/* QA8 - encourage_other_students_join_the_center*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  answers.encourage_other_students_join_the_center.length === 0
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+         
               <TextHandler
                 style={{
                   color:
                     answers.encourage_other_students_join_the_center.length ===
                     0
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {8}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color:
+                    answers.encourage_other_students_join_the_center.length ===
+                    0
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1232,23 +1232,7 @@ export default function PastStudentQuestions() {
         {/* QA9 - how_the_center_has_influnced_your_personality*/}
         <View style={{marginTop: 10}}>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  answers.how_the_center_has_influnced_your_personality
-                    .length === 0 ||
-                  checkarrayforOtherValues(
-                    answers.how_the_center_has_influnced_your_personality,
-                    'other',
-                  ) === 0
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+       
               <TextHandler
                 style={{
                   color:
@@ -1258,14 +1242,30 @@ export default function PastStudentQuestions() {
                       answers.how_the_center_has_influnced_your_personality,
                       'other',
                     ) === 0
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {9}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color:
+                    answers.how_the_center_has_influnced_your_personality
+                      .length === 0 ||
+                    checkarrayforOtherValues(
+                      answers.how_the_center_has_influnced_your_personality,
+                      'other',
+                    ) === 0
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+             {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1383,24 +1383,7 @@ export default function PastStudentQuestions() {
         {/* QA10 - experience_between_you_n_other_students_who_do_not_come_to_kendra*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  answers
-                    .experience_between_you_n_other_students_who_do_not_come_to_kendra
-                    .length === 0 ||
-                  checkarrayforOtherValues(
-                    answers.experience_between_you_n_other_students_who_do_not_come_to_kendra,
-                    'other',
-                  ) === 0
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
@@ -1411,13 +1394,32 @@ export default function PastStudentQuestions() {
                       answers.experience_between_you_n_other_students_who_do_not_come_to_kendra,
                       'other',
                     ) === 0
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {10}
               </TextHandler>
-            </View>
+
+              <TextHandler
+                style={{
+                  color:
+                    answers
+                      .experience_between_you_n_other_students_who_do_not_come_to_kendra
+                      .length === 0 ||
+                    checkarrayforOtherValues(
+                      answers.experience_between_you_n_other_students_who_do_not_come_to_kendra,
+                      'other',
+                    ) === 0
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+               {'•'}
+
+              </TextHandler>
 
             <View
               style={{
@@ -1544,23 +1546,7 @@ export default function PastStudentQuestions() {
         {/* QA11 - difference_noticed_in_the_family_due_to_the_center */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  answers.difference_noticed_in_the_family_due_to_the_center
-                    .length === 0 ||
-                  checkarrayforOtherValues(
-                    answers.difference_noticed_in_the_family_due_to_the_center,
-                    'other',
-                  ) === 0
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+         
               <TextHandler
                 style={{
                   color:
@@ -1570,14 +1556,30 @@ export default function PastStudentQuestions() {
                       answers.difference_noticed_in_the_family_due_to_the_center,
                       'other',
                     ) === 0
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {11}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color:
+                    answers.difference_noticed_in_the_family_due_to_the_center
+                      .length === 0 ||
+                    checkarrayforOtherValues(
+                      answers.difference_noticed_in_the_family_due_to_the_center,
+                      'other',
+                    ) === 0
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+               {'•'}
+ 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1704,21 +1706,7 @@ export default function PastStudentQuestions() {
         {/* QA12 - contribute_in_betterment_of_the_center */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.contribute_in_betterment_of_the_center ||
-                  (answers.contribute_in_betterment_of_the_center?.value ===
-                    'Other' &&
-                    !answers.contribute_in_betterment_of_the_center?.other)
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
@@ -1726,13 +1714,27 @@ export default function PastStudentQuestions() {
                     (answers.contribute_in_betterment_of_the_center?.value ===
                       'Other' &&
                       !answers.contribute_in_betterment_of_the_center?.other)
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {12}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color:
+                    !answers.contribute_in_betterment_of_the_center ||
+                    (answers.contribute_in_betterment_of_the_center?.value ===
+                      'Other' &&
+                      !answers.contribute_in_betterment_of_the_center?.other)
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
 
             <View
               style={{
@@ -1810,28 +1812,28 @@ export default function PastStudentQuestions() {
         {/* QA13 - connected_with_sangh_organizations*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.connected_with_sangh_organizations
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: !answers.connected_with_sangh_organizations
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {13}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color: !answers.connected_with_sangh_organizations
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+               {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1887,22 +1889,7 @@ export default function PastStudentQuestions() {
         {/* QA14 - involved_in_any_othe_social_activities*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.involved_in_any_othe_social_activities ||
-                  (answers.involved_in_any_othe_social_activities?.value ===
-                    'Yes' &&
-                    !answers.involved_in_any_othe_social_activities?.other)
-                    ? COLORS.red
-                    : COLORS.orange,
-
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
@@ -1910,14 +1897,29 @@ export default function PastStudentQuestions() {
                     (answers.involved_in_any_othe_social_activities?.value ===
                       'Yes' &&
                       !answers.involved_in_any_othe_social_activities?.other)
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {14}
               </TextHandler>
-            </View>
 
+
+              <TextHandler
+                style={{
+                  color:
+                    !answers.involved_in_any_othe_social_activities ||
+                    (answers.involved_in_any_othe_social_activities?.value ===
+                      'Yes' &&
+                      !answers.involved_in_any_othe_social_activities?.other)
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,

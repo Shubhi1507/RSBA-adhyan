@@ -420,48 +420,38 @@ export default function PresentStudentParentsScreen() {
           <View
             style={{
               flexDirection: 'row',
-              marginVertical: 20,
-              alignItems: 'center',
+              marginVertical: 20
             }}>
-            <View>
-              {/* // style={{ */}
-              {/* //   backgroundColor: !answers.current_students
-              //     ? COLORS.red
-              //     : COLORS.orange,
-              //   height: 20,
-              //   width: 20,
-              //   borderRadius: 40,
-              //   justifyContent: 'flex-start',
-              //   marginRight: 5,
-              // }}> */}
-              <TextHandler
-                style={{
-                  color: answers.establishment ? COLORS.black : COLORS.red,
-                  textAlign: 'center',
-                }}>
-                {1}
-              </TextHandler>
-              {/* <TextHandler
-                style={{
-                  color: !answers.current_students
-                    ? COLORS.white
-                    : COLORS.black,
-                  textAlign: 'center',
-                }}>
-                {1}
-              </TextHandler> */}
-            </View>
-            <View
+            
+            
+            <TextHandler
               style={{
-                backgroundColor: answers.current_students
-                  ? COLORS.orange
-                  : COLORS.red,
-                height: 8,
-                width: 8,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}></View>
+                color:
+                  answers.current_students.length > 0
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {1}
+            </TextHandler>
+
+
+            <TextHandler
+              style={{
+                color:
+                  answers.current_students.length > 0
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+            
+                {'•'}
+
+              </TextHandler>
+             
+          
 
             <View
               style={{

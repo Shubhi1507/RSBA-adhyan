@@ -298,27 +298,29 @@ export default function TeacherQuestionsScreen() {
         {/* QA1 - consistency_in_attending_the_kendra*/}
         <View style={{marginBottom: 10}}>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.consistency_in_attending_the_kendra
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: !answers.consistency_in_attending_the_kendra
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {1}
               </TextHandler>
-            </View>
+            
+              <TextHandler
+                style={{
+                  color: !answers.consistency_in_attending_the_kendra
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+                {'•'}
+
+              </TextHandler>
 
             <View
               style={{
@@ -370,27 +372,31 @@ export default function TeacherQuestionsScreen() {
         {/* QA2 - methods_used_to_teach_basic_concepts*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.methods_used_to_teach_basic_concepts
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: !answers.methods_used_to_teach_basic_concepts
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {2}
               </TextHandler>
-            </View>
+
+
+              <TextHandler
+                style={{
+                  color: !answers.methods_used_to_teach_basic_concepts
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+                 {'•'}
+
+              </TextHandler>
+
 
             <View
               style={{
@@ -441,29 +447,32 @@ export default function TeacherQuestionsScreen() {
         {/* QA3 -  teach_social_work*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  answers.teach_social_work.length > 0
-                    ? COLORS.orange
-                    : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
                     answers.teach_social_work.length > 0
                       ? COLORS.black
-                      : COLORS.white,
+                      : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {3}
               </TextHandler>
-            </View>
+
+
+           <TextHandler
+                style={{
+                  color:
+                    answers.teach_social_work.length > 0
+                      ? COLORS.black
+                      : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+                 {'•'}
+
+              </TextHandler>
 
             <View
               style={{
@@ -539,21 +548,7 @@ export default function TeacherQuestionsScreen() {
         {/* QA4 - rating_academic rating_behaviour_pattern rating_sports rating_culture*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.rating_academic ||
-                  !answers.rating_behaviour_pattern ||
-                  !answers.rating_sports ||
-                  !answers.rating_culture
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color:
@@ -561,13 +556,31 @@ export default function TeacherQuestionsScreen() {
                     !answers.rating_behaviour_pattern ||
                     !answers.rating_sports ||
                     !answers.rating_culture
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {4}
               </TextHandler>
-            </View>
+
+
+              <TextHandler
+                style={{
+                  color:
+                    !answers.rating_academic ||
+                    !answers.rating_behaviour_pattern ||
+                    !answers.rating_sports ||
+                    !answers.rating_culture
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+            {'•'}
+
+              </TextHandler>
+         
 
             <View
               style={{
@@ -669,21 +682,7 @@ export default function TeacherQuestionsScreen() {
         {/* QA5 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.rating_sincerity ||
-                  !answers.rating_punctuality ||
-                  !answers.rating_trustworthy ||
-                  !answers.leadership_qualities
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
@@ -691,14 +690,28 @@ export default function TeacherQuestionsScreen() {
                     !answers.rating_punctuality ||
                     !answers.rating_trustworthy ||
                     !answers.leadership_qualities
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {5}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color:
+                    !answers.rating_sincerity ||
+                    !answers.rating_punctuality ||
+                    !answers.rating_trustworthy ||
+                    !answers.leadership_qualities
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+             {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -799,28 +812,28 @@ export default function TeacherQuestionsScreen() {
         {/* QA6  - compromise_on_our_teaching_agenda*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.compromise_on_our_teaching_agenda
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: !answers.compromise_on_our_teaching_agenda
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {6}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color: !answers.compromise_on_our_teaching_agenda
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+                {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -869,21 +882,7 @@ export default function TeacherQuestionsScreen() {
         {/* QA7 - personally_meet_all_the_parents_every_month  */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.personally_meet_all_the_parents_every_month ||
-                  (answers.personally_meet_all_the_parents_every_month
-                    ?.value === 'Yes' &&
-                    !answers.personally_meet_all_the_parents_every_month?.other)
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+         
               <TextHandler
                 style={{
                   color:
@@ -892,14 +891,29 @@ export default function TeacherQuestionsScreen() {
                       ?.value === 'Yes' &&
                       !answers.personally_meet_all_the_parents_every_month
                         ?.other)
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {7}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color:
+                    !answers.personally_meet_all_the_parents_every_month ||
+                    (answers.personally_meet_all_the_parents_every_month
+                      ?.value === 'Yes' &&
+                      !answers.personally_meet_all_the_parents_every_month
+                        ?.other)
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "700"
+                }}>
+                {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -967,28 +981,28 @@ export default function TeacherQuestionsScreen() {
         {/* QA8 - qualification_of_the_teacher */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.qualification_of_the_teacher
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: !answers.qualification_of_the_teacher
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {8}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color: !answers.qualification_of_the_teacher
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+                {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1025,30 +1039,30 @@ export default function TeacherQuestionsScreen() {
         {/* QA9- since_when_teacher_is_associated_with_this_kendra */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.since_when_teacher_is_associated_with_this_kendra
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+          
               <TextHandler
                 style={{
                   color:
                     !answers.since_when_teacher_is_associated_with_this_kendra
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {9}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color:
+                    !answers.since_when_teacher_is_associated_with_this_kendra
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "700"
+                }}>
+                {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1089,28 +1103,27 @@ export default function TeacherQuestionsScreen() {
         {/* QA10 - reason_to_join_this_kendra*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.reason_to_join_this_kendra
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+        
               <TextHandler
                 style={{
                   color: !answers.reason_to_join_this_kendra
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {10}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color: !answers.reason_to_join_this_kendra
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1142,22 +1155,7 @@ export default function TeacherQuestionsScreen() {
         {/* QA11 - expectations_from_sanstha_for_the_betterment*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.expectations_from_sanstha_for_the_betterment ||
-                  (answers.expectations_from_sanstha_for_the_betterment
-                    ?.value == 'Other' &&
-                    !answers.expectations_from_sanstha_for_the_betterment
-                      ?.other)
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
@@ -1166,13 +1164,31 @@ export default function TeacherQuestionsScreen() {
                       ?.value == 'Other' &&
                       !answers.expectations_from_sanstha_for_the_betterment
                         ?.other)
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {11}
               </TextHandler>
-            </View>
+            
+              <TextHandler
+                style={{
+                  color:
+                    !answers.expectations_from_sanstha_for_the_betterment ||
+                    (answers.expectations_from_sanstha_for_the_betterment
+                      ?.value == 'Other' &&
+                      !answers.expectations_from_sanstha_for_the_betterment
+                        ?.other)
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "700"
+                }}>
+                {'•'}
+
+              </TextHandler>
+
 
             <View
               style={{
