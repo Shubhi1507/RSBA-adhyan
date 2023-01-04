@@ -12,7 +12,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import androidx.multidex.MultiDexApplication;
 import com.reactnativerestart.RestartPackage;
-import io.xogus.reactnative.versioncheck.RNVersionCheckPackage;
 
 public class MainApplication extends MultiDexApplication implements ReactApplication {
 

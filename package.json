@@ -40,7 +40,6 @@
     "react-native-simple-dialogs": "^1.4.0",
     "react-native-svg": "^12.1.1",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-version-check": "^3.4.6-alpha.0",
     "react-redux": "^8.0.4",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0"
