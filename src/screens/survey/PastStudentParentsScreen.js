@@ -367,28 +367,33 @@ export default function PastStudentParentsScreen() {
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
         {/* QA1  - no_of_parents_present*/}
         <View style={{marginBottom: 10}}>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+          <View
+            style={{
+              flexDirection: 'row',
+              marginVertical: 20,
+              alignItems: 'center',
+            }}>
+            <TextHandler
               style={{
-                backgroundColor: !answers.no_of_parents_present
+                color: !answers.no_of_parents_present
                   ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: !answers.no_of_parents_present
-                    ? COLORS.white
-                    : COLORS.black,
-                  textAlign: 'center',
-                }}>
-                {1}
-              </TextHandler>
-            </View>
+              {1}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color: !answers.no_of_parents_present
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -424,35 +429,45 @@ export default function PastStudentParentsScreen() {
         {/* QA2 - ok  */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor:
+                color:
                   !answers.rating_illiterate ||
                   !answers.rating_upto_5th ||
                   !answers.rating_upto_10th ||
-                  !answers.rating_graduation
+                  !answers.rating_graduation ||
+                  parseFloat(answers.rating_illiterate) +
+                    parseFloat(answers.rating_upto_5th) +
+                    parseFloat(answers.rating_upto_10th) +
+                    parseFloat(answers.rating_graduation) !==
+                    100
                     ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color:
-                    !answers.rating_illiterate ||
-                    !answers.rating_upto_5th ||
-                    !answers.rating_upto_10th ||
-                    !answers.rating_graduation
-                      ? COLORS.white
-                      : COLORS.black,
-                  textAlign: 'center',
-                }}>
-                {2}
-              </TextHandler>
-            </View>
+              {2}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color:
+                  !answers.rating_illiterate ||
+                  !answers.rating_upto_5th ||
+                  !answers.rating_upto_10th ||
+                  !answers.rating_graduation ||
+                  parseFloat(answers.rating_illiterate) +
+                    parseFloat(answers.rating_upto_5th) +
+                    parseFloat(answers.rating_upto_10th) +
+                    parseFloat(answers.rating_graduation) !==
+                    100
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -462,6 +477,15 @@ export default function PastStudentParentsScreen() {
               <TextHandler style={styles.question}>
                 {t('PAST_STUDENTS_PARENTS_Q2')}
               </TextHandler>
+              {parseFloat(answers.rating_illiterate) +
+                parseFloat(answers.rating_upto_5th) +
+                parseFloat(answers.rating_upto_10th) +
+                parseFloat(answers.rating_graduation) !==
+                100 && (
+                <TextHandler style={{fontSize: 10, color: COLORS.red}}>
+                  {t('SUM_NOT_100')}
+                </TextHandler>
+              )}
             </View>
           </View>
 
@@ -554,9 +578,9 @@ export default function PastStudentParentsScreen() {
         {/* QA3  */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor:
+                color:
                   !answers.econmonic_status_under_1_lakh ||
                   !answers.econmonic_status_between_1_and_3_lakh ||
                   !answers.econmonic_status_between_3_and_5_lakh ||
@@ -569,38 +593,34 @@ export default function PastStudentParentsScreen() {
                     ) !==
                     100
                     ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color:
-                    !answers.econmonic_status_under_1_lakh ||
-                    !answers.econmonic_status_between_1_and_3_lakh ||
-                    !answers.econmonic_status_between_3_and_5_lakh ||
-                    !answers.econmonic_status_between_5_and_10_lakh ||
-                    parseFloat(answers.econmonic_status_under_1_lakh) +
-                      parseFloat(
-                        answers.econmonic_status_between_1_and_3_lakh,
-                      ) +
-                      parseFloat(
-                        answers.econmonic_status_between_3_and_5_lakh,
-                      ) +
-                      parseFloat(
-                        answers.econmonic_status_between_5_and_10_lakh,
-                      ) !==
-                      100
-                      ? COLORS.white
-                      : COLORS.black,
-                  textAlign: 'center',
-                }}>
-                {3}
-              </TextHandler>
-            </View>
+              {3}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color:
+                  !answers.econmonic_status_under_1_lakh ||
+                  !answers.econmonic_status_between_1_and_3_lakh ||
+                  !answers.econmonic_status_between_3_and_5_lakh ||
+                  !answers.econmonic_status_between_5_and_10_lakh ||
+                  parseFloat(answers.econmonic_status_under_1_lakh) +
+                    parseFloat(answers.econmonic_status_between_1_and_3_lakh) +
+                    parseFloat(answers.econmonic_status_between_3_and_5_lakh) +
+                    parseFloat(
+                      answers.econmonic_status_between_5_and_10_lakh,
+                    ) !==
+                    100
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -720,35 +740,34 @@ export default function PastStudentParentsScreen() {
         {/* QA4 - reason_for_sending_children_to_the_centre */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor:
+                color:
                   !answers.reason_for_sending_children_to_the_centre ||
                   (answers.reason_for_sending_children_to_the_centre?.value ===
                     'Other' &&
                     !answers.reason_for_sending_children_to_the_centre?.other)
                     ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color:
-                    !answers.reason_for_sending_children_to_the_centre ||
-                    (answers.reason_for_sending_children_to_the_centre
-                      ?.value === 'Other' &&
-                      !answers.reason_for_sending_children_to_the_centre?.other)
-                      ? COLORS.white
-                      : COLORS.black,
-                  textAlign: 'center',
-                }}>
-                {4}
-              </TextHandler>
-            </View>
+              {4}
+            </TextHandler>
+            <TextHandler
+              style={{
+                color:
+                  !answers.reason_for_sending_children_to_the_centre ||
+                  (answers.reason_for_sending_children_to_the_centre?.value ===
+                    'Other' &&
+                    !answers.reason_for_sending_children_to_the_centre?.other)
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -823,21 +842,7 @@ export default function PastStudentParentsScreen() {
         {/* QA5 - how_these_children_go_to_the_centre */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.how_these_children_go_to_the_centre ||
-                  (answers.how_these_children_go_to_the_centre?.value ===
-                    'Other' &&
-                    !answers.how_these_children_go_to_the_centre?.other)
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
@@ -845,14 +850,27 @@ export default function PastStudentParentsScreen() {
                     (answers.how_these_children_go_to_the_centre?.value ===
                       'Other' &&
                       !answers.how_these_children_go_to_the_centre?.other)
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {5}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color:
+                    !answers.how_these_children_go_to_the_centre ||
+                    (answers.how_these_children_go_to_the_centre?.value ===
+                      'Other' &&
+                      !answers.how_these_children_go_to_the_centre?.other)
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -926,27 +944,28 @@ export default function PastStudentParentsScreen() {
         {/* QA6 - days_children_are_going_to_the_centre */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.days_children_are_going_to_the_centre
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: !answers.days_children_are_going_to_the_centre
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {6}
               </TextHandler>
-            </View>
+
+              <TextHandler
+                style={{
+                  color: !answers.days_children_are_going_to_the_centre
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
 
             <View
               style={{
@@ -1002,25 +1021,7 @@ export default function PastStudentParentsScreen() {
         {/* QA7 - children_occupation_nowadays */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  // answers.children_occupation_nowadays.length === 0
-                  answers.children_occupation_nowadays.length !== 0
-                    ? checkarrayforOtherValues(
-                        answers.children_occupation_nowadays,
-                        'other',
-                      ) === 1
-                      ? COLORS.orange
-                      : COLORS.red
-                    : COLORS.red,
-
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+          
               <TextHandler
                 style={{
                   color:
@@ -1030,14 +1031,29 @@ export default function PastStudentParentsScreen() {
                           'other',
                         ) === 1
                         ? COLORS.black
-                        : COLORS.white
-                      : COLORS.white,
+                        : COLORS.red
+                      : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {7}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color:
+                    answers.children_occupation_nowadays.length !== 0
+                      ? checkarrayforOtherValues(
+                          answers.children_occupation_nowadays,
+                          'other',
+                        ) === 1
+                        ? COLORS.black
+                        : COLORS.red
+                      : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1148,23 +1164,7 @@ export default function PastStudentParentsScreen() {
         {/* QA8  - develpoment_of_children*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.rating_good_habits ||
-                  !answers.rating_patriotism ||
-                  !answers.rating_good_sanskaar ||
-                  !answers.rating_study_interest ||
-                  !answers.rating_development_of_qualities_in_students ||
-                  !answers.rating_attitude_for_better_life
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color:
@@ -1174,14 +1174,29 @@ export default function PastStudentParentsScreen() {
                     !answers.rating_study_interest ||
                     !answers.rating_development_of_qualities_in_students ||
                     !answers.rating_attitude_for_better_life
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {8}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color:
+                    !answers.rating_good_habits ||
+                    !answers.rating_patriotism ||
+                    !answers.rating_good_sanskaar ||
+                    !answers.rating_study_interest ||
+                    !answers.rating_development_of_qualities_in_students ||
+                    !answers.rating_attitude_for_better_life
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1332,21 +1347,7 @@ export default function PastStudentParentsScreen() {
         {/* QA9 -  involvement_in_the_programs_of_the_centre*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.involvement_in_the_programs_of_the_centre ||
-                  (answers.involvement_in_the_programs_of_the_centre?.value ===
-                    'Other' &&
-                    !answers.involvement_in_the_programs_of_the_centre?.other)
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
@@ -1354,14 +1355,27 @@ export default function PastStudentParentsScreen() {
                     (answers.involvement_in_the_programs_of_the_centre
                       ?.value === 'Other' &&
                       !answers.involvement_in_the_programs_of_the_centre?.other)
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {9}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color:
+                    !answers.involvement_in_the_programs_of_the_centre ||
+                    (answers.involvement_in_the_programs_of_the_centre
+                      ?.value === 'Other' &&
+                      !answers.involvement_in_the_programs_of_the_centre?.other)
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1435,29 +1449,30 @@ export default function PastStudentParentsScreen() {
         {/* QA10 - contribution_in_running_centre_more_effectively */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.contribution_in_running_centre_more_effectively
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+         
               <TextHandler
                 style={{
                   color:
                     !answers.contribution_in_running_centre_more_effectively
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {10}
               </TextHandler>
-            </View>
+
+              <TextHandler
+                style={{
+                  color:
+                    !answers.contribution_in_running_centre_more_effectively
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "700"
+                }}>
+ {'•'}
+              </TextHandler>
 
             <View
               style={{
@@ -1491,27 +1506,28 @@ export default function PastStudentParentsScreen() {
         {/* QA11 - expectations_from_the_centre*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor: !answers.expectations_from_the_centre
+                color: !answers.expectations_from_the_centre
                   ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: !answers.expectations_from_the_centre
-                    ? COLORS.white
-                    : COLORS.black,
-                  textAlign: 'center',
-                }}>
-                {11}
-              </TextHandler>
-            </View>
+              {11}
+            </TextHandler>
+
+
+            <TextHandler
+              style={{
+                color: !answers.expectations_from_the_centre
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+ {'•'}
+            </TextHandler>
 
             <View
               style={{

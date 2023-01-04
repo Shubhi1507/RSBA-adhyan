@@ -266,22 +266,7 @@ export default function BastiQuestions() {
         {/* QA1 - are_any_other_organizations_active_in_the_basti */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.are_any_other_organizations_active_in_the_basti ||
-                  (answers.are_any_other_organizations_active_in_the_basti
-                    ?.value === 'Yes' &&
-                    !answers.are_any_other_organizations_active_in_the_basti
-                      ?.other)
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color:
@@ -290,13 +275,29 @@ export default function BastiQuestions() {
                       ?.value === 'Yes' &&
                       !answers.are_any_other_organizations_active_in_the_basti
                         ?.other)
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {1}
               </TextHandler>
-            </View>
+            
+              <TextHandler
+                style={{
+                  color:
+                    !answers.are_any_other_organizations_active_in_the_basti ||
+                    (answers.are_any_other_organizations_active_in_the_basti
+                      ?.value === 'Yes' &&
+                      !answers.are_any_other_organizations_active_in_the_basti
+                        ?.other)
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
 
             <View
               style={{
@@ -370,23 +371,7 @@ export default function BastiQuestions() {
         {/* QA2 - activities_conducted_by_these_organisations*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  answers.activities_conducted_by_these_organisations.length ===
-                    0 ||
-                  checkarrayforOtherValues(
-                    answers.activities_conducted_by_these_organisations,
-                    'other',
-                  ) === 0
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color:
@@ -396,13 +381,31 @@ export default function BastiQuestions() {
                       answers.activities_conducted_by_these_organisations,
                       'other',
                     ) === 0
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {2}
               </TextHandler>
-            </View>
+           
+              <TextHandler
+                style={{
+                  color:
+                    answers.activities_conducted_by_these_organisations
+                      .length === 0 ||
+                    checkarrayforOtherValues(
+                      answers.activities_conducted_by_these_organisations,
+                      'other',
+                    ) === 0
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+              {'•'}
+
+              </TextHandler>
 
             <View
               style={{
@@ -523,27 +526,30 @@ export default function BastiQuestions() {
         {/* QA3 - involved_in_anti_social_activities*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.involved_in_anti_social_activities
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color: !answers.involved_in_anti_social_activities
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {3}
               </TextHandler>
-            </View>
+          
+          
+              <TextHandler
+                style={{
+                  color: !answers.involved_in_anti_social_activities
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+               {'•'}
+
+              </TextHandler>
 
             <View
               style={{
@@ -575,29 +581,31 @@ export default function BastiQuestions() {
         {/* QA4 -status_of_anti_social_institutions_after_our_center_establishment */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.status_of_anti_social_institutions_after_our_center_establishment
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+          
               <TextHandler
                 style={{
                   color:
                     !answers.status_of_anti_social_institutions_after_our_center_establishment
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {4}
               </TextHandler>
-            </View>
+           
+              <TextHandler
+                style={{
+                  color:
+                    !answers.status_of_anti_social_institutions_after_our_center_establishment
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+                 {'•'}
+
+              </TextHandler>
 
             <View
               style={{
@@ -646,30 +654,30 @@ export default function BastiQuestions() {
         {/* QA5 - our_beneficiaries_also_take_benefits_from_other_organisations */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.our_beneficiaries_also_take_benefits_from_other_organisations
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
                     !answers.our_beneficiaries_also_take_benefits_from_other_organisations
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {5}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color:
+                    !answers.our_beneficiaries_also_take_benefits_from_other_organisations
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+                {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -714,33 +722,36 @@ export default function BastiQuestions() {
 
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  answers.total_population_of_the_basti?.hindu &&
-                  answers.total_population_of_the_basti?.other
-                    ? COLORS.orange
-                    : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
                     answers.total_population_of_the_basti?.hindu &&
                     answers.total_population_of_the_basti?.other
                       ? COLORS.black
-                      : COLORS.white,
+                      : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {6}
               </TextHandler>
-            </View>
+
+              <TextHandler
+                style={{
+                  color:
+                    answers.total_population_of_the_basti?.hindu &&
+                    answers.total_population_of_the_basti?.other
+                      ? COLORS.black
+                      : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "700"
+                }}>
+                 {'•'}
+
+              </TextHandler>
 
             <View
+
               style={{
                 flex: 1,
                 alignItems: 'flex-start',

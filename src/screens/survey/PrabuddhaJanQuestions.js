@@ -225,9 +225,9 @@ export default function PrabuddhaJanQuestions() {
         {/* QA1 - donors_and_well_wishers_help*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor:
+                color:
                   answers.donors_and_well_wishers_help.length === 0 ||
                   (answers.donors_and_well_wishers_help.filter(
                     e => e?.value === 'Other',
@@ -236,30 +236,30 @@ export default function PrabuddhaJanQuestions() {
                       e => e?.value === 'Other',
                     )[0]?.other)
                     ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color:
-                    answers.donors_and_well_wishers_help.length === 0 ||
-                    (answers.donors_and_well_wishers_help.filter(
+              {1}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color:
+                  answers.donors_and_well_wishers_help.length === 0 ||
+                  (answers.donors_and_well_wishers_help.filter(
+                    e => e?.value === 'Other',
+                  ).length > 0 &&
+                    !answers.donors_and_well_wishers_help.filter(
                       e => e?.value === 'Other',
-                    ).length > 0 &&
-                      !answers.donors_and_well_wishers_help.filter(
-                        e => e?.value === 'Other',
-                      )[0]?.other)
-                      ? COLORS.white
-                      : COLORS.black,
-                  textAlign: 'center',
-                }}>
-                {1}
-              </TextHandler>
-            </View>
+                    )[0]?.other)
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -368,28 +368,27 @@ export default function PrabuddhaJanQuestions() {
         {/* QA2-  donors_and_well_wishers_are_connected_to_us*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor:
-                  !answers.donors_and_well_wishers_are_connected_to_us
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                color: !answers.donors_and_well_wishers_are_connected_to_us
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: !answers.donors_and_well_wishers_are_connected_to_us
-                    ? COLORS.white
-                    : COLORS.black,
-                  textAlign: 'center',
-                }}>
-                {2}
-              </TextHandler>
-            </View>
+              {2}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color: !answers.donors_and_well_wishers_are_connected_to_us
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -445,29 +444,34 @@ export default function PrabuddhaJanQuestions() {
         {/* QA - well_wishers_and_donors_helped_us_during_corona_crisis */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  !answers.well_wishers_and_donors_helped_us_during_corona_crisis
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color:
                     !answers.well_wishers_and_donors_helped_us_during_corona_crisis
-                      ? COLORS.white
+                      ? COLORS.red
                       : COLORS.black,
                   textAlign: 'center',
+                  fontWeight :"700"
+
                 }}>
                 {3}
               </TextHandler>
-            </View>
+            
+            
+              <TextHandler
+                style={{
+                  color:
+                    !answers.well_wishers_and_donors_helped_us_during_corona_crisis
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight :"900"
+
+                }}>
+                {'•'}
+
+              </TextHandler>
 
             <View
               style={{
@@ -515,27 +519,29 @@ export default function PrabuddhaJanQuestions() {
         {/* QA4 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: !answers.influence_of_well_wishers_in_society
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: !answers.influence_of_well_wishers_in_society
-                    ? COLORS.white
+                    ? COLORS.red
                     : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {4}
               </TextHandler>
-            </View>
+           
+              <TextHandler
+                style={{
+                  color: !answers.influence_of_well_wishers_in_society
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+                {'•'}
+
+              </TextHandler>
 
             <View
               style={{

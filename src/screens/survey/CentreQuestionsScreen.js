@@ -459,21 +459,18 @@ export default function CentreQuestionsScreen() {
             <TextHandler
               style={{
                 color: answers.establishment ? COLORS.black : COLORS.red,
-                textAlign: 'center',
+                textAlign: 'center',fontWeight :"700"
               }}>
               {1}
             </TextHandler>
-            <View
+
+            <TextHandler
               style={{
-                backgroundColor: answers.establishment
-                  ? COLORS.orange
-                  : COLORS.red,
-                height: 8,
-                width: 8,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}></View>
+                color: answers.establishment ? COLORS.black : COLORS.red,
+                textAlign: 'center', fontWeight : "900"
+              }}> 
+ {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -879,29 +876,30 @@ export default function CentreQuestionsScreen() {
         {/* QA5 - OK - center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  answers.center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time
-                    ? COLORS.orange
-                    : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
                     answers.center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time
                       ? COLORS.black
-                      : COLORS.white,
+                      : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {5}
               </TextHandler>
-            </View>
+
+              <TextHandler
+                style={{
+                  color:
+                    answers.center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time
+                      ? COLORS.black
+                      : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
 
             <View
               style={{
@@ -953,28 +951,29 @@ export default function CentreQuestionsScreen() {
           ?.key === 2 && (
           <View>
             <View style={{flexDirection: 'row', marginVertical: 20}}>
-              <View
-                style={{
-                  backgroundColor: answers.discontinuation_time_period
-                    ? COLORS.orange
-                    : COLORS.red,
-                  height: 20,
-                  width: 20,
-                  borderRadius: 40,
-                  justifyContent: 'flex-start',
-                  marginRight: 5,
-                }}>
+              
                 <TextHandler
                   style={{
                     color: answers.discontinuation_time_period
                       ? COLORS.black
-                      : COLORS.white,
+                      : COLORS.red,
                     textAlign: 'center',
+                    fontWeight : "700"
                   }}>
                   {'5a'}
                 </TextHandler>
-              </View>
+              
+                <TextHandler
+                  style={{
+                    color: answers.discontinuation_time_period
+                      ? COLORS.black
+                      : COLORS.red,
+                    textAlign: 'center',
+                    fontWeight : "900"
+                  }}>
+                  {'•'}
 
+                </TextHandler>
               <View
                 style={{
                   flex: 1,
@@ -1025,27 +1024,23 @@ export default function CentreQuestionsScreen() {
         {/* QA6 - OK - type_of_basti*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: answers.type_of_basti
-                  ? COLORS.orange
-                  : COLORS.red,
-                height: 20,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
-                  color: answers.type_of_basti ? COLORS.black : COLORS.white,
+                  color: answers.type_of_basti ? COLORS.black : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {6}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color: answers.type_of_basti ? COLORS.black : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1080,25 +1075,22 @@ export default function CentreQuestionsScreen() {
         {/* QA7 - OK - infrastructure*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: answers.infrastructure
-                  ? COLORS.orange
-                  : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
-                  color: answers.infrastructure ? COLORS.black : COLORS.white,
-                  textAlign: 'center',
+                  color: answers.infrastructure ? COLORS.black : COLORS.red,
+                  textAlign: 'center', fontWeight : "700"
                 }}>
                 {7}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color: answers.infrastructure ? COLORS.black : COLORS.red,
+                  textAlign: 'center', fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
+
 
             <View
               style={{
@@ -1146,29 +1138,27 @@ export default function CentreQuestionsScreen() {
         {/* QA8 - OK - pictures_of_bharatmata_and_indian_legends */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  answers.pictures_of_bharatmata_and_indian_legends
-                    ? COLORS.orange
-                    : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color: answers.pictures_of_bharatmata_and_indian_legends
                     ? COLORS.black
-                    : COLORS.white,
+                    : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {8}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color: answers.pictures_of_bharatmata_and_indian_legends
+                    ? COLORS.black
+                    : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1213,28 +1203,27 @@ export default function CentreQuestionsScreen() {
         {/* QA9 - OK - sewa_sanstha_running_the_center */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: answers.sewa_sanstha_running_the_center
-                  ? COLORS.orange
-                  : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: answers.sewa_sanstha_running_the_center
                     ? COLORS.black
-                    : COLORS.white,
+                    : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {9}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color: answers.sewa_sanstha_running_the_center
+                    ? COLORS.black
+                    : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1275,28 +1264,27 @@ export default function CentreQuestionsScreen() {
         {/* QA10 - OK - visitors_details_captured */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: answers.visitors_details_captured
-                  ? COLORS.orange
-                  : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color: answers.visitors_details_captured
                     ? COLORS.black
-                    : COLORS.white,
+                    : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {10}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color: answers.visitors_details_captured
+                    ? COLORS.black
+                    : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "700"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1338,28 +1326,27 @@ export default function CentreQuestionsScreen() {
         {/* QA11 - OK - availability_of_infrastructure */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: answers.availability_of_infrastructure
-                  ? COLORS.orange
-                  : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+          
               <TextHandler
                 style={{
                   color: answers.availability_of_infrastructure
                     ? COLORS.black
-                    : COLORS.white,
+                    : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {11}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color: answers.availability_of_infrastructure
+                    ? COLORS.black
+                    : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1401,28 +1388,28 @@ export default function CentreQuestionsScreen() {
         {/* QA12 - OK - participation_of_the_basti_people */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: answers.participation_of_the_basti_people
-                  ? COLORS.orange
-                  : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: answers.participation_of_the_basti_people
                     ? COLORS.black
-                    : COLORS.white,
+                    : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {12}
               </TextHandler>
-            </View>
 
+              <TextHandler
+                style={{
+                  color: answers.participation_of_the_basti_people
+                    ? COLORS.black
+                    : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1477,28 +1464,27 @@ export default function CentreQuestionsScreen() {
         {/* QA13 - OK - is_participation_of_basti_satisfactory */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: answers.is_participation_of_basti_satisfactory
-                  ? COLORS.orange
-                  : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color: answers.is_participation_of_basti_satisfactory
                     ? COLORS.black
-                    : COLORS.white,
+                    : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {13}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color: answers.is_participation_of_basti_satisfactory
+                    ? COLORS.black
+                    : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1543,25 +1529,7 @@ export default function CentreQuestionsScreen() {
         {/* QA14 - OK - divyang_and_single_parent_students_enrolled  */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  (answers.divyang_and_single_parent_students_enrolled
-                    ?.value === 'Yes' &&
-                    answers.divyang_and_single_parent_students_enrolled
-                      ?.divyang_count &&
-                    answers.divyang_and_single_parent_students_enrolled
-                      ?.no_or_single_parent_count) ||
-                  answers.divyang_and_single_parent_students_enrolled?.value ===
-                    'No'
-                    ? COLORS.orange
-                    : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+          
               <TextHandler
                 style={{
                   color:
@@ -1574,12 +1542,33 @@ export default function CentreQuestionsScreen() {
                     answers.divyang_and_single_parent_students_enrolled
                       ?.value === 'No'
                       ? COLORS.black
-                      : COLORS.white,
+                      : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {14}
               </TextHandler>
-            </View>
+
+
+              <TextHandler
+                style={{
+                  color:
+                    (answers.divyang_and_single_parent_students_enrolled
+                      ?.value === 'Yes' &&
+                      answers.divyang_and_single_parent_students_enrolled
+                        ?.divyang_count &&
+                      answers.divyang_and_single_parent_students_enrolled
+                        ?.no_or_single_parent_count) ||
+                    answers.divyang_and_single_parent_students_enrolled
+                      ?.value === 'No'
+                      ? COLORS.black
+                      : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
+            
 
             <View
               style={{
@@ -1697,28 +1686,27 @@ export default function CentreQuestionsScreen() {
         {/* QA15 - OK - basti_toli_active */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: answers.basti_toli_active
-                  ? COLORS.orange
-                  : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color: answers.basti_toli_active
                     ? COLORS.black
-                    : COLORS.white,
+                    : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {15}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color: answers.basti_toli_active
+                    ? COLORS.black
+                    : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1763,22 +1751,7 @@ export default function CentreQuestionsScreen() {
         {/* QA16 - OK - oppose_of_the_kendras_activities_by_basti  */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  (answers.oppose_of_the_kendras_activities_by_basti?.value ===
-                    'Yes' &&
-                    answers.oppose_of_the_kendras_activities_by_basti?.other) ||
-                  answers.divyang_and_single_parent_students_enrolled?.value ===
-                    'No'
-                    ? COLORS.orange
-                    : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
@@ -1789,13 +1762,28 @@ export default function CentreQuestionsScreen() {
                     answers.divyang_and_single_parent_students_enrolled
                       ?.value === 'No'
                       ? COLORS.black
-                      : COLORS.white,
+                      : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {16}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color:
+                    (answers.oppose_of_the_kendras_activities_by_basti
+                      ?.value === 'Yes' &&
+                      answers.oppose_of_the_kendras_activities_by_basti
+                        ?.other) ||
+                    answers.divyang_and_single_parent_students_enrolled
+                      ?.value === 'No'
+                      ? COLORS.black
+                      : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1865,22 +1853,7 @@ export default function CentreQuestionsScreen() {
         {/* QA17 - OK - members_of_basti_toli_reside_in_same_area   */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  (answers.members_of_basti_toli_reside_in_same_area?.value ===
-                    'No' &&
-                    answers.members_of_basti_toli_reside_in_same_area?.other) ||
-                  answers.members_of_basti_toli_reside_in_same_area?.value ===
-                    'Yes'
-                    ? COLORS.orange
-                    : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color:
@@ -1891,13 +1864,28 @@ export default function CentreQuestionsScreen() {
                     answers.members_of_basti_toli_reside_in_same_area?.value ===
                       'Yes'
                       ? COLORS.black
-                      : COLORS.white,
+                      : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {17}
               </TextHandler>
-            </View>
-
+              <TextHandler
+                style={{
+                  color:
+                    (answers.members_of_basti_toli_reside_in_same_area
+                      ?.value === 'No' &&
+                      answers.members_of_basti_toli_reside_in_same_area
+                        ?.other) ||
+                    answers.members_of_basti_toli_reside_in_same_area?.value ===
+                      'Yes'
+                      ? COLORS.black
+                      : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -1977,22 +1965,7 @@ export default function CentreQuestionsScreen() {
         {/* QA18 - OK - role_of_our_kendra_in_our_basti_during__corona */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  (answers.role_of_our_kendra_in_our_basti_during__corona
-                    ?.value == 'Yes' &&
-                    answers.kendra_samiti_work.length > 0) ||
-                  answers.role_of_our_kendra_in_our_basti_during__corona
-                    ?.value == 'No'
-                    ? COLORS.orange
-                    : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
                   color:
@@ -2003,12 +1976,25 @@ export default function CentreQuestionsScreen() {
                       ?.value == 'No'
                       ? COLORS.black
                       : COLORS.white,
-                  textAlign: 'center',
+                  textAlign: 'center', fontWeight : "700"
                 }}>
                 {18}
               </TextHandler>
-            </View>
 
+              <TextHandler
+                style={{
+                  color:
+                    (answers.role_of_our_kendra_in_our_basti_during__corona
+                      ?.value == 'Yes' &&
+                      answers.kendra_samiti_work.length > 0) ||
+                    answers.role_of_our_kendra_in_our_basti_during__corona
+                      ?.value == 'No'
+                      ? COLORS.black
+                      : COLORS.white,
+                  textAlign: 'center', fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -2192,27 +2178,29 @@ export default function CentreQuestionsScreen() {
         {/* QA19 - OK - kendra_effect_on_anti_social_problems*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: answers.kendra_effect_on_anti_social_problems
-                  ? COLORS.orange
-                  : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
+              
               <TextHandler
                 style={{
                   color: answers.kendra_effect_on_anti_social_problems
                     ? COLORS.black
-                    : COLORS.white,
+                    : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {19}
               </TextHandler>
-            </View>
+
+              <TextHandler
+                style={{
+                  color: answers.kendra_effect_on_anti_social_problems
+                    ? COLORS.black
+                    : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
 
             <View
               style={{
@@ -2263,30 +2251,30 @@ export default function CentreQuestionsScreen() {
         {/* QA20 - OK - majorprevelant_problems_in_the_basti */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  answers.majorprevelant_problems_in_the_basti.length > 0
-                    ? COLORS.orange
-                    : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+          
               <TextHandler
                 style={{
                   color:
                     answers.majorprevelant_problems_in_the_basti.length > 0
                       ? COLORS.black
-                      : COLORS.white,
+                      : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {20}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color:
+                    answers.majorprevelant_problems_in_the_basti.length > 0
+                      ? COLORS.black
+                      : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+                {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -2447,28 +2435,28 @@ export default function CentreQuestionsScreen() {
         {/* QA21 - OK - total_population_of_sewa_bharti_beneficiaries */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor:
-                  answers.total_population_of_sewa_bharti_beneficiaries
-                    ? COLORS.orange
-                    : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
                   color: answers.total_population_of_sewa_bharti_beneficiaries
                     ? COLORS.black
-                    : COLORS.white,
+                    : COLORS.red,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {21}
               </TextHandler>
-            </View>
+
+              <TextHandler
+                style={{
+                  color: answers.total_population_of_sewa_bharti_beneficiaries
+                    ? COLORS.black
+                    : COLORS.red,
+                  textAlign: 'center',
+                  fontWeight : "700"
+                }}>
+ {'•'}
+              </TextHandler>
 
             <View
               style={{
