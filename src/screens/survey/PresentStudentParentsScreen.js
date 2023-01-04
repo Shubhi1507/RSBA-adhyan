@@ -299,12 +299,15 @@ export default function PresentStudentParentsScreen() {
           // 'Economic status ( Enter the percentage data )'
           25: `Less than 1 Lac (%)-${econmonic_status_under_1_lakh}, 1 to 3 Lacs (%) - ${econmonic_status_between_1_and_3_lakh}, 3 to 5 Lacs (%) - ${econmonic_status_between_3_and_5_lakh}, 5 to 10 Lacs (%) - ${econmonic_status_between_5_and_10_lakh}`,
           // 'Reason for sending children to the center? ( You can choose more than one answer )'
-          26: `${reason_for_sending_children_to_the_centre.map(el => {
-            if (el?.value === 'Other') {
-              return el?.other + ' | ';
-            }
-            return el?.value + ' | ';
-          })}`,
+          26: `${reason_for_sending_children_to_the_centre
+            .map(el => {
+              if (el?.value === 'Other') {
+                return el?.other;
+              }
+              return el?.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
           //'How these children go to the center?'
           27: `${
             how_these_children_go_to_the_centre?.other ||

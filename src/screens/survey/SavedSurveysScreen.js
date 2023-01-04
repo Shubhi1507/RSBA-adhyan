@@ -81,7 +81,7 @@ export default function SavedSurveysScreen() {
       isCompleted: true,
       updatedAt: new Date().toString(),
     };
-    console.log(selectedCenter)
+    console.log(selectedCenter);
 
     // let surveyData = [...selectedCenter.surveyAnswers];
     // console.log(surveyData[0]);
@@ -108,12 +108,20 @@ export default function SavedSurveysScreen() {
       if (item && item?.release_date) {
         console.log('item', item.release_date);
         const total = Date.parse(item.release_date) - Date.parse(new Date());
-        const minutes = Math.floor((total / 1000 / 60) % 60);
-        const hours = Math.floor(total / (1000 * 60 * 60));
-        console.log(hours, minutes, 'left');
-        return hours + ':' + minutes + '   ';
+        if (total > 0) {
+          const minutes = Math.floor((total / 1000 / 60) % 60);
+          const hours = Math.floor(total / (1000 * 60 * 60));
+          console.log(hours, minutes, 'left');
+          return hours + ':' + minutes + '   ';
+        } else {
+          convertReviewSurveystoCompleted();
+        }
       } else return '';
     } else return '';
+  };
+
+  const convertReviewSurveystoCompleted = () => {
+    console.log('savedSurveyDataTmpArr', savedSurveyDataTmpArr);
   };
   return (
     <View style={styles.container}>
@@ -179,30 +187,32 @@ export default function SavedSurveysScreen() {
                         {item.centre_id}
                       </TextHandler>
                     </View>
-                    <View
-                      style={{
-                        flex: 1,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        flexDirection: 'row',
-                      }}>
-                      <TextHandler
+                    {timeRemainingCalcution(item) && (
+                      <View
                         style={{
-                          fontSize: 16,
-                          fontWeight: '400',
-                          lineHeight: 22,
-                          textAlign: 'center',
-                          color: COLORS.black,
-                          textTransform: 'lowercase',
+                          flex: 1,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          flexDirection: 'row',
                         }}>
-                        {timeRemainingCalcution(item)}
-                      </TextHandler>
-                      <Image
-                        source={images.time}
-                        style={{height: 15, width: 15}}
-                        resizeMode="contain"
-                      />
-                    </View>
+                        <TextHandler
+                          style={{
+                            fontSize: 16,
+                            fontWeight: '400',
+                            lineHeight: 22,
+                            textAlign: 'center',
+                            color: COLORS.black,
+                            textTransform: 'lowercase',
+                          }}>
+                          {timeRemainingCalcution(item)}
+                        </TextHandler>
+                        <Image
+                          source={images.time}
+                          style={{height: 15, width: 15}}
+                          resizeMode="contain"
+                        />
+                      </View>
+                    )}
                   </View>
                 </View>
               </TouchableOpacity>
