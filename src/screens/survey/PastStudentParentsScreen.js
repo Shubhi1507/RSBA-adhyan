@@ -265,9 +265,9 @@ export default function PastStudentParentsScreen() {
           // 'What are your children doing currently? - (More than one option can be selected )'
           44: `${children_occupation_nowadays
             ?.map(el => {
-              if (el?.value === 'Other') {
+            if (el?.value === 'Other') {
                 return el?.other;
-              }
+            }
               return el?.value;
             })
             .join()
@@ -367,7 +367,7 @@ export default function PastStudentParentsScreen() {
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
         {/* QA1  - no_of_parents_present*/}
         <View style={{marginBottom: 10}}>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
+          <View style={{flexDirection: 'row', marginVertical: 20 , alignItems:'center'}}>
             <View
               style={{
                 backgroundColor: !answers.no_of_parents_present

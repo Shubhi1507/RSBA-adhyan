@@ -501,7 +501,7 @@ export default function CentreQuestionsScreen() {
 
         {/* QA2 -OK - centre_commence_motive*/}
         <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
+          <View style={{flexDirection: 'row', marginVertical: 20 , alignItems:'center'}}>
             <View
               style={{
                 backgroundColor:
@@ -524,6 +524,17 @@ export default function CentreQuestionsScreen() {
                 }}>
                 {2}
               </TextHandler>
+              <View
+              style={{
+                backgroundColor: answers.centre_commence_motive
+                  ? COLORS.orange
+                  : COLORS.red,
+                height: 8 ,
+                width: 8,
+                borderRadius: 40,
+                justifyContent: 'flex-start',
+                marginRight: 5,
+              }}></View>
             </View>
 
             <View
