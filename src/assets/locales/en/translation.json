@@ -661,7 +661,7 @@
 
   // S
   "SAVE_REVIEW_QUESTIONS": "Under Review",
-  "SOMETHING_WENT_WRONG": "Something went wrong. please try again in sometime",
+  "SOMETHING_WENT_WRONG": "Something went wrong. please try again or login again.",
   "SUM_NOT_100": "Sum is not equal to 100%",
 
   "SIX_DIGIT_CODE": "A 6-digit code will be sent via SMS to verify your mobile number.",
@@ -673,6 +673,7 @@
 
   // V
   "VOLUNTEER": "Volunteer",
+  "VOLUNTEER_NOT_FOUND": "Volunteer not found. Please log in again",
 
   // y
   "YOUR_PROGRESS_IS_SAVED": "Your progress is saved",
