@@ -420,38 +420,31 @@ export default function PresentStudentParentsScreen() {
           <View
             style={{
               flexDirection: 'row',
-              marginVertical: 20
+              marginVertical: 20,
             }}>
-            
-            
             <TextHandler
               style={{
                 color:
                   answers.current_students.length > 0
-                    ? COLORS.red
-                    : COLORS.black,
+                    ? COLORS.black
+                    : COLORS.red,
                 textAlign: 'center',
                 fontWeight: '700',
               }}>
               {1}
             </TextHandler>
 
-
             <TextHandler
               style={{
                 color:
                   answers.current_students.length > 0
-                    ? COLORS.red
-                    : COLORS.black,
+                    ? COLORS.black
+                    : COLORS.red,
                 textAlign: 'center',
                 fontWeight: '900',
               }}>
-            
-                {'•'}
-
-              </TextHandler>
-             
-          
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -490,47 +483,29 @@ export default function PresentStudentParentsScreen() {
               marginVertical: 20,
               alignItems: 'center',
             }}>
-            {/* <View
-              style={{
-                backgroundColor: !answers.no_of_parents_present
-                  ? COLORS.red
-                  : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: !answers.no_of_parents_present
-                    ? COLORS.white
-                    : COLORS.black,
-                  textAlign: 'center',
-                }}>
-                {2}
-              </TextHandler>
-            </View> */}
-
             <TextHandler
               style={{
-                color: answers.establishment ? COLORS.black : COLORS.red,
+                color:
+                  answers.no_of_parents_present.length > 0
+                    ? COLORS.black
+                    : COLORS.red,
                 textAlign: 'center',
+                fontWeight: '700',
               }}>
               {2}
             </TextHandler>
 
-            <View
+            <TextHandler
               style={{
-                backgroundColor: answers.no_of_parents_present
-                  ? COLORS.orange
-                  : COLORS.red,
-                height: 8,
-                width: 8,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}></View>
+                color:
+                  answers.no_of_parents_present.length > 0
+                    ? COLORS.black
+                    : COLORS.red,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -569,11 +544,10 @@ export default function PresentStudentParentsScreen() {
             style={{
               flexDirection: 'row',
               marginVertical: 20,
-              alignItems: 'center',
             }}>
-            {/* <View
+            <TextHandler
               style={{
-                backgroundColor:
+                color:
                   !answers.rating_illiterate ||
                   !answers.rating_upto_5th ||
                   !answers.rating_upto_10th ||
@@ -584,61 +558,33 @@ export default function PresentStudentParentsScreen() {
                     parseFloat(answers.rating_graduation) !==
                     100
                     ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color:
-                    !answers.rating_illiterate ||
-                    !answers.rating_upto_5th ||
-                    !answers.rating_upto_10th ||
-                    !answers.rating_graduation ||
-                    parseFloat(answers.rating_illiterate) +
-                      parseFloat(answers.rating_upto_5th) +
-                      parseFloat(answers.rating_upto_10th) +
-                      parseFloat(answers.rating_graduation) !==
-                      100
-                      ? COLORS.white
-                      : COLORS.black,
-                  textAlign: 'center',
-                }}>
-                {3}
-              </TextHandler>
-            </View> */}
-            <TextHandler
-              style={{
-                color:
-                  answers.rating_illiterate ||
-                  answers.rating_upto_5th ||
-                  answers.rating_upto_10th ||
-                  answers.rating_graduation
-                    ? COLORS.black
-                    : COLORS.red,
+                    : COLORS.black,
                 textAlign: 'center',
+                fontWeight: '700',
               }}>
               {3}
             </TextHandler>
 
-            <View
+            <TextHandler
               style={{
-                backgroundColor:
-                  answers.rating_illiterate ||
-                  answers.rating_upto_5th ||
-                  answers.rating_upto_10th ||
-                  answers.rating_graduation
-                    ? COLORS.orange
-                    : COLORS.red,
-                height: 8,
-                width: 8,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}></View>
+                color:
+                  !answers.rating_illiterate ||
+                  !answers.rating_upto_5th ||
+                  !answers.rating_upto_10th ||
+                  !answers.rating_graduation ||
+                  parseFloat(answers.rating_illiterate) +
+                    parseFloat(answers.rating_upto_5th) +
+                    parseFloat(answers.rating_upto_10th) +
+                    parseFloat(answers.rating_graduation) !==
+                    100
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
+
             <View
               style={{
                 flex: 1,
@@ -757,9 +703,9 @@ export default function PresentStudentParentsScreen() {
               marginVertical: 20,
               alignItems: 'center',
             }}>
-            {/* <View
+            <TextHandler
               style={{
-                backgroundColor:
+                color:
                   !answers.econmonic_status_under_1_lakh ||
                   !answers.econmonic_status_between_1_and_3_lakh ||
                   !answers.econmonic_status_between_3_and_5_lakh ||
@@ -772,66 +718,35 @@ export default function PresentStudentParentsScreen() {
                     ) !==
                     100
                     ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color:
-                    !answers.econmonic_status_under_1_lakh ||
-                    !answers.econmonic_status_between_1_and_3_lakh ||
-                    !answers.econmonic_status_between_3_and_5_lakh ||
-                    !answers.econmonic_status_between_5_and_10_lakh ||
-                    parseFloat(answers.econmonic_status_under_1_lakh) +
-                      parseFloat(
-                        answers.econmonic_status_between_1_and_3_lakh,
-                      ) +
-                      parseFloat(
-                        answers.econmonic_status_between_3_and_5_lakh,
-                      ) +
-                      parseFloat(
-                        answers.econmonic_status_between_5_and_10_lakh,
-                      ) !==
-                      100
-                      ? COLORS.white
-                      : COLORS.black,
-                  textAlign: 'center',
-                }}>
-                {4}
-              </TextHandler>
-            </View> */}
-            <TextHandler
-              style={{
-                color:
-                  answers.econmonic_status_under_1_lakh ||
-                  answers.econmonic_status_between_1_and_3_lakh ||
-                  !answers.econmonic_status_between_3_and_5_lakh ||
-                  !answers.econmonic_status_between_5_and_10_lakh
-                    ? COLORS.black
-                    : COLORS.red,
+                    : COLORS.black,
                 textAlign: 'center',
+                fontWeight: '700',
               }}>
               {4}
             </TextHandler>
-            <View
+
+            <TextHandler
               style={{
-                backgroundColor:
-                  answers.econmonic_status_under_1_lakh ||
-                  answers.econmonic_status_between_1_and_3_lakh ||
+                color:
+                  !answers.econmonic_status_under_1_lakh ||
+                  !answers.econmonic_status_between_1_and_3_lakh ||
                   !answers.econmonic_status_between_3_and_5_lakh ||
-                  !answers.econmonic_status_between_5_and_10_lakh
-                    ? COLORS.orange
-                    : COLORS.red,
-                height: 8,
-                width: 8,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}></View>
+                  !answers.econmonic_status_between_5_and_10_lakh ||
+                  parseFloat(answers.econmonic_status_under_1_lakh) +
+                    parseFloat(answers.econmonic_status_between_1_and_3_lakh) +
+                    parseFloat(answers.econmonic_status_between_3_and_5_lakh) +
+                    parseFloat(
+                      answers.econmonic_status_between_5_and_10_lakh,
+                    ) !==
+                    100
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
+
             <View
               style={{
                 flex: 1,
@@ -961,40 +876,7 @@ export default function PresentStudentParentsScreen() {
               marginVertical: 20,
               alignItems: 'center',
             }}>
-            {/* <View
-              style={{
-                backgroundColor:
-                  answers.reason_for_sending_children_to_the_centre.length ===
-                    0 ||
-                  checkarrayforOtherValues(
-                    answers.reason_for_sending_children_to_the_centre,
-                    'other',
-                  ) === 0
-                    ? COLORS.red
-                    : COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color:
-                    answers.reason_for_sending_children_to_the_centre.length ===
-                      0 ||
-                    checkarrayforOtherValues(
-                      answers.reason_for_sending_children_to_the_centre,
-                      'other',
-                    ) === 0
-                      ? COLORS.white
-                      : COLORS.black,
-                  textAlign: 'center',
-                }}>
-                {5}
-              </TextHandler>
-            </View> */}
-
+            
             <TextHandler
               style={{
                 color:
@@ -1004,8 +886,8 @@ export default function PresentStudentParentsScreen() {
                     answers.reason_for_sending_children_to_the_centre,
                     'other',
                   ) === 0
-                    ? COLORS.black
-                    : COLORS.red,
+                    ? COLORS.red
+                    : COLORS.black,
                 textAlign: 'center',
                 fontWeight: '700',
               }}>
@@ -1020,25 +902,14 @@ export default function PresentStudentParentsScreen() {
                     answers.reason_for_sending_children_to_the_centre,
                     'other',
                   ) === 0
-                    ? COLORS.black
-                    : COLORS.red,
+                    ? COLORS.red
+                    : COLORS.black,
                 textAlign: 'center',
                 fontWeight: '700',
               }}>
               {'•'}
             </TextHandler>
-            <View
-              style={{
-                backgroundColor:
-                  answers.reason_for_sending_children_to_the_centre
-                    ? COLORS.orange
-                    : COLORS.red,
-                height: 8,
-                width: 8,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}></View>
+            
             <View
               style={{
                 flex: 1,
@@ -1590,38 +1461,35 @@ export default function PresentStudentParentsScreen() {
         {/* QA10 -  */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            
-              <TextHandler
-                style={{
-                  color:
-                    !answers.rating_respect_elders ||
-                    !answers.do_not_back_answer_or_fight_with_friend ||
-                    !answers.rating_leadership_skills ||
-                    !answers.rating_helpful_others
-                      ? COLORS.red
-                      : COLORS.black,
-                  textAlign: 'center',
-                  fontWeight: "700"
+            <TextHandler
+              style={{
+                color:
+                  !answers.rating_respect_elders ||
+                  !answers.do_not_back_answer_or_fight_with_friend ||
+                  !answers.rating_leadership_skills ||
+                  !answers.rating_helpful_others
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {10}
+            </TextHandler>
 
-                }}>
-                {10}
-              </TextHandler>
-            
-              <TextHandler
-                style={{
-                  color:
-                    !answers.rating_respect_elders ||
-                    !answers.do_not_back_answer_or_fight_with_friend ||
-                    !answers.rating_leadership_skills ||
-                    !answers.rating_helpful_others
-                      ? COLORS.red
-                      : COLORS.black,
-                  textAlign: 'center',
-                  fontWeight: "900"
-                }}>
- {'•'}
-              </TextHandler>
-
+            <TextHandler
+              style={{
+                color:
+                  !answers.rating_respect_elders ||
+                  !answers.do_not_back_answer_or_fight_with_friend ||
+                  !answers.rating_leadership_skills ||
+                  !answers.rating_helpful_others
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -1726,38 +1594,35 @@ export default function PresentStudentParentsScreen() {
         {/* QA11 -  */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            
-              <TextHandler
-                style={{
-                  color:
-                    !answers.rating_religious_practice ||
-                    !answers.rating_knowledge_of_vedic_times_and_imp_saints ||
-                    !answers.rating_nationalism_knowledge ||
-                    !answers.rating_care_for_our_people
-                      ? COLORS.red
-                      : COLORS.black,
-                  textAlign: 'center',
-                  fontWeight : "700"
-                }}>
-                {11}
-              </TextHandler>
+            <TextHandler
+              style={{
+                color:
+                  !answers.rating_religious_practice ||
+                  !answers.rating_knowledge_of_vedic_times_and_imp_saints ||
+                  !answers.rating_nationalism_knowledge ||
+                  !answers.rating_care_for_our_people
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {11}
+            </TextHandler>
 
-              <TextHandler
-                style={{
-                  color:
-                    !answers.rating_religious_practice ||
-                    !answers.rating_knowledge_of_vedic_times_and_imp_saints ||
-                    !answers.rating_nationalism_knowledge ||
-                    !answers.rating_care_for_our_people
-                      ? COLORS.red
-                      : COLORS.black,
-                  textAlign: 'center',
-                  fontWeight: "900"
-                }}>
-                 {'•'}
-
-              </TextHandler>
-            
+            <TextHandler
+              style={{
+                color:
+                  !answers.rating_religious_practice ||
+                  !answers.rating_knowledge_of_vedic_times_and_imp_saints ||
+                  !answers.rating_nationalism_knowledge ||
+                  !answers.rating_care_for_our_people
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -1862,29 +1727,27 @@ export default function PresentStudentParentsScreen() {
         {/* Q12 */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-           
-              <TextHandler
-                style={{
-                  color: !answers.benefits_of_the_centre
-                    ? COLORS.red
-                    : COLORS.black,
-                  textAlign: 'center',
-                  fontWeight : "700"
-                }}>
-                {12}
-              </TextHandler>
-            
+            <TextHandler
+              style={{
+                color: !answers.benefits_of_the_centre
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {12}
+            </TextHandler>
 
-              <TextHandler
-                style={{
-                  color: !answers.benefits_of_the_centre
-                    ? COLORS.red
-                    : COLORS.black,
-                  textAlign: 'center',
-                  fontWeight : "900"
-                }}>
- {'•'}
-              </TextHandler>
+            <TextHandler
+              style={{
+                color: !answers.benefits_of_the_centre
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -1916,36 +1779,35 @@ export default function PresentStudentParentsScreen() {
         {/* QA13 - */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-          
-              <TextHandler
-                style={{
-                  color:
-                    !answers.involvement_in_the_programs_of_the_centre ||
-                    (answers.involvement_in_the_programs_of_the_centre
-                      ?.value === 'Other' &&
-                      !answers.involvement_in_the_programs_of_the_centre?.other)
-                      ? COLORS.red
-                      : COLORS.black,
-                  textAlign: 'center',
-                  fontWeight: "700"
-                }}>
-                {13}
-              </TextHandler>
-            
-              <TextHandler
-                style={{
-                  color:
-                    !answers.involvement_in_the_programs_of_the_centre ||
-                    (answers.involvement_in_the_programs_of_the_centre
-                      ?.value === 'Other' &&
-                      !answers.involvement_in_the_programs_of_the_centre?.other)
-                      ? COLORS.red
-                      : COLORS.black,
-                  textAlign: 'center',
-                  fontWeight:"900"
-                }}>
- {'•'}
-              </TextHandler>
+            <TextHandler
+              style={{
+                color:
+                  !answers.involvement_in_the_programs_of_the_centre ||
+                  (answers.involvement_in_the_programs_of_the_centre?.value ===
+                    'Other' &&
+                    !answers.involvement_in_the_programs_of_the_centre?.other)
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {13}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color:
+                  !answers.involvement_in_the_programs_of_the_centre ||
+                  (answers.involvement_in_the_programs_of_the_centre?.value ===
+                    'Other' &&
+                    !answers.involvement_in_the_programs_of_the_centre?.other)
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -2025,29 +1887,26 @@ export default function PresentStudentParentsScreen() {
 
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-           
-              <TextHandler
-                style={{
-                  color:
-                    !answers.contribution_in_running_centre_more_effectively
-                      ? COLORS.red
-                      : COLORS.black,
-                  textAlign: 'center',
-                  fontWeight:"700"
-                }}>
-                {14}
-              </TextHandler>
-              <TextHandler
-                style={{
-                  color:
-                    !answers.contribution_in_running_centre_more_effectively
-                      ? COLORS.red
-                      : COLORS.black,
-                  textAlign: 'center',
-                  fontWeight :"900"
-                }}>
- {'•'}
-              </TextHandler>
+            <TextHandler
+              style={{
+                color: !answers.contribution_in_running_centre_more_effectively
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {14}
+            </TextHandler>
+            <TextHandler
+              style={{
+                color: !answers.contribution_in_running_centre_more_effectively
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -2082,39 +1941,37 @@ export default function PresentStudentParentsScreen() {
 
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-           
-              <TextHandler
-                style={{
-                  color:
-                    !answers.rating_kendra_teacher_good_behaviour ||
-                    !answers.rating_kendra_teacher_effective_management ||
-                    !answers.rating_kendra_teacher_teaching_ability ||
-                    !answers.rating_kendra_teacher_connect_with_parents
-                      ? COLORS.red
-                      : COLORS.black,
+            <TextHandler
+              style={{
+                color:
+                  !answers.rating_kendra_teacher_good_behaviour ||
+                  !answers.rating_kendra_teacher_effective_management ||
+                  !answers.rating_kendra_teacher_teaching_ability ||
+                  !answers.rating_kendra_teacher_connect_with_parents
+                    ? COLORS.red
+                    : COLORS.black,
 
-                  textAlign: 'center',
-                  fontWeight :"700"
-                }}>
-                {15}
-              </TextHandler>
-            
-              <TextHandler
-                style={{
-                  color:
-                    !answers.rating_kendra_teacher_good_behaviour ||
-                    !answers.rating_kendra_teacher_effective_management ||
-                    !answers.rating_kendra_teacher_teaching_ability ||
-                    !answers.rating_kendra_teacher_connect_with_parents
-                      ? COLORS.red
-                      : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {15}
+            </TextHandler>
 
-                  textAlign: 'center',
-                  fontWeight :"900"
-                }}>
- {'•'}
-              </TextHandler>
+            <TextHandler
+              style={{
+                color:
+                  !answers.rating_kendra_teacher_good_behaviour ||
+                  !answers.rating_kendra_teacher_effective_management ||
+                  !answers.rating_kendra_teacher_teaching_ability ||
+                  !answers.rating_kendra_teacher_connect_with_parents
+                    ? COLORS.red
+                    : COLORS.black,
 
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -2228,30 +2085,28 @@ export default function PresentStudentParentsScreen() {
         {/* QA16 - */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            
-              <TextHandler
-                style={{
-                  color: !answers.expectations_from_the_centre
-                    ? COLORS.red
-                    : COLORS.black,
-                  textAlign: 'center',
-                  fontWeight:"700"
-                }}>
-                {16}
-              </TextHandler>
+            <TextHandler
+              style={{
+                color: !answers.expectations_from_the_centre
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {16}
+            </TextHandler>
 
+            <TextHandler
+              style={{
+                color: !answers.expectations_from_the_centre
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {'•'}
+            </TextHandler>
 
-              <TextHandler
-                style={{
-                  color: !answers.expectations_from_the_centre
-                    ? COLORS.red
-                    : COLORS.black,
-                  textAlign: 'center',
-                  fontWeight:"700"
-                }}>
- {'•'}
-              </TextHandler>
-          
             <View
               style={{
                 flex: 1,
