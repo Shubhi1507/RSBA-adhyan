@@ -192,12 +192,13 @@ android {
 dependencies {
     implementation project(':react-native-restart')
     implementation 'androidx.multidex:multidex:2.0.1'  
+    compile project(':react-native-version-check')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:0.66.1'  // From node_modules
     implementation platform('com.google.firebase:firebase-bom:31.0.1')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-
+    implementation 'com.google.android.play:core:1.7.3'
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
     }

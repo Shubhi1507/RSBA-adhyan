@@ -135,6 +135,24 @@ const LatestVolunteerData = async data => {
   }
 };
 
+const createSubmitSurveyData = async formdata => {
+  try {
+    const URL = BASE_URL + 'center';
+
+    const response = await fetch(URL, {
+      method: 'POST',
+      headers: headers,
+      body: formdata,
+    });
+    let respJson = await response.json();
+    console.log('create submit survey res- >', respJson);
+    return respJson;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 export {
   Login,
   getListofDistricts,
@@ -143,4 +161,5 @@ export {
   VerifyOTP,
   submitSurveyAPI,
   LatestVolunteerData,
+  createSubmitSurveyData,
 };

@@ -102,12 +102,18 @@ export default function DashboardScreen({route, navigation}) {
   useEffect(() => {
     const focus = navigation.addListener('focus', () => {
       let x = findMinimumTimeLeft(totalSurveys);
+      console.log('x', x);
+      // debugger
       if (x) {
+        console.log('findMinimumTimeLeft', x);
         setReviewTimeLeft(x.toString());
-      } else setReviewTimeLeft('');
+      } else {
+        moveReviewArrays();
+        setReviewTimeLeft('');
+      }
     });
     return focus;
-  }, [store.surveyReducer, navigation]);
+  }, []);
 
   useEffect(() => {
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
@@ -116,6 +122,18 @@ export default function DashboardScreen({route, navigation}) {
     dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
   }, []);
 
+  function moveReviewArrays() {
+    let original = [...totalSurveys];
+    console.log('al', original);
+
+    original.map((e, index) => {
+      if (new Date(e.release_date).getTime() - new Date().getTime() < 0) {
+        original.splice(index, 1, {...e, isSaved: true, isCompleted: true});
+      }
+    });
+    // dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: original});
+    console.log('original', original);
+  }
   const handleLocalizationChange = useCallback(
     newLocale => {
       const newSetLocale = i18n.setI18nConfig(newLocale);
@@ -159,12 +177,17 @@ export default function DashboardScreen({route, navigation}) {
     }
   };
   const getLatestAssignCenters = async () => {
-    const loginInfo = store?.authReducer?.userData?.userData?.loginInfo;
-    console.log(loginInfo);
-
-    let response = await LatestVolunteerData(loginInfo);
-    console.log(response.data.assigned_center);
-    setAssignedCentres(response.data.assigned_center);
+    try {
+      const loginInfo = store?.authReducer?.userData?.userData?.loginInfo;
+      let response = await LatestVolunteerData(loginInfo);
+      console.log(response);
+      if (response.data.message === 'No volunteer found') {
+        return setError({visible: true, message: t('VOLUNTEER_NOT_FOUND')});
+      } else return setAssignedCentres(response.data.assigned_center);
+    } catch (error) {
+      console.log(error);
+      setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+    }
   };
 
   const openMenu = () => setVisible(true);

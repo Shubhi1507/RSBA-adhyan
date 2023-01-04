@@ -19,7 +19,10 @@ export const RadioButtons = ({data, onValueChange, radioStyle, valueProp}) => {
         return (
           <RadioButton.Group
             key={index}
-            onValueChange={newValue => {}}
+            onValueChange={newValue => {
+              onValueChange(item);
+              setValue(item.value);
+            }}
             value={valueProp && valueProp.value ? valueProp.value : value}>
             <TouchableOpacity
               onPress={() => {

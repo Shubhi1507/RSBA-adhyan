@@ -17,6 +17,7 @@ import {
   Header,
   Input,
   RadioButtons,
+  SurveyCompletedModal,
   TextHandler,
 } from '../../components/index';
 import {COLORS} from '../../utils/colors';
@@ -37,12 +38,16 @@ import Geolocation from 'react-native-geolocation-service';
 import {getDistance, getPreciseDistance} from 'geolib';
 import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
+import {createSubmitSurveyData} from '../../networking/API.controller';
+import {BASE_URL} from '../../networking';
 
 export default function CenterDetailsTwoScreen() {
   const store = useSelector(state => state?.surveyReducer);
+  const userStore = useSelector(state => state?.authReducer);
   const {t} = useContext(LocalizationContext);
   let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
+  const [visible, setVisible] = React.useState(false);
   const [isCenterOperational, setCenterOperational] = useState(true);
   const [volunteerInfo, setvolunteerInfo] = useState({
     parent_org: '',
@@ -99,8 +104,10 @@ export default function CenterDetailsTwoScreen() {
       Object.keys(store?.currentSurveyData).length > 0
     ) {
       let staledata = store;
-      console.log(staledata);
+      let isCentreOperational =
+        store.currentSurveyData?.center_details?.is_centre_operational;
       setvolunteerInfo(staledata?.currentSurveyData?.center_details);
+      setCenterOperational(isCentreOperational);
     }
   };
 
@@ -117,14 +124,11 @@ export default function CenterDetailsTwoScreen() {
             buttonPositive: 'OK',
           },
         );
-        console.log('granted', granted);
         if (granted === 'granted') {
-          console.log('You can use Geolocation');
           requestLocationPermission();
           return true;
         } else {
           getLocationPermission();
-          console.log('You cannot use Geolocation');
           return false;
         }
       } else {
@@ -144,7 +148,6 @@ export default function CenterDetailsTwoScreen() {
     Geolocation.getCurrentPosition(
       position => {
         setLocationPermissionError(false);
-        console.log(position);
         setvolunteerInfo({
           ...volunteerInfo,
           volunteer_location: {
@@ -156,7 +159,6 @@ export default function CenterDetailsTwoScreen() {
       },
       error => {
         // See error code charts below.
-        console.log(error.code, error.message);
         setLocationPermissionError(true);
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
@@ -191,7 +193,10 @@ export default function CenterDetailsTwoScreen() {
     return age.join('');
   }
 
-  function PageValidator() {
+  const hideModal = () => setVisible(false);
+  const showModal = () => setVisible(true);
+
+  async function PageValidator() {
     const {
       center_contact,
       center_head,
@@ -201,74 +206,119 @@ export default function CenterDetailsTwoScreen() {
       is_centre_operational,
       non_operational_due_to,
     } = volunteerInfo;
-
+    let payload = {};
     if (isCenterOperational) {
-      let center_details = {
-        ...store.currentSurveyData.center_details,
-        center_contact,
-        center_head,
-        parent_org,
-        type_of_center,
-        volunteer_location,
-        is_centre_operational,
-        non_operational_due_to,
-      };
-      let payload = {
-        ...store.currentSurveyData,
-        center_details,
-        isSaved: false,
-        release_date: '',
-        updatedAt: new Date().toString(),
-      };
-
-      let tmp = FindAndUpdate(totalSurveys, payload);
-      console.log('pg2', payload);
-      console.log('TMP', tmp);
-      dispatch({
-        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
-        payload: payload,
-      });
-      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
-      navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
+      if (!center_contact || !center_head || !parent_org) {
+        return setError({
+          ...error,
+          message: t('PLEASE_ANSWER_ALL_QUE'),
+          visible: true,
+        });
+      }
     } else {
-      let center_details = {
-        ...store.currentSurveyData.center_details,
-        center_contact,
-        center_head,
-        parent_org,
-        type_of_center,
-        volunteer_location,
-        is_centre_operational,
-        non_operational_due_to,
-      };
-      let payload = {
+      if (non_operational_due_to?.value === undefined) {
+        return setError({
+          ...error,
+          message: t('PLEASE_ANSWER_ALL_QUE'),
+          visible: true,
+        });
+      }
+    }
+    let center_details = {
+      ...store.currentSurveyData.center_details,
+      center_contact,
+      center_head,
+      parent_org,
+      type_of_center,
+      volunteer_location,
+      is_centre_operational,
+      non_operational_due_to,
+    };
+    if (!isCenterOperational) {
+      payload = {
         ...store.currentSurveyData,
         center_details,
         isSaved: true,
+        isCompleted: true,
+        // release_date: new Date().toString(),
         release_date: new Date(
           new Date().setTime(new Date().getTime() + 72 * 60 * 60 * 1000),
         ).toString(),
         updatedAt: new Date().toString(),
       };
+      let userdata = userStore?.userData?.userData;
+      let apiPayload = {
+        volunteer_id: userdata?.data?.user?.id,
+        state_id: center_details?.state_id,
+        district_id: center_details?.district_id,
+        address: center_details?.address,
+        type: center_details?.type_of_center?.value,
+        head_name: '',
+        contact_details: center_contact,
+        is_operational: isCenterOperational ? 1 : 0,
+        reason_not_operational:
+          center_details?.non_operational_due_to?.reason ||
+          center_details?.non_operational_due_to?.value ||
+          '',
+        survey_device_location: '',
+        partially_filled: 1,
+        survey_form_id: center_details?.survey_form_id,
+        town: center_details?.district_jila,
+      };
+      try {
+        const formdata = new FormData();
+        formdata.append('volunteer_id', apiPayload.volunteer_id);
+        formdata.append('state_id', apiPayload.state_id);
+        formdata.append('district_id', apiPayload.district_id);
+        formdata.append('address', apiPayload.address);
+        formdata.append('type', apiPayload.type);
+        formdata.append('head_name', apiPayload.head_name);
+        formdata.append('contact_details', apiPayload.contact_details);
+        formdata.append('is_operational', apiPayload.is_operational);
+        formdata.append(
+          'reason_not_operational',
+          apiPayload.reason_not_operational,
+        );
+        formdata.append(
+          'survey_device_location',
+          apiPayload.survey_device_location,
+        );
+        formdata.append('partially_filled', apiPayload.partially_filled);
+        formdata.append('survey_form_id', apiPayload.survey_form_id);
+        formdata.append('town', apiPayload.town);
 
-      let tmp = FindAndUpdate(totalSurveys, payload);
-      console.log('pg2b', payload);
-      console.log('total surveys->', tmp);
+        console.log('formdata', formdata);
 
-      dispatch({
-        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
-        payload: payload,
-      });
-      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
+        var requestOptions = {
+          method: 'POST',
+          body: formdata,
+          redirect: 'follow',
+        };
+        const response1 = await fetch(BASE_URL + 'center', requestOptions);
+        let parsed = await response1.json();
+        console.log('parsed', parsed?.data);
+        showModal();
+      } catch (error) {
+        setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+        console.log('error', error);
+      }
+    } else {
+      payload = {
+        ...store.currentSurveyData,
+        center_details,
+        isSaved: false,
+        updatedAt: new Date().toString(),
+      };
+      console.log('pg2', payload);
+      console.log('TMP', tmp);
       navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
-      navigate(ROUTES.AUTH.DASHBOARDSCREEN);
-      setError({
-        ...error,
-        message: 'Survey submitted succesfully',
-        visible: true,
-        type: 'ok',
-      });
     }
+    let tmp = FindAndUpdate(totalSurveys, payload);
+    dispatch({
+      type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+      payload: payload,
+    });
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
   }
 
   return (
@@ -279,6 +329,11 @@ export default function CenterDetailsTwoScreen() {
         onDismissSnackBar={() =>
           setError({...error, message: '', visible: false})
         }
+      />
+      <SurveyCompletedModal
+        visible={visible}
+        hideModal={hideModal}
+        onClick={() => navigate(ROUTES.AUTH.DASHBOARDSCREEN)}
       />
       <View style={{flex: 0.2}}>
         <Header title={t('CENTER_DETAILS')} onPressBack={goBack} />
@@ -308,41 +363,6 @@ export default function CenterDetailsTwoScreen() {
               {t('IS_CENTER_OPERATIONAL')}
             </TextHandler>
           </View>
-
-          {/* <View
-            style={{
-              flex: 0.6,
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-            }}>
-            <TextHandler
-              style={{
-                color: 'black',
-                fontSize: 18,
-                textAlign: 'left',
-              }}>
-              {t('NO')}
-            </TextHandler>
-            <CustomSwitch
-              isSwitchOn={isCenterOperational}
-              setIsSwitchOn={() => {
-                setCenterOperational(!isCenterOperational);
-                setvolunteerInfo({
-                  ...volunteerInfo,
-                  is_centre_operational: !volunteerInfo.is_centre_operational,
-                });
-              }}
-            />
-            <TextHandler
-              style={{
-                color: 'black',
-                fontSize: 18,
-                textAlign: 'right',
-              }}>
-              {t('YES')}
-            </TextHandler>
-          </View> */}
         </View>
         <View
           style={{
@@ -485,7 +505,7 @@ export default function CenterDetailsTwoScreen() {
                     },
                     {
                       text: t('NO'),
-                      onPress: () => console.log('Cancel Pressed'),
+                      onPress: () => {},
                       style: 'cancel',
                     },
                   ]);
@@ -681,7 +701,7 @@ export default function CenterDetailsTwoScreen() {
             </View>
 
             <Button
-              title={t('SUBMIT')}
+              title={t('NEXT')}
               onPress={() => {
                 PageValidator();
               }}

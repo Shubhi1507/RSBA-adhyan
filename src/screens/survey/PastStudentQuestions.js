@@ -22,11 +22,14 @@ import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
 import {Checkbox} from 'react-native-paper';
+import {BASE_URL} from '../../networking';
+import LoaderIndicator from '../../components/Loader';
 
 export default function PastStudentQuestions() {
   const store = useSelector(state => state?.surveyReducer);
   let totalSurveys = store.totalSurveys;
   const {t} = useContext(LocalizationContext);
+  const [dataLoading, setDataLoading] = useState(false);
 
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
@@ -41,13 +44,10 @@ export default function PastStudentQuestions() {
     reasons_for_change_in_your_personality: [],
     how_the_center_has_influnced_your_personality: [],
     experience_between_you_n_other_students_who_do_not_come_to_kendra: [],
-    difference_experienced_between_you_n_other_elder_students_due_to_the_center:
-      '',
     difference_noticed_in_the_family_due_to_the_center: [],
     contribute_in_betterment_of_the_center: '',
     connected_with_sangh_organizations: '',
     involved_in_any_othe_social_activities: '',
-    reason_for_the_change: [],
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -62,7 +62,6 @@ export default function PastStudentQuestions() {
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
       if (entry?.pastStudent) {
-        console.log(entry?.pastStudent);
         setAnswers(entry.pastStudent);
       }
     });
@@ -75,46 +74,143 @@ export default function PastStudentQuestions() {
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
   };
 
-  const pageValidator = () => {
-    let tmp = store?.currentSurveyData.currentSurveyStatus;
-    let new_obj;
-    let q = 14;
-    let tmpans = [];
-    let p = 0;
-    Object.values(answers).forEach(el => {
-      if (el && Array.isArray(el) && el.length > 0) {
-        return tmpans.push(el);
-      } else {
-        if (typeof el === 'string' && el.length > 0) {
-          return tmpans.push(el);
-        }
-        if (typeof el === 'object' && Object.values(el).length > 0) {
-          return tmpans.push(el);
+  const checkarrayforOtherValues = (arr = [], key) => {
+    let j = 1;
+    arr.map(el => {
+      if (el.value === 'Other' || el.value === 'Other') {
+        if (!el.hasOwnProperty('other') || !el.other) {
+          j = 0;
         }
       }
     });
-    p = tmpans.length;
+    return j;
+  };
 
-    if (
-      answers.still_associated_with_the_center?.value === 'Yes' &&
-      answers.still_associated_with_the_center_reasons.length > 0
-    ) {
-      p = p - 1;
-    }
-    if (
-      answers.still_associated_with_the_center?.value === 'No' &&
-      answers.still_associated_with_the_center_reasons.length > 0
-    ) {
-      p = p - 1;
-    }
+  const pageValidator = async () => {
+    setDataLoading(true);
+    let tmp = store?.currentSurveyData.currentSurveyStatus;
+    let new_obj;
+    let q = 14;
+    let unanswered = 14;
+
+    const {
+      connected_with_sangh_organizations,
+      contribute_in_betterment_of_the_center,
+      difference_noticed_in_the_family_due_to_the_center,
+      encourage_other_students_join_the_center,
+      experience_between_you_n_other_students_who_do_not_come_to_kendra,
+      friends_coming_to_center_the_days,
+      how_many_years_were_you_coming_to_the_center,
+      how_the_center_has_influnced_your_overall_personality,
+      how_the_center_has_influnced_your_personality,
+      involved_in_any_othe_social_activities,
+      is_the_center_same_as_before,
+      reason_for_leaving_the_center,
+      reasons_for_change_in_your_personality,
+      still_associated_with_the_center,
+      still_associated_with_the_center_reasons,
+    } = answers;
+
+    let ans1 = !friends_coming_to_center_the_days ? 0 : 1;
+    let ans2 = !is_the_center_same_as_before ? 0 : 1;
+    let ans3 = !how_many_years_were_you_coming_to_the_center ? 0 : 1;
+    let ans4 =
+      reason_for_leaving_the_center?.value === 'Other' &&
+      !reason_for_leaving_the_center?.other
+        ? 0
+        : !reason_for_leaving_the_center?.value
+        ? 0
+        : 1;
+    let ans5 =
+      !still_associated_with_the_center ||
+      (still_associated_with_the_center?.value === 'Yes' &&
+        still_associated_with_the_center_reasons.length === 0)
+        ? 0
+        : 1;
+    let ans6 =
+      how_the_center_has_influnced_your_overall_personality.length > 0 ? 1 : 0;
+    let ans7 =
+      reasons_for_change_in_your_personality.length > 0
+        ? reasons_for_change_in_your_personality.filter(el => el?.key === 5)
+            .length === 0
+          ? 1
+          : reasons_for_change_in_your_personality.filter(
+              el => el?.key === 5,
+            )[0]?.other !== undefined &&
+            reasons_for_change_in_your_personality.filter(
+              el => el?.key === 5,
+            )[0]?.other
+          ? 1
+          : 0
+        : 0;
+
+    let ans8 = !encourage_other_students_join_the_center ? 0 : 1;
+    let ans9 =
+      how_the_center_has_influnced_your_personality.length !== 0
+        ? checkarrayforOtherValues(
+            how_the_center_has_influnced_your_personality,
+            'other',
+          )
+        : 0;
+    let ans10 =
+      experience_between_you_n_other_students_who_do_not_come_to_kendra.length !==
+      0
+        ? checkarrayforOtherValues(
+            experience_between_you_n_other_students_who_do_not_come_to_kendra,
+            'other',
+          )
+        : 0;
+    let ans11 =
+      difference_noticed_in_the_family_due_to_the_center.length !== 0
+        ? checkarrayforOtherValues(
+            difference_noticed_in_the_family_due_to_the_center,
+            'other',
+          )
+        : 0;
+    let ans12 =
+      contribute_in_betterment_of_the_center?.value === 'Other' &&
+      !contribute_in_betterment_of_the_center?.other
+        ? 0
+        : !contribute_in_betterment_of_the_center?.value
+        ? 0
+        : 1;
+
+    let ans13 = !connected_with_sangh_organizations ? 0 : 1;
+    let ans14 =
+      involved_in_any_othe_social_activities?.value === 'Yes' &&
+      !involved_in_any_othe_social_activities?.other
+        ? 0
+        : !involved_in_any_othe_social_activities?.value
+        ? 0
+        : 1;
+
+    let p =
+      unanswered -
+      (ans1 +
+        ans2 +
+        ans3 +
+        ans4 +
+        ans5 +
+        ans6 +
+        ans7 +
+        ans8 +
+        ans9 +
+        ans10 +
+        ans11 +
+        ans12 +
+        ans13 +
+        ans14);
+
     new_obj = {
       ...tmp[3],
       attempted: true,
-      completed: p !== q ? false : true,
+      completed: p === 0 ? true : false,
       disabled: false,
       totalQue: q,
-      answered: p,
+      answered: q - p,
     };
+
+    console.log(new_obj);
     tmp.splice(3, 1, new_obj);
 
     let surveyAnswers = [...answersArrTmp];
@@ -143,11 +239,122 @@ export default function PastStudentQuestions() {
       updatedAt: new Date().toString(),
     };
     let tmp1 = FindAndUpdate(totalSurveys, payload);
-
-    console.log('payload past student ', payload);
     dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
     dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-    showModal();
+
+    if (p === 0) {
+      try {
+        let formans5 =
+          still_associated_with_the_center?.value === 'Yes'
+            ? `Yes- ${still_associated_with_the_center_reasons
+                .map(el => {
+                  if (el.value === 'Other') {
+                    el.other;
+                  } else return el.value;
+                })
+                .join()
+                .replace(/\,/g, '||')}`
+            : 'No';
+
+        let surveydata = {
+          // 'Are your friends- siblings coming to center these days?'
+          65: `${friends_coming_to_center_the_days?.value || ' '}`,
+          // 'Is the center same as was in your time?'
+          66: `${is_the_center_same_as_before?.value || ' '}`,
+          // 'For how many years were you coming to the center?'
+          67: `${how_many_years_were_you_coming_to_the_center?.value || ' '}`,
+          // 'Reason for leaving the center?'
+          68: `${
+            reason_for_leaving_the_center?.other ||
+            reason_for_leaving_the_center?.value ||
+            ' '
+          }`,
+          // 'Are you still associated with the center?'
+          69: `${formans5}`,
+          // 'How has the centre influenced your overall personality? (More than one option can be selected )'
+          70: `${how_the_center_has_influnced_your_overall_personality
+            .map(el => {
+              if (el.value === 'Other') {
+                return el.other;
+              } else return el.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
+          // 'What are the reasons for this change? (More than one option can be selected )'
+          71: `${reasons_for_change_in_your_personality
+            .map(el => {
+              if (el.value === 'Other') {
+                return el.other;
+              } else return el.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
+          // 'Do you encourage other students living near you to join the center, do you help them to come to center?'
+          72: `${encourage_other_students_join_the_center?.value || ''}`,
+          // 'How the center has influnced your personality?'
+          73: `${how_the_center_has_influnced_your_overall_personality
+            .map(el => {
+              if (el.value === 'Other') {
+                return el.other;
+              } else return el.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
+          // 'What difference you experience between you & other students(Who does not come to kendra) of your age, due to the center? (You can choose more than one answer )'
+          74: `${experience_between_you_n_other_students_who_do_not_come_to_kendra
+            .map(el => {
+              if (el.value === 'Other') {
+                el.other;
+              } else return el.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
+          // 'What difference you notice in the family, due to the center?(You can choose more than one answer )'
+          75: `${difference_noticed_in_the_family_due_to_the_center
+            .map(el => {
+              if (el.value === 'Other') {
+                return el.other;
+              } else return el.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
+          // 'How can you contribute in betterment of the center ?'
+          76: `${
+            contribute_in_betterment_of_the_center?.other ||
+            contribute_in_betterment_of_the_center?.value ||
+            ' '
+          }`,
+          // 'How are you connected with Sangh Organizations?'
+          77: `${connected_with_sangh_organizations?.value || ' '}`,
+          // 'Are you involved in any othe social activities?'
+          78: `${involved_in_any_othe_social_activities?.value || ' '}`,
+        };
+        console.log(surveydata);
+        const surveyform = new FormData();
+        surveyform.append('center_id', store?.currentSurveyData?.api_centre_id);
+        surveyform.append('audience_id', 3);
+        surveyform.append('survey_data', JSON.stringify(surveydata));
+
+        const requestOptions = {
+          method: 'POST',
+          body: surveyform,
+          redirect: 'follow',
+        };
+        const response = await fetch(
+          BASE_URL + 'center/survey',
+          requestOptions,
+        );
+        console.log('response->', await response.json());
+        setDataLoading(false);
+        showModal();
+      } catch (error) {
+        setDataLoading(false);
+        setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+        console.log('error', error);
+      }
+    }
+
+    console.log('payload past student ', payload);
   };
 
   const handleSelection = (answer, type) => {
@@ -235,6 +442,7 @@ export default function PastStudentQuestions() {
 
   return (
     <View style={styles.container}>
+      <LoaderIndicator loading={dataLoading} />
       <View style={{flex: 0.2}}>
         <Header title={t('PAST_STUDENTS')} onPressBack={goBack} />
       </View>
@@ -454,9 +662,12 @@ export default function PastStudentQuestions() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: !answers.reason_for_leaving_the_center
-                  ? COLORS.red
-                  : COLORS.orange,
+                backgroundColor:
+                  !answers.reason_for_leaving_the_center ||
+                  (answers.reason_for_leaving_the_center?.value === 'Other' &&
+                    !answers.reason_for_leaving_the_center?.other)
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -465,9 +676,12 @@ export default function PastStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.reason_for_leaving_the_center
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.reason_for_leaving_the_center ||
+                    (answers.reason_for_leaving_the_center?.value === 'Other' &&
+                      !answers.reason_for_leaving_the_center?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {4}
@@ -507,7 +721,7 @@ export default function PastStudentQuestions() {
                 },
                 {
                   key: 4,
-                  value: 'Others',
+                  value: 'Other',
                   label: 'PAST_STUDENTS_Q5_OPT3',
                 },
               ]}
@@ -546,9 +760,13 @@ export default function PastStudentQuestions() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: !answers.still_associated_with_the_center
-                  ? COLORS.red
-                  : COLORS.orange,
+                backgroundColor:
+                  !answers.still_associated_with_the_center ||
+                  (answers.still_associated_with_the_center?.value === 'Yes' &&
+                    answers.still_associated_with_the_center_reasons.length ===
+                      0)
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -557,9 +775,14 @@ export default function PastStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.still_associated_with_the_center
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.still_associated_with_the_center ||
+                    (answers.still_associated_with_the_center?.value ===
+                      'Yes' &&
+                      answers.still_associated_with_the_center_reasons
+                        .length === 0)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {5}
@@ -666,46 +889,6 @@ export default function PastStudentQuestions() {
                     </TouchableOpacity>
                   );
                 })}
-                {/* {answers.still_associated_with_the_center_reasons.filter(
-                  item => item.key === 4,
-                ).length > 0 && (
-                  <Input
-                    placeholder={`${t('ENTER_ANSWER')}`}
-                    name="any"
-                    onChangeText={text => {
-                      let tmp = [
-                        ...answers.still_associated_with_the_center_reasons,
-                      ];
-                      tmp.forEach((el, index) => {
-                        if (el.key === 4) {
-                          let newans = {...el, other: text};
-                          tmp.splice(index, 1, newans);
-                        }
-                      });
-                      setAnswers({
-                        ...answers,
-                        still_associated_with_the_center_reasons: tmp,
-                      });
-                    }}
-                    value={
-                      answers.still_associated_with_the_center_reasons.filter(
-                        el => el.key === 4,
-                      ).length > 0
-                        ? answers.still_associated_with_the_center_reasons.filter(
-                            el => el.key === 4,
-                          )[0]?.['other']
-                        : ''
-                    }
-                    empty={
-                      !answers.still_associated_with_the_center_reasons?.other
-                    }
-                    message={''}
-                    containerStyle={{
-                      alignItems: 'center',
-                      minWidth: screenWidth * 0.25,
-                    }}
-                  />
-                )} */}
               </View>
             )}
           </View>
@@ -824,9 +1007,20 @@ export default function PastStudentQuestions() {
             <View
               style={{
                 backgroundColor:
-                  answers.reasons_for_change_in_your_personality.length === 0
-                    ? COLORS.red
-                    : COLORS.orange,
+                  answers.reasons_for_change_in_your_personality.length > 0
+                    ? answers.reasons_for_change_in_your_personality.filter(
+                        el => el?.key === 5,
+                      ).length === 0
+                      ? COLORS.orange
+                      : answers.reasons_for_change_in_your_personality.filter(
+                          el => el?.key === 5,
+                        )[0]?.other !== undefined &&
+                        answers.reasons_for_change_in_your_personality.filter(
+                          el => el?.key === 5,
+                        )[0]?.other
+                      ? COLORS.orange
+                      : COLORS.red
+                    : COLORS.red,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -836,9 +1030,20 @@ export default function PastStudentQuestions() {
               <TextHandler
                 style={{
                   color:
-                    answers.reasons_for_change_in_your_personality.length === 0
-                      ? COLORS.white
-                      : COLORS.black,
+                    answers.reasons_for_change_in_your_personality.length > 0
+                      ? answers.reasons_for_change_in_your_personality.filter(
+                          el => el?.key === 5,
+                        ).length === 0
+                        ? COLORS.black
+                        : answers.reasons_for_change_in_your_personality.filter(
+                            el => el?.key === 5,
+                          )[0]?.other !== undefined &&
+                          answers.reasons_for_change_in_your_personality.filter(
+                            el => el?.key === 5,
+                          )[0]?.other
+                        ? COLORS.black
+                        : COLORS.white
+                      : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {7}
@@ -878,7 +1083,7 @@ export default function PastStudentQuestions() {
             },
             {
               key: 5,
-              value: 'Others',
+              value: 'Other',
               label: 'PAST_STUDENTS_Q7_NEW_OPT5',
             },
           ].map((el, index) => {
@@ -926,7 +1131,7 @@ export default function PastStudentQuestions() {
               onChangeText={text => {
                 let tmp = [...answers.reasons_for_change_in_your_personality];
                 tmp.forEach((el, index) => {
-                  if (el.key === 4) {
+                  if (el.key === 5) {
                     let newans = {...el, other: text};
                     tmp.splice(index, 1, newans);
                   }
@@ -939,13 +1144,13 @@ export default function PastStudentQuestions() {
               value={
                 answers.reasons_for_change_in_your_personality.filter(
                   el => el.key === 5,
-                ).length > 0
-                  ? answers.reasons_for_change_in_your_personality.filter(
-                      el => el.key === 5,
-                    )[0]?.['other']
-                  : ''
+                )[0]?.['other']
               }
-              empty={!answers.reasons_for_change_in_your_personality?.other}
+              empty={
+                !answers.reasons_for_change_in_your_personality.filter(
+                  el => el.key === 5,
+                )[0]?.['other']
+              }
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1029,10 +1234,15 @@ export default function PastStudentQuestions() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: !answers
-                  .how_the_center_has_influnced_your_personality.length
-                  ? COLORS.red
-                  : COLORS.orange,
+                backgroundColor:
+                  answers.how_the_center_has_influnced_your_personality
+                    .length === 0 ||
+                  checkarrayforOtherValues(
+                    answers.how_the_center_has_influnced_your_personality,
+                    'other',
+                  ) === 0
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1041,10 +1251,15 @@ export default function PastStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.how_the_center_has_influnced_your_personality
-                    .length
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    answers.how_the_center_has_influnced_your_personality
+                      .length === 0 ||
+                    checkarrayforOtherValues(
+                      answers.how_the_center_has_influnced_your_personality,
+                      'other',
+                    ) === 0
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {9}
@@ -1152,7 +1367,9 @@ export default function PastStudentQuestions() {
                   : ''
               }
               empty={
-                !answers.how_the_center_has_influnced_your_personality?.other
+                !answers.how_the_center_has_influnced_your_personality.filter(
+                  el => el.key === 4,
+                )[0]?.['other']
               }
               message={''}
               containerStyle={{
@@ -1168,11 +1385,16 @@ export default function PastStudentQuestions() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: !answers
-                  .experience_between_you_n_other_students_who_do_not_come_to_kendra
-                  .length
-                  ? COLORS.red
-                  : COLORS.orange,
+                backgroundColor:
+                  answers
+                    .experience_between_you_n_other_students_who_do_not_come_to_kendra
+                    .length === 0 ||
+                  checkarrayforOtherValues(
+                    answers.experience_between_you_n_other_students_who_do_not_come_to_kendra,
+                    'other',
+                  ) === 0
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1181,11 +1403,16 @@ export default function PastStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers
-                    .experience_between_you_n_other_students_who_do_not_come_to_kendra
-                    .length
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    answers
+                      .experience_between_you_n_other_students_who_do_not_come_to_kendra
+                      .length === 0 ||
+                    checkarrayforOtherValues(
+                      answers.experience_between_you_n_other_students_who_do_not_come_to_kendra,
+                      'other',
+                    ) === 0
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {10}
@@ -1314,118 +1541,20 @@ export default function PastStudentQuestions() {
           )}
         </View>
 
-        {/* QA11*/}
-        {/* <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {11}
-              </TextHandler>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-              }}>
-              <TextHandler style={styles.question}>
-                {t('PAST_STUDENTS_Q12')}
-              </TextHandler>
-            </View>
-          </View>
-
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              data={[
-                {
-                  key: 1,
-                  value: 'Courage development',
-                  label: 'PAST_STUDENTS_Q12_OPT1',
-                },
-                {
-                  key: 2,
-                  value: 'Better interacting with people',
-                  label: 'PAST_STUDENTS_Q12_OPT2',
-                },
-                {
-                  key: 3,
-                  value: 'Good habits',
-                  label: 'PAST_STUDENTS_Q12_OPT3',
-                },
-                {
-                  key: 4,
-                  value: 'Other',
-                  label: 'PAST_STUDENTS_Q12_OPT4',
-                },
-              ]}
-              valueProp={
-                answers.difference_experienced_between_you_n_other_elder_students_due_to_the_center
-              }
-              onValueChange={item => {
-                setAnswers({
-                  ...answers,
-                  difference_experienced_between_you_n_other_elder_students_due_to_the_center:
-                    item,
-                });
-              }}
-            />
-            {answers
-              .difference_experienced_between_you_n_other_elder_students_due_to_the_center
-              ?.key === 4 && (
-              <Input
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    difference_experienced_between_you_n_other_elder_students_due_to_the_center:
-                      {
-                        ...answers.difference_experienced_between_you_n_other_elder_students_due_to_the_center,
-                        other: text,
-                      },
-                  });
-                }}
-                value={
-                  answers
-                    .difference_experienced_between_you_n_other_elder_students_due_to_the_center
-                    ?.other
-                }
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            )}
-          </View>
-        </View> */}
-
         {/* QA11 - difference_noticed_in_the_family_due_to_the_center */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: !answers
-                  .difference_noticed_in_the_family_due_to_the_center.length
-                  ? COLORS.red
-                  : COLORS.orange,
+                backgroundColor:
+                  answers.difference_noticed_in_the_family_due_to_the_center
+                    .length === 0 ||
+                  checkarrayforOtherValues(
+                    answers.difference_noticed_in_the_family_due_to_the_center,
+                    'other',
+                  ) === 0
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1434,10 +1563,15 @@ export default function PastStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers
-                    .difference_noticed_in_the_family_due_to_the_center.length
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    answers.difference_noticed_in_the_family_due_to_the_center
+                      .length === 0 ||
+                    checkarrayforOtherValues(
+                      answers.difference_noticed_in_the_family_due_to_the_center,
+                      'other',
+                    ) === 0
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {11}
@@ -1553,8 +1687,9 @@ export default function PastStudentQuestions() {
                     : ''
                 }
                 empty={
-                  !answers.difference_noticed_in_the_family_due_to_the_center
-                    ?.other
+                  !answers.difference_noticed_in_the_family_due_to_the_center.filter(
+                    el => el.key === 5,
+                  )[0]?.['other']
                 }
                 message={''}
                 containerStyle={{
@@ -1571,9 +1706,13 @@ export default function PastStudentQuestions() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: !answers.contribute_in_betterment_of_the_center
-                  ? COLORS.red
-                  : COLORS.orange,
+                backgroundColor:
+                  !answers.contribute_in_betterment_of_the_center ||
+                  (answers.contribute_in_betterment_of_the_center?.value ===
+                    'Other' &&
+                    !answers.contribute_in_betterment_of_the_center?.other)
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1582,9 +1721,13 @@ export default function PastStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.contribute_in_betterment_of_the_center
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.contribute_in_betterment_of_the_center ||
+                    (answers.contribute_in_betterment_of_the_center?.value ===
+                      'Other' &&
+                      !answers.contribute_in_betterment_of_the_center?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {12}
@@ -1746,9 +1889,14 @@ export default function PastStudentQuestions() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: !answers.involved_in_any_othe_social_activities
-                  ? COLORS.red
-                  : COLORS.orange,
+                backgroundColor:
+                  !answers.involved_in_any_othe_social_activities ||
+                  (answers.involved_in_any_othe_social_activities?.value ===
+                    'Yes' &&
+                    !answers.involved_in_any_othe_social_activities?.other)
+                    ? COLORS.red
+                    : COLORS.orange,
+
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -1757,9 +1905,13 @@ export default function PastStudentQuestions() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.involved_in_any_othe_social_activities
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.involved_in_any_othe_social_activities ||
+                    (answers.involved_in_any_othe_social_activities?.value ===
+                      'Yes' &&
+                      !answers.involved_in_any_othe_social_activities?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {14}
@@ -1787,7 +1939,7 @@ export default function PastStudentQuestions() {
               data={[
                 {
                   key: 1,
-                  value: 'Yes (Enter short description)',
+                  value: 'Yes',
                   label: 'PAST_STUDENTS_Q16_OPT1',
                 },
 

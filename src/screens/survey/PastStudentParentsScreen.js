@@ -23,6 +23,8 @@ import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
 import {useContext} from 'react';
 import {Checkbox} from 'react-native-paper';
+import {BASE_URL} from '../../networking';
+import LoaderIndicator from '../../components/Loader';
 
 export default function PastStudentParentsScreen() {
   const store = useSelector(state => state?.surveyReducer);
@@ -30,6 +32,7 @@ export default function PastStudentParentsScreen() {
   const {t} = useContext(LocalizationContext);
 
   const dispatch = useDispatch();
+  const [dataLoading, setDataLoading] = useState(false);
   let [answers, setAnswers] = useState({
     no_of_parents_present: '',
     rating_illiterate: '',
@@ -80,7 +83,20 @@ export default function PastStudentParentsScreen() {
   const hideModal = () => setVisible(false);
   const showModal = () => setVisible(true);
 
-  const pageValidator = () => {
+  const checkarrayforOtherValues = (arr = [], key) => {
+    let j = 1;
+    arr.map(el => {
+      if (el.value === 'Other' || el.value === 'Other') {
+        if (!el.hasOwnProperty('other') || !el.other) {
+          j = 0;
+        }
+      }
+    });
+    return j;
+  };
+
+  const pageValidator = async () => {
+    setDataLoading(true);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     const {
@@ -122,13 +138,34 @@ export default function PastStudentParentsScreen() {
         econmonic_status_under_1_lakh &&
         econmonic_status_between_1_and_3_lakh &&
         econmonic_status_between_3_and_5_lakh &&
-        econmonic_status_between_5_and_10_lakh
+        econmonic_status_between_5_and_10_lakh &&
+        econmonic_status_under_1_lakh +
+          econmonic_status_between_1_and_3_lakh +
+          econmonic_status_between_3_and_5_lakh +
+          econmonic_status_between_5_and_10_lakh !==
+          100
           ? 1
           : 0;
-      let ans4 = !reason_for_sending_children_to_the_centre ? 0 : 1;
-      let ans5 = !how_these_children_go_to_the_centre ? 0 : 1;
+      let ans4 =
+        reason_for_sending_children_to_the_centre?.value === 'Other' &&
+        !reason_for_sending_children_to_the_centre?.other
+          ? 0
+          : !reason_for_sending_children_to_the_centre?.value
+          ? 0
+          : 1;
+      let ans5 =
+        how_these_children_go_to_the_centre?.value === 'Other' &&
+        !how_these_children_go_to_the_centre?.other
+          ? 0
+          : !how_these_children_go_to_the_centre?.value
+          ? 0
+          : 1;
       let ans6 = !days_children_are_going_to_the_centre ? 0 : 1;
-      let ans7 = children_occupation_nowadays.length > 0 ? 1 : 0;
+      // let ans7 = children_occupation_nowadays.length > 0 ? 1 : 0;
+      let ans7 =
+        children_occupation_nowadays.length !== 0
+          ? checkarrayforOtherValues(children_occupation_nowadays, 'other')
+          : 0;
       let ans8 =
         rating_good_habits &&
         rating_patriotism &&
@@ -138,7 +175,14 @@ export default function PastStudentParentsScreen() {
         rating_attitude_for_better_life
           ? 1
           : 0;
-      let ans9 = !involvement_in_the_programs_of_the_centre ? 0 : 1;
+      let ans9 =
+        involvement_in_the_programs_of_the_centre?.value === 'Other' &&
+        !involvement_in_the_programs_of_the_centre?.other
+          ? 0
+          : !involvement_in_the_programs_of_the_centre?.value
+          ? 0
+          : 1;
+
       let ans10 = !contribution_in_running_centre_more_effectively ? 0 : 1;
       let ans11 = !expectations_from_the_centre ? 0 : 1;
 
@@ -167,6 +211,7 @@ export default function PastStudentParentsScreen() {
         answered: q - p,
       };
 
+      // return console.log(new_obj);
       tmp.splice(1, 1, new_obj);
 
       let surveyAnswers = [...answersArrTmp];
@@ -195,7 +240,70 @@ export default function PastStudentParentsScreen() {
         updatedAt: new Date().toString(),
       };
       let tmp1 = FindAndUpdate(totalSurveys, payload);
-      console.log('payload', payload);
+
+      // completed survey. calling api
+      if (p === 0) {
+        let surveydata = {
+          // 'No of parents present'
+          38: `${no_of_parents_present}`,
+          // 'Educational background ( Enter the percentage data )'
+          39: `Illiterate-${rating_illiterate}, Upto 5th(%) - ${rating_upto_5th}, Upto 10th(%) - ${rating_upto_10th}, Graduation and above(%) - ${rating_graduation}`,
+          // 'Economic status ( Enter the percentage data )'
+          40: `Less than 1 Lac (%)-${econmonic_status_under_1_lakh}, 1 to 3 Lacs (%) - ${econmonic_status_between_1_and_3_lakh}, 3 to 5 Lacs (%) - ${econmonic_status_between_3_and_5_lakh}, 5 to 10 Lacs (%) - ${econmonic_status_between_5_and_10_lakh}`,
+          // 'Reason for sending children to the center?'
+          41: `${
+            reason_for_sending_children_to_the_centre?.other ||
+            reason_for_sending_children_to_the_centre?.value
+          }`,
+          // 'How these children go to the center?'
+          42: `${
+            how_these_children_go_to_the_centre?.other ||
+            how_these_children_go_to_the_centre?.value
+          }`,
+          // 'Number of days children went to the centre?'
+          43: `${days_children_are_going_to_the_centre?.value || ' '}`,
+          // 'What are your children doing currently? - (More than one option can be selected )'
+          44: `${children_occupation_nowadays
+            ?.map(el => {
+              if (el?.value === 'Other') {
+                return el?.other;
+              }
+              return el?.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
+          // 'To what extent the center is helpful in the overall development of your children?  Rate your answer out of 10 where 1 = Poor & 10 = Best'
+          45: `Good habits - ${rating_good_habits}, Patriotism - ${rating_patriotism}, Good Sanskar - ${rating_good_sanskaar}, Increased interest in study - ${rating_study_interest}, Development of qualities in students - ${rating_development_of_qualities_in_students}, Attitude for better life-${rating_attitude_for_better_life}`,
+          // 'Now how are you involved in the running of the centre '
+          46: `${
+            involvement_in_the_programs_of_the_centre?.other ||
+            involvement_in_the_programs_of_the_centre?.value
+          }`,
+          // 'How can you contribute in running Centre more effectively'
+          47: `${contribution_in_running_centre_more_effectively}`,
+          // 'Expectations from the Centre'
+          48: `${expectations_from_the_centre}`,
+        };
+        console.log('surveydata', surveydata);
+
+        const surveyform = new FormData();
+        surveyform.append('center_id', store?.currentSurveyData?.api_centre_id);
+        surveyform.append('audience_id', 9);
+        surveyform.append('survey_data', JSON.stringify(surveydata));
+        const requestOptions = {
+          method: 'POST',
+          body: surveyform,
+          redirect: 'follow',
+        };
+
+        const response = await fetch(
+          BASE_URL + 'center/survey',
+          requestOptions,
+        );
+        console.log('response->', await response.json());
+
+        console.log('payload', payload);
+      }
 
       dispatch({
         type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
@@ -203,7 +311,9 @@ export default function PastStudentParentsScreen() {
       });
       dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
       showModal();
+      setDataLoading(false);
     } catch (error) {
+      setDataLoading(false);
       setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
       console.log('error', error);
     }
@@ -235,6 +345,7 @@ export default function PastStudentParentsScreen() {
 
   return (
     <View style={styles.container}>
+      <LoaderIndicator loading={dataLoading} />
       <View style={{flex: 0.2}}>
         <Header
           title={t('STUDENTS_PARENTS_PAST_STUDENTS')}
@@ -449,7 +560,14 @@ export default function PastStudentParentsScreen() {
                   !answers.econmonic_status_under_1_lakh ||
                   !answers.econmonic_status_between_1_and_3_lakh ||
                   !answers.econmonic_status_between_3_and_5_lakh ||
-                  !answers.econmonic_status_between_5_and_10_lakh
+                  !answers.econmonic_status_between_5_and_10_lakh ||
+                  parseFloat(answers.econmonic_status_under_1_lakh) +
+                    parseFloat(answers.econmonic_status_between_1_and_3_lakh) +
+                    parseFloat(answers.econmonic_status_between_3_and_5_lakh) +
+                    parseFloat(
+                      answers.econmonic_status_between_5_and_10_lakh,
+                    ) !==
+                    100
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -464,7 +582,18 @@ export default function PastStudentParentsScreen() {
                     !answers.econmonic_status_under_1_lakh ||
                     !answers.econmonic_status_between_1_and_3_lakh ||
                     !answers.econmonic_status_between_3_and_5_lakh ||
-                    !answers.econmonic_status_between_5_and_10_lakh
+                    !answers.econmonic_status_between_5_and_10_lakh ||
+                    parseFloat(answers.econmonic_status_under_1_lakh) +
+                      parseFloat(
+                        answers.econmonic_status_between_1_and_3_lakh,
+                      ) +
+                      parseFloat(
+                        answers.econmonic_status_between_3_and_5_lakh,
+                      ) +
+                      parseFloat(
+                        answers.econmonic_status_between_5_and_10_lakh,
+                      ) !==
+                      100
                       ? COLORS.white
                       : COLORS.black,
                   textAlign: 'center',
@@ -481,6 +610,15 @@ export default function PastStudentParentsScreen() {
               <TextHandler style={styles.question}>
                 {t('PAST_STUDENTS_PARENTS_Q3')}
               </TextHandler>
+              {parseFloat(answers.econmonic_status_under_1_lakh) +
+                parseFloat(answers.econmonic_status_between_1_and_3_lakh) +
+                parseFloat(answers.econmonic_status_between_3_and_5_lakh) +
+                parseFloat(answers.econmonic_status_between_5_and_10_lakh) !==
+                100 && (
+                <TextHandler style={{fontSize: 10, color: COLORS.red}}>
+                  {t('SUM_NOT_100')}
+                </TextHandler>
+              )}
             </View>
           </View>
 
@@ -585,7 +723,10 @@ export default function PastStudentParentsScreen() {
             <View
               style={{
                 backgroundColor:
-                  !answers.reason_for_sending_children_to_the_centre
+                  !answers.reason_for_sending_children_to_the_centre ||
+                  (answers.reason_for_sending_children_to_the_centre?.value ===
+                    'Other' &&
+                    !answers.reason_for_sending_children_to_the_centre?.other)
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -596,9 +737,13 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.reason_for_sending_children_to_the_centre
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.reason_for_sending_children_to_the_centre ||
+                    (answers.reason_for_sending_children_to_the_centre
+                      ?.value === 'Other' &&
+                      !answers.reason_for_sending_children_to_the_centre?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {4}
@@ -640,7 +785,7 @@ export default function PastStudentParentsScreen() {
                   value: 'Sanskar',
                   label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT3',
                 },
-                {key: 4, value: 'Others', label: 'OTHERS'},
+                {key: 4, value: 'Other', label: 'OTHERS'},
               ]}
               onValueChange={item => {
                 setAnswers({
@@ -660,12 +805,12 @@ export default function PastStudentParentsScreen() {
                   ...answers,
                   reason_for_sending_children_to_the_centre: {
                     ...answers.reason_for_sending_children_to_the_centre,
-                    reason: text,
+                    other: text,
                   },
                 });
               }}
-              value={answers.reason_for_sending_children_to_the_centre?.reason}
-              empty={!answers.reason_for_sending_children_to_the_centre?.reason}
+              value={answers.reason_for_sending_children_to_the_centre?.other}
+              empty={!answers.reason_for_sending_children_to_the_centre?.other}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -680,9 +825,13 @@ export default function PastStudentParentsScreen() {
           <View style={{flexDirection: 'row', marginVertical: 20}}>
             <View
               style={{
-                backgroundColor: !answers.how_these_children_go_to_the_centre
-                  ? COLORS.red
-                  : COLORS.orange,
+                backgroundColor:
+                  !answers.how_these_children_go_to_the_centre ||
+                  (answers.how_these_children_go_to_the_centre?.value ===
+                    'Other' &&
+                    !answers.how_these_children_go_to_the_centre?.other)
+                    ? COLORS.red
+                    : COLORS.orange,
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -691,9 +840,13 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.how_these_children_go_to_the_centre
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.how_these_children_go_to_the_centre ||
+                    (answers.how_these_children_go_to_the_centre?.value ===
+                      'Other' &&
+                      !answers.how_these_children_go_to_the_centre?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {5}
@@ -735,7 +888,7 @@ export default function PastStudentParentsScreen() {
                   value: 'directed by parents',
                   label: 'CURRENT_STUDENTS_PARENTS_Q6_OPT3',
                 },
-                {key: 4, value: 'Others', label: 'OTHERS'},
+                {key: 4, value: 'Other', label: 'OTHERS'},
               ]}
               onValueChange={item => {
                 setAnswers({
@@ -755,12 +908,12 @@ export default function PastStudentParentsScreen() {
                   ...answers,
                   how_these_children_go_to_the_centre: {
                     ...answers.how_these_children_go_to_the_centre,
-                    reason: text,
+                    other: text,
                   },
                 });
               }}
-              value={answers.how_these_children_go_to_the_centre?.reason}
-              empty={!answers.how_these_children_go_to_the_centre?.reason}
+              value={answers.how_these_children_go_to_the_centre?.other}
+              empty={!answers.how_these_children_go_to_the_centre?.other}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -852,9 +1005,16 @@ export default function PastStudentParentsScreen() {
             <View
               style={{
                 backgroundColor:
-                  answers.children_occupation_nowadays.length === 0
-                    ? COLORS.red
-                    : COLORS.orange,
+                  // answers.children_occupation_nowadays.length === 0
+                  answers.children_occupation_nowadays.length !== 0
+                    ? checkarrayforOtherValues(
+                        answers.children_occupation_nowadays,
+                        'other',
+                      ) === 1
+                      ? COLORS.orange
+                      : COLORS.red
+                    : COLORS.red,
+
                 height: 20,
                 width: 20,
                 borderRadius: 40,
@@ -864,9 +1024,14 @@ export default function PastStudentParentsScreen() {
               <TextHandler
                 style={{
                   color:
-                    answers.children_occupation_nowadays.length === 0
-                      ? COLORS.white
-                      : COLORS.black,
+                    answers.children_occupation_nowadays.length !== 0
+                      ? checkarrayforOtherValues(
+                          answers.children_occupation_nowadays,
+                          'other',
+                        ) === 1
+                        ? COLORS.black
+                        : COLORS.white
+                      : COLORS.white,
                   textAlign: 'center',
                 }}>
                 {7}
@@ -903,7 +1068,7 @@ export default function PastStudentParentsScreen() {
               },
               {
                 key: 4,
-                value: 'Others',
+                value: 'Other',
                 label: 'OTHERS',
               },
             ].map((el, index) => {
@@ -942,7 +1107,7 @@ export default function PastStudentParentsScreen() {
               );
             })}
             {answers.children_occupation_nowadays.filter(
-              item => item.value === 'Others',
+              item => item.value === 'Other',
             ).length > 0 && (
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
@@ -950,7 +1115,7 @@ export default function PastStudentParentsScreen() {
                 onChangeText={text => {
                   let tmp = [...answers.children_occupation_nowadays];
                   tmp.forEach((el, index) => {
-                    if (el.value === 'Others') {
+                    if (el.value === 'Other') {
                       let newans = {...el, other: text};
                       tmp.splice(index, 1, newans);
                     }
@@ -962,10 +1127,10 @@ export default function PastStudentParentsScreen() {
                 }}
                 value={
                   answers.children_occupation_nowadays.filter(
-                    el => el.value === 'Others',
+                    el => el.value === 'Other',
                   ).length > 0
                     ? answers.children_occupation_nowadays.filter(
-                        el => el.value === 'Others',
+                        el => el.value === 'Other',
                       )[0]?.['other']
                     : ''
                 }
@@ -1170,7 +1335,10 @@ export default function PastStudentParentsScreen() {
             <View
               style={{
                 backgroundColor:
-                  !answers.involvement_in_the_programs_of_the_centre
+                  !answers.involvement_in_the_programs_of_the_centre ||
+                  (answers.involvement_in_the_programs_of_the_centre?.value ===
+                    'Other' &&
+                    !answers.involvement_in_the_programs_of_the_centre?.other)
                     ? COLORS.red
                     : COLORS.orange,
                 height: 20,
@@ -1181,9 +1349,13 @@ export default function PastStudentParentsScreen() {
               }}>
               <TextHandler
                 style={{
-                  color: !answers.involvement_in_the_programs_of_the_centre
-                    ? COLORS.white
-                    : COLORS.black,
+                  color:
+                    !answers.involvement_in_the_programs_of_the_centre ||
+                    (answers.involvement_in_the_programs_of_the_centre
+                      ?.value === 'Other' &&
+                      !answers.involvement_in_the_programs_of_the_centre?.other)
+                      ? COLORS.white
+                      : COLORS.black,
                   textAlign: 'center',
                 }}>
                 {9}
@@ -1225,7 +1397,7 @@ export default function PastStudentParentsScreen() {
                   value: 'Time',
                   label: 'PAST_STUDENTS_PARENTS_Q9_OPT3',
                 },
-                {key: 4, value: 'Others', label: 'OTHERS'},
+                {key: 4, value: 'Other', label: 'OTHERS'},
               ]}
               onValueChange={item => {
                 setAnswers({
@@ -1245,12 +1417,12 @@ export default function PastStudentParentsScreen() {
                   ...answers,
                   involvement_in_the_programs_of_the_centre: {
                     ...answers.involvement_in_the_programs_of_the_centre,
-                    reason: text,
+                    other: text,
                   },
                 });
               }}
-              value={answers.involvement_in_the_programs_of_the_centre?.reason}
-              empty={!answers.involvement_in_the_programs_of_the_centre?.reason}
+              value={answers.involvement_in_the_programs_of_the_centre?.other}
+              empty={!answers.involvement_in_the_programs_of_the_centre?.other}
               message={''}
               containerStyle={{
                 alignItems: 'center',

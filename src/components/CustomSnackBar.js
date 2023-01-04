@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 10,
     width: screenWidth,
-    height: 200,
+    minHeight: 200,
     zIndex: 10,
   },
 });

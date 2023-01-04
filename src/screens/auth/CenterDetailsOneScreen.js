@@ -99,7 +99,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 5,
+      totalQue: 6,
     },
     {
       key: 8,
@@ -136,7 +136,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     centre_commence_motive: [],
     kendra_samiti_work: [],
     students_passed_out_from_centre: '',
-    centre_not_operational_aftermath: '',
+    centre_not_operational_aftermath: [],
     center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time:
       '',
     discontinuation_time_period: '',
@@ -207,6 +207,8 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       setvolunteerInfo({
         ...volunteerInfo,
         address: route.params.centre?.address,
+        is_address_changed: route.params.centre?.is_address_changed,
+        current_address: route.params.centre?.current_address,
         centre_id: route.params.centre?.survey_form_id,
         survey_form_id: route.params.centre?.survey_form_id,
         district_id: route.params.centre?.district_id,
@@ -268,7 +270,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       payload = {...payload, totalSurveys: tmp};
     }
 
-    console.log('new payload', payload);
+    console.log('new payload==>', payload);
     dispatch({
       type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
       payload: payload,
@@ -326,7 +328,6 @@ export default function CenterDetailsOneScreen({navigation, route}) {
         temp.forEach(el => {
           towns.push({key: el.id, value: el.name});
         });
-        console.log('towns', temp);
         dispatch({
           type: ACTION_CONSTANTS.UPDATE_BASTI_LIST,
           payload: towns,
@@ -570,7 +571,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
             <Text style={styles.headingInput}>{t('CURRENT_ADDRESS')} </Text>
             <Input
               placeholder={`${t('CURRENT_ADDRESS')}`}
-              name="address"
+              name="current_address"
               onChangeText={text =>
                 setvolunteerInfo({...volunteerInfo, current_address: text})
               }
