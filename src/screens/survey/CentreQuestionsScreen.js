@@ -450,7 +450,12 @@ export default function CentreQuestionsScreen() {
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
         {/* QA1 - OK - establishment */}
         <View>
-          <View style={{flexDirection: 'row', marginVertical: 20, alignItems:'center'}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginVertical: 20,
+              alignItems: 'center',
+            }}>
             <TextHandler
               style={{
                 color: answers.establishment ? COLORS.black : COLORS.red,
@@ -463,7 +468,7 @@ export default function CentreQuestionsScreen() {
                 backgroundColor: answers.establishment
                   ? COLORS.orange
                   : COLORS.red,
-                height: 8 ,
+                height: 8,
                 width: 8,
                 borderRadius: 40,
                 justifyContent: 'flex-start',
@@ -502,30 +507,28 @@ export default function CentreQuestionsScreen() {
         {/* QA2 -OK - centre_commence_motive*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor:
+                color:
                   answers.centre_commence_motive.length > 0
-                    ? COLORS.orange
+                    ? COLORS.black
                     : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color:
-                    answers.centre_commence_motive.length > 0
-                      ? COLORS.black
-                      : COLORS.white,
-                  textAlign: 'center',
-                }}>
-                {2}
-              </TextHandler>
-            </View>
-
+              {2}
+            </TextHandler>
+            <TextHandler
+              style={{
+                color:
+                  answers.centre_commence_motive.length > 0
+                    ? COLORS.black
+                    : COLORS.red,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {'•'}
+            </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -641,27 +644,26 @@ export default function CentreQuestionsScreen() {
         {/* QA3 - OK - students_passed_out_from_centre */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor: answers.students_passed_out_from_centre
-                  ? COLORS.orange
+                color: answers.students_passed_out_from_centre
+                  ? COLORS.black
                   : COLORS.red,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: answers.students_passed_out_from_centre
-                    ? COLORS.black
-                    : COLORS.white,
-                  textAlign: 'center',
-                }}>
-                {3}
-              </TextHandler>
-            </View>
+              {3}
+            </TextHandler>
+            <TextHandler
+              style={{
+                color: answers.students_passed_out_from_centre
+                  ? COLORS.black
+                  : COLORS.red,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -696,7 +698,7 @@ export default function CentreQuestionsScreen() {
         {/* QA4 - OK - centre_not_operational_aftermath */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            {/* <View
               style={{
                 backgroundColor:
                   answers.centre_not_operational_aftermath.length > 0
@@ -708,17 +710,30 @@ export default function CentreQuestionsScreen() {
                 justifyContent: 'flex-start',
                 marginRight: 5,
               }}>
-              <TextHandler
-                style={{
-                  color:
-                    answers.centre_not_operational_aftermath.length > 0
-                      ? COLORS.black
-                      : COLORS.white,
-                  textAlign: 'center',
-                }}>
-                {4}
-              </TextHandler>
-            </View>
+             
+            </View> */}
+            <TextHandler
+              style={{
+                color:
+                  answers.centre_not_operational_aftermath.length > 0
+                    ? COLORS.black
+                    : COLORS.red,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {4}
+            </TextHandler>
+            <TextHandler
+              style={{
+                color:
+                  answers.centre_not_operational_aftermath.length > 0
+                    ? COLORS.black
+                    : COLORS.red,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
