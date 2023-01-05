@@ -20,7 +20,7 @@ export const RadioButtons = ({data, onValueChange, radioStyle, valueProp}) => {
           <RadioButton.Group
             key={index}
             onValueChange={newValue => {
-              // onValueChange(item.value);
+              onValueChange(item);
               setValue(item.value);
             }}
             value={valueProp && valueProp.value ? valueProp.value : value}>

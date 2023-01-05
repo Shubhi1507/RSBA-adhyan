@@ -20,40 +20,56 @@ import {ROUTES} from '../../navigation/RouteConstants';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
+import {Checkbox} from 'react-native-paper';
+import LoaderIndicator from '../../components/Loader';
+import {BASE_URL} from '../../networking';
 
 export default function PresentStudentParentsScreen() {
   const store = useSelector(state => state?.surveyReducer);
   const {t} = useContext(LocalizationContext);
+  const [dataLoading, setDataLoading] = useState(false);
 
   let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
   let [answers, setAnswers] = useState({
     // FROM DOCS
-    current_students: 0,
-    no_of_parents_present: 0,
-    educational_background: '',
-    economic_status: '',
-    reason_for_sending_children_to_the_centre: '',
+    current_students: '',
+    no_of_parents_present: '',
+    rating_illiterate: '',
+    rating_upto_5th: '',
+    rating_upto_10th: '',
+    rating_graduation: '',
+    econmonic_status_under_1_lakh: '',
+    econmonic_status_between_1_and_3_lakh: '',
+    econmonic_status_between_3_and_5_lakh: '',
+    econmonic_status_between_5_and_10_lakh: '',
+    reason_for_sending_children_to_the_centre: [],
     how_these_children_go_to_the_centre: '',
     days_children_are_going_to_the_centre: '',
-
-    experience_due_to_the_centre_education_before: '',
-    experience_due_to_the_centre_living_before: '',
-    experience_due_to_the_centre_behaviour_before: '',
-    experience_due_to_the_centre_sanskar_before: '',
-    experience_due_to_the_centre_habits_before: '',
-
-    experience_due_to_the_centre_education_after: '',
-    experience_due_to_the_centre_living_after: '',
-    experience_due_to_the_centre_behaviour_after: '',
-    experience_due_to_the_centre_sanskar_after: '',
-    experience_due_to_the_centre_habits_after: '',
-
+    listening_skills: '',
+    concentration: '',
+    studies_interest: '',
+    overall_academic_performance: '',
+    clean_and_neat_clothes: '',
+    yoga_exercise: '',
+    nutritious_food: '',
+    follow_proper_daily_routine: '',
+    rating_respect_elders: '',
+    do_not_back_answer_or_fight_with_friend: '',
+    rating_leadership_skills: '',
+    rating_helpful_others: '',
+    rating_religious_practice: '',
+    rating_knowledge_of_vedic_times_and_imp_saints: '',
+    rating_nationalism_knowledge: '',
+    rating_care_for_our_people: '',
+    rating_kendra_teacher_good_behaviour: '',
+    rating_kendra_teacher_effective_management: '',
+    rating_kendra_teacher_teaching_ability: '',
+    rating_kendra_teacher_connect_with_parents: '',
+    expectations_from_the_centre: '',
     benefits_of_the_centre: '',
     involvement_in_the_programs_of_the_centre: '',
     contribution_in_running_centre_more_effectively: '',
-    observations_about_kendra_teacher: '',
-    expectations_from_the_centre: '',
   });
   const [error, setError] = useState({visible: false, message: ''});
   const [visible, setVisible] = React.useState(false);
@@ -64,6 +80,7 @@ export default function PresentStudentParentsScreen() {
     store?.currentSurveyData?.surveyAnswers.length > 0
       ? [...store?.currentSurveyData?.surveyAnswers]
       : [];
+  let tmp2 = [...answers.reason_for_sending_children_to_the_centre];
 
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
@@ -76,163 +93,309 @@ export default function PresentStudentParentsScreen() {
   const hideModal = () => setVisible(false);
   const showModal = () => setVisible(true);
 
-  const pageValidator = () => {
+  const checkarrayforOtherValues = (arr = [], key) => {
+    let j = 1;
+    arr.map(el => {
+      if (el.value === 'Other') {
+        if (!el.hasOwnProperty('other') || !el.other) {
+          console.log(el);
+          j = 0;
+        }
+      }
+    });
+    return j;
+  };
+
+  const pageValidator = async () => {
+    setDataLoading(true);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
+    try {
+      const {
+        benefits_of_the_centre,
+        contribution_in_running_centre_more_effectively,
+        current_students,
+        days_children_are_going_to_the_centre,
+        expectations_from_the_centre,
+        how_these_children_go_to_the_centre,
+        involvement_in_the_programs_of_the_centre,
+        no_of_parents_present,
+        reason_for_sending_children_to_the_centre,
+        rating_illiterate,
+        rating_upto_5th,
+        rating_upto_10th,
+        rating_graduation,
+        econmonic_status_under_1_lakh,
+        econmonic_status_between_1_and_3_lakh,
+        econmonic_status_between_3_and_5_lakh,
+        econmonic_status_between_5_and_10_lakh,
+        listening_skills,
+        concentration,
+        studies_interest,
+        overall_academic_performance,
+        clean_and_neat_clothes,
+        yoga_exercise,
+        nutritious_food,
+        follow_proper_daily_routine,
+        rating_respect_elders,
+        do_not_back_answer_or_fight_with_friend,
+        rating_leadership_skills,
+        rating_helpful_others,
+        rating_religious_practice,
+        rating_knowledge_of_vedic_times_and_imp_saints,
+        rating_nationalism_knowledge,
+        rating_care_for_our_people,
+        rating_kendra_teacher_good_behaviour,
+        rating_kendra_teacher_effective_management,
+        rating_kendra_teacher_teaching_ability,
+        rating_kendra_teacher_connect_with_parents,
+      } = answers;
 
-    const {
-      benefits_of_the_centre,
-      contribution_in_running_centre_more_effectively,
-      current_students,
-      days_children_are_going_to_the_centre,
-      economic_status,
-      educational_background,
-      expectations_from_the_centre,
-      experience_due_to_the_centre_behaviour_after,
-      experience_due_to_the_centre_behaviour_before,
-      experience_due_to_the_centre_education_after,
-      experience_due_to_the_centre_education_before,
-      experience_due_to_the_centre_habits_after,
-      experience_due_to_the_centre_habits_before,
-      experience_due_to_the_centre_living_after,
-      experience_due_to_the_centre_living_before,
-      experience_due_to_the_centre_sanskar_after,
-      experience_due_to_the_centre_sanskar_before,
-      how_these_children_go_to_the_centre,
-      involvement_in_the_programs_of_the_centre,
-      no_of_parents_present,
-      observations_about_kendra_teacher,
-      reason_for_sending_children_to_the_centre,
-    } = answers;
+      let q = 16;
+      let unanswered = 16;
+      let ans1 = !current_students ? 0 : 1;
+      let ans2 = !no_of_parents_present ? 0 : 1;
+      let ans3 =
+        rating_illiterate &&
+        rating_upto_5th &&
+        rating_upto_10th &&
+        rating_graduation
+          ? 1
+          : 0;
+      let ans4 =
+        econmonic_status_under_1_lakh &&
+        econmonic_status_between_1_and_3_lakh &&
+        econmonic_status_between_3_and_5_lakh &&
+        econmonic_status_between_5_and_10_lakh
+          ? 1
+          : 0;
+      let ans5 =
+        reason_for_sending_children_to_the_centre.length !== 0
+          ? checkarrayforOtherValues(
+              reason_for_sending_children_to_the_centre,
+              'other',
+            )
+          : 0;
+      let ans6 =
+        how_these_children_go_to_the_centre?.value === 'Other' &&
+        !how_these_children_go_to_the_centre?.other
+          ? 0
+          : !how_these_children_go_to_the_centre?.value
+          ? 0
+          : 1;
+      let ans7 = !days_children_are_going_to_the_centre ? 0 : 1;
+      let ans8 =
+        listening_skills &&
+        concentration &&
+        studies_interest &&
+        overall_academic_performance
+          ? 1
+          : 0;
+      let ans9 =
+        clean_and_neat_clothes &&
+        yoga_exercise &&
+        nutritious_food &&
+        follow_proper_daily_routine
+          ? 1
+          : 0;
+      let ans10 =
+        rating_respect_elders &&
+        do_not_back_answer_or_fight_with_friend &&
+        rating_leadership_skills &&
+        rating_helpful_others
+          ? 1
+          : 0;
+      let ans11 =
+        rating_religious_practice &&
+        rating_knowledge_of_vedic_times_and_imp_saints &&
+        rating_nationalism_knowledge &&
+        rating_care_for_our_people
+          ? 1
+          : 0;
+      let ans12 = !benefits_of_the_centre ? 0 : 1;
+      let ans13 =
+        involvement_in_the_programs_of_the_centre?.value === 'Other' &&
+        !involvement_in_the_programs_of_the_centre?.other
+          ? 0
+          : !involvement_in_the_programs_of_the_centre?.value
+          ? 0
+          : 1;
+      let ans14 = !contribution_in_running_centre_more_effectively ? 0 : 1;
+      let ans15 =
+        rating_kendra_teacher_good_behaviour &&
+        rating_kendra_teacher_effective_management &&
+        rating_kendra_teacher_teaching_ability &&
+        rating_kendra_teacher_connect_with_parents
+          ? 1
+          : 0;
+      let ans16 = !expectations_from_the_centre ? 0 : 1;
 
-    let experience_que_answer_completed =
-      experience_due_to_the_centre_behaviour_after &&
-      experience_due_to_the_centre_behaviour_before &&
-      experience_due_to_the_centre_education_after &&
-      experience_due_to_the_centre_education_before &&
-      experience_due_to_the_centre_habits_after &&
-      experience_due_to_the_centre_habits_before &&
-      experience_due_to_the_centre_living_after &&
-      experience_due_to_the_centre_living_before &&
-      experience_due_to_the_centre_sanskar_after &&
-      experience_due_to_the_centre_sanskar_before
-        ? true
-        : false;
+      let p =
+        unanswered -
+        (ans1 +
+          ans2 +
+          ans3 +
+          ans4 +
+          ans5 +
+          ans6 +
+          ans7 +
+          ans8 +
+          ans9 +
+          ans10 +
+          ans11 +
+          ans12 +
+          ans13 +
+          ans14 +
+          ans15 +
+          ans16);
 
-    let experience_que_answer_completed_or_condition =
-      experience_due_to_the_centre_behaviour_after ||
-      experience_due_to_the_centre_behaviour_before ||
-      experience_due_to_the_centre_education_after ||
-      experience_due_to_the_centre_education_before ||
-      experience_due_to_the_centre_habits_after ||
-      experience_due_to_the_centre_habits_before ||
-      experience_due_to_the_centre_living_after ||
-      experience_due_to_the_centre_living_before ||
-      experience_due_to_the_centre_sanskar_after ||
-      experience_due_to_the_centre_sanskar_before
-        ? true
-        : false;
-
-    let q = Object.keys(answers).length - 9;
-    let tmp2 = Object.values(answers).filter(el => {
-      if (el) return el;
-    });
-
-    let p = tmp2.length;
-    if (experience_que_answer_completed) {
-      p = q;
-    }
-    if (experience_que_answer_completed_or_condition) {
-      if (p !== q) {
-        p = q - 1;
-      }
-    }
-
-    console.log(p, '/', q);
-    if (
-      !benefits_of_the_centre ||
-      !contribution_in_running_centre_more_effectively ||
-      !current_students ||
-      !days_children_are_going_to_the_centre ||
-      !economic_status ||
-      !educational_background ||
-      !expectations_from_the_centre ||
-      !experience_due_to_the_centre_behaviour_after ||
-      !experience_due_to_the_centre_behaviour_before ||
-      !experience_due_to_the_centre_education_after ||
-      !experience_due_to_the_centre_education_before ||
-      !experience_due_to_the_centre_habits_after ||
-      !experience_due_to_the_centre_habits_before ||
-      !experience_due_to_the_centre_living_after ||
-      !experience_due_to_the_centre_living_before ||
-      !experience_due_to_the_centre_sanskar_after ||
-      !experience_due_to_the_centre_sanskar_before ||
-      !how_these_children_go_to_the_centre ||
-      !involvement_in_the_programs_of_the_centre ||
-      !no_of_parents_present ||
-      !observations_about_kendra_teacher ||
-      !reason_for_sending_children_to_the_centre
-    ) {
+      console.log(q - p, '/', q);
       new_obj = {
         ...tmp[0],
         attempted: true,
-        completed: false,
+        completed: p === 0 ? true : false,
         disabled: false,
         totalQue: q,
-        answered: p,
+        answered: q - p,
       };
-    } else {
-      new_obj = {
-        ...tmp[0],
-        attempted: true,
-        completed: true,
-        disabled: true,
-        totalQue: q,
-        answered: p,
-      };
-    }
-    tmp.splice(0, 1, new_obj);
+      tmp.splice(0, 1, new_obj);
 
-    let surveyAnswers = [...answersArrTmp];
-    let payload = {};
+      let surveyAnswers = [...answersArrTmp];
+      let payload = {};
 
-    if (answersArrTmp.length > 0) {
-      let new_obj1 = {presentStudentParent: answers};
-      let index;
-      surveyAnswers.some(function (entry, i) {
-        if (entry?.presentStudentParent) {
-          index = i;
+      if (answersArrTmp.length > 0) {
+        let new_obj1 = {presentStudentParent: answers};
+        let index;
+        surveyAnswers.some(function (entry, i) {
+          if (entry?.presentStudentParent) {
+            index = i;
+          }
+        });
+        if (index != undefined) {
+          surveyAnswers.splice(index, 1, new_obj1);
+        } else {
+          surveyAnswers.push({presentStudentParent: answers});
         }
-      });
-      if (index != undefined) {
-        surveyAnswers.splice(index, 1, new_obj1);
       } else {
         surveyAnswers.push({presentStudentParent: answers});
       }
-    } else {
-      surveyAnswers.push({presentStudentParent: answers});
-    }
-    payload = {
-      ...store.currentSurveyData,
-      currentSurveyStatus: tmp,
-      surveyAnswers,
-      updatedAt: new Date().toString(),
-    };
-    let tmp1 = FindAndUpdate(totalSurveys, payload);
-    console.log('tmp1', tmp1);
-    console.log('payload', payload);
+      payload = {
+        ...store.currentSurveyData,
+        currentSurveyStatus: tmp,
+        surveyAnswers,
+        updatedAt: new Date().toString(),
+      };
+      let tmp1 = FindAndUpdate(totalSurveys, payload);
+      console.log('centre', store?.currentSurveyData?.api_centre_id);
+      // if survey is completed, call api
+      if (p === 0) {
+        let surveydata = {
+          //'Current Students'
+          22: `${current_students}`,
+          //'No. of parents present'
+          23: `${no_of_parents_present}`,
+          //'Educational background ( Enter the percentage data )'
+          24: `Illiterate-${rating_illiterate}, Upto 5th(%) - ${rating_upto_5th}, Upto 10th(%) - ${rating_upto_10th}, Graduation and above(%) - ${rating_graduation}`,
+          // 'Economic status ( Enter the percentage data )'
+          25: `Less than 1 Lac (%)-${econmonic_status_under_1_lakh}, 1 to 3 Lacs (%) - ${econmonic_status_between_1_and_3_lakh}, 3 to 5 Lacs (%) - ${econmonic_status_between_3_and_5_lakh}, 5 to 10 Lacs (%) - ${econmonic_status_between_5_and_10_lakh}`,
+          // 'Reason for sending children to the center? ( You can choose more than one answer )'
+          26: `${reason_for_sending_children_to_the_centre
+            .map(el => {
+              if (el?.value === 'Other') {
+                return el?.other;
+              }
+              return el?.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
+          //'How these children go to the center?'
+          27: `${
+            how_these_children_go_to_the_centre?.other ||
+            how_these_children_go_to_the_centre?.value
+          }`,
+          // 'For how many days children are going to the center ?'
+          28: `${days_children_are_going_to_the_centre?.value || ''}`,
+          //'What changes in education level of students you experienced due to the center? - Rate your answer out of 10 where 1 = Poor & 10 = Best'
+          29: `Listening skills - ${listening_skills}, Concentration - ${concentration}, Interest in studies - ${studies_interest}, Overall academic performance in school - ${overall_academic_performance}`,
+          //'What changes in overall living of students was observed due to the center? - Rate your answer out of 10 where 1 = Poor & 10 = Best'
+          30: `Clean and neat clothes - ${clean_and_neat_clothes}, Practice yoga / excercise - ${yoga_exercise}, Eat nutritious / home food - ${nutritious_food}, Follow proper daily routine - ${follow_proper_daily_routine} `,
+          //'What changes in behavior / habits observed in students due to center? Rate your answer out of 10 where 1 = Poor & 10 = Best'
+          31: `Respect elders - ${rating_respect_elders}, Do not back answer or fight with friend - ${do_not_back_answer_or_fight_with_friend}, Leadership skills - ${rating_leadership_skills}, Helping others - ${rating_helpful_others}`,
+          //'What changes observed among students regarding knowledge about our tradition / culture / religion? Rate your answer out of 10 where 1 = Poor & 10 = Best'
+          32: `Information of religious practice / Scriptures / traditions - ${rating_religious_practice}, Information about vedic times and important saints - ${rating_knowledge_of_vedic_times_and_imp_saints}, Nationalism / Ideals / National heros - ${rating_nationalism_knowledge}, How to care for our nation / our people - ${rating_care_for_our_people}`,
+          //'Benefits of the center (Family/Basti/Society) speciality/success of the center'
+          33: `${benefits_of_the_centre}`,
+          // 'Your Involvement in the programs of the Center'
+          34: `${involvement_in_the_programs_of_the_centre?.value || ''}`,
+          //'How can you contribute in running center more effectively'
+          35: `${contribution_in_running_centre_more_effectively}`,
+          //'Your observations about kendra teacher. Rate your answer out of 10 where 1 = Poor & 10 = Best'
+          36: `Good behavior (Polite,Patient) - ${rating_kendra_teacher_good_behaviour}, Effective Kendra management- ${rating_kendra_teacher_effective_management}, Effective teaching ability - ${rating_kendra_teacher_teaching_ability}, Good connect with parents - ${rating_kendra_teacher_connect_with_parents}`,
+          // 'Expectations from the center'
+          37: `${expectations_from_the_centre}`,
+        };
+        console.log(surveydata);
 
-    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-    showModal();
+        const surveyform = new FormData();
+        surveyform.append('center_id', store?.currentSurveyData?.api_centre_id);
+        surveyform.append('audience_id', 1);
+        surveyform.append('survey_data', JSON.stringify(surveydata));
+
+        console.log(surveyform);
+
+        const requestOptions = {
+          method: 'POST',
+          body: surveyform,
+          redirect: 'follow',
+        };
+        const response = await fetch(
+          BASE_URL + 'center/survey',
+          requestOptions,
+        );
+        console.log('response->', await response.json());
+      }
+
+      dispatch({
+        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+        payload: payload,
+      });
+      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
+      showModal();
+      setDataLoading(false);
+    } catch (error) {
+      setDataLoading(false);
+      setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+      console.log('error', error);
+    }
   };
 
   const pageNavigator = () => {
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
   };
 
+  const handleSelection = answer => {
+    if (tmp2.length === 0) {
+      tmp2.push(answer);
+    } else {
+      const isExist = tmp2.some(element => answer.key === element.key);
+      if (isExist) {
+        // remove
+        const index = tmp2.findIndex(element => answer.key === element.key);
+        tmp2.splice(index, 1);
+      } else {
+        // different ans chosen
+        tmp2.push(answer);
+      }
+    }
+    setAnswers({
+      ...answers,
+      reason_for_sending_children_to_the_centre: tmp2,
+    });
+  };
+
   return (
     <View style={styles.container}>
+      <LoaderIndicator loading={dataLoading} />
       <View style={{flex: 0.2}}>
         <Header
           title={t('STUDENTS_PARENTS_CURRENT_STUDENTS')}
@@ -254,24 +417,34 @@ export default function PresentStudentParentsScreen() {
       <KeyboardAwareScrollView style={{flex: 1, paddingHorizontal: 20}}>
         {/* QA1 - ok - current_students */}
         <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+          <View
+            style={{
+              flexDirection: 'row',
+              marginVertical: 20,
+            }}>
+            <TextHandler
               style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                color:
+                  answers.current_students.length > 0
+                    ? COLORS.black
+                    : COLORS.red,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {1}
-              </TextHandler>
-            </View>
+              {1}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color:
+                  answers.current_students.length > 0
+                    ? COLORS.black
+                    : COLORS.red,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -286,13 +459,14 @@ export default function PresentStudentParentsScreen() {
 
           <Input
             type={'numeric'}
-            number={4}
+            number={10}
             placeholder={`${t('ENTER_ANSWER')}`}
             name="any"
             onChangeText={text => {
               setAnswers({...answers, current_students: text});
             }}
             value={answers.current_students}
+            empty={!answers.current_students}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -301,26 +475,37 @@ export default function PresentStudentParentsScreen() {
           />
         </View>
 
-        {/* QA2 */}
+        {/* QA2 - no_of_parents_present */}
         <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+          <View
+            style={{
+              flexDirection: 'row',
+              marginVertical: 20,
+              alignItems: 'center',
+            }}>
+            <TextHandler
               style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                color:
+                  answers.no_of_parents_present.length > 0
+                    ? COLORS.black
+                    : COLORS.red,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {2}
-              </TextHandler>
-            </View>
+              {2}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color:
+                  answers.no_of_parents_present.length > 0
+                    ? COLORS.black
+                    : COLORS.red,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -336,13 +521,14 @@ export default function PresentStudentParentsScreen() {
           <View>
             <Input
               type={'numeric'}
-              number={4}
+              number={10}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
                 setAnswers({...answers, no_of_parents_present: text});
               }}
               value={answers.no_of_parents_present}
+              empty={!answers.no_of_parents_present}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -352,26 +538,52 @@ export default function PresentStudentParentsScreen() {
           </View>
         </View>
 
-        {/* QA3 - ok - educational_background */}
+        {/* QA3 - ok - rating_illiterate */}
         <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+          <View
+            style={{
+              flexDirection: 'row',
+              marginVertical: 20,
+            }}>
+            <TextHandler
               style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                color:
+                  !answers.rating_illiterate ||
+                  !answers.rating_upto_5th ||
+                  !answers.rating_upto_10th ||
+                  !answers.rating_graduation ||
+                  parseFloat(answers.rating_illiterate) +
+                    parseFloat(answers.rating_upto_5th) +
+                    parseFloat(answers.rating_upto_10th) +
+                    parseFloat(answers.rating_graduation) !==
+                    100
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {3}
-              </TextHandler>
-            </View>
+              {3}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color:
+                  !answers.rating_illiterate ||
+                  !answers.rating_upto_5th ||
+                  !answers.rating_upto_10th ||
+                  !answers.rating_graduation ||
+                  parseFloat(answers.rating_illiterate) +
+                    parseFloat(answers.rating_upto_5th) +
+                    parseFloat(answers.rating_upto_10th) +
+                    parseFloat(answers.rating_graduation) !==
+                    100
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -381,50 +593,159 @@ export default function PresentStudentParentsScreen() {
               <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_PARENTS_Q3')}
               </TextHandler>
+              {parseFloat(answers.rating_illiterate) +
+                parseFloat(answers.rating_upto_5th) +
+                parseFloat(answers.rating_upto_10th) +
+                parseFloat(answers.rating_graduation) !==
+                100 && (
+                <TextHandler style={{fontSize: 10, color: COLORS.red}}>
+                  {t('SUM_NOT_100')}
+                </TextHandler>
+              )}
             </View>
           </View>
 
+          {/* QA3_1 */}
           <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q3_OPT1')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={3}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 100) {
+                  setAnswers({...answers, rating_illiterate: text});
+                }
               }}
-              data={[
-                {key: 1, value: 'Illiterate', label: 'ILLITERATE'},
-                {key: 2, value: 'Literate', label: 'LITERATE'},
-                {key: 3, value: 'Educated', label: 'EDUCATED'},
-                {key: 4, value: 'Mix', label: 'MIX'},
-              ]}
-              valueProp={answers.educational_background}
-              onValueChange={item => {
-                setAnswers({...answers, educational_background: item});
+              value={answers.rating_illiterate}
+              empty={!answers.rating_illiterate}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          {/* QA3_2 */}
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q3_OPT2')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={3}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 100) {
+                  setAnswers({...answers, rating_upto_5th: text});
+                }
+              }}
+              value={answers.rating_upto_5th}
+              empty={!answers.rating_upto_5th}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          {/* QA3_3 */}
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q3_OPT3')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={3}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 100) {
+                  setAnswers({...answers, rating_upto_10th: text});
+                }
+              }}
+              value={answers.rating_upto_10th}
+              empty={!answers.rating_upto_10th}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          {/* QA3_4 */}
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q3_OPT4')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={3}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 100) {
+                  setAnswers({...answers, rating_graduation: text});
+                }
+              }}
+              value={answers.rating_graduation}
+              empty={!answers.rating_graduation}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
               }}
             />
           </View>
         </View>
 
-        {/* QA4 - economic_status*/}
+        {/* QA4 - economic_statuses*/}
         <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+          <View
+            style={{
+              flexDirection: 'row',
+              marginVertical: 20,
+              alignItems: 'center',
+            }}>
+            <TextHandler
               style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                color:
+                  !answers.econmonic_status_under_1_lakh ||
+                  !answers.econmonic_status_between_1_and_3_lakh ||
+                  !answers.econmonic_status_between_3_and_5_lakh ||
+                  !answers.econmonic_status_between_5_and_10_lakh ||
+                  parseFloat(answers.econmonic_status_under_1_lakh) +
+                    parseFloat(answers.econmonic_status_between_1_and_3_lakh) +
+                    parseFloat(answers.econmonic_status_between_3_and_5_lakh) +
+                    parseFloat(
+                      answers.econmonic_status_between_5_and_10_lakh,
+                    ) !==
+                    100
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {4}
-              </TextHandler>
-            </View>
+              {4}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color:
+                  !answers.econmonic_status_under_1_lakh ||
+                  !answers.econmonic_status_between_1_and_3_lakh ||
+                  !answers.econmonic_status_between_3_and_5_lakh ||
+                  !answers.econmonic_status_between_5_and_10_lakh ||
+                  parseFloat(answers.econmonic_status_under_1_lakh) +
+                    parseFloat(answers.econmonic_status_between_1_and_3_lakh) +
+                    parseFloat(answers.econmonic_status_between_3_and_5_lakh) +
+                    parseFloat(
+                      answers.econmonic_status_between_5_and_10_lakh,
+                    ) !==
+                    100
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -434,50 +755,161 @@ export default function PresentStudentParentsScreen() {
               <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_PARENTS_Q4')}
               </TextHandler>
+              {parseFloat(answers.econmonic_status_under_1_lakh) +
+                parseFloat(answers.econmonic_status_between_1_and_3_lakh) +
+                parseFloat(answers.econmonic_status_between_3_and_5_lakh) +
+                parseFloat(answers.econmonic_status_between_5_and_10_lakh) !==
+                100 && (
+                <TextHandler style={{fontSize: 10, color: COLORS.red}}>
+                  {t('SUM_NOT_100')}
+                </TextHandler>
+              )}
             </View>
           </View>
 
+          {/* QA4_1 */}
           <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q4_OPT1')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={3}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 100) {
+                  setAnswers({...answers, econmonic_status_under_1_lakh: text});
+                }
               }}
-              valueProp={answers.economic_status}
-              data={[
-                {key: 1, value: 'Very Poor', label: 'VERY_POOR'},
-                {key: 2, value: 'Poor', label: 'POOR'},
-                {key: 3, value: 'Good', label: 'GOOD'},
-              ]}
-              onValueChange={item => {
-                setAnswers({...answers, economic_status: item});
+              value={answers.econmonic_status_under_1_lakh}
+              empty={!answers.econmonic_status_under_1_lakh}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          {/* QA4_2 */}
+
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q4_OPT2')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={3}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 100) {
+                  setAnswers({
+                    ...answers,
+                    econmonic_status_between_1_and_3_lakh: text,
+                  });
+                }
+              }}
+              value={answers.econmonic_status_between_1_and_3_lakh}
+              empty={!answers.econmonic_status_between_1_and_3_lakh}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          {/* QA4_3 */}
+
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q4_OPT3')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={3}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 100) {
+                  setAnswers({
+                    ...answers,
+                    econmonic_status_between_3_and_5_lakh: text,
+                  });
+                }
+              }}
+              value={answers.econmonic_status_between_3_and_5_lakh}
+              empty={!answers.econmonic_status_between_3_and_5_lakh}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          {/* QA4_4 */}
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q4_OPT4')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={3}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 100) {
+                  setAnswers({
+                    ...answers,
+                    econmonic_status_between_5_and_10_lakh: text,
+                  });
+                }
+              }}
+              value={answers.econmonic_status_between_5_and_10_lakh}
+              empty={!answers.econmonic_status_between_5_and_10_lakh}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
               }}
             />
           </View>
         </View>
 
-        {/* QA5 - reason_for_sending_children_to_the_centre */}
+        {/* QA5 - reason_for_sending_children_to_the_centre     INCORRECT  */}
         <View>
-          <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+          <View
+            style={{
+              flexDirection: 'row',
+              marginVertical: 20,
+              alignItems: 'center',
+            }}>
+            
+            <TextHandler
               style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                color:
+                  answers.reason_for_sending_children_to_the_centre.length ===
+                    0 ||
+                  checkarrayforOtherValues(
+                    answers.reason_for_sending_children_to_the_centre,
+                    'other',
+                  ) === 0
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {5}
-              </TextHandler>
-            </View>
-
+              {5}
+            </TextHandler>
+            <TextHandler
+              style={{
+                color:
+                  answers.reason_for_sending_children_to_the_centre.length ===
+                    0 ||
+                  checkarrayforOtherValues(
+                    answers.reason_for_sending_children_to_the_centre,
+                    'other',
+                  ) === 0
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {'•'}
+            </TextHandler>
+            
             <View
               style={{
                 flex: 1,
@@ -489,59 +921,99 @@ export default function PresentStudentParentsScreen() {
             </View>
           </View>
 
-          <View>
-            <RadioButtons
-              radioStyle={{
-                borderWidth: 1,
-                marginVertical: 2,
-                borderColor: COLORS.orange,
-              }}
-              valueProp={answers.reason_for_sending_children_to_the_centre}
-              data={[
-                {
-                  key: 1,
-                  value: 'Spending free time',
-                  label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT1',
-                },
-                {
-                  key: 2,
-                  value: 'Good quality education',
-                  label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT2',
-                },
-                {
-                  key: 3,
-                  value: 'Sanskar',
-                  label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT3',
-                },
-                {key: 4, value: 'Others', label: 'OTHERS'},
-              ]}
-              onValueChange={item => {
-                setAnswers({
-                  ...answers,
-                  reason_for_sending_children_to_the_centre: item,
-                });
-              }}
-            />
-          </View>
-          {answers.reason_for_sending_children_to_the_centre?.key == 4 && (
+          {[
+            {
+              key: 1,
+              value: 'Spending free time',
+              label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT1',
+            },
+            {
+              key: 2,
+              value: 'Good quality education',
+              label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT2',
+            },
+            {
+              key: 3,
+              value: 'Sanskaar',
+              label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT3',
+            },
+            {
+              key: 4,
+              value: 'Other',
+              label: 'CURRENT_STUDENTS_PARENTS_Q5_OPT4',
+            },
+          ].map((el, index) => {
+            return (
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  borderWidth: 1,
+                  marginVertical: 2,
+                  borderColor: COLORS.orange,
+                  paddingVertical: 5,
+                  marginVertical: 5,
+                }}
+                onPress={() => {
+                  handleSelection(el);
+                }}>
+                <Checkbox
+                  status={
+                    answers.reason_for_sending_children_to_the_centre.filter(
+                      item => item.value === el.value,
+                    ).length > 0
+                      ? 'checked'
+                      : 'unchecked'
+                  }
+                  color={COLORS.blue}
+                />
+                <TextHandler
+                  style={{
+                    color: 'black',
+                    // textAlign: 'left',
+                  }}>
+                  {t(el.label)}
+                </TextHandler>
+              </TouchableOpacity>
+            );
+          })}
+          {answers.reason_for_sending_children_to_the_centre.filter(
+            item => item.value === 'Other',
+          ).length > 0 && (
             <Input
-              type={'default'}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
+                let tmp = [
+                  ...answers.reason_for_sending_children_to_the_centre,
+                ];
+                tmp.forEach((el, index) => {
+                  if (el.value === 'Other') {
+                    let newans = {...el, other: text};
+                    tmp.splice(index, 1, newans);
+                  }
+                });
                 setAnswers({
                   ...answers,
-                  reason_for_sending_children_to_the_centre: {
-                    ...answers.reason_for_sending_children_to_the_centre,
-                    reason: text,
-                  },
+                  reason_for_sending_children_to_the_centre: tmp,
                 });
               }}
-              value={answers.reason_for_sending_children_to_the_centre?.reason}
+              value={
+                answers.reason_for_sending_children_to_the_centre.filter(
+                  el => el.value === 'Other',
+                ).length > 0
+                  ? answers.reason_for_sending_children_to_the_centre.filter(
+                      el => el.value === 'Other',
+                    )[0]?.['other']
+                  : ''
+              }
+              empty={
+                !answers.reason_for_sending_children_to_the_centre?.['other']
+              }
               message={''}
               containerStyle={{
                 alignItems: 'center',
-                minWidth: screenWidth * 0.5,
+                minWidth: screenWidth * 0.25,
               }}
             />
           )}
@@ -550,23 +1022,34 @@ export default function PresentStudentParentsScreen() {
         {/* QA6 - how_these_children_go_to_the_centre */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                color:
+                  !answers.how_these_children_go_to_the_centre ||
+                  (answers.how_these_children_go_to_the_centre?.value ===
+                    'Other' &&
+                    !answers.how_these_children_go_to_the_centre?.other)
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {6}
-              </TextHandler>
-            </View>
+              {6}
+            </TextHandler>
+            <TextHandler
+              style={{
+                color:
+                  !answers.how_these_children_go_to_the_centre ||
+                  (answers.how_these_children_go_to_the_centre?.value ===
+                    'Other' &&
+                    !answers.how_these_children_go_to_the_centre?.other)
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -603,7 +1086,7 @@ export default function PresentStudentParentsScreen() {
                   value: 'directed by parents',
                   label: 'CURRENT_STUDENTS_PARENTS_Q6_OPT3',
                 },
-                {key: 4, value: 'Others', label: 'OTHERS'},
+                {key: 4, value: 'Other', label: 'OTHERS'},
               ]}
               onValueChange={item => {
                 setAnswers({
@@ -623,11 +1106,12 @@ export default function PresentStudentParentsScreen() {
                   ...answers,
                   how_these_children_go_to_the_centre: {
                     ...answers.how_these_children_go_to_the_centre,
-                    reason: text,
+                    other: text,
                   },
                 });
               }}
-              value={answers.how_these_children_go_to_the_centre?.reason}
+              value={answers.how_these_children_go_to_the_centre?.other}
+              empty={!answers.how_these_children_go_to_the_centre?.other}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -640,24 +1124,27 @@ export default function PresentStudentParentsScreen() {
         {/* QA7 - days_children_are_going_to_the_centre */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                color: !answers.days_children_are_going_to_the_centre
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {7}
-              </TextHandler>
-            </View>
+              {7}
+            </TextHandler>
 
+            <TextHandler
+              style={{
+                color: !answers.days_children_are_going_to_the_centre
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -712,23 +1199,36 @@ export default function PresentStudentParentsScreen() {
         {/* QA8 - experiences */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                color:
+                  !answers.listening_skills ||
+                  !answers.concentration ||
+                  !answers.studies_interest ||
+                  !answers.overall_academic_performance
+                    ? COLORS.red
+                    : COLORS.black,
+                fontWeight: '700',
+
+                textAlign: 'center',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {8}
-              </TextHandler>
-            </View>
+              {8}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color:
+                  !answers.listening_skills ||
+                  !answers.concentration ||
+                  !answers.studies_interest ||
+                  !answers.overall_academic_performance
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -742,317 +1242,124 @@ export default function PresentStudentParentsScreen() {
           </View>
 
           <View>
-            {/* before */}
-            <View style={{flexDirection: 'row', marginVertical: 20}}>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: 'flex-start',
-                }}>
-                <TextHandler style={styles.question}>
-                  {' '}
-                  {t('BEFORE')}
-                </TextHandler>
-              </View>
-            </View>
-
-            {/* education */}
-            <View>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
-                {t('EDUCATION')}
-              </TextHandler>
-              <Input
-                type={'default'}
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    experience_due_to_the_centre_education_before: text,
-                  });
-                }}
-                value={answers.experience_due_to_the_centre_education_before}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            </View>
-            {/* living */}
-            <View>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
-                {t('CURRENT_STUDENTS_PARENTS_Q8_OPT4')}
-              </TextHandler>
-              <Input
-                type={'default'}
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    experience_due_to_the_centre_living_before: text,
-                  });
-                }}
-                value={answers.experience_due_to_the_centre_living_before}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            </View>
-            {/* behaviour */}
-            <View>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
-                {t('CURRENT_STUDENTS_PARENTS_Q8_OPT5')}
-              </TextHandler>
-              <Input
-                type={'default'}
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    experience_due_to_the_centre_behaviour_before: text,
-                  });
-                }}
-                value={answers.experience_due_to_the_centre_behaviour_before}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            </View>
-            {/* sanskar */}
-            <View>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
-                {t('CURRENT_STUDENTS_PARENTS_Q8_OPT6')}
-              </TextHandler>
-              <Input
-                type={'default'}
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    experience_due_to_the_centre_sanskar_before: text,
-                  });
-                }}
-                value={answers.experience_due_to_the_centre_sanskar_before}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            </View>
-            {/* habits */}
-            <View>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
-                {t('CURRENT_STUDENTS_PARENTS_Q8_OPT7')}
-              </TextHandler>
-              <Input
-                type={'default'}
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    experience_due_to_the_centre_habits_before: text,
-                  });
-                }}
-                value={answers.experience_due_to_the_centre_habits_before}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            </View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q8_1')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({...answers, listening_skills: text});
+                }
+              }}
+              value={answers.listening_skills}
+              empty={!answers.listening_skills}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
           </View>
-
           <View>
-            {/* after */}
-            <View style={{flexDirection: 'row', marginVertical: 20}}>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: 'flex-start',
-                }}>
-                <TextHandler style={styles.question}> {t('AFTER')}</TextHandler>
-              </View>
-            </View>
-
-            {/* education */}
-            <View>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
-                {t('EDUCATION')}
-              </TextHandler>
-              <Input
-                type={'default'}
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    experience_due_to_the_centre_education_after: text,
-                  });
-                }}
-                value={answers.experience_due_to_the_centre_education_after}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            </View>
-            {/* living */}
-            <View>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
-                {t('CURRENT_STUDENTS_PARENTS_Q8_OPT4')}
-              </TextHandler>
-              <Input
-                type={'default'}
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    experience_due_to_the_centre_living_after: text,
-                  });
-                }}
-                value={answers.experience_due_to_the_centre_living_after}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            </View>
-            {/* behaviour */}
-            <View>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
-                {t('CURRENT_STUDENTS_PARENTS_Q8_OPT5')}
-              </TextHandler>
-              <Input
-                type={'default'}
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    experience_due_to_the_centre_behaviour_after: text,
-                  });
-                }}
-                value={answers.experience_due_to_the_centre_behaviour_after}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            </View>
-            {/* sanskar */}
-            <View>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
-                {t('CURRENT_STUDENTS_PARENTS_Q8_OPT6')}
-              </TextHandler>
-              <Input
-                type={'default'}
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    experience_due_to_the_centre_sanskar_after: text,
-                  });
-                }}
-                value={answers.experience_due_to_the_centre_sanskar_after}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            </View>
-            {/* habits */}
-            <View>
-              <TextHandler
-                style={{
-                  color: 'black',
-                }}>
-                {t('CURRENT_STUDENTS_PARENTS_Q8_OPT7')}
-              </TextHandler>
-              <Input
-                type={'default'}
-                placeholder={`${t('ENTER_ANSWER')}`}
-                name="any"
-                onChangeText={text => {
-                  setAnswers({
-                    ...answers,
-                    experience_due_to_the_centre_habits_after: text,
-                  });
-                }}
-                value={answers.experience_due_to_the_centre_habits_after}
-                message={''}
-                containerStyle={{
-                  alignItems: 'center',
-                  minWidth: screenWidth * 0.5,
-                }}
-              />
-            </View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q8_OPT2')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({...answers, concentration: text});
+                }
+              }}
+              value={answers.concentration}
+              empty={!answers.concentration}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q8_OPT3')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({...answers, studies_interest: text});
+                }
+              }}
+              value={answers.studies_interest}
+              empty={!answers.studies_interest}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q8_OPT4')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({...answers, overall_academic_performance: text});
+                }
+              }}
+              value={answers.overall_academic_performance}
+              empty={!answers.overall_academic_performance}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
           </View>
         </View>
 
-        {/* QA9 - benefits_of_the_centre */}
+        {/* QA9 - overall_living_0f_students */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                color:
+                  !answers.clean_and_neat_clothes ||
+                  !answers.yoga_exercise ||
+                  !answers.nutritious_food ||
+                  !answers.follow_proper_daily_routine
+                    ? COLORS.red
+                    : COLORS.black,
+
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {9}
-              </TextHandler>
-            </View>
+              {9}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color:
+                  !answers.clean_and_neat_clothes ||
+                  !answers.yoga_exercise ||
+                  !answers.nutritious_food ||
+                  !answers.follow_proper_daily_routine
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -1065,41 +1372,124 @@ export default function PresentStudentParentsScreen() {
             </View>
           </View>
 
-          <Input
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q9_OPT1')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, benefits_of_the_centre: text});
+                if (text <= 10) {
+                  setAnswers({...answers, clean_and_neat_clothes: text});
+                }
               }}
-              value={answers.benefits_of_the_centre}
+              value={answers.clean_and_neat_clothes}
+              empty={!answers.clean_and_neat_clothes}
               message={''}
               containerStyle={{
                 alignItems: 'center',
                 minWidth: screenWidth * 0.25,
               }}
             />
+          </View>
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q9_OPT2')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({...answers, yoga_exercise: text});
+                }
+              }}
+              value={answers.yoga_exercise}
+              empty={!answers.yoga_exercise}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q9_OPT3')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({...answers, nutritious_food: text});
+                }
+              }}
+              value={answers.nutritious_food}
+              empty={!answers.nutritious_food}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q9_OPT4')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({...answers, follow_proper_daily_routine: text});
+                }
+              }}
+              value={answers.follow_proper_daily_routine}
+              empty={!answers.follow_proper_daily_routine}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
         </View>
 
-        {/* QA10 -  involvement_in_the_programs_of_the_centre*/}
+        {/* QA10 -  */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                color:
+                  !answers.rating_respect_elders ||
+                  !answers.do_not_back_answer_or_fight_with_friend ||
+                  !answers.rating_leadership_skills ||
+                  !answers.rating_helpful_others
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {10}
-              </TextHandler>
-            </View>
+              {10}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color:
+                  !answers.rating_respect_elders ||
+                  !answers.do_not_back_answer_or_fight_with_friend ||
+                  !answers.rating_leadership_skills ||
+                  !answers.rating_helpful_others
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -1108,6 +1498,324 @@ export default function PresentStudentParentsScreen() {
               }}>
               <TextHandler style={styles.question}>
                 {t('CURRENT_STUDENTS_PARENTS_Q10')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q10_OPT1')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({...answers, rating_respect_elders: text});
+                }
+              }}
+              value={answers.rating_respect_elders}
+              empty={!answers.rating_respect_elders}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q10_OPT2')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({
+                    ...answers,
+                    do_not_back_answer_or_fight_with_friend: text,
+                  });
+                }
+              }}
+              value={answers.do_not_back_answer_or_fight_with_friend}
+              empty={!answers.do_not_back_answer_or_fight_with_friend}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q10_OPT3')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({...answers, rating_leadership_skills: text});
+                }
+              }}
+              value={answers.rating_leadership_skills}
+              empty={!answers.rating_leadership_skills}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q10_OPT4')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({...answers, rating_helpful_others: text});
+                }
+              }}
+              value={answers.rating_helpful_others}
+              empty={!answers.rating_helpful_others}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+        </View>
+
+        {/* QA11 -  */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <TextHandler
+              style={{
+                color:
+                  !answers.rating_religious_practice ||
+                  !answers.rating_knowledge_of_vedic_times_and_imp_saints ||
+                  !answers.rating_nationalism_knowledge ||
+                  !answers.rating_care_for_our_people
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {11}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color:
+                  !answers.rating_religious_practice ||
+                  !answers.rating_knowledge_of_vedic_times_and_imp_saints ||
+                  !answers.rating_nationalism_knowledge ||
+                  !answers.rating_care_for_our_people
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CURRENT_STUDENTS_PARENTS_Q11')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q11_OPT1')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({...answers, rating_religious_practice: text});
+                }
+              }}
+              value={answers.rating_religious_practice}
+              empty={!answers.rating_religious_practice}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q11_OPT2')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({
+                    ...answers,
+                    rating_knowledge_of_vedic_times_and_imp_saints: text,
+                  });
+                }
+              }}
+              value={answers.rating_knowledge_of_vedic_times_and_imp_saints}
+              empty={!answers.rating_knowledge_of_vedic_times_and_imp_saints}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q11_OPT3')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({...answers, rating_nationalism_knowledge: text});
+                }
+              }}
+              value={answers.rating_nationalism_knowledge}
+              empty={!answers.rating_nationalism_knowledge}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q11_OPT4')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({...answers, rating_care_for_our_people: text});
+                }
+              }}
+              value={answers.rating_care_for_our_people}
+              empty={!answers.rating_care_for_our_people}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+        </View>
+
+        {/* Q12 */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <TextHandler
+              style={{
+                color: !answers.benefits_of_the_centre
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {12}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color: !answers.benefits_of_the_centre
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CURRENT_STUDENTS_PARENTS_Q12')}
+              </TextHandler>
+            </View>
+          </View>
+
+          <Input
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="any"
+            onChangeText={text => {
+              setAnswers({...answers, benefits_of_the_centre: text});
+            }}
+            value={answers.benefits_of_the_centre}
+            empty={!answers.benefits_of_the_centre}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.25,
+            }}
+          />
+        </View>
+
+        {/* QA13 - */}
+        <View>
+          <View style={{flexDirection: 'row', marginVertical: 20}}>
+            <TextHandler
+              style={{
+                color:
+                  !answers.involvement_in_the_programs_of_the_centre ||
+                  (answers.involvement_in_the_programs_of_the_centre?.value ===
+                    'Other' &&
+                    !answers.involvement_in_the_programs_of_the_centre?.other)
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {13}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color:
+                  !answers.involvement_in_the_programs_of_the_centre ||
+                  (answers.involvement_in_the_programs_of_the_centre?.value ===
+                    'Other' &&
+                    !answers.involvement_in_the_programs_of_the_centre?.other)
+                    ? COLORS.red
+                    : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              <TextHandler style={styles.question}>
+                {t('CURRENT_STUDENTS_PARENTS_Q13')}
               </TextHandler>
             </View>
           </View>
@@ -1123,26 +1831,24 @@ export default function PresentStudentParentsScreen() {
               data={[
                 {
                   key: 1,
-                  value: 'Financial support',
-                  label: 'CURRENT_STUDENTS_PARENTS_Q10_OPT1',
+                  value: 'Financial Support',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q13_OPT1',
                 },
                 {
                   key: 2,
                   value: 'Time',
-                  label: 'CURRENT_STUDENTS_PARENTS_Q10_OPT2',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q13_OPT2',
                 },
                 {
                   key: 3,
                   value: 'Shramdan',
-                  label: 'CURRENT_STUDENTS_PARENTS_Q10_OPT3',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q13_OPT3',
                 },
                 {
                   key: 4,
-                  value: 'Shramdan',
-                  label: 'CURRENT_STUDENTS_PARENTS_Q10_OPT4',
+                  value: 'Other',
+                  label: 'CURRENT_STUDENTS_PARENTS_Q13_OPT4',
                 },
-
-                {key: 5, value: 'Others', label: 'OTHERS'},
               ]}
               onValueChange={item => {
                 setAnswers({
@@ -1162,11 +1868,12 @@ export default function PresentStudentParentsScreen() {
                   ...answers,
                   involvement_in_the_programs_of_the_centre: {
                     ...answers.involvement_in_the_programs_of_the_centre,
-                    reason: text,
+                    other: text,
                   },
                 });
               }}
-              value={answers.involvement_in_the_programs_of_the_centre?.reason}
+              value={answers.involvement_in_the_programs_of_the_centre?.other}
+              empty={!answers.involvement_in_the_programs_of_the_centre?.other}
               message={''}
               containerStyle={{
                 alignItems: 'center',
@@ -1176,73 +1883,95 @@ export default function PresentStudentParentsScreen() {
           )}
         </View>
 
-        {/* QA11 - contribution_in_running_centre_more_effectively */}
+        {/* QA14 -contribution_in_running_centre_more_effectively */}
+
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                color: !answers.contribution_in_running_centre_more_effectively
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {11}
-              </TextHandler>
-            </View>
-
+              {14}
+            </TextHandler>
+            <TextHandler
+              style={{
+                color: !answers.contribution_in_running_centre_more_effectively
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
             <View
               style={{
                 flex: 1,
                 alignItems: 'flex-start',
               }}>
               <TextHandler style={styles.question}>
-                {t('CURRENT_STUDENTS_PARENTS_Q11')}
+                {t('CURRENT_STUDENTS_PARENTS_Q14')}
               </TextHandler>
             </View>
           </View>
 
           <Input
-              placeholder={`${t('ENTER_ANSWER')}`}
-              name="any"
-              onChangeText={text => {
-                setAnswers({...answers, contribution_in_running_centre_more_effectively: text});
-              }}
-              value={answers.contribution_in_running_centre_more_effectively}
-              message={''}
-              containerStyle={{
-                alignItems: 'center',
-                minWidth: screenWidth * 0.25,
-              }}
-            />
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="any"
+            onChangeText={text => {
+              setAnswers({
+                ...answers,
+                contribution_in_running_centre_more_effectively: text,
+              });
+            }}
+            value={answers.contribution_in_running_centre_more_effectively}
+            empty={!answers.contribution_in_running_centre_more_effectively}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.25,
+            }}
+          />
         </View>
 
-        {/* Q12 - observations_about_kendra_teacher*/}
+        {/* QA15 - observation_about_kendra_teacher*/}
+
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                color:
+                  !answers.rating_kendra_teacher_good_behaviour ||
+                  !answers.rating_kendra_teacher_effective_management ||
+                  !answers.rating_kendra_teacher_teaching_ability ||
+                  !answers.rating_kendra_teacher_connect_with_parents
+                    ? COLORS.red
+                    : COLORS.black,
+
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {12}
-              </TextHandler>
-            </View>
+              {15}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color:
+                  !answers.rating_kendra_teacher_good_behaviour ||
+                  !answers.rating_kendra_teacher_effective_management ||
+                  !answers.rating_kendra_teacher_teaching_ability ||
+                  !answers.rating_kendra_teacher_connect_with_parents
+                    ? COLORS.red
+                    : COLORS.black,
+
+                textAlign: 'center',
+                fontWeight: '900',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -1250,45 +1979,133 @@ export default function PresentStudentParentsScreen() {
                 alignItems: 'flex-start',
               }}>
               <TextHandler style={styles.question}>
-                {t('CURRENT_STUDENTS_PARENTS_Q12')}
+                {t('CURRENT_STUDENTS_PARENTS_Q15')}
               </TextHandler>
             </View>
           </View>
-          <Input
+
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q15_OPT1')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
               placeholder={`${t('ENTER_ANSWER')}`}
               name="any"
               onChangeText={text => {
-                setAnswers({...answers, observations_about_kendra_teacher: text});
+                if (text <= 10) {
+                  setAnswers({
+                    ...answers,
+                    rating_kendra_teacher_good_behaviour: text,
+                  });
+                }
               }}
-              value={answers.observations_about_kendra_teacher}
+              value={answers.rating_kendra_teacher_good_behaviour}
+              empty={!answers.rating_kendra_teacher_good_behaviour}
               message={''}
               containerStyle={{
                 alignItems: 'center',
                 minWidth: screenWidth * 0.25,
               }}
             />
+          </View>
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q15_OPT2')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({
+                    ...answers,
+                    rating_kendra_teacher_effective_management: text,
+                  });
+                }
+              }}
+              value={answers.rating_kendra_teacher_effective_management}
+              empty={!answers.rating_kendra_teacher_effective_management}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q15_OPT3')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({
+                    ...answers,
+                    rating_kendra_teacher_teaching_ability: text,
+                  });
+                }
+              }}
+              value={answers.rating_kendra_teacher_teaching_ability}
+              empty={!answers.rating_kendra_teacher_teaching_ability}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
+          <View>
+            <TextHandler>{t('CURRENT_STUDENTS_PARENTS_Q15_OPT4')}</TextHandler>
+            <Input
+              type={'numeric'}
+              number={2}
+              placeholder={`${t('ENTER_ANSWER')}`}
+              name="any"
+              onChangeText={text => {
+                if (text <= 10) {
+                  setAnswers({
+                    ...answers,
+                    rating_kendra_teacher_connect_with_parents: text,
+                  });
+                }
+              }}
+              value={answers.rating_kendra_teacher_connect_with_parents}
+              empty={!answers.rating_kendra_teacher_connect_with_parents}
+              message={''}
+              containerStyle={{
+                alignItems: 'center',
+                minWidth: screenWidth * 0.25,
+              }}
+            />
+          </View>
         </View>
 
-        {/* QA13 - expectations_from_the_centre*/}
+        {/* QA16 - */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
+            <TextHandler
               style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
+                color: !answers.expectations_from_the_centre
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
               }}>
-              <TextHandler
-                style={{
-                  color: 'black',
-                  textAlign: 'center',
-                }}>
-                {13}
-              </TextHandler>
-            </View>
+              {16}
+            </TextHandler>
+
+            <TextHandler
+              style={{
+                color: !answers.expectations_from_the_centre
+                  ? COLORS.red
+                  : COLORS.black,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {'•'}
+            </TextHandler>
 
             <View
               style={{
@@ -1296,24 +2113,28 @@ export default function PresentStudentParentsScreen() {
                 alignItems: 'flex-start',
               }}>
               <TextHandler style={styles.question}>
-                {t('CURRENT_STUDENTS_PARENTS_Q13')}
+                {t('CURRENT_STUDENTS_PARENTS_Q16')}
               </TextHandler>
             </View>
           </View>
 
           <Input
-              placeholder={`${t('ENTER_ANSWER')}`}
-              name="any"
-              onChangeText={text => {
-                setAnswers({...answers, expectations_from_the_centre: text});
-              }}
-              value={answers.expectations_from_the_centres}
-              message={''}
-              containerStyle={{
-                alignItems: 'center',
-                minWidth: screenWidth * 0.25,
-              }}
-            />
+            placeholder={`${t('ENTER_ANSWER')}`}
+            name="any"
+            onChangeText={text => {
+              setAnswers({
+                ...answers,
+                expectations_from_the_centre: text,
+              });
+            }}
+            value={answers.expectations_from_the_centre}
+            empty={!answers.expectations_from_the_centre}
+            message={''}
+            containerStyle={{
+              alignItems: 'center',
+              minWidth: screenWidth * 0.25,
+            }}
+          />
         </View>
 
         <Button

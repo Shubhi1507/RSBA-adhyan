@@ -128,13 +128,15 @@ def nativeArchitectures = project.getProperties().get("reactNativeDebugArchitect
 
 android {
     ndkVersion rootProject.ext.ndkVersion
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    // compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion 31 
 
     defaultConfig {
         applicationId "com.rsba"
         minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
+        // targetSdkVersion rootProject.ext.targetSdkVersion
+        targetSdkVersion 31
+        versionCode 3
         versionName "1.0"
         multiDexEnabled true
     }
@@ -197,7 +199,7 @@ dependencies {
     implementation 'com.facebook.react:react-native:0.66.1'  // From node_modules
     implementation platform('com.google.firebase:firebase-bom:31.0.1')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-
+    implementation 'com.google.android.play:core:1.7.3'
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
     }

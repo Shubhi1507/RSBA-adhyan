@@ -23,6 +23,8 @@ import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
 import {useContext} from 'react';
 import {Checkbox} from 'react-native-paper';
+import LoaderIndicator from '../../components/Loader';
+import {BASE_URL} from '../../networking';
 
 export default function KendraSanchalakQuestions() {
   const store = useSelector(state => state?.surveyReducer);
@@ -31,7 +33,7 @@ export default function KendraSanchalakQuestions() {
   const dispatch = useDispatch();
   let totalSurveys = store.totalSurveys;
   const [checked, setChecked] = React.useState(false);
-
+  const [dataLoading, setDataLoading] = useState(false);
   let [answers, setAnswers] = useState({
     total_students_attend_the_class_regularly: '',
     was_the_kendra_able_to_perform_during_the_covid: '',
@@ -53,6 +55,9 @@ export default function KendraSanchalakQuestions() {
     store?.currentSurveyData?.surveyAnswers.length > 0
       ? [...store?.currentSurveyData?.surveyAnswers]
       : [];
+  let tmp2 = [
+    ...answers.difference_observed_in_the_families_of_students_coming_to_kendra,
+  ];
 
   useEffect(() => {
     answersArrTmp.some(function (entry, i) {
@@ -69,7 +74,8 @@ export default function KendraSanchalakQuestions() {
     navigate(ROUTES.AUTH.SELECTAUDIENCESCREEN);
   };
 
-  const pageValidator = () => {
+  const pageValidator = async () => {
+    setDataLoading(true);
     let tmp = store?.currentSurveyData.currentSurveyStatus;
     let new_obj;
     const {
@@ -79,59 +85,47 @@ export default function KendraSanchalakQuestions() {
       families_from_the_locality_have_influenced_due_to_our_kendra_activities,
       percentage_of_decline_in_school_dropout_due_to_kendra,
       conduct_medical_test_for_students,
-      feedback_mechanism_to_address_issues,
-      observation_not_covered,
       plan_for_expansion,
       submit_status_report_of_kendra_to_all_the_stakeholders_each_month,
+      feedback_mechanism_to_address_issues,
+      observation_not_covered,
     } = answers;
     let q = 10;
+    let unanswered = 10;
     let tmpans = [];
-    let p = 0;
-    Object.values(answers).forEach(el => {
-      if (el && Array.isArray(el) && el.length > 0) {
-        return tmpans.push(el);
-      } else {
-        if (typeof el === 'string' && el.length > 0) {
-          return tmpans.push(el);
-        }
-        if (typeof el === 'object' && Object.values(el).length > 0) {
-          return tmpans.push(el);
-        }
-      }
-    });
-    p = tmpans.length;
-    console.log(p, '/', q);
-    if (
-      !total_students_attend_the_class_regularly ||
-      !was_the_kendra_able_to_perform_during_the_covid ||
-      difference_observed_in_the_families_of_students_coming_to_kendra.length ===
-        0 ||
-      !families_from_the_locality_have_influenced_due_to_our_kendra_activities ||
-      !percentage_of_decline_in_school_dropout_due_to_kendra ||
-      !conduct_medical_test_for_students ||
-      !feedback_mechanism_to_address_issues ||
-      !observation_not_covered ||
-      !plan_for_expansion ||
+    // answeres
+    let ans1 = !total_students_attend_the_class_regularly ? 0 : 1;
+    let ans2 = !was_the_kendra_able_to_perform_during_the_covid ? 0 : 1;
+    let ans3 =
+      difference_observed_in_the_families_of_students_coming_to_kendra.length >
+      0
+        ? 1
+        : 0;
+    let ans4 =
+      !families_from_the_locality_have_influenced_due_to_our_kendra_activities
+        ? 0
+        : 1;
+    let ans5 = !percentage_of_decline_in_school_dropout_due_to_kendra ? 0 : 1;
+    let ans6 = !conduct_medical_test_for_students ? 0 : 1;
+    let ans7 = !plan_for_expansion ? 0 : 1;
+    let ans8 =
       !submit_status_report_of_kendra_to_all_the_stakeholders_each_month
-    ) {
-      new_obj = {
-        ...tmp[5],
-        attempted: true,
-        completed: false,
-        disabled: false,
-        totalQue: q,
-        answered: p,
-      };
-    } else {
-      new_obj = {
-        ...tmp[5],
-        attempted: true,
-        completed: true,
-        disabled: true,
-        totalQue: q,
-        answered: p,
-      };
-    }
+        ? 0
+        : 1;
+    let ans9 = !feedback_mechanism_to_address_issues ? 0 : 1;
+    let ans10 = !observation_not_covered ? 0 : 1;
+    let p =
+      unanswered -
+      (ans1 + ans2 + ans3 + ans4 + ans5 + ans6 + ans7 + ans8 + ans9 + ans10);
+    console.log(q - p, '/', q);
+    new_obj = {
+      ...tmp[5],
+      attempted: true,
+      completed: p === 0 ? true : false,
+      disabled: false,
+      totalQue: q,
+      answered: q - p,
+    };
     tmp.splice(5, 1, new_obj);
 
     let surveyAnswers = [...answersArrTmp];
@@ -163,13 +157,90 @@ export default function KendraSanchalakQuestions() {
     let tmp1 = FindAndUpdate(totalSurveys, payload);
 
     console.log('payload kendraSanchalak ', payload);
-    dispatch({type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY, payload: payload});
-    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
-    showModal();
+    try {
+      if (p === 0) {
+        let surveydata = {
+          // 'How many students attend the class regularly? (Boys + Girls)'
+          90: `${total_students_attend_the_class_regularly}`,
+          // 'Was the Kendra able to perform its work during the Covid period?'
+          91: `${was_the_kendra_able_to_perform_during_the_covid?.value}`,
+          // 'What difference you observe in the families of students coming to Kendra? (At least 50% cases should be there) (Multiple choice)'
+          92: `${difference_observed_in_the_families_of_students_coming_to_kendra
+            .map(el => {
+              return el?.value;
+            })
+            .join()
+            .replace(/\,/g, '||')}`,
+          // 'How many families from the locality we have influenced due to our Kendra activities?'
+          93: `${families_from_the_locality_have_influenced_due_to_our_kendra_activities?.value}`,
+          // 'What is percentage of decline in school dropout ratio due to our Kendra performance? (Before and After Comparison). Apply this till Std 10th'
+          94: `${percentage_of_decline_in_school_dropout_due_to_kendra?.value}`,
+          // 'Do we conduct “Medical test” (Physical test) for our students?'
+          95: `${conduct_medical_test_for_students?.value}`,
+          // 'Is there any plan for expansion (Scaling the work)?'
+          96: `${plan_for_expansion?.value}`,
+          // 'Do we submit status report of Kendra to all the stakeholders each month?'
+          97: `${submit_status_report_of_kendra_to_all_the_stakeholders_each_month?.value}`,
+          // 'Is there any feedback mechanism in place to address issues arise in day to day work? If yes, are the issues addressed in timely manner?'
+          98: `${feedback_mechanism_to_address_issues?.value}`,
+          // 'Any other observations which are not covered in above questions ? Please elaborate'
+          99: `${observation_not_covered}`,
+        };
+        console.log(surveydata);
+        const surveyform = new FormData();
+        surveyform.append('center_id', store?.currentSurveyData?.api_centre_id);
+        surveyform.append('audience_id', 5);
+        surveyform.append('survey_data', JSON.stringify(surveydata));
+        const requestOptions = {
+          method: 'POST',
+          body: surveyform,
+          redirect: 'follow',
+        };
+
+        const response = await fetch(
+          BASE_URL + 'center/survey',
+          requestOptions,
+        );
+        console.log('response->', await response.json());
+      }
+
+      dispatch({
+        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+        payload: payload,
+      });
+      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp1});
+      showModal();
+      setDataLoading(false);
+    } catch (error) {
+      setDataLoading(false);
+      setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+      console.log('error', error);
+    }
+  };
+
+  const handleSelection = answer => {
+    if (tmp2.length === 0) {
+      tmp2.push(answer);
+    } else {
+      const isExist = tmp2.some(element => answer.key === element.key);
+      if (isExist) {
+        // remove
+        const index = tmp2.findIndex(element => answer.key === element.key);
+        tmp2.splice(index, 1);
+      } else {
+        // different ans chosen
+        tmp2.push(answer);
+      }
+    }
+    setAnswers({
+      ...answers,
+      difference_observed_in_the_families_of_students_coming_to_kendra: tmp2,
+    });
   };
 
   return (
     <View style={styles.container}>
+      <LoaderIndicator loading={dataLoading} />
       <View style={{flex: 0.2}}>
         <Header title={t('KENDRA_SANCHALAK')} onPressBack={goBack} />
       </View>
@@ -188,26 +259,31 @@ export default function KendraSanchalakQuestions() {
 
       <KeyboardAwareScrollView
         style={{flex: 1, paddingHorizontal: 20, flexGrow: 1}}>
-        {/* QA1 */}
+        {/* QA1 - total_students_attend_the_class_regularly*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.total_students_attend_the_class_regularly
+                    ? COLORS.red
+                    : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {1}
               </TextHandler>
-            </View>
+
+              <TextHandler
+                style={{
+                  color: !answers.total_students_attend_the_class_regularly
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
 
             <View
               style={{
@@ -232,6 +308,7 @@ export default function KendraSanchalakQuestions() {
               });
             }}
             value={answers.total_students_attend_the_class_regularly}
+            empty={!answers.total_students_attend_the_class_regularly}
             message={''}
             containerStyle={{
               alignItems: 'center',
@@ -240,27 +317,33 @@ export default function KendraSanchalakQuestions() {
           />
         </View>
 
-        {/* QA2 */}
+        {/* QA2 - was_the_kendra_able_to_perform_during_the_covid */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.was_the_kendra_able_to_perform_during_the_covid
+                      ? COLORS.red
+                      : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {2}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color:
+                    !answers.was_the_kendra_able_to_perform_during_the_covid
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+               {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -315,7 +398,7 @@ export default function KendraSanchalakQuestions() {
           </View>
         </View>
 
-        {/* QA3 */}
+        {/* QA3 - difference_observed_in_the_families_of_students_coming_to_kendra*/}
         <View style={{flex: 1, marginVertical: 20}}>
           <View
             style={{
@@ -323,24 +406,37 @@ export default function KendraSanchalakQuestions() {
               flexDirection: 'row',
               marginVertical: 20,
             }}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    answers
+                      .difference_observed_in_the_families_of_students_coming_to_kendra
+                      .length === 0
+                      ? COLORS.red
+                      : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {3}
               </TextHandler>
-            </View>
 
+
+              <TextHandler
+                style={{
+                  color:
+                    answers
+                      .difference_observed_in_the_families_of_students_coming_to_kendra
+                      .length === 0
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "700"
+                }}>
+              {'•'}
+
+              </TextHandler>
+            
             <View
               style={{
                 flex: 1,
@@ -386,62 +482,7 @@ export default function KendraSanchalakQuestions() {
                     marginVertical: 5,
                   }}
                   onPress={() => {
-                    let tmp = [
-                      ...answers.difference_observed_in_the_families_of_students_coming_to_kendra,
-                    ];
-                    if (el.key === 4) {
-                      tmp = [];
-                      tmp.push(el);
-                      setAnswers({
-                        ...answers,
-                        difference_observed_in_the_families_of_students_coming_to_kendra:
-                          tmp,
-                      });
-                    } else {
-                      if (tmp.length > 0) {
-                        let j = tmp.filter(element => element.key === 4);
-                        if (j.length > 0) {
-                          tmp = [];
-                          tmp.push(el);
-                          setAnswers({
-                            ...answers,
-                            difference_observed_in_the_families_of_students_coming_to_kendra:
-                              tmp,
-                          });
-                        } else {
-                          tmp.forEach(function (item, index1) {
-                            if (item.value === el.value) {
-                              let tmp = [
-                                ...answers.difference_observed_in_the_families_of_students_coming_to_kendra,
-                              ];
-                              tmp.splice(index1, 1);
-                              setAnswers({
-                                ...answers,
-                                difference_observed_in_the_families_of_students_coming_to_kendra:
-                                  tmp,
-                              });
-                            } else {
-                              let tmp = [
-                                ...answers.difference_observed_in_the_families_of_students_coming_to_kendra,
-                              ];
-                              tmp.push(el);
-                              setAnswers({
-                                ...answers,
-                                difference_observed_in_the_families_of_students_coming_to_kendra:
-                                  tmp,
-                              });
-                            }
-                          });
-                        }
-                      } else {
-                        tmp.push(el);
-                        setAnswers({
-                          ...answers,
-                          difference_observed_in_the_families_of_students_coming_to_kendra:
-                            tmp,
-                        });
-                      }
-                    }
+                    handleSelection(el);
                   }}>
                   <Checkbox
                     status={
@@ -466,27 +507,33 @@ export default function KendraSanchalakQuestions() {
           </View>
         </View>
 
-        {/* QA4 */}
+        {/* QA4 - families_from_the_locality_have_influenced_due_to_our_kendra_activities */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+        
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.families_from_the_locality_have_influenced_due_to_our_kendra_activities
+                      ? COLORS.red
+                      : COLORS.black,
+                      fontWeight : "700" ,
                   textAlign: 'center',
                 }}>
                 {4}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color:
+                    !answers.families_from_the_locality_have_influenced_due_to_our_kendra_activities
+                      ? COLORS.red
+                      : COLORS.black,
+                      fontWeight : "900" ,
+                  textAlign: 'center',
+                }}>
+               {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -541,27 +588,33 @@ export default function KendraSanchalakQuestions() {
           </View>
         </View>
 
-        {/* QA5  */}
+        {/* QA5 - percentage_of_decline_in_school_dropout_due_to_kendra */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.percentage_of_decline_in_school_dropout_due_to_kendra
+                      ? COLORS.red
+                      : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {5}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color:
+                    !answers.percentage_of_decline_in_school_dropout_due_to_kendra
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "700"
+                }}>
+                 {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -599,27 +652,31 @@ export default function KendraSanchalakQuestions() {
           </View>
         </View>
 
-        {/* QA6 */}
+        {/* QA6 - conduct_medical_test_for_students*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.conduct_medical_test_for_students
+                    ? COLORS.red
+                    : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {6}
               </TextHandler>
-            </View>
+              <TextHandler
+                style={{
+                  color: !answers.conduct_medical_test_for_students
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+              {'•'}
 
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -653,26 +710,33 @@ export default function KendraSanchalakQuestions() {
           </View>
         </View>
 
-        {/* QA7 */}
+        {/* QA7 -plan_for_expansion */}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.plan_for_expansion
+                    ? COLORS.red
+                    : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {7}
               </TextHandler>
-            </View>
+
+
+              <TextHandler
+                style={{
+                  color: !answers.plan_for_expansion
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+                 {'•'}
+
+              </TextHandler>
 
             <View
               style={{
@@ -704,27 +768,34 @@ export default function KendraSanchalakQuestions() {
           </View>
         </View>
 
-        {/* QA8 */}
+        {/* QA8 - submit_status_report_of_kendra_to_all_the_stakeholders_each_month*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+            
               <TextHandler
                 style={{
-                  color: 'black',
+                  color:
+                    !answers.submit_status_report_of_kendra_to_all_the_stakeholders_each_month
+                      ? COLORS.red
+                      : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {8}
               </TextHandler>
-            </View>
 
+
+              <TextHandler
+                style={{
+                  color:
+                    !answers.submit_status_report_of_kendra_to_all_the_stakeholders_each_month
+                      ? COLORS.red
+                      : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -761,26 +832,31 @@ export default function KendraSanchalakQuestions() {
           </View>
         </View>
 
-        {/* QA9 */}
+        {/* QA9 - feedback_mechanism_to_address_issues*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+          
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.feedback_mechanism_to_address_issues
+                    ? COLORS.red
+                    : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {9}
               </TextHandler>
-            </View>
+
+              <TextHandler
+                style={{
+                  color: !answers.feedback_mechanism_to_address_issues
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+ {'•'}
+              </TextHandler>
 
             <View
               style={{
@@ -815,27 +891,33 @@ export default function KendraSanchalakQuestions() {
           </View>
         </View>
 
-        {/* QA10 */}
+        {/* QA10 - observation_not_covered*/}
         <View>
           <View style={{flexDirection: 'row', marginVertical: 20}}>
-            <View
-              style={{
-                backgroundColor: COLORS.orange,
-                height: 20,
-                width: 20,
-                borderRadius: 40,
-                justifyContent: 'flex-start',
-                marginRight: 5,
-              }}>
+           
               <TextHandler
                 style={{
-                  color: 'black',
+                  color: !answers.observation_not_covered
+                    ? COLORS.red
+                    : COLORS.black,
                   textAlign: 'center',
+                  fontWeight : "700"
                 }}>
                 {10}
               </TextHandler>
-            </View>
 
+
+              <TextHandler
+                style={{
+                  color: !answers.observation_not_covered
+                    ? COLORS.red
+                    : COLORS.black,
+                  textAlign: 'center',
+                  fontWeight : "900"
+                }}>
+                 {'•'}
+
+              </TextHandler>
             <View
               style={{
                 flex: 1,
@@ -855,6 +937,7 @@ export default function KendraSanchalakQuestions() {
                 setAnswers({...answers, observation_not_covered: text});
               }}
               value={answers.observation_not_covered}
+              empty={!answers.observation_not_covered}
               message={''}
               containerStyle={{
                 alignItems: 'center',

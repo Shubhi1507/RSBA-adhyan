@@ -102,12 +102,18 @@ export default function DashboardScreen({route, navigation}) {
   useEffect(() => {
     const focus = navigation.addListener('focus', () => {
       let x = findMinimumTimeLeft(totalSurveys);
+      console.log('x', x);
+      // debugger
       if (x) {
+        console.log('findMinimumTimeLeft', x);
         setReviewTimeLeft(x.toString());
-      } else setReviewTimeLeft('');
+      } else {
+        moveReviewArrays();
+        setReviewTimeLeft('');
+      }
     });
     return focus;
-  }, [store.surveyReducer, navigation]);
+  }, []);
 
   useEffect(() => {
     dispatch({type: ACTION_CONSTANTS.CLEAR_BASTI_LIST});
@@ -116,6 +122,18 @@ export default function DashboardScreen({route, navigation}) {
     dispatch({type: ACTION_CONSTANTS.CLEAR_CURRENT_SURVEY});
   }, []);
 
+  function moveReviewArrays() {
+    let original = [...totalSurveys];
+    console.log('al', original);
+
+    original.map((e, index) => {
+      if (new Date(e.release_date).getTime() - new Date().getTime() < 0) {
+        original.splice(index, 1, {...e, isSaved: true, isCompleted: true});
+      }
+    });
+    // dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: original});
+    console.log('original', original);
+  }
   const handleLocalizationChange = useCallback(
     newLocale => {
       const newSetLocale = i18n.setI18nConfig(newLocale);
@@ -127,7 +145,6 @@ export default function DashboardScreen({route, navigation}) {
   const pageNavigator = () => {
     if (selectedCenter) {
       let {k, j} = isSurveyExists2(totalSurveys, selectedCenter);
-      console.log('k', k, j[0]);
       if (k == true) {
         if (j[0].isCompleted == false) {
           return setError({
@@ -160,12 +177,17 @@ export default function DashboardScreen({route, navigation}) {
     }
   };
   const getLatestAssignCenters = async () => {
-    const loginInfo = store?.authReducer?.userData?.userData?.loginInfo;
-    console.log(loginInfo);
-
-    let response = await LatestVolunteerData(loginInfo);
-    console.log(response.data.assigned_center);
-    setAssignedCentres(response.data.assigned_center);
+    try {
+      const loginInfo = store?.authReducer?.userData?.userData?.loginInfo;
+      let response = await LatestVolunteerData(loginInfo);
+      console.log(response);
+      if (response.data.message === 'No volunteer found') {
+        return setError({visible: true, message: t('VOLUNTEER_NOT_FOUND')});
+      } else return setAssignedCentres(response.data.assigned_center);
+    } catch (error) {
+      console.log(error);
+      setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+    }
   };
 
   const openMenu = () => setVisible(true);
@@ -214,8 +236,8 @@ export default function DashboardScreen({route, navigation}) {
                 <TouchableOpacity
                   onPress={openMenu}
                   style={styles.languageToggler}>
-                  <TextHandler style={{textTransform: 'uppercase'}}>
-                    {language.default}
+                  <TextHandler style={{}}>
+                    {language.default === 'en' ? t('ENGLISH') : t('HINDI')}
                   </TextHandler>
                   <ADIcons name="down" size={18}></ADIcons>
                 </TouchableOpacity>
@@ -236,21 +258,6 @@ export default function DashboardScreen({route, navigation}) {
               />
             </Menu>
           </View>
-
-          {/* <Button
-            title={t('LANGUAGE_CHANGE')}
-            onPress={() => {
-              if (language.default === 'hi') {
-                LangugeConverter({label: 'English', value: 'en'});
-              } else {
-                LangugeConverter({label: 'Hindi', value: 'hi'});
-              }
-            }}
-            ButtonContainerStyle={{
-              alignItems: 'center',
-              textAlign: 'center',
-            }}
-          /> */}
         </View>
         <TextHandler style={styles.subtitle}>
           {`${t('ALL_SURVEYS')}`}
@@ -466,6 +473,19 @@ export default function DashboardScreen({route, navigation}) {
                                 ? COLORS.blue
                                 : COLORS.black,
                           }}>
+                          {`${item.district_name}, ${item.sanstha_name} (${item.sewakarya_type})`}
+                        </TextHandler>
+                        <TextHandler
+                          style={{
+                            fontSize: 14,
+                            fontWeight: '400',
+                            lineHeight: 22,
+                            color:
+                              selectedCenter?.survey_form_id ==
+                              item.survey_form_id
+                                ? COLORS.blue
+                                : COLORS.black,
+                          }}>
                           {`${t('CENTRE')} - ` + item.survey_form_id}
                         </TextHandler>
                       </View>
@@ -486,7 +506,7 @@ export default function DashboardScreen({route, navigation}) {
             textAlign: 'center',
           }}
         />
-        <Button
+        {/* <Button
           title={t('LOGOUT')}
           onPress={() => {
             Alert.alert(t('LOGOUT') + '?', '', [
@@ -512,7 +532,7 @@ export default function DashboardScreen({route, navigation}) {
           textstyle={{
             color: COLORS.orange,
           }}
-        />
+        /> */}
 
         {/* <Button
           title={'RESET'}

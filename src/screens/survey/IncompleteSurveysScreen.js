@@ -62,7 +62,12 @@ export default function IncompleteSurveysScreen() {
           renderItem={({item, index}) => {
             return (
               <CustomCheckbox
-                label={t('CENTRE') + ' : ' + item.centre_id}
+                label={
+                  t('CENTRE')+
+                  ': ' +
+                  item.centre_id +
+                  `( ${item.center_details.district_jila}, (${item.center_details.sewakarya_type}) )`
+                }
                 completed={false}
                 status={
                   selectedCenter && selectedCenter?.centre_id
@@ -73,13 +78,16 @@ export default function IncompleteSurveysScreen() {
                 onPress={() => {
                   setCenter(item);
                 }}
-                customTextStyle={
+                customTextStyle={[
                   selectedCenter
                     ? selectedCenter?.centre_id === item.centre_id
                       ? {color: COLORS.buttonColor}
                       : {color: COLORS.black}
-                    : {color: COLORS.black}
-                }
+                    : {color: COLORS.black},
+                  {
+                    fontSize: 14,
+                  },
+                ]}
               />
             );
           }}

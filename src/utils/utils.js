@@ -117,7 +117,7 @@ export const checkInReviewSurveyAndReturnRemaingingTime = totalSurveys => {
   let tmp = [];
   if (totalSurveys && Array.isArray(totalSurveys) && totalSurveys.length > 0) {
     tmp = totalSurveys.filter(function (el) {
-      if (el.isSaved === true && el?.release_date) {
+      if (el.isSaved === true && el?.isCompleted) {
         if (new Date(el.release_date).getTime() - new Date().getTime() > 0) {
           return el;
         }
@@ -149,9 +149,11 @@ export const findMinimumTimeLeft = totalSurveys => {
     }
     if (tmp) {
       const total = Date.parse(tmp.release_date) - Date.parse(new Date());
-      const minutes = Math.floor((total / 1000 / 60) % 60);
-      const hours = Math.floor(total / (1000 * 60 * 60));
-      time = hours + ':' + minutes + '';
+      if (total > 0) {
+        const minutes = Math.floor((total / 1000 / 60) % 60);
+        const hours = Math.floor(total / (1000 * 60 * 60));
+        time = hours + ':' + minutes + '';
+      }
     }
   }
   console.log('time', time);

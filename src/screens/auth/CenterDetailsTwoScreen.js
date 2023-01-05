@@ -17,6 +17,7 @@ import {
   Header,
   Input,
   RadioButtons,
+  SurveyCompletedModal,
   TextHandler,
 } from '../../components/index';
 import {COLORS} from '../../utils/colors';
@@ -28,19 +29,25 @@ import {ROUTES} from '../../navigation/RouteConstants';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
-import {Snackbar} from 'react-native-paper';
+import {RadioButton, Snackbar} from 'react-native-paper';
 import {ACTION_CONSTANTS} from '../../redux/actions/actions';
 import {ADIcons, EnIcons, FAIcons} from '../../libs/VectorIcons';
-import Geolocation from '@react-native-community/geolocation';
+// import Geolocation from '@react-native-community/geolocation';
+import Geolocation from 'react-native-geolocation-service';
+
 import {getDistance, getPreciseDistance} from 'geolib';
 import {FindAndUpdate} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
+import {createSubmitSurveyData} from '../../networking/API.controller';
+import {BASE_URL} from '../../networking';
 
 export default function CenterDetailsTwoScreen() {
   const store = useSelector(state => state?.surveyReducer);
+  const userStore = useSelector(state => state?.authReducer);
   const {t} = useContext(LocalizationContext);
   let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
+  const [visible, setVisible] = React.useState(false);
   const [isCenterOperational, setCenterOperational] = useState(true);
   const [volunteerInfo, setvolunteerInfo] = useState({
     parent_org: '',
@@ -51,8 +58,9 @@ export default function CenterDetailsTwoScreen() {
     is_centre_operational: true,
     non_operational_due_to: '',
   });
+  const globalStore = useSelector(state => state);
+  const [locationPermissionError, setLocationPermissionError] = useState(false);
 
-  const [Position, setPosition] = useState();
   const [miscControllers] = useState({
     CENTRES: [
       {
@@ -87,7 +95,7 @@ export default function CenterDetailsTwoScreen() {
 
   useEffect(() => {
     CheckSurveyviaParams();
-  }, [store]);
+  }, []);
 
   const CheckSurveyviaParams = () => {
     if (
@@ -96,8 +104,10 @@ export default function CenterDetailsTwoScreen() {
       Object.keys(store?.currentSurveyData).length > 0
     ) {
       let staledata = store;
-      console.log('c2', staledata?.currentSurveyData);
+      let isCentreOperational =
+        store.currentSurveyData?.center_details?.is_centre_operational;
       setvolunteerInfo(staledata?.currentSurveyData?.center_details);
+      setCenterOperational(isCentreOperational);
     }
   };
 
@@ -114,18 +124,18 @@ export default function CenterDetailsTwoScreen() {
             buttonPositive: 'OK',
           },
         );
-        console.log('granted', granted);
         if (granted === 'granted') {
-          console.log('You can use Geolocation');
+          requestLocationPermission();
           return true;
         } else {
-          console.log('You cannot use Geolocation');
+          getLocationPermission();
           return false;
         }
       } else {
         requestLocationPermission();
       }
     } catch (err) {
+      console.log('error', err);
       setError({
         ...error,
         message: t('SOMETHING_WENT_WRONG'),
@@ -137,7 +147,7 @@ export default function CenterDetailsTwoScreen() {
   const requestLocationPermission = () => {
     Geolocation.getCurrentPosition(
       position => {
-        console.log(position);
+        setLocationPermissionError(false);
         setvolunteerInfo({
           ...volunteerInfo,
           volunteer_location: {
@@ -149,7 +159,7 @@ export default function CenterDetailsTwoScreen() {
       },
       error => {
         // See error code charts below.
-        console.log(error.code, error.message);
+        setLocationPermissionError(true);
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
     );
@@ -183,7 +193,10 @@ export default function CenterDetailsTwoScreen() {
     return age.join('');
   }
 
-  function PageValidator() {
+  const hideModal = () => setVisible(false);
+  const showModal = () => setVisible(true);
+
+  async function PageValidator() {
     const {
       center_contact,
       center_head,
@@ -193,87 +206,119 @@ export default function CenterDetailsTwoScreen() {
       is_centre_operational,
       non_operational_due_to,
     } = volunteerInfo;
-
-    // if (!type_of_center) {
-    //   return setError({visible: true, message: 'Select Center type'});
-    // }
-    // if (!center_head) {
-    //   return setError({visible: true, message: 'Center head is missing'});
-    // }
-    // if (!center_contact || center_contact.length < 10) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Please enter mobile number',
-    //   });
-    // }
-    // if (!parent_org) {
-    //   return setError({
-    //     visible: true,
-    //     message: 'Parent organisation is missing',
-    //   });
-    // }
-
-    if (is_centre_operational) {
-      let center_details = {
-        ...store.currentSurveyData.center_details,
-        center_contact,
-        center_head,
-        parent_org,
-        type_of_center,
-        volunteer_location,
-        is_centre_operational,
-        non_operational_due_to,
-      };
-      let payload = {
-        ...store.currentSurveyData,
-        center_details,
-        isSaved: false,
-        release_date: '',
-        updatedAt: new Date().toString(),
-      };
-
-      let tmp = FindAndUpdate(totalSurveys, payload);
-      console.log('pg2', payload);
-      console.log('TMP', tmp);
-      dispatch({
-        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
-        payload: payload,
-      });
-      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
-      navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
+    let payload = {};
+    if (isCenterOperational) {
+      if (!center_contact || !center_head || !parent_org) {
+        return setError({
+          ...error,
+          message: t('PLEASE_ANSWER_ALL_QUE'),
+          visible: true,
+        });
+      }
     } else {
-      let center_details = {
-        ...store.currentSurveyData.center_details,
-        center_contact,
-        center_head,
-        parent_org,
-        type_of_center,
-        volunteer_location,
-        is_centre_operational,
-        non_operational_due_to,
-      };
-      let payload = {
+      if (non_operational_due_to?.value === undefined) {
+        return setError({
+          ...error,
+          message: t('PLEASE_ANSWER_ALL_QUE'),
+          visible: true,
+        });
+      }
+    }
+    let center_details = {
+      ...store.currentSurveyData.center_details,
+      center_contact,
+      center_head,
+      parent_org,
+      type_of_center,
+      volunteer_location,
+      is_centre_operational,
+      non_operational_due_to,
+    };
+    if (!isCenterOperational) {
+      payload = {
         ...store.currentSurveyData,
         center_details,
         isSaved: true,
+        isCompleted: true,
+        // release_date: new Date().toString(),
         release_date: new Date(
-          new Date().setTime(new Date().getTime() + 48 * 60 * 60 * 1000),
+          new Date().setTime(new Date().getTime() + 72 * 60 * 60 * 1000),
         ).toString(),
         updatedAt: new Date().toString(),
       };
+      let userdata = userStore?.userData?.userData;
+      let apiPayload = {
+        volunteer_id: userdata?.data?.user?.id,
+        state_id: center_details?.state_id,
+        district_id: center_details?.district_id,
+        address: center_details?.address,
+        type: center_details?.type_of_center?.value,
+        head_name: '',
+        contact_details: center_contact,
+        is_operational: isCenterOperational ? 1 : 0,
+        reason_not_operational:
+          center_details?.non_operational_due_to?.reason ||
+          center_details?.non_operational_due_to?.value ||
+          '',
+        survey_device_location: '',
+        partially_filled: 1,
+        survey_form_id: center_details?.survey_form_id,
+        town: center_details?.district_jila,
+      };
+      try {
+        const formdata = new FormData();
+        formdata.append('volunteer_id', apiPayload.volunteer_id);
+        formdata.append('state_id', apiPayload.state_id);
+        formdata.append('district_id', apiPayload.district_id);
+        formdata.append('address', apiPayload.address);
+        formdata.append('type', apiPayload.type);
+        formdata.append('head_name', apiPayload.head_name);
+        formdata.append('contact_details', apiPayload.contact_details);
+        formdata.append('is_operational', apiPayload.is_operational);
+        formdata.append(
+          'reason_not_operational',
+          apiPayload.reason_not_operational,
+        );
+        formdata.append(
+          'survey_device_location',
+          apiPayload.survey_device_location,
+        );
+        formdata.append('partially_filled', apiPayload.partially_filled);
+        formdata.append('survey_form_id', apiPayload.survey_form_id);
+        formdata.append('town', apiPayload.town);
 
-      let tmp = FindAndUpdate(totalSurveys, payload);
-      console.log('pg2b', payload);
-      console.log('total surveys->', tmp);
+        console.log('formdata', formdata);
 
-      dispatch({
-        type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
-        payload: payload,
-      });
-      dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
+        var requestOptions = {
+          method: 'POST',
+          body: formdata,
+          redirect: 'follow',
+        };
+        const response1 = await fetch(BASE_URL + 'center', requestOptions);
+        let parsed = await response1.json();
+        console.log('parsed', parsed?.data);
+        showModal();
+      } catch (error) {
+        setError({visible: true, message: t('SOMETHING_WENT_WRONG')});
+        console.log('error', error);
+      }
+    } else {
+      payload = {
+        ...store.currentSurveyData,
+        center_details,
+        isSaved: false,
+        updatedAt: new Date().toString(),
+      };
+      console.log('pg2', payload);
+      console.log('TMP', tmp);
       navigate(ROUTES.AUTH.CENTREQUESTIONSCREEN);
-      navigate(ROUTES.AUTH.DASHBOARDSCREEN);
     }
+    let tmp = FindAndUpdate(totalSurveys, payload);
+    dispatch({
+      type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
+      payload: payload,
+    });
+    dispatch({type: ACTION_CONSTANTS.UPDATE_SURVEY_ARRAY, payload: tmp});
   }
 
   return (
@@ -284,6 +329,11 @@ export default function CenterDetailsTwoScreen() {
         onDismissSnackBar={() =>
           setError({...error, message: '', visible: false})
         }
+      />
+      <SurveyCompletedModal
+        visible={visible}
+        hideModal={hideModal}
+        onClick={() => navigate(ROUTES.AUTH.DASHBOARDSCREEN)}
       />
       <View style={{flex: 0.2}}>
         <Header title={t('CENTER_DETAILS')} onPressBack={goBack} />
@@ -313,56 +363,95 @@ export default function CenterDetailsTwoScreen() {
               {t('IS_CENTER_OPERATIONAL')}
             </TextHandler>
           </View>
-
-          <View
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              setCenterOperational(false);
+              setvolunteerInfo({
+                ...volunteerInfo,
+                is_centre_operational: false,
+              });
+            }}
             style={{
-              flex: 0.6,
               flexDirection: 'row',
               justifyContent: 'space-around',
               alignItems: 'center',
+              borderColor: COLORS.blue,
+              borderWidth: 1,
+              borderRadius: 10,
             }}>
-            <TextHandler
-              style={{
-                color: 'black',
-                fontSize: 18,
-                textAlign: 'left',
-              }}>
-              {t('NO')}
-            </TextHandler>
-            <CustomSwitch
-              isSwitchOn={volunteerInfo.is_centre_operational}
-              setIsSwitchOn={() => {
-                setCenterOperational(!isCenterOperational);
-                console.log(volunteerInfo.is_centre_operational);
+            <RadioButton
+              value={t('NO')}
+              status={
+                !volunteerInfo.is_centre_operational ? 'checked' : 'unchecked'
+              }
+              uncheckedColor={COLORS.lightGrey}
+              onPress={() => {
+                setCenterOperational(false);
                 setvolunteerInfo({
                   ...volunteerInfo,
-                  is_centre_operational: !volunteerInfo.is_centre_operational,
+                  is_centre_operational: false,
                 });
               }}
             />
-            <TextHandler
-              style={{
-                color: 'black',
-                fontSize: 18,
-                textAlign: 'right',
-              }}>
-              {t('YES')}
-            </TextHandler>
-          </View>
+            <TextHandler style={styles.headingInput}>{t('NO')}</TextHandler>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              setCenterOperational(true);
+              setvolunteerInfo({
+                ...volunteerInfo,
+                is_centre_operational: true,
+              });
+            }}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              borderColor: COLORS.blue,
+              borderWidth: 1,
+              borderRadius: 10,
+            }}>
+            <RadioButton
+              value={t('YES')}
+              status={
+                volunteerInfo.is_centre_operational ? 'checked' : 'unchecked'
+              }
+              uncheckedColor={COLORS.lightGrey}
+              onPress={() => {
+                setCenterOperational(true);
+                setvolunteerInfo({
+                  ...volunteerInfo,
+                  is_centre_operational: true,
+                });
+              }}
+            />
+            <TextHandler style={styles.headingInput}>{t('YES')}</TextHandler>
+          </TouchableOpacity>
         </View>
-        {volunteerInfo.is_centre_operational ? (
+        {isCenterOperational ? (
           <View style={styles.activeCenter}>
-            <View style={{paddingVertical: 5}}>
-              <Text
-                style={{
-                  color: 'black',
-                  fontWeight: '600',
-                  marginTop: 8,
-                  fontSize: 18,
-                  margin: 6,
-                }}>
-                {t('CENTER_TYPE')}
-              </Text>
+            {/* <View style={{paddingVertical: 5}}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text
+                  style={{
+                    color: 'black',
+                    fontWeight: '600',
+                    marginTop: 8,
+                    fontSize: 18,
+                    margin: 6,
+                  }}>
+                  {t('CENTER_TYPE')}
+                </Text>
+              </View>
+
               <RadioButtons
                 data={miscControllers.CENTRES}
                 valueProp={volunteerInfo.type_of_center}
@@ -370,12 +459,13 @@ export default function CenterDetailsTwoScreen() {
                   setvolunteerInfo({...volunteerInfo, type_of_center: item});
                 }}
               />
-            </View>
+            </View> */}
             <View style={{paddingVertical: 5}}>
               <Text style={styles.headingInput}>{t('CENTER_HEAD_NAME')}</Text>
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
                 name="center_head"
+                empty={!volunteerInfo.center_head}
                 onChangeText={text =>
                   setvolunteerInfo({...volunteerInfo, center_head: text})
                 }
@@ -393,6 +483,7 @@ export default function CenterDetailsTwoScreen() {
                 name="center_contact"
                 type={'numeric'}
                 number={10}
+                empty={!volunteerInfo.center_contact}
                 onChangeText={text =>
                   setvolunteerInfo({...volunteerInfo, center_contact: text})
                 }
@@ -414,7 +505,7 @@ export default function CenterDetailsTwoScreen() {
                     },
                     {
                       text: t('NO'),
-                      onPress: () => console.log('Cancel Pressed'),
+                      onPress: () => {},
                       style: 'cancel',
                     },
                   ]);
@@ -439,6 +530,11 @@ export default function CenterDetailsTwoScreen() {
                     />
                   </View>
                 </View>
+                {locationPermissionError && (
+                  <TextHandler style={{color: COLORS.lightGrey}}>
+                    {t('LOCATION_PERMISSION_DENIED')}
+                  </TextHandler>
+                )}
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
@@ -455,7 +551,7 @@ export default function CenterDetailsTwoScreen() {
                     width: 25,
                   }}
                 />
-                <Text style={[styles.headingInput, {color: 'blue'}]}>
+                <Text style={[styles.headingInput, {color: COLORS.red}]}>
                   {t('LOCATION')}
                 </Text>
               </TouchableOpacity>
@@ -467,6 +563,7 @@ export default function CenterDetailsTwoScreen() {
               </Text>
               <Input
                 placeholder={`${t('ENTER_ANSWER')}`}
+                empty={!volunteerInfo.parent_org}
                 name="first_name"
                 onChangeText={text =>
                   setvolunteerInfo({...volunteerInfo, parent_org: text})
@@ -604,7 +701,7 @@ export default function CenterDetailsTwoScreen() {
             </View>
 
             <Button
-              title={t('SUBMIT')}
+              title={t('NEXT')}
               onPress={() => {
                 PageValidator();
               }}

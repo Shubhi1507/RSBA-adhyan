@@ -27,6 +27,7 @@ import LoaderIndicator from '../../components/Loader';
 import {ADIcons, FAIcons} from '../../libs/VectorIcons';
 import {FindAndUpdate, isSurveyExists} from '../../utils/utils';
 import LocalizationContext from '../../context/LanguageContext';
+import {RadioButton} from 'react-native-paper';
 
 export default function CenterDetailsOneScreen({navigation, route}) {
   const store = useSelector(state => state);
@@ -44,7 +45,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 13,
+      totalQue: 16,
     },
     {
       key: 2,
@@ -62,7 +63,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 19,
+      totalQue: 16,
     },
     {
       key: 4,
@@ -71,7 +72,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 16,
+      totalQue: 14,
     },
     {
       key: 5,
@@ -80,7 +81,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 12,
+      totalQue: 11,
     },
     {
       key: 6,
@@ -98,7 +99,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 5,
+      totalQue: 6,
     },
     {
       key: 8,
@@ -123,6 +124,8 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     centre_id: '', //  survey_form_id
     survey_form_id: '',
     address: '',
+    is_address_changed: false,
+    current_address: '',
     sanstha_name: '',
     district_id: '',
     district_jila: '',
@@ -133,7 +136,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     centre_commence_motive: [],
     kendra_samiti_work: [],
     students_passed_out_from_centre: '',
-    centre_not_operational_aftermath: '',
+    centre_not_operational_aftermath: [],
     center_is_operating_continuously_since_its_inception_or_is_it_closed_for_some_time:
       '',
     discontinuation_time_period: '',
@@ -151,7 +154,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     oppose_of_the_kendras_activities_by_basti: '',
     members_of_basti_toli_reside_in_same_area: '',
     role_of_our_kendra_in_our_basti_during__corona: '',
-    kendra_effect_on_anti_social_problems: [],
+    kendra_effect_on_anti_social_problems: '',
     majorprevelant_problems_in_the_basti: [],
     total_population_of_the_basti: '',
     total_population_of_sewa_bharti_beneficiaries: '',
@@ -167,12 +170,45 @@ export default function CenterDetailsOneScreen({navigation, route}) {
     cityArr: [],
   });
 
+  let CENTRES = [
+    {
+      key: 'Balsanskaar Kendra',
+      value: 'Balsanskaar Kendra',
+      label: 'BALSANSKAR_KENDRA',
+    },
+    {
+      key: 'Abyasika',
+      value: 'Abyasika',
+      label: 'ABYASIKA',
+    },
+    {
+      key: 'Pathdaan Centre',
+      value: 'Pathdaan Centre',
+      label: 'PATHDAAN_CENTRE',
+    },
+    {
+      key: 'Bal Gokulam',
+      value: 'Bal Gokulam',
+      label: 'BAL_GOKULAM',
+    },
+    {
+      key: 'Balwadi',
+      value: 'Balwadi',
+      label: 'BALWADI',
+    },
+  ];
+
   useEffect(() => {
     if (route && route?.params && route.params?.centre) {
-      console.log(route.params?.centre.survey_form_id);
+      let toc = CENTRES.filter(
+        el => el.value === route.params.centre?.sewakarya_type,
+      );
+      console.log('toc', toc);
       setvolunteerInfo({
         ...volunteerInfo,
         address: route.params.centre?.address,
+        is_address_changed: route.params.centre?.is_address_changed,
+        current_address: route.params.centre?.current_address,
         centre_id: route.params.centre?.survey_form_id,
         survey_form_id: route.params.centre?.survey_form_id,
         district_id: route.params.centre?.district_id,
@@ -181,6 +217,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
         state_id: route.params.centre?.state_id,
         state_pranth: route.params.centre?.state_name,
         district_jila: route.params.centre?.district_name,
+        type_of_center: toc && toc.length > 0 ? toc[0] : {},
       });
     }
     CheckSurveyviaParams();
@@ -233,7 +270,7 @@ export default function CenterDetailsOneScreen({navigation, route}) {
       payload = {...payload, totalSurveys: tmp};
     }
 
-    console.log('new payload', payload);
+    console.log('new payload==>', payload);
     dispatch({
       type: ACTION_CONSTANTS.UPDATE_CURRENT_SURVEY,
       payload: payload,
@@ -291,7 +328,6 @@ export default function CenterDetailsOneScreen({navigation, route}) {
         temp.forEach(el => {
           towns.push({key: el.id, value: el.name});
         });
-        console.log('towns', temp);
         dispatch({
           type: ACTION_CONSTANTS.UPDATE_BASTI_LIST,
           payload: towns,
@@ -409,9 +445,13 @@ export default function CenterDetailsOneScreen({navigation, route}) {
             }}
             optionsArr={store?.RegionReducer?.bastiList || []}
             error={'City'}
-            value={volunteerInfo.centre_id}
+            value={
+              volunteerInfo.centre_id +
+              `, ${volunteerInfo.district_jila}, ${volunteerInfo.sanstha_name} (${volunteerInfo.sewakarya_type})`
+            }
           />
         </View>
+
         <View>
           <Text style={styles.headingInput}>{t('ADDRESS')} </Text>
           <Input
@@ -420,13 +460,129 @@ export default function CenterDetailsOneScreen({navigation, route}) {
             onChangeText={text =>
               setvolunteerInfo({...volunteerInfo, address: text})
             }
-            disabled
+            disabled={true}
             multi={true}
             value={volunteerInfo.address}
+            empty={!volunteerInfo.address}
             message={'error'}
             containerStyle={{alignItems: 'center'}}
           />
         </View>
+
+        {/* changed address switch */}
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            paddingVertical: 20,
+            marginVertical: 10,
+            borderRadius: 5,
+            paddingHorizontal: 10,
+          }}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'flex-start',
+            }}>
+            <TextHandler
+              style={[
+                styles.headingInput,
+                {
+                  textAlign: 'left',
+                },
+              ]}>
+              {t('IS_ADDRESS_CHANGED')}
+            </TextHandler>
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+          }}>
+          <TouchableOpacity
+            onPress={() =>
+              setvolunteerInfo({
+                ...volunteerInfo,
+                is_address_changed: false,
+              })
+            }
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              borderColor: COLORS.blue,
+              borderWidth: 1,
+              borderRadius: 10,
+            }}>
+            <RadioButton
+              value={t('NO')}
+              status={
+                !volunteerInfo.is_address_changed ? 'checked' : 'unchecked'
+              }
+              uncheckedColor={COLORS.lightGrey}
+              onPress={() =>
+                setvolunteerInfo({
+                  ...volunteerInfo,
+                  is_address_changed: false,
+                })
+              }
+            />
+            <TextHandler style={styles.headingInput}>{t('NO')}</TextHandler>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() =>
+              setvolunteerInfo({
+                ...volunteerInfo,
+                is_address_changed: true,
+              })
+            }
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              borderColor: COLORS.blue,
+              borderWidth: 1,
+              borderRadius: 10,
+            }}>
+            <RadioButton
+              value={t('YES')}
+              status={
+                volunteerInfo.is_address_changed ? 'checked' : 'unchecked'
+              }
+              uncheckedColor={COLORS.lightGrey}
+              onPress={() =>
+                setvolunteerInfo({
+                  ...volunteerInfo,
+                  is_address_changed: true,
+                })
+              }
+            />
+            <TextHandler style={styles.headingInput}>{t('YES')}</TextHandler>
+          </TouchableOpacity>
+        </View>
+
+        {volunteerInfo.is_address_changed && (
+          <View>
+            <Text style={styles.headingInput}>{t('CURRENT_ADDRESS')} </Text>
+            <Input
+              placeholder={`${t('CURRENT_ADDRESS')}`}
+              name="current_address"
+              onChangeText={text =>
+                setvolunteerInfo({...volunteerInfo, current_address: text})
+              }
+              multi={true}
+              value={volunteerInfo.current_address}
+              empty={!volunteerInfo.current_address}
+              message={'error'}
+              containerStyle={{alignItems: 'center'}}
+            />
+          </View>
+        )}
 
         <Button
           title={t('NEXT')}

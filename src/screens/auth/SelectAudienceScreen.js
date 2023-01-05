@@ -34,6 +34,7 @@ export default function SelectAudienceScreen() {
   const {t} = useContext(LocalizationContext);
   const [isSurveyCompleted, setisSurveyCompleted] = useState(false);
   const store = useSelector(state => state?.surveyReducer);
+
   let totalSurveys = store.totalSurveys;
   const dispatch = useDispatch();
   let CENTRES_STATUS_FOR_ANEW_SURVEY = [
@@ -44,7 +45,7 @@ export default function SelectAudienceScreen() {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 13,
+      totalQue: 16,
     },
     {
       key: 2,
@@ -62,7 +63,7 @@ export default function SelectAudienceScreen() {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 19,
+      totalQue: 16,
     },
     {
       key: 4,
@@ -71,7 +72,7 @@ export default function SelectAudienceScreen() {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 16,
+      totalQue: 14,
     },
     {
       key: 5,
@@ -80,7 +81,7 @@ export default function SelectAudienceScreen() {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 12,
+      totalQue: 11,
     },
     {
       key: 6,
@@ -98,7 +99,7 @@ export default function SelectAudienceScreen() {
       disabled: false,
       attempted: false,
       completed: false,
-      totalQue: 5,
+      totalQue: 6,
     },
     {
       key: 8,
@@ -133,7 +134,7 @@ export default function SelectAudienceScreen() {
         disabled: false,
         attempted: false,
         completed: false,
-        totalQue: 13,
+        totalQue: 16,
       },
       {
         key: `Student's Parents (Past Students)`,
@@ -151,7 +152,7 @@ export default function SelectAudienceScreen() {
         disabled: false,
         attempted: false,
         completed: false,
-        totalQue: 19,
+        totalQue: 16,
       },
       {
         key: 'Past Student',
@@ -160,7 +161,7 @@ export default function SelectAudienceScreen() {
         disabled: false,
         attempted: false,
         completed: false,
-        totalQue: 16,
+        totalQue: 14,
       },
       {
         key: 'Teacher',
@@ -169,7 +170,7 @@ export default function SelectAudienceScreen() {
         disabled: false,
         attempted: false,
         completed: false,
-        totalQue: 12,
+        totalQue: 11,
       },
       {
         key: 'Kendra Sanchalak',
@@ -187,7 +188,7 @@ export default function SelectAudienceScreen() {
         disabled: false,
         attempted: false,
         completed: false,
-        totalQue: 5,
+        totalQue: 6,
       },
       {
         key: 'Influential Persons from the Basti',
@@ -210,17 +211,28 @@ export default function SelectAudienceScreen() {
 
   const hideModal = () => setVisible(false);
   const showModal = () => setVisible(true);
+  let isCentreOperational =
+    store.currentSurveyData?.center_details?.is_centre_operational;
+  let [flatlistData, setFlatListData] = useState([]);
 
   useEffect(() => {
-    checkIsSurveyCompleted();
+    console.log('isCentreOperational', isCentreOperational);
+    let tmp = [...store.currentSurveyData?.currentSurveyStatus];
+    if (!isCentreOperational) {
+      tmp = tmp.filter(item => {
+        return item.key !== 1 && item.key !== 3;
+      });
+    }
+    setFlatListData(tmp);
+    checkIsSurveyCompleted(tmp);
   }, [store]);
 
-  const checkIsSurveyCompleted = () => {
+  const checkIsSurveyCompleted = (tmp: []) => {
     let flag = true;
-    let tmp = [...store.currentSurveyData?.currentSurveyStatus];
+    // let tmp = [...store.currentSurveyData?.currentSurveyStatus];
     tmp.forEach(el => {
       if (el.completed == false) {
-        console.log('el', el);
+        console.log('incompleted->', el);
         flag = false;
         return;
       }
@@ -249,8 +261,6 @@ export default function SelectAudienceScreen() {
       default:
         break;
     }
-
-    // navigate(ROUTES.AUTH.SURVEYSCREEN);
   };
   const submitSurvey = () => {
     let tmp = store?.currentSurveyData;
@@ -267,7 +277,7 @@ export default function SelectAudienceScreen() {
         isSaved: true,
         updatedAt: new Date().toString(),
         release_date: new Date(
-          new Date().setTime(new Date().getTime() + 48 * 60 * 60 * 1000),
+          new Date().setTime(new Date().getTime() + 72 * 60 * 60 * 1000),
         ).toString(),
       };
       dispatch({
@@ -310,21 +320,6 @@ export default function SelectAudienceScreen() {
     ]);
   };
 
-  const statusColorGrader = (p, q) => {
-    let j = parseInt((p / q) * 100);
-    switch (j) {
-      case 0 < j < 50:
-        return COLORS.error;
-        break;
-      case 50 < j < 100:
-        return COLORS.orange;
-      case j == 100:
-        return COLORS.black;
-      default:
-        return COLORS.black;
-    }
-  };
-
   return (
     <View style={styles.container}>
       <View style={{flex: 0.2}}>
@@ -357,12 +352,7 @@ export default function SelectAudienceScreen() {
           </TextHandler>
 
           <FlatList
-            data={
-              store.currentSurveyData?.currentSurveyStatus &&
-              store.currentSurveyData?.currentSurveyStatus.length > 0
-                ? store.currentSurveyData?.currentSurveyStatus
-                : []
-            }
+            data={flatlistData}
             style={{flex: 1}}
             renderItem={({item, index}) => {
               return (
@@ -463,22 +453,22 @@ export default function SelectAudienceScreen() {
               );
             }}
           />
+        </View>
 
+        {isSurveyCompleted ? (
           <Button
-            title={t('SUBMIT') + ' ' + t('SURVEY')}
-            onPress={() => navigate(ROUTES.AUTH.DASHBOARDSCREEN)}
+            title={t('SUBMIT')}
+            onPress={() => submitSurvey()}
             ButtonContainerStyle={{
               marginVertical: 17,
               alignItems: 'center',
               textAlign: 'center',
             }}
           />
-        </View>
-
-        {isSurveyCompleted && (
+        ) : (
           <Button
-            title={t('SAVE_REVIEW_QUESTIONS')}
-            onPress={() => submitSurvey()}
+            title={t('SAVE')}
+            onPress={() => navigate(ROUTES.AUTH.DASHBOARDSCREEN)}
             ButtonContainerStyle={{
               marginVertical: 17,
               alignItems: 'center',
