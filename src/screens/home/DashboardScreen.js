@@ -506,7 +506,7 @@ export default function DashboardScreen({route, navigation}) {
             textAlign: 'center',
           }}
         />
-        <Button
+        {/* <Button
           title={t('LOGOUT')}
           onPress={() => {
             Alert.alert(t('LOGOUT') + '?', '', [
@@ -532,7 +532,7 @@ export default function DashboardScreen({route, navigation}) {
           textstyle={{
             color: COLORS.orange,
           }}
-        />
+        /> */}
 
         {/* <Button
           title={'RESET'}
